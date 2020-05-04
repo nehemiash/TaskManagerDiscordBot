@@ -1,0 +1,509 @@
+{
+  "gruppe_erfolgreich_erstellt": {
+    "de": "Die Gruppe `$` wurde erfolgreich erstellt.",
+    "en": "The Group `$` was created successfully.",
+    "bg": "Групата `$` беше създадена успешно.",
+    "pl": "Grupa `$` została utowrzona pomyślnie.",
+    "fr": "Le groupe `$` a été créé avec succès.",
+    "ru": "Группа `$` была успешно создана."
+  },
+  "gruppe_nicht_erstellt_name_exisitert": {
+    "de": "Die Gruppe `$` konnte nicht erstellt werden, da eine gleichnamige Gruppe bereits exisitert.",
+    "en": "The group `$` wasn't created, because that name is already taken.",
+    "bg": "Групата `$` не беше създадена, защото това име вече е заето.",
+    "pl": "Grupa `$` nie została utworzona, ponieważ ta nazwa została już zajęta.",
+    "fr": "Le groupe `$` n'a pas pu être créé car un groupe du même nom existe déjà.",
+    "ru": "Группа `$` не будет создана, потому что группа с таким именем уже существует."
+  },
+  "gruppe_nicht_erstellt_unbekannter_fehler": {
+    "de": "Die Gruppe `$` konnte nicht erstellt werden. Fehlercode: $",
+    "en": "The group `$` wasn't created. Errorcode: $.",
+    "bg": "Групата `$` не беше създадена. Грешка: $.",
+    "pl": "Grupa `$` nie została utworzona. Błąd kodu: $.",
+    "fr": "Le groupe `$` n'a pas pu être créé. Code d'erreur: $",
+    "ru": "Группа `$` не может быть создана. Код ошибки: $"
+  },
+  "muss_serverbesitzer_oder_adminrechte_haben": {
+    "de": "Du musst der Serverbesitzer sein oder Administratorrechte besitzen, um diese Aktion auszuführen.",
+    "en": "You have to be the server owner or have admin permissions to perform this action.",
+    "bg": "Трябва да сте притежател на сървара или да имате Админ права за да изпълните тази дейност.",
+    "pl": "Musisz być posiadaczem serwera albo permisji administratora by przprowadzić tę akcję.",
+    "fr": "Vous devez être le propriétaire du serveur ou disposer des privilèges d'administrateur pour effectuer cette action.",
+    "ru": "Вы должны быть владельцем сервера или иметь права администратора для выполнения этого действия."
+  },
+  "gruppe_wurde_gelöscht": {
+    "de": "Die Gruppe `$` wurde gelöscht.",
+    "en": "The group `$` was deleted.",
+    "bg": "Групата `$` беше изтрита",
+    "pl": "Grupa `$` została usunięta.",
+    "fr": "Le groupe `$` a été supprimé.",
+    "ru": "Группа `$` была удалена."
+  },
+  "gruppe_mit_namen_existiert_nicht": {
+    "de": "Es existiert keine Gruppe mit dem Namen `$` auf dem Server.",
+    "en": "There is no group `$` on the server.",
+    "bg": "Няма група `$` в сървъра.",
+    "pl": "Nie ma grupy `$` na serwerze",
+    "fr": "Il n'y a pas de groupe avec le nom `$` sur le serveur.",
+    "ru": "На сервере нет группы с именем `$`."
+  },
+  "gruppe_löschen_unbekannter_fehler": {
+    "de": "Die Gruppe `$` konnte nicht gelöscht werden. Fehlercode: $",
+    "en": "The group `$` wasnt't deleted. Errorcode: $.",
+    "bg": "Групата `$` не е изтрита. Грешка:$.",
+    "pl": "Grupa `$` nie została usunięta. Błąd kodu:$.",
+    "fr": "Le groupe `$` n'a pas pu être supprimé. Code d'erreur: $",
+    "ru": "Группа `$` не может быть удалена. Код ошибки: $"
+  },
+  "nutzer_zu_gruppe_hinzugefügt": {
+    "de": "$ wurde zu der Gruppe `$` hinzugefügt.",
+    "en": "$ was added to $.",
+    "bg": "$ беше добавено към $",
+    "pl": "$ dodano do `$` ",
+    "fr": "$ a été ajouté au groupe `$`.",
+    "ru": "$ был добавлен в группу `$`."
+  },
+  "nutzer_bereits_in_gruppe": {
+    "de": "Der Nutzer konnte nicht zur Gruppe hinzugefügt werden, da er bereits in der Gruppe ist!",
+    "en": "The user is already in the that group!",
+    "bg": "Потребителя вече е в тази група!",
+    "pl": "Użytkownik jest już w tej grupie!",
+    "fr": "L'utilisateur n'a pas pu être ajouté au groupe car il est déjà dans le groupe!",
+    "ru": "Пользователь не может быть добавлен в группу, потому что он уже в группе!"
+  },
+  "nutzer_zu_gruppe_hinzufügen_unbekannter_fehler": {
+    "de": "Der Nutzer konnte nicht zur Gruppe hinzugefügt werden! Fehlercode: $",
+    "en": "The user wasn't added to the group. Errorcode: $",
+    "bg": "Потребителя не беше добавен към групата. Грешка: $",
+    "pl": "Użytkownik nie został dodany do grupy. Błąd kodu: $",
+    "fr": "L'utilisateur n'a pas pu être ajouté au groupe! Code d'erreur: $",
+    "ru": "Пользователь не может быть добавлен в группу! Код ошибки: $"
+  },
+  "nutzer_muss_markiert_werden": {
+    "de": "Du musst einen Nutzer markieren!",
+    "en": "You need to mention an user!",
+    "bg": "Трябва да назовете потребител!",
+    "pl": "Musisz wspomnieć o użytkowniku!",
+    "fr": "Vous devez marquer un utilisateur!",
+    "ru": "Вы должны отметить пользователя!"
+  },
+  "gruppen_name_muss_angegeben_werden": {
+    "de": "Du musst einen Gruppennamen angeben!",
+    "en": "You have to give the name of the group!",
+    "bg": "Трябва да дадете име на групата.",
+    "pl": "Musisz nadać nazwę grupie.",
+    "fr": "Vous devez entrer un nom de groupe!",
+    "ru": "Вы должны ввести имя группы!"
+  },
+  "nutzer_aus_gruppe_entfernt": {
+    "de": "$ wurde aus der Gruppe `$` entfernt.",
+    "en": "$ was removed from $",
+    "bg": "$ беше премахнат от $",
+    "pl": "$ został usunięty z $",
+    "fr": "$ a été supprimé du groupe `$`.",
+    "ru": "$ был удален из группы `$`."
+  },
+  "nutzer_ist_in_keiner_gruppe": {
+    "de": "Der Nutzer ist in keiner Gruppe!",
+    "en": "That user isn't in a group!",
+    "bg": "Този потребител не е в групата!",
+    "pl": "Ten użytkownik nie jest w grupie!",
+    "fr": "L'utilisateur n'est pas dans un groupe!",
+    "ru": "Пользователь не в группе!"
+  },
+  "nutzer_aus_gruppe_entfernen_unbekannter_fehler": {
+    "de": "Der Nutzer konnte nicht aus der Gruppe entfernt werden! Fehlercode: $",
+    "en": "The user wasn't removed from the group! Errorcode: $",
+    "bg": "Този потребител не беше премахнат от групата! Грешка: $",
+    "pl": "Użytkownik nie został usunięty z grupy! Błąd kodu: $",
+    "fr": "L'utilisateur n'a pas pu être supprimé du groupe! Code d'erreur: $",
+    "ru": "Пользователь не может быть удален из группы! Код ошибки: $"
+  },
+  "keine_gruppen_auf_server": {
+    "de": "Es sind keine Gruppen auf dem Server vorhanden!",
+    "en": "There are no groups!",
+    "bg": "Няма групи !",
+    "pl": "Tutaj nie ma grup!",
+    "fr": "Il n'y a aucun groupe sur le serveur!",
+    "ru": "На сервере нет групп!"
+  },
+  "abfrage_unbekannter_fehler": {
+    "de": "Bei der Abfrage ist ein unerwarteter Fehler aufgetreten! Fehlercode: $",
+    "en": "There was an unexpected error! Errorcode: $",
+    "bg": "Има непредвидена грешка ! Грешка: $",
+    "pl": "Tutaj jest niespodziewany błąd! Błąd kodu: $",
+    "fr": "Une erreur inattendue s'est produite lors de la requête! Code d'erreur: $",
+    "ru": "Во время запроса произошла непредвиденная ошибка! Код ошибки: $"
+  },
+  "aufgabe_erstellt": {
+    "de": "$ hat die Aufgabe erhalten.",
+    "en": "$ has got the task.",
+    "bg": "$ получи задачата.",
+    "pl": "$ posiada zadanie.",
+    "fr": "$ a la tâche.",
+    "ru": "$ получил задание."
+  },
+  "aufgabe_erstellt_unbekannter_fehler": {
+    "de": "Beim erstellen der Aufgabe ist ein unerwarteter Fehler aufgetreten. Fehlercode: $",
+    "en": "During creation of the task an unexpected error happened. Errorcode: $",
+    "bg": "По време на създаване на задачата се случи неочаквана грешка. Грешка:$",
+    "pl": "Podczas tworzenia zadania wystąpił się niespodziewany błąd. Błąd kodu: $",
+    "fr": "Une erreur inattendue s'est produite lors de la création de la tâche. Code d'erreur: $",
+    "ru": "Произошла непредвиденная ошибка при создании задачи. Код ошибки: $"
+  },
+  "aufgabe_gruppe_erstellt": {
+    "de": "Die Aufgabe wurde an die Gruppe `$` übergeben.",
+    "en": "The task was given to `$`",
+    "bg": "Задачата е дадена на `$`",
+    "pl": "Zadanie zostało oddano do `$`",
+    "fr": "La tâche a été confiée au groupe `$`.",
+    "ru": "Задание было передано группе `$`."
+  },
+  "aufgabe_erstellen_fehlende_argumente": {
+    "de": "Bitte markiere einen Nutzer oder verwende den Namen einer Gruppe, um eine Aufgabe für diese hinzuzufügen.",
+    "en": "Please mention a user or give the name of a group to create a task.",
+    "bg": "Моля, тагнете потребител или подайте име на група за да създадете задачата.",
+    "pl": "Proszę wspomnieć o użytkowniku albo nadać nazwę grupie aby utworzyć zadanie.",
+    "fr": "La tâche a été confiée au groupe `$`.",
+    "ru": "Пожалуйста, выберите пользователя или используйте имя группы, чтобы добавить задачу для него."
+  },
+  "deadline_gesetzt": {
+    "de": "Die Deadline für die Aufgabe `$` wurde für $ gesetzt.",
+    "en": "Deadline for $ is now $",
+    "bg": "Краен срок за $ сега е $",
+    "pl": "Ostatecznym terminem dla $ teraz jest $",
+    "fr": "La date limite pour la tâche `$` a été fixée à $.",
+    "ru": "Срок выполнения задачи `$` был установлен для $."
+  },
+  "keine_aufgabe_mit_id": {
+    "de": "Es wurde keine Aufgabe mit der ID `$` gefunden!",
+    "en": "No task with id  `$` found.",
+    "bg": "Задача с ид`$` не беше намерена. ",
+    "pl": "Nie odnaleziono żadnego zadania z id `$`.",
+    "fr": "Aucune tâche avec l'ID `$` n'a été trouvée!",
+    "ru": "Не найдено ни одной задачи с идентификатором `$`!"
+  },
+  "ungültiges_datum_format": {
+    "de": "Das angegebene Datum hat ein ungültiges Format!",
+    "en": "The dateformat is invalid.",
+    "bg": "Невалиден времеви формат",
+    "pl": "Format daty jest niepoprawny.",
+    "fr": "La date spécifiée a un format non valide!",
+    "ru": "Указанная дата имеет неверный формат!"
+  },
+  "nutzer_oder_gruppe_angeben": {
+    "de": "Bitte gib an, ob die Aufgabe zu einem Nutzer oder eine Gruppe gehört! (Nutzer = user, Gruppe = group)",
+    "en": "Please say if the task is for a user or a group (User = user, Group = group)",
+    "bg": "Моля посочете задачата за потребител или група е. (User = user, Group = group)",
+    "pl": "Proszę powiedzieć jeżeli zadanie jest dla użytkownika albo dla grupy. (User = user, Group = group)",
+    "fr": "Veuillez indiquer si la tâche appartient à un utilisateur ou à un groupe! (Utilisateur = user, groupe = group)",
+    "ru": "Пожалуйста, укажите, принадлежит ли задача пользователю или группе! (Пользователь = user, группа = group)"
+  },
+  "aufgabe_invalid_args_length": {
+    "de": "Bitte benutze `-task deadline <Aufgaben-ID> <Datum> <Uhrzeit>`.",
+    "en": "Please use `-task deadline <Task-ID> <Date> <Time>`.",
+    "bg": "Моля използвайте `-task deadline <Task-ID> <Date> <Time>`.",
+    "pl": "Proszę użyć `-task deadline <Task-ID> <Date> <Time>`.",
+    "fr": "Veuillez utiliser `-task deadline <task ID> <date> <time>`.",
+    "ru": "Пожалуйста, используйте `-task крайний срок <идентификатор задачи> <дата> <время>`."
+  },
+  "aufgabe_gelöscht": {
+    "de": "Die Aufgabe `$` wurde gelöscht.",
+    "en": "Task `$` got deleted.",
+    "bg": "Задача `$` беше изтрита.",
+    "pl": "Zadanie `$` zostało usunięte.",
+    "fr": "La tâche `$` a été supprimée.",
+    "ru": "Задача `$` была удалена."
+  },
+  "aufgabe_wird_nun_bearbeitet": {
+    "de": "Die Aufgabe wird nun bearbeitet.",
+    "en": "The task is now work in progress.",
+    "bg": "Задачата е в процес на работа.",
+    "pl": "Zadanie jest teraz w toku.",
+    "fr": "La tâche est en cours de traitement.",
+    "ru": "Задача сейчас обрабатывается."
+  },
+  "aufgabe_erledigt": {
+    "de": "Die Aufgabe ist erledigt.",
+    "en": "The task is finished.",
+    "bg": "Задачата е завършена.",
+    "pl": "Zadanie zostało ukończone.",
+    "fr": "La tâche est terminée.",
+    "ru": "Задача выполнена."
+  },
+  "support_nachricht": {
+    "de": "Bei jeglichen Problemen:\nhttps://bnder.de/discord",
+    "en": "Contact us at\nhttps://bnder.de/discord",
+    "bg": "За контакти с подръжка\nhttps://bnder.de/discord",
+    "pl": "Proszę się skontaktować z nami na\nhttps://bnder.de/discord",
+    "fr": "En cas de problème:\nhttps://bnder.de/discord",
+    "ru": "С любыми проблемами:\nhttps://bnder.de/discord"
+  },
+  "keine_aufgaben": {
+    "de": "Es sind keine Aufgaben für den Nutzer verfügbar.",
+    "en": "There are no tasks.",
+    "bg": "Няма задачи.",
+    "pl": "Tutaj nie ma żadnego zadania.",
+    "fr": "Aucune tâche n'est disponible pour l'utilisateur.",
+    "ru": "Для пользователя нет задач."
+  },
+  "keine_aufgaben_gruppen": {
+    "de": "Es sind keine Aufgaben für diese Gruppe verfügbar.",
+    "en": "There are no tasks.",
+    "bg": "Няма задачи.",
+    "pl": "Tu nie ma zadań.",
+    "fr": "Aucune tâche n'est disponible pour ce groupe.",
+    "ru": "Для этой группы нет задач."
+  },
+  "sprache_geändert": {
+    "de": "Die Sprache ist nun Deutsch.",
+    "en": "The language was set to english",
+    "bg": "Зададеният език е Български",
+    "pl": "Język został ustawiony jako Polski",
+    "fr": "La langue est maintenant le français",
+    "ru": "Язык теперь русский."
+  },
+  "token_erhalten": {
+    "de": "Du erhältst den Token per Direktnachricht.",
+    "en": "You get the token via direct message.",
+    "bg": "Получихте токена чрез директно съобщение.",
+    "pl": "Otrzymasz token poprzez wiadomości prywatne.",
+    "fr": "Vous recevrez le jeton par message direct.",
+    "ru": "Вы получите токен прямым сообщением."
+  },
+  "token_konnte_nicht_gesendet_werden": {
+    "de": "Der Token konnte nicht gesendet werden. Bitte überprüfe ob deine Privatnachrichten aktiviert sind.",
+    "en": "The token wasn't send. Please check if your DMs are open.",
+    "bg": "Токена не беше изпратен. Моля, проверете директните си съобщения",
+    "pl": "Token nie został wysłany. Proszę sprawdź czy twoje wiadomości prywatne są otwarte.",
+    "fr": "Le jeton n'a pas pu être envoyé. Veuillez vérifier si vos messages privés sont activés.",
+    "ru": "Токен не может быть отправлен. Пожалуйста, проверьте, активированы ли ваши личные сообщения."
+  },
+  "language_message_title": {
+    "de": "Sprache",
+    "en": "Language",
+    "bg": "Език",
+    "pl": "Język",
+    "fr": "La langue",
+    "ru": "язык"
+  },
+  "help_message_title": {
+    "de": "Hilfe",
+    "en": "Help",
+    "bg": "Помощ",
+    "pl": "Pomoc",
+    "fr": "Aide",
+    "ru": "Помощь"
+  },
+  "stats_message_title": {
+    "de": "Statistiken",
+    "en": "Stats",
+    "bg": "Статистика",
+    "pl": "Statystyki",
+    "fr": "Statistiques",
+    "ru": "статистика"
+  },
+  "task_message_title": {
+    "de": "Aufgaben",
+    "en": "Tasks",
+    "bg": "Задачи",
+    "pl": "Zadanie",
+    "fr": "Tâches",
+    "ru": "задачи"
+  },
+  "token_message_title": {
+    "de": "Token",
+    "en": "Token",
+    "bg": "Токен",
+    "pl": "Token",
+    "fr": "Jeton",
+    "ru": "знак"
+  },
+  "app_message_title": {
+    "de": "App",
+    "en": "App",
+    "bg": "Приложение",
+    "pl": "Aplikacji",
+    "fr": "App",
+    "ru": "приложение"
+  },
+  "app_befehl_nachricht": {
+    "de": "Du kannst unsere App von **Google Play** hier herunterladen: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
+    "en": "You can get our App on **Google Play**: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
+    "bg": "Можете да изтеглите нашето приложение от **Google Play** тук: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
+    "pl": "Możesz uzyskać naszą aplikację na **Google Play**: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
+    "fr": "Vous pouvez télécharger notre application depuis **Google Play** ici: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
+    "ru": "Вы можете скачать наше приложение из **Google Play** здесь: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app"
+  },
+  "aufgaben_status_erledigt": {
+    "de": "Erledigt",
+    "en": "Done",
+    "bg": "Готов",
+    "pl": "Ukończone",
+    "fr": "Terminé",
+    "ru": "выполненный"
+  },
+  "aufgaben_status_wird_bearbeitet": {
+    "de": "Wird bearbeitet",
+    "en": "Work in progress",
+    "bg": "В процес на работа",
+    "pl": "Prace w toku",
+    "fr": "Traitement",
+    "ru": "Обрабатывается"
+  },
+  "aufgaben_status_nicht_bearbeitet": {
+    "de": "Nicht bearbeitet",
+    "en": "Not edited",
+    "bg": "Не редактирано",
+    "pl": "Nie edytowane",
+    "fr": "Non édité",
+    "ru": "Не редактируется"
+  },
+  "aufgabe_erhalten":{
+    "de": "Du hast folgende Aufgabe von $ erhalten:",
+    "en": "You received the following task from $:",
+    "bg": "Получихте дадената задача от $:",
+    "pl": "Otrzymałeś następujące zadanie od $:",
+    "fr": "Vous avez obtenu la tâche suivante de $:",
+    "ru": "Вы получили следующее задание от $:"
+  },
+  "alle_aufgaben_von_nutzer": {
+    "de": "Alle Aufgaben von $: $",
+    "en": "$ tasks: $",
+    "bg": "$ задачи: $",
+    "pl": "$ zadania: $",
+    "fr": "Toutes les tâches de $: $",
+    "ru": "Все задания от $: $"
+  },
+  "alle_aufgaben_von_gruppe": {
+    "de": "Alle Aufgaben von Gruppe $: $",
+    "en": "All tasks from Group $: $",
+    "bg": "Всички задачи от група $: $",
+    "pl": "Wszystkie zadania z grupy $: $",
+    "fr": "Toutes les tâches du groupe $: $",
+    "ru": "Все задания группы $: $"
+  },
+  "token_info": {
+    "de": "\nDieser Token kann für die App genutzt werden.\n**Teile deinen Token niemals mit einem anderen Nutzer!**",
+    "en": "\nThis token can be used for the App. \n**Don't share this token!**",
+    "bg": "\nТози токен може да бъде използван за приложението. \n **Не споделяйте вашия токен!**",
+    "pl": "\nTego tokena można użyć w aplikacji. \nNie udostępniaj tego tokena!",
+    "fr": "\nCe jeton peut être utilisé pour l'application.\n**Ne partagez jamais votre jeton avec un autre utilisateur!**",
+    "ru": "\nЭтот токен можно использовать для приложения.\n**Никогда не делитесь своим токеном с другим пользователем!**"
+  },
+  "help_message_group_commands": {
+    "de": "`group create <GRUPPENNAME>` - Gruppe erstellen\n`group add @NUTZER <GRUPPENNAME>` - Nutzer zu Gruppe hinzufügen\n`group remove @NUTZER <GRUPPENNAME>` - Nutzer aus Gruppe entfernen\n`group delete <GRUPPENNAME>` - Gruppe löschen\n`group list` - Alle Gruppen auflisten\n`group members <GRUPPENNAME>` - Alle Gruppenmitglieder auflisten",
+    "en": "`group create <GROUPNAME>` - Create a group\n`group add @USER <GROUPNAME>` - Add an user to a group\n`group remove @USER <GROUPNAME>` - Remove an user from a group\n`group delete <GROUPNAME>` - Delete a group\n`group list` - List all groups\n`group members <GROUPNAME>` - Lists all group members",
+    "bg": "`group create <GROUPNAME>` - Създава група\n`group add @USER <GROUPNAME>` - Добавете потребители в групата\n`group remove @USER <GROUPNAME>` - Премахване на потребителите от групата\n`group delete <GROUPNAME>` - Изтриване на групата\n`group list` - Списък с групи\n`group members <GROUPNAME>` - Списък на всички членове на групата",
+    "pl": "`group create <NAZWA GRUPY>` - Utwórz grupę\n`group add @UŻYTKOWNIK <NAZWA GRUPY>` - Dodaj użytkownika do grupy\n`group remove @UŻYTKOWNIK <NAZWA GRUPY>` - Usuń użytkownika z grupy\n`group delete <NAZWA GRUPY>` - Usuń grupę\n`group list` - Wyświetl wszystkie grupy\n`group members <NAZWA GRUPY>` - Lista wszystkich członków grupy",
+    "fr": "`group create <NOM DU GROUPE>` - Créer un groupe\n `group add @UTILISATEUR <NOM DU GROUPE>` - Ajouter des utilisateurs au groupe\n`group remove @UTILISATEUR <NOM DU GROUPE>` - Supprimer des utilisateurs du groupe\n`group delete <NOM DU GROUPE>` - Supprimer le groupe\n`group list` - Lister tous les groupes\n`group members <NOM DU GROUPE>` - Lister tous les membres du groupe",
+    "ru": "`group create <ИМЯ ГРУППЫ>` - Создать группу\n`group add @ПОЛЬЗОВАТЕЛИ <ИМЯ ГРУППЫ>` - Добавить пользователей в группу\n`group remove @ПОЛЬЗОВАТЕЛИ <ИМЯ ГРУППЫ>` - Удалить пользователей из группы\n`group delete <ИМЯ ГРУППЫ>` - Удалить группу\n`group list` - Список всех групп\n`group members <GRUPPENNAME>` - Список всех членов группы"
+
+  },
+  "help_message_task_commands": {
+    "de": "`task add @NUTZER <AUFGABE>` - Aufgabe an Nutzer geben\n`task add <GRUPPENNAME> <AUFGABE>` - Aufgabe an Gruppe geben\n`task proceed <AUFGABEN-ID>` - Aufgabe bearbeiten\n`task deadline <AUFGABEN-ID> <DATUM> <UHRZEIT>` - Deadline für Aufgabe setzen\n`task list <@NUTZER/GRUPPENNAME>` - Listet alle Aufgaben auf\n`task delete <AUFGABEN-ID>` - Aufgabe löschen\n",
+    "en": "`task add @USER <TASK>` - Assign a task to an user\n`task add <GROUPNAME> <TASK>` - Assign a task to a group\n`task proceed <TASK-ID>` - Work on a task\n`task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Set a deadline for a task\n`task list <@USER/GROUPNAME>` - Lists all tasks\n`task delete <TASK-ID>` - Deletes a task\n",
+    "bg": "`task add @USER <TASK>` - Дайте задача на потребителя\n`task add <GROUPNAME> <TASK>` - Дайте задача на групата\n`task proceed <TASK-ID>` - Продължи задачата към \"в процес\", повтори командата за да се завърши\n`task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Определете срок за изпълнение на задачата\n`task list <@USER/GROUPNAME>` - Списък със задачи\n`task delete <TASK-ID>` - Изтриване на задача\n",
+    "pl": "`task add @UŻYTKOWNIK <TASK>` - Przypisz zadanie do użytkownika\n`task add <NAZWA GRUPY> <TASK>` - Przypisz zadanie do grupy\n`task proceed <TASK-ID>` - Pracuj nad zadaniem\n`task deadline <ID Zadania> <DATE (in european format)> <TIME>` - Wyświetla listę wszystkich zadań\n`task list` <TASK-ID> - Usuwa zadanie\n",
+    "fr": "`task add @UTILISATEUR <TÂCHE>` - Donner une tâche à l'utilisateur\n`task add <NOM DU GROUPE> <TÂCHE>` - Donner une tâche au groupe\n`task proceed <ID DE TÂCHE>` - Modifier la tâche\n`task deadline <ID DE TÂCHE> <DATE> <TIME>` - Fixer la date limite de la tâche\n`task list <@UTILISATEUR/NOM DU GROUPE>` - Répertorie toutes les tâches\n`task delete <ID DE TÂCHE>` - Supprimer la tâche\n",
+    "ru": "`task add @ПОЛЬЗОВАТЕЛИ <ЗАДАЧА>` - Дайте задание пользователю\n`task add <ИМЯ ГРУППЫ> <ЗАДАЧА>` - Дайте задание группе\n`task proceed <TASK ID>` - Изменить задачу\n`task deadline <TASK ID> <ДАТА> <ВРЕМЯ>` - Установить срок выполнения задания\n`task list <@ПОЛЬЗОВАТЕЛИ/ИМЯ ГРУППЫ>` - Перечисляет все задачи\n`task delete <TASK ID>` - Удалить задачу\n"
+
+  },
+  "help_message_other_commands": {
+    "de": "`token` - Gibt den Token für die Website & App\n`token new` - Erneuert den Token\n`help` - Listet alle Befehle auf\n`support` - Discord Link\n`app` - App-Informationen\n`stats` - Statistiken\n",
+    "en": "`token` - Gives the token for the Website & App\n`token new` - Generates a new token\n`help` - Lists all commands\n`support` - Discord Link\n`app` - Information about the App\n`stats` - Shows some stats\n",
+    "bg": "`token` - Връща символа за уебсайта и приложението\n`token new` - Променя маркера\n`help` - Изброява всички команди\n`support` - Discord Link\n`app` - Информация за приложението\n`stats` - статистика\n",
+    "pl": "`token` - Daje token dla strony internetowej i aplikacji\n`token new` - Generuje nowy token\n`help` - Wyświetlam wszystkie polecenia\n`support` - Discord Link\n`app` - Informacje o Aplikacji\n`stats` - Statystyki\n",
+    "fr": "`token` - Renvoie le jeton du site Web et de l'application\n`token new` - Renouveler le jeton\n`help` - Répertorie toutes les commandes\n`support` - Lien Discord\n`app` - Informations sur l'application\n`stats` - Statistiques\n",
+    "ru": "`token` - Возвращает токен для сайта и приложения\n`token new` - Обновить токен\n`help` - Перечисляет все команды\n`support` - Discord Link\n`app` - Информация о приложении\n`stats` - статистика\n"
+
+  },
+  "stats_field_server": {
+    "de": "Server",
+    "en": "Server",
+    "bg": "Сървър",
+    "pl": "Server",
+    "fr": "Serveur",
+    "ru": "сервер"
+  },
+  "stats_field_user": {
+    "de": "Nutzer",
+    "en": "Users",
+    "bg": "Потребител",
+    "pl": "Użytkownicy",
+    "fr": "Les utilisateurs",
+    "ru": "пользователь"
+  },
+  "stats_field_ping": {
+    "de": "Ping",
+    "en": "Ping",
+    "bg": "Ping",
+    "pl": "Ping",
+    "fr": "Ping",
+    "ru": "Ping"
+  },
+  "language_message_invalid_params": {
+    "de": "Bitte gib einen Ländercode mit an! Gültige Ländercodes sind:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski",
+    "en": "Please enter a valid languagecode! Valid languagecodes are:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski",
+    "bg": "Моля, въведете валиден езиков код! Valid languagecodes are:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski",
+    "pl": "Proszę wprowadź poprawny kod języka! Poprawne kody języków to:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski",
+    "fr": "Veuillez entrer un code de pays! Les codes de pays valides sont:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski",
+    "ru": "Пожалуйста, введите код страны! Действительные коды стран:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski"
+  },
+  "stats_field_tasks_done": {
+    "de": "Aufgaben erledigt",
+    "en": "Tasks Done",
+    "bg": "Изпълнени задачи",
+    "pl": "Zadania wykonane",
+    "fr": "Tâches accomplies",
+    "ru": "Задачи выполнены"
+  },
+  "stats_field_tasks_created": {
+    "de": "Aufgaben verteilt",
+    "en": "Tasks created",
+    "bg": "Задачи създадени",
+    "pl": "Zadania utworzone",
+    "fr": "Tâches distribuées",
+    "ru": "Задачи распределены"
+  },
+  "group_no_members": {
+    "de": "Die Gruppe hat keine Mitglieder.",
+    "en": "This group is emtpy.",
+    "bg": "Групата няма членове.",
+    "pl": "Grupa nie ma członków.",
+    "fr": "Le groupe n'a pas de membres.",
+    "ru": "В группе нет участников."
+  },
+  "group_members": {
+    "de": "Gruppenmitglieder: $",
+    "en": "Group members: $",
+    "bg": "Членове на групата: $",
+    "pl": "Członkowie grupy: $",
+    "fr": "Membres du groupe: $",
+    "ru": "Члены группы: $"
+  },
+  "group_title": {
+    "de": "Gruppen",
+    "en": "Groups",
+    "bg": "групи",
+    "pl": "Grupy",
+    "fr": "Les groupes",
+    "ru": "группы"
+  },
+  "error_title": {
+    "de": "Fehler",
+    "en": "Error",
+    "bg": "грешка",
+    "pl": "Błąd",
+    "fr": "Erreur",
+    "ru": "ошибка"
+  },
+  "error_text": {
+    "de": "Ein unerwarteter Fehler bei der Ausführung des Befehls ist aufgetreten! ",
+    "en": "An unexpected error occurred while executing the command!",
+    "bg": "Възникнала неочаквана грешка при изпълнение на командата!",
+    "pl": "Wystąpił nieoczekiwany błąd podczas wykonywania polecenia!",
+    "fr": "Une erreur inattendue s'est produite lors de l'exécution de la commande!",
+    "ru": "Произошла непредвиденная ошибка при выполнении команды!"
+  }
+}
