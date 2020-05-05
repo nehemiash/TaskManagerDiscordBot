@@ -167,6 +167,14 @@
     "fr": "La tâche a été confiée au groupe `$`.",
     "ru": "Пожалуйста, выберите пользователя или используйте имя группы, чтобы добавить задачу для него."
   },
+  "task_abfrage_unbekannter_fehler": {
+    "de": "Bei der Abfrage ist ein unerwarteter Fehler aufgetreten! Möglicherweise ist die Aufgabe bereits erledigt!",
+    "en": "There was an unexpected error! The task may already be done!",
+    "bg": "Има непредвидена грешка ! Задачата може вече да е свършена!",
+    "pl": "Tutaj jest niespodziewany błąd! Zadanie może być już wykonane!",
+    "fr": "Une erreur inattendue s'est produite lors de la requête! La tâche est peut-être déjà terminée!",
+    "ru": "Во время запроса произошла непредвиденная ошибка! Задача уже может быть выполнена!"
+  },
   "deadline_gesetzt": {
     "de": "Die Deadline für die Aufgabe `$` wurde für $ gesetzt.",
     "en": "Deadline for $ is now $",
@@ -499,11 +507,19 @@
     "ru": "ошибка"
   },
   "error_text": {
-    "de": "Ein unerwarteter Fehler bei der Ausführung des Befehls ist aufgetreten! ",
-    "en": "An unexpected error occurred while executing the command!",
-    "bg": "Възникнала неочаквана грешка при изпълнение на командата!",
-    "pl": "Wystąpił nieoczekiwany błąd podczas wykonywania polecenia!",
-    "fr": "Une erreur inattendue s'est produite lors de l'exécution de la commande!",
-    "ru": "Произошла непредвиденная ошибка при выполнении команды!"
+    "de": "Ein unerwarteter Fehler bei der Ausführung des Befehls ist aufgetreten!\n",
+    "en": "An unexpected error occurred while executing the command!\n",
+    "bg": "Възникнала неочаквана грешка при изпълнение на командата!\n",
+    "pl": "Wystąpił nieoczekiwany błąd podczas wykonywania polecenia!\n",
+    "fr": "Une erreur inattendue s'est produite lors de l'exécution de la commande!\n",
+    "ru": "Произошла непредвиденная ошибка при выполнении команды!\n"
+  },
+  "unknown_command_message": {
+    "de": "Dieser Befehl ist unbekannt! Benutze `-help` um alle Befehle aufzulisten.",
+    "en": "This command is unknown! Use `-help` to list all commands.",
+    "bg": "Тази команда е неизвестна! Използвайте `-help`, за да изброите всички команди.",
+    "pl": "To polecenie jest nieznane! Użyj `-help`, aby wyświetlić listę wszystkich poleceń.",
+    "fr": "Cette commande est inconnue! Utilisez `-help` pour lister toutes les commandes.",
+    "ru": "Эта команда неизвестна! Используйте `-help` для вывода списка всех команд."
   }
 }

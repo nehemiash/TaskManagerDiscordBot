@@ -8,6 +8,7 @@ import de.bnder.taskmanager.utils.Localizations
 import de.bnder.taskmanager.utils.MessageSender
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.entities.Guild
+import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
 import org.jsoup.Jsoup
 import java.awt.Color
@@ -36,7 +37,7 @@ class Group : Command {
         val embedTitle = Localizations.getString("group_title", langCode)
         if (args.size > 1) {
             if (args[0].equals("create", ignoreCase = true)) {
-                if (Objects.requireNonNull(event.member)!!.hasPermission(Permission.ADMINISTRATOR) || event.member!!.isOwner) {
+                if (event.member!!.hasPermission(Permission.ADMINISTRATOR) || event.member!!.isOwner) {
                     val groupName = Connection.encodeString(args[1])
                     val jsonResponse = Jsoup.connect(Main.requestURL + "createGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + groupName).userAgent(Main.userAgent).execute().body()
                     val `object` = Json.parse(jsonResponse).asObject()

@@ -23,6 +23,8 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 public class CommandListener extends ListenerAdapter {
 
@@ -35,8 +37,11 @@ public class CommandListener extends ListenerAdapter {
                 }
                 CommandHandler.handleCommand(CommandHandler.parse.parse(msg, event), event.getMessage());
             } catch (Exception e) {
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                e.printStackTrace(pw);
                 final String langCode = Localizations.Companion.getGuildLanguage(event.getGuild());
-                MessageSender.send(Localizations.Companion.getString("error_title", langCode), Localizations.Companion.getString("error_text", langCode), event.getMessage(), Color.red);
+                MessageSender.send(Localizations.Companion.getString("error_title", langCode), Localizations.Companion.getString("error_text", langCode) + sw.toString().substring(0, 400), event.getMessage(), Color.red);
             }
         }
     }
