@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 public class Connection {
 
     public static String botToken = null;
+    public static int timeout = 15000;
 
     public void defineConnection() {
         try {

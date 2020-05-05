@@ -43,7 +43,7 @@ class Task : Command {
                 if (event.message.mentionedMembers.size > 0) {
                     val member = event.message.mentionedMembers[0]
                     val task = getTaskFromArgs(args, 2)
-                    val jsonResponse = Jsoup.connect(Main.requestURL + "createTask.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(event.guild.id) + "&task=" + task + "&userID=" + Connection.encodeString(member.user.id)).userAgent(Main.userAgent).execute().body()
+                    val jsonResponse = Jsoup.connect(Main.requestURL + "createTask.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(event.guild.id) + "&task=" + task + "&userID=" + Connection.encodeString(member.user.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val jsonObject = Json.parse(jsonResponse).asObject()
                     val statusCode = jsonObject.getInt("status_code", 900)
                     if (statusCode == 200) {
@@ -69,7 +69,7 @@ class Task : Command {
                 } else if (Group.Companion.serverHasGroup(args[1], event.guild)) {
                     val groupName = Connection.encodeString(args[1])
                     val task = getTaskFromArgs(args, 2)
-                    val jsonResponse = Jsoup.connect(Main.requestURL + "createTask.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&task=" + Connection.encodeString(task) + "&groupName=" + groupName).userAgent(Main.userAgent).execute().body()
+                    val jsonResponse = Jsoup.connect(Main.requestURL + "createTask.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&task=" + Connection.encodeString(task) + "&groupName=" + groupName).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val jsonObject = Json.parse(jsonResponse).asObject()
                     val statusCode = jsonObject.getInt("status_code", 900)
                     if (statusCode == 200) {
@@ -103,7 +103,7 @@ class Task : Command {
                 if (DateUtil.convertToDate(date) != null) {
                     val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
                     val newDate = dateFormat.format(DateUtil.convertToDate(date))
-                    val jsonResponse = Jsoup.connect(Main.requestURL + "setDeadline.php?requestToken=" + Main.requestToken + "&taskID=" + taskID + "&date=" + Connection.encodeString(newDate) + "&serverID=" + Connection.encodeString(guild.id)).userAgent(Main.userAgent).execute().body()
+                    val jsonResponse = Jsoup.connect(Main.requestURL + "setDeadline.php?requestToken=" + Main.requestToken + "&taskID=" + taskID + "&date=" + Connection.encodeString(newDate) + "&serverID=" + Connection.encodeString(guild.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val jsonObject = Json.parse(jsonResponse).asObject()
                     val statusCode = jsonObject.getInt("status_code", 900)
                     if (statusCode == 200) {
@@ -130,7 +130,7 @@ class Task : Command {
             if (args[0].equals("list", ignoreCase = true)) {
                 if (event.message.mentionedMembers.size > 0) {
                     val member = event.message.mentionedMembers[0]
-                    val jsonResponse = Jsoup.connect(Main.requestURL + "getUserTasks.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&userID=" + Connection.encodeString(member.user.id)).userAgent(Main.userAgent).execute().body()
+                    val jsonResponse = Jsoup.connect(Main.requestURL + "getUserTasks.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&userID=" + Connection.encodeString(member.user.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val jsonObject = Json.parse(jsonResponse).asObject()
                     val statusCode = jsonObject.getInt("status_code", 900)
                     if (statusCode == 200) {
@@ -179,7 +179,7 @@ class Task : Command {
                     }
                 } else {
                     val groupName = args[1]
-                    val jsonResponse = Jsoup.connect(Main.requestURL + "getGroupTasks.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&group_name=" + Connection.encodeString(groupName)).userAgent(Main.userAgent).execute().body()
+                    val jsonResponse = Jsoup.connect(Main.requestURL + "getGroupTasks.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&group_name=" + Connection.encodeString(groupName)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val jsonObject = Json.parse(jsonResponse).asObject()
                     val statusCode = jsonObject.getInt("status_code", 900)
                     if (statusCode == 200) {
@@ -231,7 +231,7 @@ class Task : Command {
                 }
             } else if (args[0].equals("delete", ignoreCase = true)) {
                 val taskID = StringEscapeUtils.escapeSql(args[1])
-                val jsonResponse = Jsoup.connect(Main.requestURL + "deleteTask.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(guild.id) + "&taskID=" + taskID).userAgent(Main.userAgent).execute().body()
+                val jsonResponse = Jsoup.connect(Main.requestURL + "deleteTask.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(guild.id) + "&taskID=" + taskID).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body()
                 val jsonObject = Json.parse(jsonResponse).asObject()
                 val status_code = jsonObject.getInt("status_code", 900)
                 if (status_code == 200) {
@@ -251,7 +251,7 @@ class Task : Command {
                 }
             } else if (args[0].equals("proceed", ignoreCase = true)) {
                 val taskID = Connection.encodeString(args[1])
-                val jsonResponse = Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&task_id=" + taskID + "&server_id=" + Connection.encodeString(guild.id)).userAgent(Main.userAgent).execute().body()
+                val jsonResponse = Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&task_id=" + taskID + "&server_id=" + Connection.encodeString(guild.id)).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body()
                 val jsonObject = Json.parse(jsonResponse).asObject()
                 val statusCode = jsonObject.getInt("status_code", 900)
                 if (statusCode == 200) {
@@ -285,7 +285,7 @@ class Task : Command {
             }
         } else if (args.size == 1) {
             val member = event.member
-            val jsonResponse = Jsoup.connect(Main.requestURL + "getUserTasks.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&userID=" + Connection.encodeString(member!!.user.id)).userAgent(Main.userAgent).execute().body()
+            val jsonResponse = Jsoup.connect(Main.requestURL + "getUserTasks.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&userID=" + Connection.encodeString(member!!.user.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
             val jsonObject = Json.parse(jsonResponse).asObject()
             val statusCode = jsonObject.getInt("status_code", 900)
             if (statusCode == 200) {

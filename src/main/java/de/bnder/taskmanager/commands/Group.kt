@@ -39,7 +39,7 @@ class Group : Command {
             if (args[0].equals("create", ignoreCase = true)) {
                 if (event.member!!.hasPermission(Permission.ADMINISTRATOR) || event.member!!.isOwner) {
                     val groupName = Connection.encodeString(args[1])
-                    val jsonResponse = Jsoup.connect(Main.requestURL + "createGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + groupName).userAgent(Main.userAgent).execute().body()
+                    val jsonResponse = Jsoup.connect(Main.requestURL + "createGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + groupName).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val `object` = Json.parse(jsonResponse).asObject()
                     val statusCode = `object`.getInt("status_code", 900)
                     if (statusCode == 200) {
@@ -68,7 +68,7 @@ class Group : Command {
             } else if (args[0].equals("delete", ignoreCase = true)) {
                 if (Objects.requireNonNull(event.member)!!.hasPermission(Permission.ADMINISTRATOR) || event.member!!.isOwner) {
                     val groupName = Connection.encodeString(args[1])
-                    val jsonResponse = Jsoup.connect(Main.requestURL + "deleteGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + Connection.encodeString(groupName)).userAgent(Main.userAgent).execute().body()
+                    val jsonResponse = Jsoup.connect(Main.requestURL + "deleteGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + Connection.encodeString(groupName)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val `object` = Json.parse(jsonResponse).asObject()
                     val statusCode = `object`.getInt("status_code", 900)
                     if (statusCode == 200) {
@@ -96,7 +96,7 @@ class Group : Command {
             } else if (args[0].equals("members", ignoreCase = true)) {
                 if (event.member!!.hasPermission(Permission.ADMINISTRATOR) || event.member!!.isOwner) {
                     val groupName = Connection.encodeString(args[1])
-                    val jsonResponse = Jsoup.connect(Main.requestURL + "getGroupMembers.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(event.guild.id) + "&group_name=" + Connection.encodeString(groupName)).userAgent(Main.userAgent).execute().body()
+                    val jsonResponse = Jsoup.connect(Main.requestURL + "getGroupMembers.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(event.guild.id) + "&group_name=" + Connection.encodeString(groupName)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val `object` = Json.parse(jsonResponse).asObject()
                     val statusCode = `object`.getInt("status_code", 900)
                     if (statusCode == 200) {
@@ -139,7 +139,7 @@ class Group : Command {
                         if (event.message.mentionedMembers.size > 0) {
                             val member = event.message.mentionedMembers[0]
                             val groupName = Connection.encodeString(args[2])
-                            val jsonResponse = Jsoup.connect(Main.requestURL + "addUserToGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + groupName + "&userID=" + Connection.encodeString(member.id)).userAgent(Main.userAgent).execute().body()
+                            val jsonResponse = Jsoup.connect(Main.requestURL + "addUserToGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + groupName + "&userID=" + Connection.encodeString(member.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                             val `object` = Json.parse(jsonResponse).asObject()
                             val statusCode = `object`.getInt("status_code", 900)
                             if (statusCode == 200) {
@@ -179,7 +179,7 @@ class Group : Command {
                         if (event.message.mentionedMembers.size > 0) {
                             val member = event.message.mentionedMembers[0]
                             val groupName = Connection.encodeString(args[2])
-                            val jsonResponse = Jsoup.connect(Main.requestURL + "removeUserFromGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + groupName + "&userID=" + Connection.encodeString(member.id)).userAgent(Main.userAgent).execute().body()
+                            val jsonResponse = Jsoup.connect(Main.requestURL + "removeUserFromGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + groupName + "&userID=" + Connection.encodeString(member.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                             val `object` = Json.parse(jsonResponse).asObject()
                             val statusCode = `object`.getInt("status_code", 900)
                             if (statusCode == 200) {
@@ -218,7 +218,7 @@ class Group : Command {
             }
         } else if (args.size == 1) {
             if (args[0].equals("list", ignoreCase = true)) {
-                val jsonResponse = Jsoup.connect(Main.requestURL + "getGroups.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id)).userAgent(Main.userAgent).execute().body()
+                val jsonResponse = Jsoup.connect(Main.requestURL + "getGroups.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                 val `object` = Json.parse(jsonResponse).asObject()
                 val statusCode = `object`.getInt("status_code", 900)
                 if (statusCode == 200) {
@@ -251,7 +251,7 @@ class Group : Command {
     companion object {
         private fun getGroupID(group: String, guild: Guild): String? {
             try {
-                val jsonResponse = Jsoup.connect(Main.requestURL + "getGroupID.php?requestToken=" + Main.requestToken + "&groupName=" + Connection.encodeString(group) + "&serverID=" + Connection.encodeString(guild.id)).userAgent(Main.userAgent).execute().body()
+                val jsonResponse = Jsoup.connect(Main.requestURL + "getGroupID.php?requestToken=" + Main.requestToken + "&groupName=" + Connection.encodeString(group) + "&serverID=" + Connection.encodeString(guild.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                 val `object` = Json.parse(jsonResponse).asObject()
                 val statusCode = `object`.getInt("status_code", 900)
                 if (statusCode == 200) {
@@ -266,7 +266,7 @@ class Group : Command {
         fun serverHasGroup(group: String, guild: Guild): Boolean {
             try {
                 val groupID = getGroupID(group, guild)
-                val jsonResponse = Jsoup.connect(Main.requestURL + "groupExists.php?requestToken=" + Main.requestToken + "&groupID=" + Connection.encodeString(groupID) + "&serverID=" + Connection.encodeString(guild.id)).userAgent(Main.userAgent).execute().body()
+                val jsonResponse = Jsoup.connect(Main.requestURL + "groupExists.php?requestToken=" + Main.requestToken + "&groupID=" + Connection.encodeString(groupID) + "&serverID=" + Connection.encodeString(guild.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                 val `object` = Json.parse(jsonResponse).asObject()
                 val statusCode = `object`.getInt("status_code", 900)
                 return statusCode == 200

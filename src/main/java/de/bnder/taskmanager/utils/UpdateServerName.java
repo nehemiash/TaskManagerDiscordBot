@@ -26,7 +26,7 @@ public class UpdateServerName {
     public static void update(Guild guild) throws IOException {
         String id = guild.getId();
         String name = guild.getName();
-        Jsoup.connect(Main.requestURL + "setServername.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(id) + "&serverName=" + Connection.encodeString(name)).userAgent(Main.userAgent).execute();
+        Jsoup.connect(Main.requestURL + "setServername.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(id) + "&serverName=" + Connection.encodeString(name)).timeout(Connection.timeout).userAgent(Main.userAgent).execute();
     }
 
 }

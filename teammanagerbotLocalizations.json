@@ -418,12 +418,12 @@
 
   },
   "help_message_other_commands": {
-    "de": "`token` - Gibt den Token für die Website & App\n`token new` - Erneuert den Token\n`help` - Listet alle Befehle auf\n`support` - Discord Link\n`app` - App-Informationen\n`stats` - Statistiken\n",
-    "en": "`token` - Gives the token for the Website & App\n`token new` - Generates a new token\n`help` - Lists all commands\n`support` - Discord Link\n`app` - Information about the App\n`stats` - Shows some stats\n",
-    "bg": "`token` - Връща символа за уебсайта и приложението\n`token new` - Променя маркера\n`help` - Изброява всички команди\n`support` - Discord Link\n`app` - Информация за приложението\n`stats` - статистика\n",
-    "pl": "`token` - Daje token dla strony internetowej i aplikacji\n`token new` - Generuje nowy token\n`help` - Wyświetlam wszystkie polecenia\n`support` - Discord Link\n`app` - Informacje o Aplikacji\n`stats` - Statystyki\n",
-    "fr": "`token` - Renvoie le jeton du site Web et de l'application\n`token new` - Renouveler le jeton\n`help` - Répertorie toutes les commandes\n`support` - Lien Discord\n`app` - Informations sur l'application\n`stats` - Statistiques\n",
-    "ru": "`token` - Возвращает токен для сайта и приложения\n`token new` - Обновить токен\n`help` - Перечисляет все команды\n`support` - Discord Link\n`app` - Информация о приложении\n`stats` - статистика\n"
+    "de": "`token` - Gibt den Token für die Website & App\n`token new` - Erneuert den Token\n`help` - Listet alle Befehle auf\n`support` - Discord Link\n`app` - App-Informationen\n`stats` - Statistiken\n`prefix <PREFIX>` - Ändert den Präfix des Bots\n",
+    "en": "`token` - Gives the token for the Website & App\n`token new` - Generates a new token\n`help` - Lists all commands\n`support` - Discord Link\n`app` - Information about the App\n`stats` - Shows some stats\n`prefix <PREFIX>` - Changes the prefix of the bot\n",
+    "bg": "`token` - Връща символа за уебсайта и приложението\n`token new` - Променя маркера\n`help` - Изброява всички команди\n`support` - Discord Link\n`app` - Информация за приложението\n`stats` - статистика\n`prefix <PREFIX>` - Променя префикса на бота\n",
+    "pl": "`token` - Daje token dla strony internetowej i aplikacji\n`token new` - Generuje nowy token\n`help` - Wyświetlam wszystkie polecenia\n`support` - Discord Link\n`app` - Informacje o Aplikacji\n`stats` - Statystyki\n`prefix <PREFIX>` - Zmienia prefiks bota\n",
+    "fr": "`token` - Renvoie le jeton du site Web et de l'application\n`token new` - Renouveler le jeton\n`help` - Répertorie toutes les commandes\n`support` - Lien Discord\n`app` - Informations sur l'application\n`stats` - Statistiques\n`prefix <PREFIX>` - Modifie le préfixe du bot\n",
+    "ru": "`token` - Возвращает токен для сайта и приложения\n`token new` - Обновить токен\n`help` - Перечисляет все команды\n`support` - Discord Link\n`app` - Информация о приложении\n`stats` - статистика\n`!prefix <PREFIX>` - Меняет префикс бота\n"
 
   },
   "stats_field_server": {
@@ -521,5 +521,37 @@
     "pl": "To polecenie jest nieznane! Użyj `-help`, aby wyświetlić listę wszystkich poleceń.",
     "fr": "Cette commande est inconnue! Utilisez `-help` pour lister toutes les commandes.",
     "ru": "Эта команда неизвестна! Используйте `-help` для вывода списка всех команд."
+  },
+  "prefix_title": {
+    "de": "Präfix",
+    "en": "Prefix",
+    "bg": "префикс",
+    "pl": "Prefiks",
+    "fr": "Préfixe",
+    "ru": "префикс"
+  },
+  "prefix_changed": {
+    "de": "Der Präfix des Bots ist nun `$`",
+    "en": "The bot's prefix is now `$`",
+    "bg": "Префиксът на бота вече е `$`",
+    "pl": "Prefiks bota to teraz `$`",
+    "fr": "Le préfixe du bot est maintenant `$`",
+    "ru": "Приставка бота теперь `$`"
+  },
+  "prefix_only_one_char": {
+    "de": "Der Präfix darf nur ein Zeichen lang sein!",
+    "en": "The prefix can only be one character long!",
+    "bg": "Префиксът може да бъде само един знак!",
+    "pl": "Prefiks może mieć tylko jeden znak!",
+    "fr": "Le préfixe ne peut contenir qu'un caractère!",
+    "ru": "Префикс может быть длиной всего один символ!"
+  },
+  "prefix_no_arg": {
+    "de": "Bitte gib das Zeichen an, dass als Präfix verwendet werden soll!",
+    "en": "Please indicate the character that should be used as a prefix!",
+    "bg": "Моля, посочете символа, който трябва да се използва като префикс!",
+    "pl": "Podaj znak, który powinien być użyty jako prefiks!",
+    "fr": "Veuillez indiquer le caractère à utiliser comme préfixe!",
+    "ru": "Пожалуйста, укажите символ, который должен использоваться в качестве префикса!"
   }
 }

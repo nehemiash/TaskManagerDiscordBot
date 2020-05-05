@@ -3,6 +3,7 @@ package de.bnder.taskmanager.commands
 import com.eclipsesource.json.Json
 import de.bnder.taskmanager.main.Command
 import de.bnder.taskmanager.main.Main
+import de.bnder.taskmanager.utils.Connection
 import de.bnder.taskmanager.utils.Localizations
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
@@ -34,7 +35,7 @@ class Stats : Command {
         builder.addField(Localizations.getString("stats_field_server", langCode), server.toString(), true)
         builder.addField(Localizations.getString("stats_field_ping", langCode), ping.toString(), true)
         try {
-            val jsonResponse = Jsoup.connect(Main.requestURL + "getStats.php?requestToken=" + Main.requestToken).userAgent(Main.userAgent).execute().body()
+            val jsonResponse = Jsoup.connect(Main.requestURL + "getStats.php?requestToken=" + Main.requestToken).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body()
             val `object` = Json.parse(jsonResponse).asObject()
             builder.addField(Localizations.getString("stats_field_tasks_done", langCode), `object`.getInt("tasks_done", -1).toString(), true)
             builder.addField(Localizations.getString("stats_field_tasks_created", langCode), `object`.getInt("tasks_created", -1).toString(), true)

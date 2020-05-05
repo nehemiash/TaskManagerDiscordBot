@@ -57,7 +57,7 @@ class Token : Command {
     companion object {
         private fun getNewToken(user: User): String? {
             try {
-                val jsonResponse = Jsoup.connect(Main.requestURL + "createToken.php?requestToken=" + Main.requestToken + "&userID=" + Connection.encodeString(user.id) + "&new=true").userAgent(Main.userAgent).execute().body()
+                val jsonResponse = Jsoup.connect(Main.requestURL + "createToken.php?requestToken=" + Main.requestToken + "&userID=" + Connection.encodeString(user.id) + "&new=true").userAgent(Main.userAgent).timeout(Connection.timeout).execute().body()
                 val jsonObject = Json.parse(jsonResponse).asObject()
                 val statusCode = jsonObject.getInt("status_code", 900)
                 if (statusCode == 200) {
@@ -71,7 +71,7 @@ class Token : Command {
 
         private fun getToken(user: User): String? {
             try {
-                val jsonResponse = Jsoup.connect(Main.requestURL + "createToken.php?requestToken=" + Main.requestToken + "&userID=" + Connection.encodeString(user.id) + "&new=false").userAgent(Main.userAgent).execute().body()
+                val jsonResponse = Jsoup.connect(Main.requestURL + "createToken.php?requestToken=" + Main.requestToken + "&userID=" + Connection.encodeString(user.id) + "&new=false").timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                 val jsonObject = Json.parse(jsonResponse).asObject()
                 val statusCode = jsonObject.getInt("status_code", 900)
                 if (statusCode == 200) {

@@ -58,7 +58,7 @@ class Localizations {
 
         fun getGuildLanguage(guild: Guild): String {
             try {
-                val jsonResponse = Jsoup.connect(Main.requestURL + "getLanguage.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(guild.id)).userAgent(Main.userAgent).execute().body()
+                val jsonResponse = Jsoup.connect(Main.requestURL + "getLanguage.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(guild.id)).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body()
                 val `object` = Json.parse(jsonResponse).asObject()
                 val statusCode = `object`.getInt("status_code", 900)
                 if (statusCode == 200) {

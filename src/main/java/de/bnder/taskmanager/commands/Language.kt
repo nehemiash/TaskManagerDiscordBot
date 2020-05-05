@@ -41,7 +41,7 @@ class Language : Command {
             if (language.equals("de", ignoreCase = true) || language.equals("en", ignoreCase = true) || language.equals("bg", ignoreCase = true)
                     || language.equals("fr", ignoreCase = true) || language.equals("ru", ignoreCase = true) || language.equals("pl", ignoreCase = true)) {
                 if (Objects.requireNonNull(event.member)!!.hasPermission(Permission.ADMINISTRATOR)) {
-                    val jsonResponse = Jsoup.connect(Main.requestURL + "setLanguage.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(guild.id) + "&language=" + Connection.encodeString(language)).userAgent(Main.userAgent).execute().body()
+                    val jsonResponse = Jsoup.connect(Main.requestURL + "setLanguage.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(guild.id) + "&language=" + Connection.encodeString(language)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val `object` = Json.parse(jsonResponse).asObject()
                     val statusCode = `object`.getInt("status_code", 900)
                     val langCode = Localizations.getGuildLanguage(event.guild)

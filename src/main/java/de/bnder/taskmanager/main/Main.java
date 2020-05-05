@@ -58,6 +58,7 @@ public class Main {
         builder.addEventListeners(new GuildJoin());
         builder.addEventListeners(new GuildLeave());
 
+        CommandHandler.commands.put("prefix", new Prefix());
         CommandHandler.commands.put("group", new Group());
         CommandHandler.commands.put("task", new Task());
         CommandHandler.commands.put("token", new Token());
