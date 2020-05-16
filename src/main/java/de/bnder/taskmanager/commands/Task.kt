@@ -306,6 +306,39 @@ class Task : Command {
                         }
                     }), event.message, Color.red)
                 }
+            } else if (args[0].equals("undo", ignoreCase = true)) {
+                val taskID = Connection.encodeString(args[1])
+                val jsonResponse = Jsoup.connect(Main.requestURL + "undoTaskStatus.php?requestToken=" + Main.requestToken + "&task_id=" + taskID + "&server_id=" + Connection.encodeString(guild.id)).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body()
+                val jsonObject = Json.parse(jsonResponse).asObject()
+                val statusCode = jsonObject.getInt("status_code", 900)
+                if (statusCode == 200) {
+                    when (jsonObject.getInt("process", 0)) {
+                        0 -> {
+                            MessageSender.send(embedTitle, Localizations.getString("aufgabe_wird_nicht_bearbeitet", langCode), event.message, Color.green)
+                        }
+                        1 -> {
+                            MessageSender.send(embedTitle, Localizations.getString("aufgabe_wird_nun_bearbeitet", langCode), event.message, Color.green)
+                        }
+                        2 -> {
+                            MessageSender.send(embedTitle, Localizations.getString("aufgabe_erledigt", langCode), event.message, Color.green)
+                        }
+                        else -> {
+                            MessageSender.send(embedTitle, Localizations.getString("task_abfrage_unbekannter_fehler", langCode), event.message, Color.red)
+                        }
+                    }
+                } else if (statusCode == 902) {
+                    MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, object : ArrayList<String?>() {
+                        init {
+                            add(taskID)
+                        }
+                    }), event.message, Color.red)
+                } else {
+                    MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, object : ArrayList<String?>() {
+                        init {
+                            add(statusCode.toString())
+                        }
+                    }), event.message, Color.red)
+                }
             } else {
                 MessageSender.send(embedTitle, Localizations.getString("help_message_task_commands", langCode), event.message, Color.red)
             }
