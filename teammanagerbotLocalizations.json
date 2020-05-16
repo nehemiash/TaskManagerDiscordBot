@@ -223,6 +223,14 @@
     "fr": "La tâche `$` a été supprimée.",
     "ru": "Задача `$` была удалена."
   },
+  "aufgabe_editiert": {
+    "de": "Die Aufgabe `$` wurde erfolgreich geändert.",
+    "en": "Task `$` was changed successfully.",
+    "bg": "Задачата `$` беше променена успешно.",
+    "pl": "Zadanie `$` zostało pomyślnie zmienione.",
+    "fr": "La tâche `$` a été modifiée avec succès.",
+    "ru": "Задача `$` была успешно изменена."
+  },
   "aufgabe_wird_nun_bearbeitet": {
     "de": "Die Aufgabe wird nun bearbeitet.",
     "en": "The task is now work in progress.",
@@ -376,20 +384,20 @@
     "ru": "Вы получили следующее задание от $:"
   },
   "alle_aufgaben_von_nutzer": {
-    "de": "Alle Aufgaben von $: $",
-    "en": "$ tasks: $",
-    "bg": "$ задачи: $",
-    "pl": "$ zadania: $",
-    "fr": "Toutes les tâches de $: $",
-    "ru": "Все задания от $: $"
+    "de": "Alle Aufgaben von $:\n$",
+    "en": "$ tasks:\n$",
+    "bg": "$ задачи:\n$",
+    "pl": "$ zadania:\n$",
+    "fr": "Toutes les tâches de $:\n$",
+    "ru": "Все задания от $:\n$"
   },
   "alle_aufgaben_von_gruppe": {
-    "de": "Alle Aufgaben von Gruppe $: $",
-    "en": "All tasks from Group $: $",
-    "bg": "Всички задачи от група $: $",
-    "pl": "Wszystkie zadania z grupy $: $",
-    "fr": "Toutes les tâches du groupe $: $",
-    "ru": "Все задания группы $: $"
+    "de": "Alle Aufgaben von Gruppe $:\n$",
+    "en": "All tasks from Group $:\n$",
+    "bg": "Всички задачи от група $:\n$",
+    "pl": "Wszystkie zadania z grupy $:\n$",
+    "fr": "Toutes les tâches du groupe $:\n$",
+    "ru": "Все задания группы $:\n$"
   },
   "token_info": {
     "de": "\nDieser Token kann für die App genutzt werden.\n**Teile deinen Token niemals mit einem anderen Nutzer!**",
@@ -409,12 +417,12 @@
 
   },
   "help_message_task_commands": {
-    "de": "`task add @NUTZER <AUFGABE>` - Aufgabe an Nutzer geben\n`task add <GRUPPENNAME> <AUFGABE>` - Aufgabe an Gruppe geben\n`task proceed <AUFGABEN-ID>` - Aufgabe bearbeiten\n`task deadline <AUFGABEN-ID> <DATUM> <UHRZEIT>` - Deadline für Aufgabe setzen\n`task list <@NUTZER/GRUPPENNAME>` - Listet alle Aufgaben auf\n`task delete <AUFGABEN-ID>` - Aufgabe löschen\n",
-    "en": "`task add @USER <TASK>` - Assign a task to an user\n`task add <GROUPNAME> <TASK>` - Assign a task to a group\n`task proceed <TASK-ID>` - Work on a task\n`task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Set a deadline for a task\n`task list <@USER/GROUPNAME>` - Lists all tasks\n`task delete <TASK-ID>` - Deletes a task\n",
-    "bg": "`task add @USER <TASK>` - Дайте задача на потребителя\n`task add <GROUPNAME> <TASK>` - Дайте задача на групата\n`task proceed <TASK-ID>` - Продължи задачата към \"в процес\", повтори командата за да се завърши\n`task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Определете срок за изпълнение на задачата\n`task list <@USER/GROUPNAME>` - Списък със задачи\n`task delete <TASK-ID>` - Изтриване на задача\n",
-    "pl": "`task add @UŻYTKOWNIK <TASK>` - Przypisz zadanie do użytkownika\n`task add <NAZWA GRUPY> <TASK>` - Przypisz zadanie do grupy\n`task proceed <TASK-ID>` - Pracuj nad zadaniem\n`task deadline <ID Zadania> <DATE (in european format)> <TIME>` - Wyświetla listę wszystkich zadań\n`task list` <TASK-ID> - Usuwa zadanie\n",
-    "fr": "`task add @UTILISATEUR <TÂCHE>` - Donner une tâche à l'utilisateur\n`task add <NOM DU GROUPE> <TÂCHE>` - Donner une tâche au groupe\n`task proceed <ID DE TÂCHE>` - Modifier la tâche\n`task deadline <ID DE TÂCHE> <DATE> <TIME>` - Fixer la date limite de la tâche\n`task list <@UTILISATEUR/NOM DU GROUPE>` - Répertorie toutes les tâches\n`task delete <ID DE TÂCHE>` - Supprimer la tâche\n",
-    "ru": "`task add @ПОЛЬЗОВАТЕЛИ <ЗАДАЧА>` - Дайте задание пользователю\n`task add <ИМЯ ГРУППЫ> <ЗАДАЧА>` - Дайте задание группе\n`task proceed <TASK ID>` - Изменить задачу\n`task deadline <TASK ID> <ДАТА> <ВРЕМЯ>` - Установить срок выполнения задания\n`task list <@ПОЛЬЗОВАТЕЛИ/ИМЯ ГРУППЫ>` - Перечисляет все задачи\n`task delete <TASK ID>` - Удалить задачу\n"
+    "de": "`task add @NUTZER <AUFGABE>` - Aufgabe an Nutzer geben\n`task add <GRUPPENNAME> <AUFGABE>` - Aufgabe an Gruppe geben\n`task proceed <AUFGABEN-ID>` - Aufgabe bearbeiten\n`task deadline <AUFGABEN-ID> <DATUM> <UHRZEIT>` - Deadline für Aufgabe setzen\n`task list <@NUTZER/GRUPPENNAME>` - Listet alle Aufgaben auf\n`task delete <AUFGABEN-ID>` - Aufgabe löschen\n`task edit <AUFGABEN-ID> <AUFGABE>` - Überarbeite den Aufgaben Text\n",
+    "en": "`task add @USER <TASK>` - Assign a task to an user\n`task add <GROUPNAME> <TASK>` - Assign a task to a group\n`task proceed <TASK-ID>` - Work on a task\n`task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Set a deadline for a task\n`task list <@USER/GROUPNAME>` - Lists all tasks\n`task delete <TASK-ID>` - Deletes a task\n`task edit <TASK-ID> <TASK>` - Edit the text of a task\n",
+    "bg": "`task add @USER <TASK>` - Дайте задача на потребителя\n`task add <GROUPNAME> <TASK>` - Дайте задача на групата\n`task proceed <TASK-ID>` - Продължи задачата към \"в процес\", повтори командата за да се завърши\n`task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Определете срок за изпълнение на задачата\n`task list <@USER/GROUPNAME>` - Списък със задачи\n`task delete <TASK-ID>` - Изтриване на задача\n`task edit <TASK-ID> <TASK>` - Прегледайте текста на задачите\n",
+    "pl": "`task add @UŻYTKOWNIK <TASK>` - Przypisz zadanie do użytkownika\n`task add <NAZWA GRUPY> <TASK>` - Przypisz zadanie do grupy\n`task proceed <TASK-ID>` - Pracuj nad zadaniem\n`task deadline <ID Zadania> <DATE (in european format)> <TIME>` - Wyświetla listę wszystkich zadań\n`task list` <TASK-ID> - Usuwa zadanie\n`task edit <TASK-ID> <TASK>` - Popraw tekst zadania\n",
+    "fr": "`task add @UTILISATEUR <TÂCHE>` - Donner une tâche à l'utilisateur\n`task add <NOM DU GROUPE> <TÂCHE>` - Donner une tâche au groupe\n`task proceed <ID DE TÂCHE>` - Modifier la tâche\n`task deadline <ID DE TÂCHE> <DATE> <TIME>` - Fixer la date limite de la tâche\n`task list <@UTILISATEUR/NOM DU GROUPE>` - Répertorie toutes les tâches\n`task delete <ID DE TÂCHE>` - Supprimer la tâche\n`task edit <ID DE TÂCHE> <TÂCHE>` - Réviser le texte des tâches\n",
+    "ru": "`task add @ПОЛЬЗОВАТЕЛИ <ЗАДАЧА>` - Дайте задание пользователю\n`task add <ИМЯ ГРУППЫ> <ЗАДАЧА>` - Дайте задание группе\n`task proceed <TASK ID>` - Изменить задачу\n`task deadline <TASK ID> <ДАТА> <ВРЕМЯ>` - Установить срок выполнения задания\n`task list <@ПОЛЬЗОВАТЕЛИ/ИМЯ ГРУППЫ>` - Перечисляет все задачи\n`task delete <TASK ID>` - Удалить задачу\n`task edit <TASK-ID> <TASK>` - Пересмотреть текст задания\n"
 
   },
   "help_message_other_commands": {
@@ -483,12 +491,12 @@
     "ru": "В группе нет участников."
   },
   "group_members": {
-    "de": "Gruppenmitglieder: $",
-    "en": "Group members: $",
-    "bg": "Членове на групата: $",
-    "pl": "Członkowie grupy: $",
-    "fr": "Membres du groupe: $",
-    "ru": "Члены группы: $"
+    "de": "Gruppenmitglieder:\n$",
+    "en": "Group members:\n$",
+    "bg": "Членове на групата:\n$",
+    "pl": "Członkowie grupy:\n$",
+    "fr": "Membres du groupe:\n$",
+    "ru": "Члены группы:\n$"
   },
   "group_title": {
     "de": "Gruppen",

@@ -39,7 +39,7 @@ class Stats : Command {
             val `object` = Json.parse(jsonResponse).asObject()
             builder.addField(Localizations.getString("stats_field_tasks_done", langCode), `object`.getInt("tasks_done", -1).toString(), true)
             builder.addField(Localizations.getString("stats_field_tasks_created", langCode), `object`.getInt("tasks_created", -1).toString(), true)
-            builder.addField("Shard", (event.jda.shardInfo.shardId + 1).toString(), true)
+            builder.addField("Shard", (event.jda.shardInfo.shardId).toString(), true)
             builder.addField("Shards", event.jda.shardInfo.shardTotal.toString(), true)
         } catch (e: IOException) {
             e.printStackTrace()

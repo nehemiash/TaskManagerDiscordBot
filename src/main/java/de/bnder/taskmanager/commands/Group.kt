@@ -106,7 +106,7 @@ class Group : Command {
                             if (id != null) {
                                 val member = event.guild.retrieveMemberById(id).complete()
                                 if (member != null) {
-                                    builder.append(member.user.asTag).append(", ")
+                                    builder.append("- ").append(member.user.asTag).append("\n")
                                 }
                             }
                         }

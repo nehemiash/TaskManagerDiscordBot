@@ -16,6 +16,7 @@ import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /*
  * Copyright (C) 2019 Jan Brinkmann
@@ -66,7 +67,7 @@ class Task : Command {
                             }
                         }), event.message, Color.red)
                     }
-                } else if (Group.Companion.serverHasGroup(args[1], event.guild)) {
+                } else if (Group.serverHasGroup(args[1], event.guild)) {
                     val groupName = Connection.encodeString(args[1])
                     val task = getTaskFromArgs(args, 2)
                     val jsonResponse = Jsoup.connect(Main.requestURL + "createTask.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&task=" + Connection.encodeString(task) + "&groupName=" + groupName).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
@@ -93,6 +94,31 @@ class Task : Command {
                     }
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellen_fehlende_argumente", langCode), event.message, Color.red)
+                }
+            } else if (args[0].equals("edit", ignoreCase = true)) {
+                val taskID = StringEscapeUtils.escapeSql(args[1])
+                val newTask = getTaskFromArgs(args, 2)
+                val jsonResponse = Jsoup.connect(Main.requestURL + "editTask.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(guild.id) + "&task=" + Connection.encodeString(newTask) + "&taskID=" + Connection.encodeString(taskID)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
+                val jsonObject = Json.parse(jsonResponse).asObject()
+                val status_code = jsonObject.getInt("status_code", 900);
+                if (status_code == 200) {
+                    MessageSender.send(embedTitle, Localizations.getString("aufgabe_editiert", langCode, object : ArrayList<String?>() {
+                        init {
+                            add(taskID)
+                        }
+                    }), event.message, Color.green)
+                } else if (status_code == 902) {
+                    MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, object : ArrayList<String?>() {
+                        init {
+                            add(taskID)
+                        }
+                    }), event.message, Color.red)
+                } else {
+                    MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, object : ArrayList<String?>() {
+                        init {
+                            add(status_code.toString())
+                        }
+                    }), event.message, Color.red)
                 }
             } else if (args[0].equals("deadline", ignoreCase = true)) {
                 val taskID = StringEscapeUtils.escapeSql(args[1])
