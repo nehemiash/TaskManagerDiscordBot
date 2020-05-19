@@ -41,7 +41,6 @@ public class CommandListener extends ListenerAdapter {
                     int statusCode = jsonObject.getInt("status_code", 900);
                     if (statusCode == 200) {
                         String prefix = jsonObject.getString("prefix", "-");
-                        System.out.println(prefix);
                         if (event.getMessage().getContentRaw().startsWith(prefix)) {
                             processCommand(event);
                         }

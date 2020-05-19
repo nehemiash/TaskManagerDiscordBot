@@ -35,9 +35,18 @@ public class Main {
     public static String requestToken = null;
     public static final String userAgent = "TaskmanagerBot/1.0 (Windows; U; WindowsNT 5.1; de-DE; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
     public static int shard = 0;
-    public static int totalShard = 1;
+    public static int totalShard = 2;
 
     public static final String prefix = "-";
+
+    //CHANGELOG:
+    //-task add @USER @USER... TASK HERE
+    //-group add @USER @USER... GROUPNAME
+    //-group remove @USER @USER... GROUPNAME
+    //Bug fix in "-group members"
+    //IDS are now 5 Numbers long
+    //-task info TASKID
+    //Group members will get dm with task when task is assigned to their group
 
     public static void main(String[] args) {
         new Connection().defineConnection();
@@ -58,6 +67,7 @@ public class Main {
         builder.addEventListeners(new GuildJoin());
         builder.addEventListeners(new GuildLeave());
 
+        CommandHandler.commands.put("version", new Version());
         CommandHandler.commands.put("prefix", new Prefix());
         CommandHandler.commands.put("group", new Group());
         CommandHandler.commands.put("task", new Task());

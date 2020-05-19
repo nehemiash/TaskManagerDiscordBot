@@ -14,6 +14,7 @@ import org.jsoup.Jsoup
 import java.awt.Color
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
 /*
  * Copyright (C) 2019 Jan Brinkmann
@@ -112,7 +113,7 @@ class Group : Command {
                         }
                         MessageSender.send(embedTitle, Localizations.getString("group_members", langCode, object : ArrayList<String?>() {
                             init {
-                                add(builder.substring(0, builder.length - 2))
+                                add(builder.substring(0, builder.length - 1))
                             }
                         }), event.message, Color.green)
                     } else if (statusCode == 902) {
@@ -137,32 +138,35 @@ class Group : Command {
                 if (Objects.requireNonNull(event.member)!!.hasPermission(Permission.ADMINISTRATOR) || event.member!!.isOwner) {
                     if (args.size >= 3) {
                         if (event.message.mentionedMembers.size > 0) {
-                            val member = event.message.mentionedMembers[0]
-                            val groupName = Connection.encodeString(args[2])
-                            val jsonResponse = Jsoup.connect(Main.requestURL + "addUserToGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + groupName + "&userID=" + Connection.encodeString(member.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
-                            val `object` = Json.parse(jsonResponse).asObject()
-                            val statusCode = `object`.getInt("status_code", 900)
-                            if (statusCode == 200) {
-                                MessageSender.send(embedTitle, Localizations.getString("nutzer_zu_gruppe_hinzugefügt", langCode, object : ArrayList<String?>() {
-                                    init {
-                                        add(member.user.name)
-                                        add(groupName)
-                                    }
-                                }), event.message, Color.green)
-                            } else if (statusCode == 903) {
-                                MessageSender.send(embedTitle, Localizations.getString("gruppe_mit_namen_existiert_nicht", langCode, object : ArrayList<String?>() {
-                                    init {
-                                        add(groupName)
-                                    }
-                                }), event.message, Color.red)
-                            } else if (statusCode == 904) {
-                                MessageSender.send(embedTitle, Localizations.getString("nutzer_bereits_in_gruppe", langCode), event.message, Color.red)
-                            } else {
-                                MessageSender.send(embedTitle, Localizations.getString("nutzer_zu_gruppe_hinzufügen_unbekannter_fehler", langCode, object : ArrayList<String?>() {
-                                    init {
-                                        add(statusCode.toString())
-                                    }
-                                }), event.message, Color.red)
+                            val groupName = Connection.encodeString(args[1 + event.message.mentionedMembers.size])
+                            for (member in event.message.mentionedMembers) {
+                                val jsonResponse = Jsoup.connect(Main.requestURL + "addUserToGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + groupName + "&userID=" + Connection.encodeString(member.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
+                                val `object` = Json.parse(jsonResponse).asObject()
+                                val statusCode = `object`.getInt("status_code", 900)
+                                if (statusCode == 200) {
+                                    MessageSender.send(embedTitle, Localizations.getString("nutzer_zu_gruppe_hinzugefügt", langCode, object : ArrayList<String?>() {
+                                        init {
+                                            add(member.user.name)
+                                            add(groupName)
+                                        }
+                                    }), event.message, Color.green)
+                                } else if (statusCode == 903) {
+                                    MessageSender.send(embedTitle, Localizations.getString("gruppe_mit_namen_existiert_nicht", langCode, object : ArrayList<String?>() {
+                                        init {
+                                            add(groupName)
+                                        }
+                                    }), event.message, Color.red)
+                                    return
+                                } else if (statusCode == 904) {
+                                    MessageSender.send(embedTitle, Localizations.getString("nutzer_bereits_in_gruppe", langCode), event.message, Color.red)
+                                } else {
+                                    MessageSender.send(embedTitle, Localizations.getString("nutzer_zu_gruppe_hinzufügen_unbekannter_fehler", langCode, object : ArrayList<String?>() {
+                                        init {
+                                            add(statusCode.toString())
+                                        }
+                                    }), event.message, Color.red)
+                                    return
+                                }
                             }
                         } else {
                             MessageSender.send(embedTitle, Localizations.getString("nutzer_muss_markiert_werden", langCode), event.message, Color.red)
@@ -177,32 +181,38 @@ class Group : Command {
                 if (Objects.requireNonNull(event.member)!!.hasPermission(Permission.ADMINISTRATOR) || event.member!!.isOwner) {
                     if (args.size >= 3) {
                         if (event.message.mentionedMembers.size > 0) {
-                            val member = event.message.mentionedMembers[0]
-                            val groupName = Connection.encodeString(args[2])
-                            val jsonResponse = Jsoup.connect(Main.requestURL + "removeUserFromGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + groupName + "&userID=" + Connection.encodeString(member.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
-                            val `object` = Json.parse(jsonResponse).asObject()
-                            val statusCode = `object`.getInt("status_code", 900)
-                            if (statusCode == 200) {
-                                MessageSender.send(embedTitle, Localizations.getString("nutzer_aus_gruppe_entfernt", langCode, object : ArrayList<String?>() {
-                                    init {
-                                        add(member.user.name)
-                                        add(groupName)
-                                    }
-                                }), event.message, Color.green)
-                            } else if (statusCode == 903) {
-                                MessageSender.send(embedTitle, Localizations.getString("gruppe_mit_namen_existiert_nicht", langCode, object : ArrayList<String?>() {
-                                    init {
-                                        add(groupName)
-                                    }
-                                }), event.message, Color.red)
-                            } else if (statusCode == 904) {
-                                MessageSender.send(embedTitle, Localizations.getString("nutzer_ist_in_keiner_gruppe", langCode), event.message, Color.red)
-                            } else {
-                                MessageSender.send(embedTitle, Localizations.getString("nutzer_aus_gruppe_entfernen_unbekannter_fehler", langCode, object : ArrayList<String?>() {
-                                    init {
-                                        add(statusCode.toString())
-                                    }
-                                }), event.message, Color.red)
+                            val groupName = Connection.encodeString(args[1 + event.message.mentionedMembers.size])
+                            for (member in event.message.mentionedMembers) {
+                                val jsonResponse = Jsoup.connect(Main.requestURL + "removeUserFromGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + groupName + "&userID=" + Connection.encodeString(member.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
+                                val `object` = Json.parse(jsonResponse).asObject()
+                                val statusCode = `object`.getInt("status_code", 900)
+                                if (statusCode == 200) {
+                                    MessageSender.send(embedTitle, Localizations.getString("nutzer_aus_gruppe_entfernt", langCode, object : ArrayList<String?>() {
+                                        init {
+                                            add(member.user.name)
+                                            add(groupName)
+                                        }
+                                    }), event.message, Color.green)
+                                } else if (statusCode == 903) {
+                                    MessageSender.send(embedTitle, Localizations.getString("gruppe_mit_namen_existiert_nicht", langCode, object : ArrayList<String?>() {
+                                        init {
+                                            add(groupName)
+                                        }
+                                    }), event.message, Color.red)
+                                    return
+                                } else if (statusCode == 904) {
+                                    MessageSender.send(embedTitle, Localizations.getString("nutzer_ist_in_keiner_gruppe", langCode, object : ArrayList<String>() {
+                                        init {
+                                            add(member.user.asTag)
+                                        }
+                                    }), event.message, Color.red)
+                                } else {
+                                    MessageSender.send(embedTitle, Localizations.getString("nutzer_aus_gruppe_entfernen_unbekannter_fehler", langCode, object : ArrayList<String?>() {
+                                        init {
+                                            add(statusCode.toString())
+                                        }
+                                    }), event.message, Color.red)
+                                }
                             }
                         } else {
                             MessageSender.send(embedTitle, Localizations.getString("nutzer_muss_markiert_werden", langCode), event.message, Color.red)

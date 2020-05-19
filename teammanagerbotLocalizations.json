@@ -104,12 +104,12 @@
     "ru": "$ был удален из группы `$`."
   },
   "nutzer_ist_in_keiner_gruppe": {
-    "de": "Der Nutzer ist in keiner Gruppe!",
-    "en": "That user isn't in a group!",
-    "bg": "Този потребител не е в групата!",
-    "pl": "Ten użytkownik nie jest w grupie!",
-    "fr": "L'utilisateur n'est pas dans un groupe!",
-    "ru": "Пользователь не в группе!"
+    "de": "Der Nutzer `$` ist in keiner Gruppe!",
+    "en": "That user `$` isn't in a group!",
+    "bg": "Този потребител `$` не е в групата!",
+    "pl": "Ten użytkownik `$` nie jest w grupie!",
+    "fr": "L'utilisateur `$` n'est pas dans un groupe!",
+    "ru": "Пользователь `$` не в группе!"
   },
   "nutzer_aus_gruppe_entfernen_unbekannter_fehler": {
     "de": "Der Nutzer konnte nicht aus der Gruppe entfernt werden! Fehlercode: $",
@@ -425,12 +425,12 @@
 
   },
   "help_message_task_commands": {
-    "de": "`task add @NUTZER <AUFGABE>` - Aufgabe an Nutzer geben\n`task add <GRUPPENNAME> <AUFGABE>` - Aufgabe an Gruppe geben\n`task proceed <AUFGABEN-ID>` - Ändert Status der Aufgabe zu bearbeitet/erledigt\n`task deadline <AUFGABEN-ID> <DATUM> <UHRZEIT>` - Deadline für Aufgabe setzen\n`task list <@NUTZER/GRUPPENNAME>` - Listet alle Aufgaben auf\n`task delete <AUFGABEN-ID>` - Aufgabe löschen\n`task edit <AUFGABEN-ID> <AUFGABE>` - Überarbeite den Aufgaben Text\n",
-    "en": "`task add @USER <TASK>` - Assign a task to an user\n`task add <GROUPNAME> <TASK>` - Assign a task to a group\n`task proceed <TASK-ID>` - Changes status of the task to processed/completed\n`task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Set a deadline for a task\n`task list <@USER/GROUPNAME>` - Lists all tasks\n`task delete <TASK-ID>` - Deletes a task\n`task edit <TASK-ID> <TASK>` - Edit the text of a task\n",
-    "bg": "`task add @USER <TASK>` - Дайте задача на потребителя\n`task add <GROUPNAME> <TASK>` - Дайте задача на групата\n`task proceed <TASK-ID>` - Продължи задачата към \"в процес\", повтори командата за да се завърши\n`task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Определете срок за изпълнение на задачата\n`task list <@USER/GROUPNAME>` - Списък със задачи\n`task delete <TASK-ID>` - Изтриване на задача\n`task edit <TASK-ID> <TASK>` - Прегледайте текста на задачите\n",
-    "pl": "`task add @UŻYTKOWNIK <TASK>` - Przypisz zadanie do użytkownika\n`task add <NAZWA GRUPY> <TASK>` - Przypisz zadanie do grupy\n`task proceed <TASK-ID>` - Zmienia status zadania na przetworzone/ukończone\n`task deadline <ID Zadania> <DATE (in european format)> <TIME>` - Wyświetla listę wszystkich zadań\n`task list` <TASK-ID> - Usuwa zadanie\n`task edit <TASK-ID> <TASK>` - Popraw tekst zadania\n",
-    "fr": "`task add @UTILISATEUR <TÂCHE>` - Donner une tâche à l'utilisateur\n`task add <NOM DU GROUPE> <TÂCHE>` - Donner une tâche au groupe\n`task proceed <ID DE TÂCHE>` - Change le statut de la tâche en traitée/terminée\n`task deadline <ID DE TÂCHE> <DATE> <TIME>` - Fixer la date limite de la tâche\n`task list <@UTILISATEUR/NOM DU GROUPE>` - Répertorie toutes les tâches\n`task delete <ID DE TÂCHE>` - Supprimer la tâche\n`task edit <ID DE TÂCHE> <TÂCHE>` - Réviser le texte des tâches\n",
-    "ru": "`task add @ПОЛЬЗОВАТЕЛИ <ЗАДАЧА>` - Дайте задание пользователю\n`task add <ИМЯ ГРУППЫ> <ЗАДАЧА>` - Дайте задание группе\n`task proceed <TASK ID>` - Изменяет статус задания на обработанное/выполненное\n`task deadline <TASK ID> <ДАТА> <ВРЕМЯ>` - Установить срок выполнения задания\n`task list <@ПОЛЬЗОВАТЕЛИ/ИМЯ ГРУППЫ>` - Перечисляет все задачи\n`task delete <TASK ID>` - Удалить задачу\n`task edit <TASK-ID> <TASK>` - Пересмотреть текст задания\n"
+    "de": "`task add @NUTZER <AUFGABE>` - Aufgabe an Nutzer geben\n`task add <GRUPPENNAME> <AUFGABE>` - Aufgabe an Gruppe geben\n`task proceed <AUFGABEN-ID>` - Ändert Status der Aufgabe zu bearbeitet/erledigt\n`task deadline <AUFGABEN-ID> <DATUM> <UHRZEIT>` - Deadline für Aufgabe setzen\n`task list <@NUTZER/GRUPPENNAME>` - Listet alle Aufgaben auf\n`task delete <AUFGABEN-ID>` - Aufgabe löschen\n`task edit <AUFGABEN-ID> <AUFGABE>` - Überarbeite den Aufgaben Text\n`task info <AUFGABEN-ID>` - Zeigt einzelne Informationen für die Aufgabe an\n",
+    "en": "`task add @USER <TASK>` - Assign a task to an user\n`task add <GROUPNAME> <TASK>` - Assign a task to a group\n`task proceed <TASK-ID>` - Changes status of the task to processed/completed\n`task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Set a deadline for a task\n`task list <@USER/GROUPNAME>` - Lists all tasks\n`task delete <TASK-ID>` - Deletes a task\n`task edit <TASK-ID> <TASK>` - Edit the text of a task\n`task info <TASK-ID>` - Displays individual information for the task\n",
+    "bg": "`task add @USER <TASK>` - Дайте задача на потребителя\n`task add <GROUPNAME> <TASK>` - Дайте задача на групата\n`task proceed <TASK-ID>` - Продължи задачата към \"в процес\", повтори командата за да се завърши\n`task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Определете срок за изпълнение на задачата\n`task list <@USER/GROUPNAME>` - Списък със задачи\n`task delete <TASK-ID>` - Изтриване на задача\n`task edit <TASK-ID> <TASK>` - Прегледайте текста на задачите\n`task info <TASK-ID>` - Показва индивидуална информация за задачата\n",
+    "pl": "`task add @UŻYTKOWNIK <TASK>` - Przypisz zadanie do użytkownika\n`task add <NAZWA GRUPY> <TASK>` - Przypisz zadanie do grupy\n`task proceed <TASK-ID>` - Zmienia status zadania na przetworzone/ukończone\n`task deadline <ID Zadania> <DATE (in european format)> <TIME>` - Wyświetla listę wszystkich zadań\n`task list` <TASK-ID> - Usuwa zadanie\n`task edit <TASK-ID> <TASK>` - Popraw tekst zadania\n`task info <TASK-ID>` - Wyświetla indywidualne informacje dla zadania\n",
+    "fr": "`task add @UTILISATEUR <TÂCHE>` - Donner une tâche à l'utilisateur\n`task add <NOM DU GROUPE> <TÂCHE>` - Donner une tâche au groupe\n`task proceed <ID DE TÂCHE>` - Change le statut de la tâche en traitée/terminée\n`task deadline <ID DE TÂCHE> <DATE> <TIME>` - Fixer la date limite de la tâche\n`task list <@UTILISATEUR/NOM DU GROUPE>` - Répertorie toutes les tâches\n`task delete <ID DE TÂCHE>` - Supprimer la tâche\n`task edit <ID DE TÂCHE> <TÂCHE>` - Réviser le texte des tâches\n`task info <ID DE TÂCHE>` - Affiche des informations individuelles pour la tâche\n",
+    "ru": "`task add @ПОЛЬЗОВАТЕЛИ <ЗАДАЧА>` - Дайте задание пользователю\n`task add <ИМЯ ГРУППЫ> <ЗАДАЧА>` - Дайте задание группе\n`task proceed <TASK ID>` - Изменяет статус задания на обработанное/выполненное\n`task deadline <TASK ID> <ДАТА> <ВРЕМЯ>` - Установить срок выполнения задания\n`task list <@ПОЛЬЗОВАТЕЛИ/ИМЯ ГРУППЫ>` - Перечисляет все задачи\n`task delete <TASK ID>` - Удалить задачу\n`task edit <TASK-ID> <TASK>` - Пересмотреть текст задания\n`task info <TASK-ID>` - Отображает индивидуальную информацию для задачи\n"
 
   },
   "help_message_other_commands": {
@@ -569,5 +569,77 @@
     "pl": "Podaj znak, który powinien być użyty jako prefiks!",
     "fr": "Veuillez indiquer le caractère à utiliser comme préfixe!",
     "ru": "Пожалуйста, укажите символ, который должен использоваться в качестве префикса!"
+  },
+  "task_info_field_state": {
+    "de": "Status",
+    "en": "State",
+    "bg": "Статус",
+    "pl": "Status",
+    "fr": "Statut",
+    "ru": "Положение дел"
+  },
+  "task_info_field_task": {
+    "de": "Aufgabe",
+    "en": "Task",
+    "bg": "задача",
+    "pl": "zadanie",
+    "fr": "Tâche",
+    "ru": "задача"
+  },
+  "task_info_field_deadline": {
+    "de": "Deadline",
+    "en": "Deadline",
+    "bg": "Краен срок",
+    "pl": "Ostateczny termin",
+    "fr": "Date limite",
+    "ru": "Крайний срок"
+  },
+  "task_info_field_type": {
+    "de": "Typ",
+    "en": "Type",
+    "bg": "Тип",
+    "pl": "Rodzaj",
+    "fr": "Type",
+    "ru": "Тип"
+  },
+  "task_info_field_type_user": {
+    "de": "Nutzer",
+    "en": "User",
+    "bg": "потребител",
+    "pl": "Użytkownik",
+    "fr": "Utilisateur",
+    "ru": "пользователь"
+  },
+  "task_info_field_type_group": {
+    "de": "Gruppe",
+    "en": "Group",
+    "bg": "група",
+    "pl": "Grupa",
+    "fr": "groupe",
+    "ru": "группа"
+  },
+  "task_info_field_assigned": {
+    "de": "Zugewiesen",
+    "en": "Assigned",
+    "bg": "целеви",
+    "pl": "Przydzielony",
+    "fr": "Attribué",
+    "ru": "назначенный"
+  },
+  "version_title": {
+    "de": "Version",
+    "en": "Version",
+    "bg": "версия",
+    "pl": "wersja",
+    "fr": "version",
+    "ru": "версия"
+  },
+  "version_text": {
+    "de": "Aktuelle Version: $",
+    "en": "Current version: $",
+    "bg": "Текуща версия: $",
+    "pl": "Aktualna wersja: $",
+    "fr": "Version actuelle: $",
+    "ru": "Текущая версия: $"
   }
 }
