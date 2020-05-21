@@ -36,7 +36,7 @@ class Prefix : Command {
             if (args.size == 1) {
                 val prefix = args[0]
                 if (prefix.length == 1) {
-                    val jsonResponse = Jsoup.connect(Main.requestURL + "setPrefix.php?requestToken=" + Main.requestToken + "&serverID=" + de.bnder.taskmanager.utils.Connection.encodeString(event.guild.id) + "&prefix=" + Connection.encodeString(prefix)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
+                    val jsonResponse = Jsoup.connect(Main.requestURL + "setPrefix.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&prefix=" + Connection.encodeString(prefix)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val jsonObject = Json.parse(jsonResponse).asObject()
                     val statusCode = jsonObject.getInt("status_code", 900)
                     if (statusCode == 200) {
