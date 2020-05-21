@@ -383,7 +383,7 @@
     "fr": "Non édité",
     "ru": "Не редактируется"
   },
-  "aufgabe_erhalten":{
+  "aufgabe_erhalten": {
     "de": "Du hast folgende Aufgabe von $ erhalten:",
     "en": "You received the following task from $:",
     "bg": "Получихте дадената задача от $:",
@@ -422,7 +422,6 @@
     "pl": "`group create <NAZWA GRUPY>` - Utwórz grupę\n`group add @UŻYTKOWNIK <NAZWA GRUPY>` - Dodaj użytkownika do grupy\n`group remove @UŻYTKOWNIK <NAZWA GRUPY>` - Usuń użytkownika z grupy\n`group delete <NAZWA GRUPY>` - Usuń grupę\n`group list` - Wyświetl wszystkie grupy\n`group members <NAZWA GRUPY>` - Lista wszystkich członków grupy",
     "fr": "`group create <NOM DU GROUPE>` - Créer un groupe\n `group add @UTILISATEUR <NOM DU GROUPE>` - Ajouter des utilisateurs au groupe\n`group remove @UTILISATEUR <NOM DU GROUPE>` - Supprimer des utilisateurs du groupe\n`group delete <NOM DU GROUPE>` - Supprimer le groupe\n`group list` - Lister tous les groupes\n`group members <NOM DU GROUPE>` - Lister tous les membres du groupe",
     "ru": "`group create <ИМЯ ГРУППЫ>` - Создать группу\n`group add @ПОЛЬЗОВАТЕЛИ <ИМЯ ГРУППЫ>` - Добавить пользователей в группу\n`group remove @ПОЛЬЗОВАТЕЛИ <ИМЯ ГРУППЫ>` - Удалить пользователей из группы\n`group delete <ИМЯ ГРУППЫ>` - Удалить группу\n`group list` - Список всех групп\n`group members <GRUPPENNAME>` - Список всех членов группы"
-
   },
   "help_message_task_commands": {
     "de": "`task add @NUTZER <AUFGABE>` - Aufgabe an Nutzer geben\n`task add <GRUPPENNAME> <AUFGABE>` - Aufgabe an Gruppe geben\n`task proceed <AUFGABEN-ID>` - Ändert Status der Aufgabe zu bearbeitet/erledigt\n`task deadline <AUFGABEN-ID> <DATUM> <UHRZEIT>` - Deadline für Aufgabe setzen\n`task list <@NUTZER/GRUPPENNAME>` - Listet alle Aufgaben auf\n`task delete <AUFGABEN-ID>` - Aufgabe löschen\n`task edit <AUFGABEN-ID> <AUFGABE>` - Überarbeite den Aufgaben Text\n`task info <AUFGABEN-ID>` - Zeigt einzelne Informationen für die Aufgabe an\n",
@@ -431,7 +430,6 @@
     "pl": "`task add @UŻYTKOWNIK <TASK>` - Przypisz zadanie do użytkownika\n`task add <NAZWA GRUPY> <TASK>` - Przypisz zadanie do grupy\n`task proceed <TASK-ID>` - Zmienia status zadania na przetworzone/ukończone\n`task deadline <ID Zadania> <DATE (in european format)> <TIME>` - Wyświetla listę wszystkich zadań\n`task list` <TASK-ID> - Usuwa zadanie\n`task edit <TASK-ID> <TASK>` - Popraw tekst zadania\n`task info <TASK-ID>` - Wyświetla indywidualne informacje dla zadania\n",
     "fr": "`task add @UTILISATEUR <TÂCHE>` - Donner une tâche à l'utilisateur\n`task add <NOM DU GROUPE> <TÂCHE>` - Donner une tâche au groupe\n`task proceed <ID DE TÂCHE>` - Change le statut de la tâche en traitée/terminée\n`task deadline <ID DE TÂCHE> <DATE> <TIME>` - Fixer la date limite de la tâche\n`task list <@UTILISATEUR/NOM DU GROUPE>` - Répertorie toutes les tâches\n`task delete <ID DE TÂCHE>` - Supprimer la tâche\n`task edit <ID DE TÂCHE> <TÂCHE>` - Réviser le texte des tâches\n`task info <ID DE TÂCHE>` - Affiche des informations individuelles pour la tâche\n",
     "ru": "`task add @ПОЛЬЗОВАТЕЛИ <ЗАДАЧА>` - Дайте задание пользователю\n`task add <ИМЯ ГРУППЫ> <ЗАДАЧА>` - Дайте задание группе\n`task proceed <TASK ID>` - Изменяет статус задания на обработанное/выполненное\n`task deadline <TASK ID> <ДАТА> <ВРЕМЯ>` - Установить срок выполнения задания\n`task list <@ПОЛЬЗОВАТЕЛИ/ИМЯ ГРУППЫ>` - Перечисляет все задачи\n`task delete <TASK ID>` - Удалить задачу\n`task edit <TASK-ID> <TASK>` - Пересмотреть текст задания\n`task info <TASK-ID>` - Отображает индивидуальную информацию для задачи\n"
-
   },
   "help_message_other_commands": {
     "de": "`token` - Gibt den Token für die Website & App\n`token new` - Erneuert den Token\n`help` - Listet alle Befehle auf\n`support` - Discord Link\n`app` - App-Informationen\n`stats` - Statistiken\n`prefix <PREFIX>` - Ändert den Präfix des Bots\n",
@@ -440,7 +438,6 @@
     "pl": "`token` - Daje token dla strony internetowej i aplikacji\n`token new` - Generuje nowy token\n`help` - Wyświetlam wszystkie polecenia\n`support` - Discord Link\n`app` - Informacje o Aplikacji\n`stats` - Statystyki\n`prefix <PREFIX>` - Zmienia prefiks bota\n",
     "fr": "`token` - Renvoie le jeton du site Web et de l'application\n`token new` - Renouveler le jeton\n`help` - Répertorie toutes les commandes\n`support` - Lien Discord\n`app` - Informations sur l'application\n`stats` - Statistiques\n`prefix <PREFIX>` - Modifie le préfixe du bot\n",
     "ru": "`token` - Возвращает токен для сайта и приложения\n`token new` - Обновить токен\n`help` - Перечисляет все команды\n`support` - Discord Link\n`app` - Информация о приложении\n`stats` - статистика\n`!prefix <PREFIX>` - Меняет префикс бота\n"
-
   },
   "stats_field_server": {
     "de": "Server",
@@ -641,5 +638,21 @@
     "pl": "Aktualna wersja: $",
     "fr": "Version actuelle: $",
     "ru": "Текущая версия: $"
+  },
+  "deadline_remind_group": {
+    "de": "Du hast weniger als 24 Stunden Zeit für die Aufgabe `$`($) aus der Gruppe `$`! Deadline: **$**",
+    "en": "You have less than 24 hours to complete the task `$` ($) from the group `$`! Deadline: **$**",
+    "bg": "Имате по-малко от 24 часа, за да изпълните задачата `$` ($) от групата `$`! Краен срок: **$**",
+    "pl": "Masz mniej niż 24 godziny na wykonanie zadania `$` ($) z grupy `$`! Termin: **$**",
+    "fr": "Vous avez moins de 24 heures pour terminer la tâche `$` ($) du groupe `$`! Date limite: **$**",
+    "ru": "У вас меньше 24 часов для выполнения задачи `$` ($) из группы `$`! Срок исполнения: **$**"
+  },
+  "deadline_remind_user": {
+    "de": "Du hast weniger als 24 Stunden Zeit für die Aufgabe `$`($)! Deadline: **$**",
+    "en": "You have less than 24 hours to complete the task `$` ($)! Deadline: **$**",
+    "bg": "Имате по-малко от 24 часа, за да изпълните задачата `$` ($)! Краен срок: **$**",
+    "pl": "Masz mniej niż 24 godziny na wykonanie zadania `$` ($)! Termin: **$**",
+    "fr": "Vous avez moins de 24 heures pour terminer la tâche `$` ($)! Date limite: **$**",
+    "ru": "У вас меньше 24 часов для выполнения задачи `$` ($)! Срок исполнения: **$**"
   }
 }

@@ -39,15 +39,6 @@ public class Main {
 
     public static final String prefix = "-";
 
-    //CHANGELOG:
-    //-task add @USER @USER... TASK HERE
-    //-group add @USER @USER... GROUPNAME
-    //-group remove @USER @USER... GROUPNAME
-    //Bug fix in "-group members"
-    //IDS are now 5 Numbers long
-    //-task info TASKID
-    //Group members will get dm with task when task is assigned to their group
-
     public static void main(String[] args) {
         new Connection().defineConnection();
 
@@ -79,7 +70,7 @@ public class Main {
         CommandHandler.commands.put("app", new App());
 
         builder.setStatus(OnlineStatus.ONLINE);
-        builder.setActivity(Activity.playing("https://bnder.de"));
+        builder.setActivity(Activity.playing("bnder.net"));
         try {
             ShardManager shardManager = builder.build();
         } catch (LoginException e) {

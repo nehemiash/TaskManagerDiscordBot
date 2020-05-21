@@ -1,5 +1,6 @@
 package de.bnder.taskmanager.listeners
 
+import de.bnder.taskmanager.utils.DeadlineReminders
 import de.bnder.taskmanager.utils.UpdateServerName
 import net.dv8tion.jda.api.events.ReadyEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
@@ -28,5 +29,6 @@ class Ready : ListenerAdapter() {
             } catch (ignored: IOException) {
             }
         }
+        DeadlineReminders.start(e.jda.shardManager)
     }
 }
