@@ -654,5 +654,23 @@
     "pl": "Masz mniej niż 24 godziny na wykonanie zadania `$` ($)! Termin: **$**",
     "fr": "Vous avez moins de 24 heures pour terminer la tâche `$` ($)! Date limite: **$**",
     "ru": "У вас меньше 24 часов для выполнения задачи `$` ($)! Срок исполнения: **$**"
+  },
+  "settings_title": {
+    "de": "Einstellungen"
+  },
+  "settings_dm_enabled": {
+    "de": "Du erhälst nun eine Direktnachricht sobald eine Aufgabe an dich verteilt wurde."
+  },
+  "settings_dm_disabled": {
+    "de": "Du erhälst nun keine Direktnachricht mehr, wenn eine Aufgabe an dich verteilt wurde."
+  },
+  "settings_list_enabled": {
+    "de": ":check: Aktiviert"
+  },
+  "settings_list_disabled": {
+    "de": ":x: Deaktiviert"
+  },
+  "settings_list_direct_message": {
+    "de": "Direktnachricht bei neuer Aufgabe"
   }
 }
