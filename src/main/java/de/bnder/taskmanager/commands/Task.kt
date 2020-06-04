@@ -436,6 +436,8 @@ class Task : Command {
                         builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_wird_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n")
                     }
                     array = jsonObject["done"].asArray()
+                    val showDoneTasks = Settings.getUserSettings(event.author.id).getString("show_done_tasks", "1") as String
+                    var tasksHidden = 0;
                     for (i in 0 until array.size()) {
                         val taskID = array[i].asString()
                         val task = jsonObject[taskID].asObject()["task"].asString()
@@ -444,14 +446,29 @@ class Task : Command {
                         if (deadline.length > 0) {
                             dLine = "$deadline |"
                         }
-                        builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_erledigt", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n")
-                    }
-                    MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer", langCode, object : ArrayList<String?>() {
-                        init {
-                            add(member.asMention)
-                            add(builder.toString())
+
+                        if (showDoneTasks.equals("1")) {
+                            builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_erledigt", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n")
+                        } else {
+                            tasksHidden++
                         }
-                    }), event.message, Color.green)
+                    }
+                    if (showDoneTasks.equals("1")) {
+                        MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer", langCode, object : ArrayList<String?>() {
+                            init {
+                                add(member.asMention)
+                                add(builder.toString())
+                            }
+                        }), event.message, Color.green)
+                    } else {
+                        MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer_no_done_tasks", langCode, object : ArrayList<String?>() {
+                            init {
+                                add(member.asMention)
+                                add(builder.toString())
+                                add(tasksHidden.toString())
+                            }
+                        }), event.message, Color.green)
+                    }
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), event.message, Color.red)
                 }

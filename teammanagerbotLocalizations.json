@@ -399,6 +399,14 @@
     "fr": "Toutes les tâches de $:\n$",
     "ru": "Все задания от $:\n$"
   },
+  "alle_aufgaben_von_nutzer_no_done_tasks": {
+    "de": "Alle Aufgaben von $:\n$\n$ Aufgaben ausgeblendet",
+    "en": "$ tasks:\n$\n$ Tasks hidden",
+    "bg": "$ задачи:\n$\n$ Задачи скрити",
+    "pl": "$ zadania:\n$\n$ Zadania ukryte",
+    "fr": "Toutes les tâches de $:\n$\n$ Tâches masquées",
+    "ru": "Все задания от $:\n$\n$ Задачи скрыты"
+  },
   "alle_aufgaben_von_gruppe": {
     "de": "Alle Aufgaben von Gruppe $:\n$",
     "en": "All tasks from Group $:\n$",
@@ -656,21 +664,66 @@
     "ru": "У вас меньше 24 часов для выполнения задачи `$` ($)! Срок исполнения: **$**"
   },
   "settings_title": {
-    "de": "Einstellungen"
+    "de": "Einstellungen",
+    "en": "Settings",
+    "bg": "Настройки",
+    "pl": "Ustawienia",
+    "fr": "Réglages",
+    "ru": "настройки"
   },
   "settings_dm_enabled": {
-    "de": "Du erhälst nun eine Direktnachricht sobald eine Aufgabe an dich verteilt wurde."
+    "de": "Du erhältst nun eine Direktnachricht sobald eine Aufgabe an dich verteilt wurde."
   },
   "settings_dm_disabled": {
-    "de": "Du erhälst nun keine Direktnachricht mehr, wenn eine Aufgabe an dich verteilt wurde."
+    "de": "Du erhältst nun keine Direktnachricht mehr, wenn eine Aufgabe an dich verteilt wurde.",
+    "en": "You will now receive a direct message as soon as a task has been distributed to you.",
+    "bg": "Вече ще получите директно съобщение, веднага щом задачата ви бъде разпределена.",
+    "pl": "Otrzymasz teraz bezpośrednią wiadomość, gdy tylko zadanie zostanie Ci przekazane.",
+    "fr": "Vous recevrez désormais un message direct dès qu'une tâche vous aura été distribuée.",
+    "ru": "Теперь вы получите прямое сообщение, как только вам будет передано задание."
+  },
+  "settings_show_done_tasks_enabled": {
+    "de": "Erledigte Aufgaben werden nun wieder in der Aufgabenliste angezeigt.",
+    "en": "Completed tasks are now displayed in the task list again.",
+    "bg": "Завършените задачи отново се показват в списъка със задачи.",
+    "pl": "Ukończone zadania są teraz ponownie wyświetlane na liście zadań.",
+    "fr": "Les tâches terminées sont à nouveau affichées dans la liste des tâches.",
+    "ru": "Завершенные задачи теперь снова отображаются в списке задач."
+  },
+  "settings_show_done_tasks_disabled": {
+    "de": "Erledigte Aufgaben werden nun aus der Aufgabenliste ausgeblendet.",
+    "en": "Completed tasks are now hidden from the task list.",
+    "bg": "Завършените задачи вече са скрити от списъка със задачи.",
+    "pl": "Ukończone zadania są teraz ukryte na liście zadań.",
+    "fr": "Les tâches terminées sont désormais masquées dans la liste des tâches.",
+    "ru": "Завершенные задачи теперь скрыты от списка задач."
   },
   "settings_list_enabled": {
-    "de": ":check: Aktiviert"
+    "de": ":check: Aktiviert",
+    "en": ":check: Activated",
+    "bg": ":check: Активиран",
+    "pl": ":check: Aktywowany",
+    "fr": ":check: Activé",
+    "ru": ":check: активированная"
   },
   "settings_list_disabled": {
-    "de": ":x: Deaktiviert"
+    "de": ":x: Deaktiviert",
+    "en": ":x: Disabled",
+    "bg": ":x: хора с увреждания",
+    "pl": ":x: Niepełnosprawny",
+    "fr": ":x: désactivé",
+    "ru": ":x: Отключено"
   },
   "settings_list_direct_message": {
-    "de": "Direktnachricht bei neuer Aufgabe"
+    "de": "Direktnachricht bei neuer Aufgabe",
+    "en": "Direct message for a new task"
+  },
+  "settings_list_show_done_tasks": {
+    "de": "Erledigte Nachrichten in Liste anzeigen",
+    "en": "Show completed messages in a list"
+  },
+  "settings_invalid_arg": {
+    "de": "Gültige Einstellungen:\n`settings direct-message` - De-/Aktiviert die Direktnachricht bei einer neuen Aufgabe\n`settings show-done-tasks` - De-/Aktiviert die Anzeige von erledigten Aufgaben bei der Aufgabenliste\n",
+    "en": "Valid settings:\n`settings direct-message` - enable / disable the direct message for a new task\n`settings show-done-tasks` - enable / disable the display of completed tasks in the task list"
   }
 }
