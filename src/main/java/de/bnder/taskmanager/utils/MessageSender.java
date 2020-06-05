@@ -20,6 +20,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 import java.awt.*;
 import java.util.Calendar;
+import java.util.Random;
 
 public class MessageSender {
     public static void send(String title, String s, Message msg, Color red) {
@@ -28,6 +29,11 @@ public class MessageSender {
         builder.setDescription(s);
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
+
+        if (new Random().nextInt(100) + 1 <= 5) {
+            final String langCode = Localizations.Companion.getGuildLanguage(msg.getGuild());
+            builder.setFooter(Localizations.Companion.getString("donate_alert", langCode));
+        }
 
         msg.getChannel().sendMessage(builder.build()).queue();
     }

@@ -39,6 +39,14 @@ public class Main {
 
     public static final String prefix = "-";
 
+    //Changelog
+    //settings Command added
+    //DMs when receiving a new task can be turned off
+    //Task ID is sent via dm when receiving a task
+    //Channel- and User-Mentions are now displayed as text in task
+    //Done Tasks can be hidden via settings Command
+    //Donation notices are 5% likely to appear in messages.
+
     public static void main(String[] args) {
         new Connection().defineConnection();
 

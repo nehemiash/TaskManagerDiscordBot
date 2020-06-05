@@ -56,6 +56,7 @@ class Task : Command {
                                 channel.sendMessage(Localizations.getString("aufgabe_erhalten", langCode, object : ArrayList<String?>() {
                                     init {
                                         add(event.author.asTag)
+                                        add(jsonObject.getString("task_id", ""))
                                     }
                                 })).queue()
                                 channel.sendMessage(URLDecoder.decode(task, StandardCharsets.UTF_8.toString())).queue()

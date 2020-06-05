@@ -384,12 +384,12 @@
     "ru": "Не редактируется"
   },
   "aufgabe_erhalten": {
-    "de": "Du hast folgende Aufgabe von $ erhalten:",
-    "en": "You received the following task from $:",
-    "bg": "Получихте дадената задача от $:",
-    "pl": "Otrzymałeś następujące zadanie od $:",
-    "fr": "Vous avez obtenu la tâche suivante de $:",
-    "ru": "Вы получили следующее задание от $:"
+    "de": "Du hast folgende Aufgabe von $ erhalten (ID: $):",
+    "en": "You received the following task from $ (ID: $):",
+    "bg": "Получихте дадената задача от $ (ID: $):",
+    "pl": "Otrzymałeś następujące zadanie od $ (ID: $):",
+    "fr": "Vous avez obtenu la tâche suivante de $ (ID: $):",
+    "ru": "Вы получили следующее задание от $ (ID: $):"
   },
   "alle_aufgaben_von_nutzer": {
     "de": "Alle Aufgaben von $:\n$",
@@ -440,12 +440,12 @@
     "ru": "`task add @ПОЛЬЗОВАТЕЛИ <ЗАДАЧА>` - Дайте задание пользователю\n`task add <ИМЯ ГРУППЫ> <ЗАДАЧА>` - Дайте задание группе\n`task proceed <TASK ID>` - Изменяет статус задания на обработанное/выполненное\n`task deadline <TASK ID> <ДАТА> <ВРЕМЯ>` - Установить срок выполнения задания\n`task list <@ПОЛЬЗОВАТЕЛИ/ИМЯ ГРУППЫ>` - Перечисляет все задачи\n`task delete <TASK ID>` - Удалить задачу\n`task edit <TASK-ID> <TASK>` - Пересмотреть текст задания\n`task info <TASK-ID>` - Отображает индивидуальную информацию для задачи\n"
   },
   "help_message_other_commands": {
-    "de": "`token` - Gibt den Token für die Website & App\n`token new` - Erneuert den Token\n`help` - Listet alle Befehle auf\n`support` - Discord Link\n`app` - App-Informationen\n`stats` - Statistiken\n`prefix <PREFIX>` - Ändert den Präfix des Bots\n",
-    "en": "`token` - Gives the token for the Website & App\n`token new` - Generates a new token\n`help` - Lists all commands\n`support` - Discord Link\n`app` - Information about the App\n`stats` - Shows some stats\n`prefix <PREFIX>` - Changes the prefix of the bot\n",
-    "bg": "`token` - Връща символа за уебсайта и приложението\n`token new` - Променя маркера\n`help` - Изброява всички команди\n`support` - Discord Link\n`app` - Информация за приложението\n`stats` - статистика\n`prefix <PREFIX>` - Променя префикса на бота\n",
-    "pl": "`token` - Daje token dla strony internetowej i aplikacji\n`token new` - Generuje nowy token\n`help` - Wyświetlam wszystkie polecenia\n`support` - Discord Link\n`app` - Informacje o Aplikacji\n`stats` - Statystyki\n`prefix <PREFIX>` - Zmienia prefiks bota\n",
-    "fr": "`token` - Renvoie le jeton du site Web et de l'application\n`token new` - Renouveler le jeton\n`help` - Répertorie toutes les commandes\n`support` - Lien Discord\n`app` - Informations sur l'application\n`stats` - Statistiques\n`prefix <PREFIX>` - Modifie le préfixe du bot\n",
-    "ru": "`token` - Возвращает токен для сайта и приложения\n`token new` - Обновить токен\n`help` - Перечисляет все команды\n`support` - Discord Link\n`app` - Информация о приложении\n`stats` - статистика\n`!prefix <PREFIX>` - Меняет префикс бота\n"
+    "de": "`token` - Gibt den Token für die Website & App\n`token new` - Erneuert den Token\n`help` - Listet alle Befehle auf\n`support` - Discord Link\n`app` - App-Informationen\n`stats` - Statistiken\n`prefix <PREFIX>` - Ändert den Präfix des Bots\n`settings` - Zeigt Einstellungen an\n",
+    "en": "`token` - Gives the token for the Website & App\n`token new` - Generates a new token\n`help` - Lists all commands\n`support` - Discord Link\n`app` - Information about the App\n`stats` - Shows some stats\n`prefix <PREFIX>` - Changes the prefix of the bot\n`settings` - Displays settings\n",
+    "bg": "`token` - Връща символа за уебсайта и приложението\n`token new` - Променя маркера\n`help` - Изброява всички команди\n`support` - Discord Link\n`app` - Информация за приложението\n`stats` - статистика\n`prefix <PREFIX>` - Променя префикса на бота\n`settings` - Показва настройките\n",
+    "pl": "`token` - Daje token dla strony internetowej i aplikacji\n`token new` - Generuje nowy token\n`help` - Wyświetlam wszystkie polecenia\n`support` - Discord Link\n`app` - Informacje o Aplikacji\n`stats` - Statystyki\n`prefix <PREFIX>` - Zmienia prefiks bota\n`settings` - Wyświetla ustawienia\n",
+    "fr": "`token` - Renvoie le jeton du site Web et de l'application\n`token new` - Renouveler le jeton\n`help` - Répertorie toutes les commandes\n`support` - Lien Discord\n`app` - Informations sur l'application\n`stats` - Statistiques\n`prefix <PREFIX>` - Modifie le préfixe du bot\n`settings` - Affiche les paramètres\n",
+    "ru": "`token` - Возвращает токен для сайта и приложения\n`token new` - Обновить токен\n`help` - Перечисляет все команды\n`support` - Discord Link\n`app` - Информация о приложении\n`stats` - статистика\n`!prefix <PREFIX>` - Меняет префикс бота\n`settings` - Отображает настройки\n"
   },
   "stats_field_server": {
     "de": "Server",
@@ -672,7 +672,12 @@
     "ru": "настройки"
   },
   "settings_dm_enabled": {
-    "de": "Du erhältst nun eine Direktnachricht sobald eine Aufgabe an dich verteilt wurde."
+    "de": "Du erhältst nun eine Direktnachricht sobald eine Aufgabe an dich verteilt wurde.",
+    "en": "You will now receive a direct message as soon as a task has been distributed to you.",
+    "bg": "Вече ще получите директно съобщение, веднага щом задачата ви бъде разпределена.",
+    "pl": "Otrzymasz teraz bezpośrednią wiadomość, gdy tylko zadanie zostanie Ci przekazane.",
+    "fr": "Vous recevrez désormais un message direct dès qu'une tâche vous aura été distribuée.",
+    "ru": "Теперь вы получите прямое сообщение, как только вам будет передано задание."
   },
   "settings_dm_disabled": {
     "de": "Du erhältst nun keine Direktnachricht mehr, wenn eine Aufgabe an dich verteilt wurde.",
@@ -716,14 +721,34 @@
   },
   "settings_list_direct_message": {
     "de": "Direktnachricht bei neuer Aufgabe",
-    "en": "Direct message for a new task"
+    "en": "Direct message for a new task",
+    "bg": "Директно съобщение за нова задача",
+    "pl": "Bezpośrednia wiadomość dla nowego zadania",
+    "fr": "Message direct pour une nouvelle tâche",
+    "ru": "Прямое сообщение для новой задачи"
   },
   "settings_list_show_done_tasks": {
-    "de": "Erledigte Nachrichten in Liste anzeigen",
-    "en": "Show completed messages in a list"
+    "de": "Erledigte Nachrichten in der Liste anzeigen",
+    "en": "Show completed messages in the list",
+    "bg": "Показване на завършените съобщения в списъка",
+    "pl": "Pokaż ukończone wiadomości na liście",
+    "fr": "Afficher les messages terminés dans la liste",
+    "ru": "Показать завершенные сообщения в списке"
   },
   "settings_invalid_arg": {
     "de": "Gültige Einstellungen:\n`settings direct-message` - De-/Aktiviert die Direktnachricht bei einer neuen Aufgabe\n`settings show-done-tasks` - De-/Aktiviert die Anzeige von erledigten Aufgaben bei der Aufgabenliste\n",
-    "en": "Valid settings:\n`settings direct-message` - enable / disable the direct message for a new task\n`settings show-done-tasks` - enable / disable the display of completed tasks in the task list"
+    "en": "Valid settings:\n`settings direct-message` - enable / disable the direct message for a new task\n`settings show-done-tasks` - enable / disable the display of completed tasks in the task list",
+    "bg": "Валидни настройки:\n`settings direct-message` - активиране / деактивиране на директното съобщение за нова задача\n`settings show-done-tasks` - активиране / деактивиране на показването на изпълнени задачи в списъка със задачи",
+    "pl": "Prawidłowe ustawienia:\n`settings direct-message` - włącza / wyłącza bezpośredni komunikat dla nowego zadania\n`settings show-done-tasks` - włącza / wyłącza wyświetlanie ukończonych zadań na liście zadań",
+    "fr": "Paramètres valides:\n`settings direct-message` - active / désactive le message direct pour une nouvelle tâche\n`settings show-done-tasks` - active / désactive l'affichage des tâches terminées dans la liste des tâches",
+    "ru": "Допустимые настройки:\n`settings direct-message` - включить / отключить прямое сообщение для новой задачи\n`settings show-done-tasks` - включить / отключить отображение выполненных задач в списке задач"
+  },
+  "donate_alert": {
+    "de": "Unterstütze uns auf bnder.de/donate",
+    "en": "Support us on bnder.net/donate",
+    "bg": "Поддержите нас на bnder.net/donate",
+    "pl": "Wesprzyj nas na bnder.net/donate",
+    "fr": "Soutenez-nous sur bnder.net/donate",
+    "ru": "Поддержите нас на bnder.net/donate"
   }
 }
