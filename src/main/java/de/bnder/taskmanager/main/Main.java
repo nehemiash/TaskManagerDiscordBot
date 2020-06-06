@@ -46,6 +46,7 @@ public class Main {
     //Channel- and User-Mentions are now displayed as text in task
     //Done Tasks can be hidden via settings Command
     //Donation notices are 5% likely to appear in messages.
+    //task done <TASK-ID> added
 
     public static void main(String[] args) {
         new Connection().defineConnection();

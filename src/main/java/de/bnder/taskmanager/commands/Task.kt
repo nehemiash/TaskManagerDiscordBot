@@ -304,6 +304,29 @@ class Task : Command {
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode), event.message, Color.red)
                 }
+            } else if (args[0].equals("done", ignoreCase = true)) {
+                val taskID = StringEscapeUtils.escapeSql(args[1])
+                val jsonResponse = Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&task_id=" + taskID).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body()
+                val jsonObject = Json.parse(jsonResponse).asObject()
+                val status_code = jsonObject.getInt("status_code", 900)
+                if (status_code == 200) {
+                    val jsonResponse2 = Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&task_id=" + taskID).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body()
+                    val jsonObject2 = Json.parse(jsonResponse2).asObject()
+                    val status_code2 = jsonObject2.getInt("status_code", 900)
+                    if (status_code2 == 200) {
+                        MessageSender.send(embedTitle, Localizations.getString("aufgabe_erledigt", langCode), event.message, Color.green)
+                    } else {
+                        MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode), event.message, Color.red)
+                    }
+                } else if (status_code == 902) {
+                    MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, object : ArrayList<String?>() {
+                        init {
+                            add(taskID)
+                        }
+                    }), event.message, Color.red)
+                } else {
+                    MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode), event.message, Color.red)
+                }
             } else if (args[0].equals("proceed", ignoreCase = true)) {
                 val taskID = Connection.encodeString(args[1])
                 val jsonResponse = Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&task_id=" + taskID + "&server_id=" + Connection.encodeString(guild.id)).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body()
