@@ -23,6 +23,7 @@ import de.bnder.taskmanager.utils.Connection;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.jsoup.Jsoup;
 
@@ -37,16 +38,16 @@ public class Settings implements Command {
         final String langCode = Localizations.Companion.getGuildLanguage(event.getGuild());
         final String embedTitle = Localizations.Companion.getString("settings_title", langCode);
         if (args.length == 1) {
-            String arg0 = args[0].replaceAll("-", "").replaceAll("_", "");
+            final String arg0 = args[0].replaceAll("-", "").replaceAll("_", "");
             if (arg0.equalsIgnoreCase("directmessage")) {
-                final String jsonResponse = Jsoup.connect(Main.requestURL + "updateSettings.php?requestToken=" + Main.requestToken + "&user_id=" + Connection.encodeString(event.getAuthor().getId()) + "&source=" + Connection.encodeString("direct_message") + "&default=0").timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
+                final String jsonResponse = Jsoup.connect(Main.requestURL + "updateSettings.php?requestToken=" + Main.requestToken + "&user_id=" + Connection.encodeString(event.getAuthor().getId()) + "&source=" + Connection.encodeString("direct_message") + "&default=0" + "&guild_id=" + Connection.encodeString(event.getGuild().getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
                 final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
                 final int statusCode = jsonObject.getInt("status_code", 900);
                 if (statusCode == 200) {
                     final int newValue = jsonObject.getInt("newValue", -1);
                     if (newValue == 1) {
                         MessageSender.send(embedTitle, Localizations.Companion.getString("settings_dm_enabled", langCode), event.getMessage(), Color.green);
-                    } else if (newValue == 0) {
+                    } else if (newValue == 2) {
                         MessageSender.send(embedTitle, Localizations.Companion.getString("settings_dm_disabled", langCode), event.getMessage(), Color.green);
                     } else {
                         MessageSender.send(embedTitle, Localizations.Companion.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {{
@@ -59,7 +60,7 @@ public class Settings implements Command {
                     }}), event.getMessage(), Color.red);
                 }
             } else if (arg0.equalsIgnoreCase("showdonetasks")) {
-                final String jsonResponse = Jsoup.connect(Main.requestURL + "updateSettings.php?requestToken=" + Main.requestToken + "&user_id=" + Connection.encodeString(event.getAuthor().getId()) + "&source=" + Connection.encodeString("show_done_tasks") + "&default=1").timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
+                final String jsonResponse = Jsoup.connect(Main.requestURL + "updateSettings.php?requestToken=" + Main.requestToken + "&user_id=" + Connection.encodeString(event.getAuthor().getId()) + "&source=" + Connection.encodeString("show_done_tasks") + "&default=1" + "&guild_id=" + Connection.encodeString(event.getGuild().getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
                 final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
                 final int statusCode = jsonObject.getInt("status_code", 900);
                 if (statusCode == 200) {
@@ -82,7 +83,7 @@ public class Settings implements Command {
                 MessageSender.send(embedTitle, Localizations.Companion.getString("settings_invalid_arg", langCode), event.getMessage(), Color.red);
             }
         } else if (args.length == 0) {
-            final JsonObject userSettings = de.bnder.taskmanager.utils.Settings.getUserSettings(event.getAuthor().getId());
+            final JsonObject userSettings = de.bnder.taskmanager.utils.Settings.getUserSettings(event.getMember());
             final EmbedBuilder embedBuilder = new EmbedBuilder().setColor(Color.cyan).setTimestamp(Calendar.getInstance().toInstant()).setTitle(embedTitle + " - " + event.getAuthor().getAsTag());
             if (userSettings.getString("direct_message", "1").equals("1")) {
                 embedBuilder.addField(Localizations.Companion.getString("settings_list_direct_message", langCode), Localizations.Companion.getString("settings_list_enabled", langCode), false);
@@ -94,8 +95,42 @@ public class Settings implements Command {
             } else {
                 embedBuilder.addField(Localizations.Companion.getString("settings_list_show_done_tasks", langCode), Localizations.Companion.getString("settings_list_disabled", langCode), false);
             }
+            if (userSettings.getString("notify_channel", null) != null && event.getGuild().getTextChannelById(userSettings.getString("notify_channel", "123")) != null) {
+                embedBuilder.addField(Localizations.Companion.getString("settings_list_notify_channel", langCode), event.getGuild().getTextChannelById(userSettings.getString("notify_channel", "123")).getAsMention(), false);
+            } else {
+                embedBuilder.addField(Localizations.Companion.getString("settings_list_notify_channel", langCode), "---", false);
+            }
             embedBuilder.setDescription(Localizations.Companion.getString("settings_invalid_arg", langCode));
             event.getChannel().sendMessage(embedBuilder.build()).queue();
+        } else if (args.length == 2) {
+            final String arg0 = args[0].replaceAll("-", "").replaceAll("_", "");
+            if (arg0.equalsIgnoreCase("notifychannel")) {
+                if (event.getMessage().getMentionedChannels().size() == 1) {
+                    final TextChannel channel = event.getMessage().getMentionedChannels().get(0);
+                    final String jsonResponse = Jsoup.connect(Main.requestURL + "updateSettings.php?requestToken=" + Main.requestToken + "&default=0" +  "&user_id=" + Connection.encodeString(event.getAuthor().getId()) + "&source=" + Connection.encodeString("notify_channel") + "&value=" + Connection.encodeString(channel.getId()) + "&guild_id=" + Connection.encodeString(event.getGuild().getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
+                    final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
+                    final int statusCode = jsonObject.getInt("status_code", 900);
+                    if (statusCode == 200) {
+                        if (!de.bnder.taskmanager.utils.Settings.getUserSettings(event.getMember()).getString("direct_message", "1").equals("0")) {
+                            MessageSender.send(embedTitle, Localizations.Companion.getString("notify_channel_set_but_dms_are_enabled", langCode, new ArrayList<String>(){{
+                                add(channel.getAsMention());
+                            }}), event.getMessage(), Color.green);
+                        } else {
+                            MessageSender.send(embedTitle, Localizations.Companion.getString("notify_channel_set", langCode, new ArrayList<String>(){{
+                                add(channel.getAsMention());
+                            }}), event.getMessage(), Color.green);
+                        }
+                    } else {
+                        MessageSender.send(embedTitle, Localizations.Companion.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {{
+                            add("SETTINGS-3-" + statusCode);
+                        }}), event.getMessage(), Color.red);
+                    }
+                } else {
+                    MessageSender.send(embedTitle, Localizations.Companion.getString("notify_mention_one_channel", langCode), event.getMessage(), Color.red);
+                }
+            }else {
+                MessageSender.send(embedTitle, Localizations.Companion.getString("settings_invalid_arg", langCode), event.getMessage(), Color.red);
+            }
         } else {
             MessageSender.send(embedTitle, Localizations.Companion.getString("settings_invalid_arg", langCode), event.getMessage(), Color.red);
         }

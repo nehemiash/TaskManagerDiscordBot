@@ -704,12 +704,12 @@
     "ru": "Завершенные задачи теперь скрыты от списка задач."
   },
   "settings_list_enabled": {
-    "de": ":check: Aktiviert",
-    "en": ":check: Activated",
-    "bg": ":check: Активиран",
-    "pl": ":check: Aktywowany",
-    "fr": ":check: Activé",
-    "ru": ":check: активированная"
+    "de": ":white_check_mark: Aktiviert",
+    "en": ":white_check_mark: Activated",
+    "bg": ":white_check_mark: Активиран",
+    "pl": ":white_check_mark: Aktywowany",
+    "fr": ":white_check_mark: Activé",
+    "ru": ":white_check_mark: активированная"
   },
   "settings_list_disabled": {
     "de": ":x: Deaktiviert",
@@ -735,13 +735,21 @@
     "fr": "Afficher les messages terminés dans la liste",
     "ru": "Показать завершенные сообщения в списке"
   },
+  "settings_list_notify_channel": {
+    "de": "Textkanal für neue Aufgaben",
+    "en": "Text channel for new tasks",
+    "bg": "Текстов канал за нови задачи",
+    "pl": "Kanał tekstowy do nowych zadań",
+    "fr": "Canal de texte pour les nouvelles tâches",
+    "ru": "Текстовый канал для новых задач"
+  },
   "settings_invalid_arg": {
-    "de": "Gültige Einstellungen:\n`settings direct-message` - De-/Aktiviert die Direktnachricht bei einer neuen Aufgabe\n`settings show-done-tasks` - De-/Aktiviert die Anzeige von erledigten Aufgaben bei der Aufgabenliste\n",
-    "en": "Valid settings:\n`settings direct-message` - enable / disable the direct message for a new task\n`settings show-done-tasks` - enable / disable the display of completed tasks in the task list",
-    "bg": "Валидни настройки:\n`settings direct-message` - активиране / деактивиране на директното съобщение за нова задача\n`settings show-done-tasks` - активиране / деактивиране на показването на изпълнени задачи в списъка със задачи",
-    "pl": "Prawidłowe ustawienia:\n`settings direct-message` - włącza / wyłącza bezpośredni komunikat dla nowego zadania\n`settings show-done-tasks` - włącza / wyłącza wyświetlanie ukończonych zadań na liście zadań",
-    "fr": "Paramètres valides:\n`settings direct-message` - active / désactive le message direct pour une nouvelle tâche\n`settings show-done-tasks` - active / désactive l'affichage des tâches terminées dans la liste des tâches",
-    "ru": "Допустимые настройки:\n`settings direct-message` - включить / отключить прямое сообщение для новой задачи\n`settings show-done-tasks` - включить / отключить отображение выполненных задач в списке задач"
+    "de": "Gültige Einstellungen:\n`settings direct-message` - De-/Aktiviert die Direktnachricht bei einer neuen Aufgabe\n`settings show-done-tasks` - De-/Aktiviert die Anzeige von erledigten Aufgaben bei der Aufgabenliste\n`settings notify-channel #KANAL` - Ändert den Kanal für neue Aufgaben",
+    "en": "Valid settings:\n`settings direct-message` - enable / disable the direct message for a new task\n`settings show-done-tasks` - enable / disable the display of completed tasks in the task list\n`settings notify-channel #channel` - changes the channel for new tasks",
+    "bg": "Валидни настройки:\n`settings direct-message` - активиране / деактивиране на директното съобщение за нова задача\n`settings show-done-tasks` - активиране / деактивиране на показването на изпълнени задачи в списъка със задачи\n`settings notifiy-channel #канал` - променя канала за нови задачи",
+    "pl": "Prawidłowe ustawienia:\n`settings direct-message` - włącza / wyłącza bezpośredni komunikat dla nowego zadania\n`settings show-done-tasks` - włącza / wyłącza wyświetlanie ukończonych zadań na liście zadań\n`settings notify-channel #Channel` - zmienia kanał dla nowych zadań",
+    "fr": "Paramètres valides:\n`settings direct-message` - active / désactive le message direct pour une nouvelle tâche\n`settings show-done-tasks` - active / désactive l'affichage des tâches terminées dans la liste des tâches\n`settings notify-channel #CHANNEL` - change le canal pour les nouvelles tâches",
+    "ru": "Допустимые настройки:\n`settings direct-message` - включить / отключить прямое сообщение для новой задачи\n`settings show-done-tasks` - включить / отключить отображение выполненных задач в списке задач\n`settings notify-channel #Channel` - меняет канал на новые задачи"
   },
   "donate_alert": {
     "de": "Unterstütze uns auf bnder.de/donate",
@@ -750,5 +758,29 @@
     "pl": "Wesprzyj nas na bnder.net/donate",
     "fr": "Soutenez-nous sur bnder.net/donate",
     "ru": "Поддержите нас на bnder.net/donate"
+  },
+  "notify_channel_set_but_dms_are_enabled": {
+    "de": "Neue Aufgaben für dich werden in $ gesendet, sobald die Direktnachrichten (direct-message) deaktiviert wurde.",
+    "en": "New tasks for you will be sent in $ as soon as the direct message has been deactivated.",
+    "bg": "Новите задачи за вас ще бъдат изпратени в $, веднага щом директното съобщение е деактивирано.",
+    "pl": "Nowe zadania zostaną wysłane w $, jak tylko wiadomość bezpośrednia zostanie dezaktywowana.",
+    "fr": "De nouvelles tâches pour vous seront envoyées en $ dès que le message direct aura été désactivé.",
+    "ru": "Новые задачи для вас будут отправлены в $, как только прямое сообщение будет деактивировано."
+  },
+  "notify_channel_set": {
+    "de": "Neue Aufgaben für dich werden nun in $ gesendet.",
+    "en": "New tasks for you will now be sent in $.",
+    "bg": "Нови задачи за вас сега ще бъдат изпратени в $.",
+    "pl": "Nowe zadania dla ciebie będą teraz wysyłane w $.",
+    "fr": "De nouvelles tâches pour vous seront désormais envoyées en $.",
+    "ru": "Новые задания для вас теперь будут отправляться в $."
+  },
+  "notify_mention_one_channel": {
+    "de": "Bitte markiere einen Textkanal!",
+    "en": "Please mention a text channel!",
+    "bg": "Моля, маркирайте текстов канал!",
+    "pl": "Proszę zaznaczyć kanał tekstowy!",
+    "fr": "Veuillez marquer une chaîne de texte!",
+    "ru": "Пожалуйста, отметьте текстовый канал!"
   }
 }

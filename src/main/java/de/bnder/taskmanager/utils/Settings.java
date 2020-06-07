@@ -18,33 +18,22 @@ package de.bnder.taskmanager.utils;
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonObject;
 import de.bnder.taskmanager.main.Main;
+import net.dv8tion.jda.api.entities.Member;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
 
 public class Settings {
 
-    public static JsonObject getUserSettings(String userid) {
+    public static JsonObject getUserSettings(Member member) {
         try {
-            final String jsonResponse = Jsoup.connect(Main.requestURL + "getSettings.php?requestToken=" + Main.requestToken + "&user_id=" + Connection.encodeString(userid)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
+            final String jsonResponse = Jsoup.connect(Main.requestURL + "getSettings.php?requestToken=" + Main.requestToken + "&user_id=" + Connection.encodeString(member.getId()) + "&guild_id=" + Connection.encodeString(member.getGuild().getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
             final int statusCode = jsonObject.getInt("status_code", 900);
             if (statusCode == 200) {
-                return jsonObject.get("result").asObject();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return new JsonObject();
-    }
-
-    public static JsonObject getGuildSettings(String guildid) {
-        try {
-            final String jsonResponse = Jsoup.connect(Main.requestURL + "getSettings.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guildid)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
-            final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-            final int statusCode = jsonObject.getInt("status_code", 900);
-            if (statusCode == 200) {
-                return jsonObject.get("result").asObject();
+                if (jsonObject.get("result") != null && !jsonObject.get("result").isNull()) {
+                    return jsonObject.get("result").asObject();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
