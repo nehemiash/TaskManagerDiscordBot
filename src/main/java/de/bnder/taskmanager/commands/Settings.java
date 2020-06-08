@@ -47,7 +47,7 @@ public class Settings implements Command {
                     final int newValue = jsonObject.getInt("newValue", -1);
                     if (newValue == 1) {
                         MessageSender.send(embedTitle, Localizations.Companion.getString("settings_dm_enabled", langCode), event.getMessage(), Color.green);
-                    } else if (newValue == 2) {
+                    } else if (newValue == 0) {
                         MessageSender.send(embedTitle, Localizations.Companion.getString("settings_dm_disabled", langCode), event.getMessage(), Color.green);
                     } else {
                         MessageSender.send(embedTitle, Localizations.Companion.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {{

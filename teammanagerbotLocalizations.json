@@ -681,11 +681,11 @@
   },
   "settings_dm_disabled": {
     "de": "Du erhältst nun keine Direktnachricht mehr, wenn eine Aufgabe an dich verteilt wurde.",
-    "en": "You will now receive a direct message as soon as a task has been distributed to you.",
-    "bg": "Вече ще получите директно съобщение, веднага щом задачата ви бъде разпределена.",
-    "pl": "Otrzymasz teraz bezpośrednią wiadomość, gdy tylko zadanie zostanie Ci przekazane.",
-    "fr": "Vous recevrez désormais un message direct dès qu'une tâche vous aura été distribuée.",
-    "ru": "Теперь вы получите прямое сообщение, как только вам будет передано задание."
+    "en": "You will no longer receive a direct message when a task has been distributed to you.",
+    "bg": "Вече няма да получавате директно съобщение, когато задача е била разпространена до вас.",
+    "pl": "Po otrzymaniu zadania nie będziesz już otrzymywać bezpośredniej wiadomości.",
+    "fr": "Vous ne recevrez plus de message direct lorsqu'une tâche vous aura été distribuée.",
+    "ru": "Вы больше не будете получать прямое сообщение, когда вам будет передано задание."
   },
   "settings_show_done_tasks_enabled": {
     "de": "Erledigte Aufgaben werden nun wieder in der Aufgabenliste angezeigt.",
