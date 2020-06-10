@@ -84,6 +84,7 @@ public class Settings implements Command {
             }
         } else if (args.length == 0) {
             final JsonObject userSettings = de.bnder.taskmanager.utils.Settings.getUserSettings(event.getMember());
+            System.out.println(userSettings.toString());
             final EmbedBuilder embedBuilder = new EmbedBuilder().setColor(Color.cyan).setTimestamp(Calendar.getInstance().toInstant()).setTitle(embedTitle + " - " + event.getAuthor().getAsTag());
             if (userSettings.getString("direct_message", "1").equals("1")) {
                 embedBuilder.addField(Localizations.Companion.getString("settings_list_direct_message", langCode), Localizations.Companion.getString("settings_list_enabled", langCode), false);
@@ -95,7 +96,7 @@ public class Settings implements Command {
             } else {
                 embedBuilder.addField(Localizations.Companion.getString("settings_list_show_done_tasks", langCode), Localizations.Companion.getString("settings_list_disabled", langCode), false);
             }
-            if (userSettings.getString("notify_channel", null) != null && event.getGuild().getTextChannelById(userSettings.getString("notify_channel", "123")) != null) {
+            if (userSettings.get("notify_channel") != null && !userSettings.get("notify_channel").isNull() && event.getGuild().getTextChannelById(userSettings.getString("notify_channel", "123")) != null) {
                 embedBuilder.addField(Localizations.Companion.getString("settings_list_notify_channel", langCode), event.getGuild().getTextChannelById(userSettings.getString("notify_channel", "123")).getAsMention(), false);
             } else {
                 embedBuilder.addField(Localizations.Companion.getString("settings_list_notify_channel", langCode), "---", false);
