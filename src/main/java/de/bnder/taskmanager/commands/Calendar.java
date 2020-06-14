@@ -15,27 +15,34 @@ package de.bnder.taskmanager.commands;
  * limitations under the License.
  */
 
+import com.eclipsesource.json.Json;
+import com.eclipsesource.json.JsonObject;
 import de.bnder.taskmanager.main.Command;
+import de.bnder.taskmanager.main.Main;
+import de.bnder.taskmanager.utils.Connection;
+import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import org.jsoup.Jsoup;
 
+import java.awt.*;
 import java.io.IOException;
-import java.util.List;
 
 public class Calendar implements Command {
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
-        if (args.length >= 4) {
-            //-calendar appointment Name 01.01.2020 13:00
+        if (args.length >= 6) {
+            //-calendar appointment Name 01.01.2020 13:00 02.01.2020 18:00
             if (args[0].equalsIgnoreCase("appointment")) {
                 if (event.getMessage().getMentionedMembers().size() == 0) {
-                    if (args.length >= 5 && Group.Companion.serverHasGroup(args[1], event.getGuild())) {
-                        sendAppointmentCreationToBackend(args, null, 2, args[1]);
+                    if (Group.Companion.serverHasGroup(args[1], event.getGuild())) {
+                        sendAppointmentCreationToBackend(args, event.getMessage(), 2, args[1], null);
                     } else {
-                        sendAppointmentCreationToBackend(args, event.getMember(), 1, null);
+                        sendAppointmentCreationToBackend(args, event.getMessage(), 1, null, event.getMember());
                     }
                 } else {
-                    sendAppointmentCreationToBackend(args, event.getMessage().getMentionedMembers().get(0), 2, null);
+                    sendAppointmentCreationToBackend(args, event.getMessage(), 2, null, event.getMessage().getMentionedMembers().get(0));
                 }
             }
         } else if (args.length == 1) {
@@ -67,26 +74,44 @@ public class Calendar implements Command {
         }
     }
 
-    public void sendAppointmentCreationToBackend(String[] args, Member member, final int argStart, String groupName) {
-        String time = null;
+    public void sendAppointmentCreationToBackend(String[] args, Message message, final int argStart, String groupName, Member member) {
         StringBuilder appointmentNameBuilder = new StringBuilder();
-        int range = args.length - 2;
-        String date = args[args.length - 2];
-        if (args[args.length - 1].contains(":")) {
-            time = args[args.length - 1];
-        } else {
-            date = args[args.length - 1];
-            range = args.length - 1;
-        }
+        int range = args.length - 4;
+        String dateStart = args[args.length - 4];
+        String timeStart = args[args.length - 3];
+        String dateEnd = args[args.length - 2];
+        String timeEnd = args[args.length - 1];
+
         for (int i = argStart; i < range; i++) {
             appointmentNameBuilder.append(args[i]).append(" ");
         }
         final String appointmentName = appointmentNameBuilder.substring(0, appointmentNameBuilder.length() - 1);
+        System.out.println(appointmentName + "\nVon: " + dateStart + " " + timeStart + " Uhr\nBis: " + dateEnd + " " + timeEnd + " Uhr");
         //TODO: SEND TO BACKEND
-        if (member == null) {
+        if (groupName != null) {
             //APPOINTMENT FOR GROUP
+            try {
+                final String jsonResponse = Jsoup.connect(Main.requestURL + "createAppointment.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(message.getGuild().getId()) + "&appointment=" + Connection.encodeString(appointmentName) + "&start_date=" + Connection.encodeString(dateStart) + "&start_time=" + Connection.encodeString(timeStart) + "&end_date=" + Connection.encodeString(dateEnd) + "&end_time=" + Connection.encodeString(timeEnd) + "&group_name=" + Connection.encodeString(groupName)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
+                final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
+                final int statusCode = jsonObject.getInt("status_code", 900);
+                if (statusCode == 200) {
+                    MessageSender.send("calendar", "group appointment created", message, Color.green);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             //APPOINTMENT FOR USER
+            try {
+                final String jsonResponse = Jsoup.connect(Main.requestURL + "createAppointment.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(message.getGuild().getId()) + "&appointment=" + Connection.encodeString(appointmentName) + "&start_date=" + Connection.encodeString(dateStart) + "&start_time=" + Connection.encodeString(timeStart) + "&end_date=" + Connection.encodeString(dateEnd) + "&end_time=" + Connection.encodeString(timeEnd) + "&user_id=" + Connection.encodeString(member.getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
+                final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
+                final int statusCode = jsonObject.getInt("status_code", 900);
+                if (statusCode == 200) {
+                    MessageSender.send("calendar", "user " + member.getAsMention() + " appointment created", message, Color.green);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
