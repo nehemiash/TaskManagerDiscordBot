@@ -56,6 +56,11 @@ class Task : Command {
                         val statusCode = jsonObject.getInt("status_code", 900)
                         if (statusCode == 200) {
                             sendTaskMessage(member, event, jsonObject,langCode, embedTitle, task)
+                            MessageSender.send(embedTitle + " - " + jsonObject.getString("task_id", ""), Localizations.getString("aufgabe_erstellt", langCode, object : ArrayList<String?>() {
+                                init {
+                                    add(member.user.name)
+                                }
+                            }), event.message, Color.green)
                         } else {
                             MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, object : ArrayList<String?>() {
                                 init {
@@ -66,29 +71,31 @@ class Task : Command {
                     }
                 } else if (Group.serverHasGroup(args[1], event.guild)) {
                     val groupName = Connection.encodeString(args[1])
-                    val task = getTaskFromArgs( 2, event.message, false)
+                    val task = getTaskFromArgs( 3, event.message, false)
                     val jsonResponse = Jsoup.connect(Main.requestURL + "createTask.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&task=" + Connection.encodeString(task) + "&groupName=" + groupName).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val jsonObject = Json.parse(jsonResponse).asObject()
                     val statusCode = jsonObject.getInt("status_code", 900)
                     if (statusCode == 200) {
-                        MessageSender.send(embedTitle + " - " + jsonObject.getString("task_id", ""), Localizations.getString("aufgabe_gruppe_erstellt", langCode, object : ArrayList<String?>() {
-                            init {
-                                add(groupName)
-                            }
-                        }), event.message, Color.green)
                         val groupMembersJsonResponse = Jsoup.connect(Main.requestURL + "getGroupMembers.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(event.guild.id) + "&group_name=" + groupName).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                         val groupMembersObject = Json.parse(groupMembersJsonResponse).asObject()
                         val groupMembersStatusCode = groupMembersObject.getInt("status_code", 900)
                         if (groupMembersStatusCode == 200) {
+                            var usersWhoReceivedTheTaskAmount = 0
                             for (value in groupMembersObject["members"].asArray()) {
                                 val id = value.asObject().getString("user_id", null)
                                 if (id != null) {
                                     val member = event.guild.retrieveMemberById(id).complete()
                                     if (member != null) {
+                                        usersWhoReceivedTheTaskAmount++;
                                         sendTaskMessage(member, event, jsonObject,langCode, embedTitle, task)
                                     }
                                 }
                             }
+                            MessageSender.send(embedTitle + " - " + jsonObject.getString("task_id", ""), Localizations.getString("aufgabe_an_x_mitglieder_gesendet", langCode, object : ArrayList<String?>() {
+                                init {
+                                    add(usersWhoReceivedTheTaskAmount.toString())
+                                }
+                            }), event.message, Color.green)
                         }
                     } else if (statusCode == 902) {
                         MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode, object : ArrayList<String?>() {
@@ -509,11 +516,6 @@ class Task : Command {
                 channel.sendMessage(URLDecoder.decode(task, StandardCharsets.UTF_8.toString())).queue()
             }
         }
-        MessageSender.send(embedTitle + " - " + jsonObject.getString("task_id", ""), Localizations.getString("aufgabe_erstellt", langCode, object : ArrayList<String?>() {
-            init {
-                add(member.user.name)
-            }
-        }), event.message, Color.green)
     }
 
     companion object {

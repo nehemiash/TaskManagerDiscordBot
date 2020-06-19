@@ -143,6 +143,14 @@
     "fr": "$ a la tâche.",
     "ru": "$ получил задание."
   },
+  "aufgabe_an_x_mitglieder_gesendet": {
+    "de": "Die Aufgabe wurde an $ Gruppenmitglieder gesendet.",
+    "en": "The task was sent to $ group members.",
+    "bg": "Задачата беше изпратена до членове на $ group.",
+    "pl": "Zadanie zostało wysłane do członków grupy $.",
+    "fr": "La tâche a été envoyée aux membres du groupe $.",
+    "ru": "Задание было отправлено членам группы $."
+  },
   "aufgabe_erstellt_unbekannter_fehler": {
     "de": "Beim erstellen der Aufgabe ist ein unerwarteter Fehler aufgetreten. Fehlercode: $",
     "en": "During creation of the task an unexpected error happened. Errorcode: $",
