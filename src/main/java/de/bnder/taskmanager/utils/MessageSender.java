@@ -24,17 +24,44 @@ import java.util.Random;
 
 public class MessageSender {
     public static void send(String title, String s, Message msg, Color red) {
-        EmbedBuilder builder = new EmbedBuilder();
-        builder.setTitle(title);
-        builder.setDescription(s);
-        builder.setColor(red);
-        builder.setTimestamp(Calendar.getInstance().toInstant());
-
-        if (new Random().nextInt(100) + 1 <= 5) {
-            final String langCode = Localizations.Companion.getGuildLanguage(msg.getGuild());
-            builder.setFooter(Localizations.Companion.getString("donate_alert", langCode));
+        if (s.length() > 1990) {
+            while (s.length() > 1990) {
+                String textNow = s.substring(0, 1990);
+                EmbedBuilder builder = new EmbedBuilder();
+                builder.setTitle(title);
+                builder.setDescription(textNow);
+                builder.setColor(red);
+                builder.setTimestamp(Calendar.getInstance().toInstant());
+                if (new Random().nextInt(100) + 1 <= 5) {
+                    final String langCode = Localizations.Companion.getGuildLanguage(msg.getGuild());
+                    builder.setFooter(Localizations.Companion.getString("donate_alert", langCode));
+                }
+                msg.getChannel().sendMessage(builder.build()).queue();
+                s = s.substring(1990);
+            }
+            if (s.length() > 0) {
+                EmbedBuilder builder = new EmbedBuilder();
+                builder.setTitle(title);
+                builder.setDescription(s);
+                builder.setColor(red);
+                builder.setTimestamp(Calendar.getInstance().toInstant());
+                if (new Random().nextInt(100) + 1 <= 5) {
+                    final String langCode = Localizations.Companion.getGuildLanguage(msg.getGuild());
+                    builder.setFooter(Localizations.Companion.getString("donate_alert", langCode));
+                }
+                msg.getChannel().sendMessage(builder.build()).queue();
+            }
+        } else {
+            EmbedBuilder builder = new EmbedBuilder();
+            builder.setTitle(title);
+            builder.setDescription(s);
+            builder.setColor(red);
+            builder.setTimestamp(Calendar.getInstance().toInstant());
+            if (new Random().nextInt(100) + 1 <= 5) {
+                final String langCode = Localizations.Companion.getGuildLanguage(msg.getGuild());
+                builder.setFooter(Localizations.Companion.getString("donate_alert", langCode));
+            }
+            msg.getChannel().sendMessage(builder.build()).queue();
         }
-
-        msg.getChannel().sendMessage(builder.build()).queue();
     }
 }
