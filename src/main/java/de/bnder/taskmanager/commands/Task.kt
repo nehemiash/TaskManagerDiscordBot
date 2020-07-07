@@ -504,7 +504,7 @@ class Task : Command {
                 }
             })).queue()
             channel.sendMessage(URLDecoder.decode(task, StandardCharsets.UTF_8.toString())).queue()
-        } else if (settings.getString("notify_channel", null) != null) {
+        } else if (settings.get("notify_channel") != null) {
             val channel: TextChannel? = event.guild.getTextChannelById(settings.getString("notify_channel", ""))
             if (channel != null) {
                 channel.sendMessage(member.asMention + Localizations.getString("aufgabe_erhalten", langCode, object : ArrayList<String?>() {
@@ -532,7 +532,9 @@ class Task : Command {
             for (i in beginIndex until args.size) {
                 taskBuilder.append(args[i]).append(" ")
             }
-            taskBuilder.subSequence(0, taskBuilder.length - 1)
+            if (taskBuilder.isNotEmpty()) {
+                taskBuilder.subSequence(0, taskBuilder.length - 1)
+            }
             return Connection.encodeString(taskBuilder.toString())
         }
     }

@@ -48,7 +48,7 @@ public class CommandListener extends ListenerAdapter {
                 } catch (Exception e) {
                     e.printStackTrace();
                     final String langCode = Localizations.Companion.getGuildLanguage(event.getGuild());
-                    MessageSender.send(Localizations.Companion.getString("error_title", langCode), Localizations.Companion.getString("error_text", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(Localizations.Companion.getString("error_title", langCode), Localizations.Companion.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getMessage(), Color.red);
                 }
             }
         }

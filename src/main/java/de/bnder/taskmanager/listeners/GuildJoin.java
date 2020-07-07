@@ -37,9 +37,9 @@ public class GuildJoin extends ListenerAdapter {
                 "\n " +
                 "Wichtig! Für die optimale Nutzung aktiviere in deinen Einstellungen die Linkvorschau unter \"Text & Bilder\".";
         try {
-            e.getGuild().getDefaultChannel().sendMessage(intro).queue();
-            e.getGuild().getDefaultChannel().sendMessage(msg).queue();
-        } catch (InsufficientPermissionException ex) {
+                e.getGuild().getDefaultChannel().sendMessage(intro).queue();
+                e.getGuild().getDefaultChannel().sendMessage(msg).queue();
+        } catch (InsufficientPermissionException | NullPointerException ex) {
             for (TextChannel tc : e.getGuild().getTextChannels()) {
                 try {
                     if (tc.canTalk()) {
