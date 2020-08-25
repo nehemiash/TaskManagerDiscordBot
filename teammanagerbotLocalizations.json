@@ -790,5 +790,13 @@
     "pl": "Proszę zaznaczyć kanał tekstowy!",
     "fr": "Veuillez marquer une chaîne de texte!",
     "ru": "Пожалуйста, отметьте текстовый канал!"
+  },
+  "task_proceed_need_to_be_in_group": {
+    "de": "Du musst in der Gruppe sein, um ihre Aufgabe zu modifizieren oder über Administratorrechte verfügen!",
+    "en": "You have to be in the group to modify its tasks or have administator permissions!",
+    "bg": "Трябва да сте в групата, за да промените задачата си или да имате администраторски права!",
+    "pl": "Musisz być w grupie, aby modyfikować jej zadanie lub mieć uprawnienia administratora!",
+    "fr": "Il faut être dans le groupe pour modifier sa tâche ou avoir des droits d'administrateur!",
+    "ru": "Вы должны быть в группе, чтобы изменить ее задачу или иметь права администратора!"
   }
 }

@@ -8,13 +8,11 @@ import de.bnder.taskmanager.utils.Localizations
 import de.bnder.taskmanager.utils.MessageSender
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.entities.Guild
-import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
 import org.jsoup.Jsoup
 import java.awt.Color
 import java.io.IOException
 import java.util.*
-import kotlin.collections.ArrayList
 
 /*
  * Copyright (C) 2019 Jan Brinkmann
@@ -43,25 +41,29 @@ class Group : Command {
                     val jsonResponse = Jsoup.connect(Main.requestURL + "createGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + groupName).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val `object` = Json.parse(jsonResponse).asObject()
                     val statusCode = `object`.getInt("status_code", 900)
-                    if (statusCode == 200) {
-                        MessageSender.send(embedTitle, Localizations.getString("gruppe_erfolgreich_erstellt", langCode, object : ArrayList<String?>() {
-                            init {
-                                add(groupName)
-                            }
-                        }), event.message, Color.green)
-                    } else if (statusCode == 902) {
-                        MessageSender.send(embedTitle, Localizations.getString("gruppe_nicht_erstellt_name_exisitert", langCode, object : ArrayList<String?>() {
-                            init {
-                                add(groupName)
-                            }
-                        }), event.message, Color.red)
-                    } else {
-                        MessageSender.send(embedTitle, Localizations.getString("gruppe_nicht_erstellt_unbekannter_fehler", langCode, object : ArrayList<String?>() {
-                            init {
-                                add(groupName)
-                                add(statusCode.toString())
-                            }
-                        }), event.message, Color.red)
+                    when (statusCode) {
+                        200 -> {
+                            MessageSender.send(embedTitle, Localizations.getString("gruppe_erfolgreich_erstellt", langCode, object : ArrayList<String?>() {
+                                init {
+                                    add(groupName)
+                                }
+                            }), event.message, Color.green)
+                        }
+                        902 -> {
+                            MessageSender.send(embedTitle, Localizations.getString("gruppe_nicht_erstellt_name_exisitert", langCode, object : ArrayList<String?>() {
+                                init {
+                                    add(groupName)
+                                }
+                            }), event.message, Color.red)
+                        }
+                        else -> {
+                            MessageSender.send(embedTitle, Localizations.getString("gruppe_nicht_erstellt_unbekannter_fehler", langCode, object : ArrayList<String?>() {
+                                init {
+                                    add(groupName)
+                                    add(statusCode.toString())
+                                }
+                            }), event.message, Color.red)
+                        }
                     }
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.message, Color.red)

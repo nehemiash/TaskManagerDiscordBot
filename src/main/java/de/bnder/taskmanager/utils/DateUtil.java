@@ -23,9 +23,9 @@ import java.util.List;
 
 public class DateUtil {
 
-    private static final String format = "dd.MM.yyyy HH:mm";
     private static final List<SimpleDateFormat> dateFormats = new ArrayList<SimpleDateFormat>() {{
-        add(new SimpleDateFormat(format));
+        add(new SimpleDateFormat("dd.MM.yyyy HH:mm"));
+        add(new SimpleDateFormat("yyyy-MM-dd HH:mm"));
     }};
 
     public static Date convertToDate(String input) {
