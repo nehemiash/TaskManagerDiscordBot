@@ -40,8 +40,7 @@ class Group : Command {
                     val groupName = Connection.encodeString(args[1])
                     val jsonResponse = Jsoup.connect(Main.requestURL + "createGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + groupName).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val `object` = Json.parse(jsonResponse).asObject()
-                    val statusCode = `object`.getInt("status_code", 900)
-                    when (statusCode) {
+                    when (val statusCode = `object`.getInt("status_code", 900)) {
                         200 -> {
                             MessageSender.send(embedTitle, Localizations.getString("gruppe_erfolgreich_erstellt", langCode, object : ArrayList<String?>() {
                                 init {
