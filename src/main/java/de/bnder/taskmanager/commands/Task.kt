@@ -6,6 +6,7 @@ import de.bnder.taskmanager.main.Command
 import de.bnder.taskmanager.main.Main
 import de.bnder.taskmanager.utils.*
 import de.bnder.taskmanager.utils.Settings
+import de.bnder.taskmanager.utils.Task
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.Permission.ADMINISTRATOR
 import net.dv8tion.jda.api.entities.Member
@@ -113,9 +114,9 @@ class Task : Command {
                 if (event.member!!.hasPermission(ADMINISTRATOR)) {
                     val taskID = StringEscapeUtils.escapeSql(args[1])
                     val newTask = getTaskFromArgs(3, event.message, false)
-                    val jsonResponse = Jsoup.connect(Main.requestURL + "editTask.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(guild.id) + "&task=" + Connection.encodeString(newTask) + "&taskID=" + Connection.encodeString(taskID)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
-                    val jsonObject = Json.parse(jsonResponse).asObject()
-                    when (val statusCode = jsonObject.getInt("status_code", 900)) {
+                    val task = Task(taskID, guild)
+                    task.text = newTask
+                    when (val statusCode = task.statusCode) {
                         200 -> {
                             MessageSender.send(embedTitle, Localizations.getString("aufgabe_editiert", langCode, object : ArrayList<String?>() {
                                 init {
@@ -143,6 +144,7 @@ class Task : Command {
                 }
             } else if (args[0].equals("deadline", ignoreCase = true)) {
                 val taskID = StringEscapeUtils.escapeSql(args[1])
+                val task = Task(taskID, guild)
                 var date = args[2]
                 if (args.size == 4) {
                     date += " " + args[3]
@@ -150,17 +152,15 @@ class Task : Command {
                 if (DateUtil.convertToDate(date) != null) {
                     val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
                     val newDate = dateFormat.format(DateUtil.convertToDate(date))
-                    val jsonResponse = Jsoup.connect(Main.requestURL + "setDeadline.php?requestToken=" + Main.requestToken + "&taskID=" + taskID + "&date=" + Connection.encodeString(newDate) + "&serverID=" + Connection.encodeString(guild.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
-                    val jsonObject = Json.parse(jsonResponse).asObject()
-                    val statusCode = jsonObject.getInt("status_code", 900)
-                    if (statusCode == 200) {
+                    task.deadline = newDate;
+                    if (task.statusCode == 200) {
                         MessageSender.send(embedTitle, Localizations.getString("deadline_gesetzt", langCode, object : ArrayList<String?>() {
                             init {
                                 add(taskID)
                                 add(newDate)
                             }
                         }), event.message, Color.green)
-                    } else if (statusCode == 902) {
+                    } else if (task.statusCode == 902) {
                         MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, object : ArrayList<String?>() {
                             init {
                                 add(taskID)
@@ -335,12 +335,12 @@ class Task : Command {
                                 MessageSender.send(embedTitle, Localizations.getString("aufgabe_erledigt", langCode), event.message, Color.green)
                             }
                             else -> {
-                            MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, object : ArrayList<String?>() {
-                                init {
-                                    add("done-904-$statusCode2")
-                                }
-                            }), event.message, Color.red)
-                        }
+                                MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, object : ArrayList<String?>() {
+                                    init {
+                                        add("done-904-$statusCode2")
+                                    }
+                                }), event.message, Color.red)
+                            }
                         }
                     }
                     else -> {
@@ -452,37 +452,35 @@ class Task : Command {
                 }
             } else if (args[0].equals("info", ignoreCase = true)) {
                 val taskID = args[1]
-                val jsonResponse = Jsoup.connect(Main.requestURL + "getTaskInfo.php?requestToken=" + Main.requestToken + "&task_id=" + taskID + "&server_id=" + Connection.encodeString(guild.id)).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body()
-                val jsonObject = Json.parse(jsonResponse).asObject()
-                val statusCode = jsonObject.getInt("status_code", 900)
-                if (statusCode == 200) {
+                val task = Task(taskID, guild)
+                if (task.exists()) {
                     //USER TASK
                     val builder = EmbedBuilder().setColor(Color.cyan).setTimestamp(Calendar.getInstance().toInstant())
-                    when (jsonObject.getInt("task_status", 0)) {
-                        0 -> {
+                    when (task.status) {
+                        TaskStatus.TODO -> {
                             builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true)
                         }
-                        1 -> {
+                        TaskStatus.IN_PROGRESS -> {
                             builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_wird_bearbeitet", langCode), true)
                         }
-                        2 -> {
+                        TaskStatus.DONE -> {
                             builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_erledigt", langCode), true)
                         }
                     }
-                    if (jsonObject.get("task_deadline") != null) {
-                        builder.addField(Localizations.getString("task_info_field_deadline", langCode), jsonObject.getString("task_deadline", null), true)
+                    if (task.deadline != null) {
+                        builder.addField(Localizations.getString("task_info_field_deadline", langCode), task.deadline, true)
                     }
-                    if (jsonObject.getString("task_type", null).equals("user", ignoreCase = true)) {
+                    if (task.type == TaskType.USER) {
                         builder.addField(Localizations.getString("task_info_field_type", langCode), Localizations.getString("task_info_field_type_user", langCode), true)
-                        val userID = jsonObject.getString("user_id", null)
+                        val userID = task.holder
                         if (userID != null && event.guild.retrieveMemberById(userID).complete() != null) {
                             builder.addField(Localizations.getString("task_info_field_assigned", langCode), event.guild.retrieveMemberById(userID).complete().user.asTag, true)
                         }
-                    } else if (jsonObject.getString("task_type", null).equals("group", ignoreCase = true)) {
+                    } else if (task.type == TaskType.GROUP) {
                         builder.addField(Localizations.getString("task_info_field_type", langCode), Localizations.getString("task_info_field_type_group", langCode), true)
-                        builder.addField(Localizations.getString("task_info_field_assigned", langCode), jsonObject.getString("group_name", null), true)
+                        builder.addField(Localizations.getString("task_info_field_assigned", langCode), task.holder, true)
                     }
-                    builder.addField(Localizations.getString("task_info_field_task", langCode), jsonObject.getString("task_text", null), false)
+                    builder.addField(Localizations.getString("task_info_field_task", langCode), task.text, false)
                     event.channel.sendMessage(builder.build()).queue()
                 }
             } else {
