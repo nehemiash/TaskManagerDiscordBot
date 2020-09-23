@@ -3,7 +3,9 @@ package de.bnder.taskmanager.utils;
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonObject;
 import de.bnder.taskmanager.main.Main;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
@@ -31,7 +33,9 @@ public class Task {
             if (getStatusCode() == 200) {
                 this.exists = true;
                 final int taskStatusInt = jsonObject.getInt("task_status", 0);
-                this.status = TaskStatus.values()[taskStatusInt];
+                if (taskStatusInt >= 0) {
+                    this.status = TaskStatus.values()[taskStatusInt];
+                }
                 this.deadline = jsonObject.getString("task_deadline", null);
                 this.type = jsonObject.getString("task_type", null).equalsIgnoreCase("user") ? TaskType.USER : TaskType.GROUP;
                 this.holder = this.type == TaskType.USER ? jsonObject.getString("user_id", null) : jsonObject.getString("group_name", null);
@@ -67,7 +71,7 @@ public class Task {
         }
     }
 
-    public void setDeadline(String deadline) {
+    public Task setDeadline(String deadline) {
         try {
             final String jsonResponse = Jsoup.connect(Main.requestURL + "setDeadline.php?requestToken=" + Main.requestToken + "&taskID=" + this.id + "&date=" + Connection.encodeString(deadline) + "&serverID=" + Connection.encodeString(guild.getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
@@ -78,6 +82,85 @@ public class Task {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return this;
+    }
+
+    public void delete() {
+        try {
+            final String jsonResponse = Jsoup.connect(Main.requestURL + "deleteTask.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(guild.getId()) + "&taskID=" + id).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
+            final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
+            setStatusCode(jsonObject.getInt("status_code", 900));
+            this.exists = false;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Task setStatus(TaskStatus status, Member member) {
+        try {
+            if (status == TaskStatus.DONE) {
+                final String jsonResponse = Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.getId()) + "&task_id=" + this.id + "&user_id=" + member.getId()).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
+                final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
+                setStatusCode(jsonObject.getInt("status_code", 900));
+                if (getStatusCode() == 200) {
+                    Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.getId()) + "&task_id=" + this.id + "&user_id=" + member.getId()).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
+                } else if (getStatusCode() == 904) {
+                    final String jsonResponse2 = Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.getId()) + "&task_id=" + this.id + "&user_id=" + member.getId() + "&force=1").userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
+                    final JsonObject jsonObject2 = Json.parse(jsonResponse2).asObject();
+                    setStatusCode(jsonObject2.getInt("status_code", 900));
+                    if (getStatusCode() == 200) {
+                        Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.getId()) + "&task_id=" + this.id + "&user_id=" + member.getId() + "&force=1").userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
+                    }
+                }
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        if (getStatusCode() == 200) {
+            this.status = status;
+        }
+        return this;
+    }
+
+    public Task proceed(Member member) {
+        try {
+            final String jsonResponse = Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&task_id=" + this.id + "&server_id=" + Connection.encodeString(guild.getId()) + "&user_id=" + Connection.encodeString(member.getId())).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
+            final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
+            setStatusCode(jsonObject.getInt("status_code", 900));
+            if (getStatusCode() == 200) {
+                this.status = TaskStatus.values()[jsonObject.getInt("process", 0)];
+            } else if (getStatusCode() == 904) {
+                if (member.isOwner() || member.hasPermission(Permission.ADMINISTRATOR)) {
+                    final String jsonResponse2 = Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&task_id=" + this.id + "&server_id=" + Connection.encodeString(guild.getId()) + "&user_id=" + Connection.encodeString(member.getId()) + "&force=1").userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
+                    final JsonObject jsonObject2 = Json.parse(jsonResponse2).asObject();
+                    setStatusCode(jsonObject2.getInt("status_code", 900));
+                    if (getStatusCode() == 200) {
+                        this.status = TaskStatus.values()[jsonObject.getInt("process", 0)];
+                    }
+                }
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return this;
+    }
+
+    public Task undo(Member member) {
+        try {
+            final String jsonResponse = Jsoup.connect(Main.requestURL + "undoTaskStatus.php?requestToken=" + Main.requestToken + "&task_id=" + this.id + "&server_id=" + Connection.encodeString(guild.getId())).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
+            final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
+            setStatusCode(jsonObject.getInt("status_code", 900));
+            if (getStatusCode() == 200) {
+                if (jsonObject.getInt("process", 0) >= 0) {
+                    this.status = TaskStatus.values()[jsonObject.getInt("process", 0)];
+                } else {
+                    setStatusCode(931);
+                }
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return this;
     }
 
     private void setStatusCode(int statusCode) {
