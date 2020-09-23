@@ -1,7 +1,6 @@
 package de.bnder.taskmanager.commands
 
 import com.eclipsesource.json.Json
-import com.eclipsesource.json.JsonObject
 import de.bnder.taskmanager.main.Command
 import de.bnder.taskmanager.main.Main
 import de.bnder.taskmanager.utils.*
@@ -48,12 +47,10 @@ class Task : Command {
                 if (event.message.mentionedMembers.size > 0) {
                     val task = getTaskFromArgs(1, event.message, true)
                     for (member in event.message.mentionedMembers) {
-                        val jsonResponse = Jsoup.connect(Main.requestURL + "createTask.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(event.guild.id) + "&task=" + task + "&userID=" + Connection.encodeString(member.user.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
-                        val jsonObject = Json.parse(jsonResponse).asObject()
-                        val statusCode = jsonObject.getInt("status_code", 900)
-                        if (statusCode == 200) {
-                            sendTaskMessage(member, event, jsonObject, langCode, task)
-                            MessageSender.send(embedTitle + " - " + jsonObject.getString("task_id", ""), Localizations.getString("aufgabe_erstellt", langCode, object : ArrayList<String?>() {
+                        val taskObject = Task(guild, task, null, event.member)
+                        if (taskObject.statusCode == 200) {
+                            sendTaskMessage(member, event, taskObject.id, langCode, task)
+                            MessageSender.send(embedTitle + " - " + taskObject.id, Localizations.getString("aufgabe_erstellt", langCode, object : ArrayList<String?>() {
                                 init {
                                     add(member.user.name)
                                 }
@@ -61,7 +58,7 @@ class Task : Command {
                         } else {
                             MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, object : ArrayList<String?>() {
                                 init {
-                                    add(statusCode.toString())
+                                    add(taskObject.statusCode.toString())
                                 }
                             }), event.message, Color.red)
                         }
@@ -69,10 +66,8 @@ class Task : Command {
                 } else if (Group.serverHasGroup(args[1], event.guild)) {
                     val groupName = Connection.encodeString(args[1])
                     val task = getTaskFromArgs(3, event.message, false)
-                    val jsonResponse = Jsoup.connect(Main.requestURL + "createTask.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&task=" + Connection.encodeString(task) + "&groupName=" + groupName).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
-                    val jsonObject = Json.parse(jsonResponse).asObject()
-                    val statusCode = jsonObject.getInt("status_code", 900)
-                    if (statusCode == 200) {
+                    val taskObject = Task(guild, task, null, groupName)
+                    if (taskObject.statusCode == 200) {
                         val groupMembersJsonResponse = Jsoup.connect(Main.requestURL + "getGroupMembers.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(event.guild.id) + "&group_name=" + groupName).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                         val groupMembersObject = Json.parse(groupMembersJsonResponse).asObject()
                         val groupMembersStatusCode = groupMembersObject.getInt("status_code", 900)
@@ -84,17 +79,17 @@ class Task : Command {
                                     val member = event.guild.retrieveMemberById(id).complete()
                                     if (member != null) {
                                         usersWhoReceivedTheTaskAmount++
-                                        sendTaskMessage(member, event, jsonObject, langCode, task)
+                                        sendTaskMessage(member, event, taskObject.id, langCode, task)
                                     }
                                 }
                             }
-                            MessageSender.send(embedTitle + " - " + jsonObject.getString("task_id", ""), Localizations.getString("aufgabe_an_x_mitglieder_gesendet", langCode, object : ArrayList<String?>() {
+                            MessageSender.send(embedTitle + " - " + taskObject.id, Localizations.getString("aufgabe_an_x_mitglieder_gesendet", langCode, object : ArrayList<String?>() {
                                 init {
                                     add(usersWhoReceivedTheTaskAmount.toString())
                                 }
                             }), event.message, Color.green)
                         }
-                    } else if (statusCode == 902) {
+                    } else if (taskObject.statusCode == 902) {
                         MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode, object : ArrayList<String?>() {
                             init {
                                 add(groupName)
@@ -472,14 +467,14 @@ class Task : Command {
         }
     }
 
-    private fun sendTaskMessage(member: Member, event: GuildMessageReceivedEvent, jsonObject: JsonObject, langCode: String, task: String) {
+    private fun sendTaskMessage(member: Member, event: GuildMessageReceivedEvent, task_id: String, langCode: String, task: String) {
         val settings = Settings.getUserSettings(member)
         if (settings.getString("direct_message", "1") == "1") {
             val channel = member.user.openPrivateChannel().complete()
             channel.sendMessage(Localizations.getString("aufgabe_erhalten", langCode, object : ArrayList<String?>() {
                 init {
                     add(event.author.asTag)
-                    add(jsonObject.getString("task_id", ""))
+                    add(task_id)
                 }
             })).queue()
             channel.sendMessage(URLDecoder.decode(task, StandardCharsets.UTF_8.toString())).queue()
@@ -489,7 +484,7 @@ class Task : Command {
                 channel.sendMessage(member.asMention + Localizations.getString("aufgabe_erhalten", langCode, object : ArrayList<String?>() {
                     init {
                         add(event.author.asTag)
-                        add(jsonObject.getString("task_id", ""))
+                        add(task_id)
                     }
                 })).queue()
                 channel.sendMessage(URLDecoder.decode(task, StandardCharsets.UTF_8.toString())).queue()

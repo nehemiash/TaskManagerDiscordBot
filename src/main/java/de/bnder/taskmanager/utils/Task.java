@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class Task {
 
-    final String id;
+    String id = null;
     String text = null;
     String deadline = null;
     TaskType type = null;
@@ -56,6 +56,42 @@ public class Task {
         this.holder = holder;
         this.exists = true;
         this.statusCode = 200;
+    }
+
+    public Task(Guild guild, String text, String deadline, Member member) {
+        this.guild = guild;
+        this.text = text;
+        this.deadline = deadline;
+        this.type = TaskType.USER;
+        this.holder = member.getId();
+        try {
+            final String jsonResponse = Jsoup.connect(Main.requestURL + "createTask.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.getId()) + "&task=" + text + "&userID=" + Connection.encodeString(member.getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
+            final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
+            setStatusCode(jsonObject.getInt("status_code", 900));
+            if (getStatusCode() == 200) {
+                this.id = jsonObject.getString("task_id", "");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Task(Guild guild, String text, String deadline, String holder) {
+        this.guild = guild;
+        this.text = text;
+        this.deadline = deadline;
+        this.type = TaskType.GROUP;
+        this.holder = holder;
+        try {
+            final String jsonResponse = Jsoup.connect(Main.requestURL + "createTask.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.getId()) + "&task=" + Connection.encodeString(text) + "&groupName=" + holder).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
+            final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
+            setStatusCode(jsonObject.getInt("status_code", 900));
+            if (getStatusCode() == 200) {
+                this.id = jsonObject.getString("task_id", "");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setText(String text) {
