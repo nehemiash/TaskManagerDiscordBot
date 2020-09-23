@@ -3,9 +3,7 @@ package de.bnder.taskmanager.commands
 import com.eclipsesource.json.Json
 import de.bnder.taskmanager.main.Command
 import de.bnder.taskmanager.main.Main
-import de.bnder.taskmanager.utils.Connection
-import de.bnder.taskmanager.utils.Localizations
-import de.bnder.taskmanager.utils.MessageSender
+import de.bnder.taskmanager.utils.*
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
@@ -36,7 +34,7 @@ class Group : Command {
         val embedTitle = Localizations.getString("group_title", langCode)
         if (args.size > 1) {
             if (args[0].equals("create", ignoreCase = true)) {
-                if (event.member!!.hasPermission(Permission.ADMINISTRATOR) || event.member!!.isOwner) {
+                if (PermissionSystem.hasPermission(event.member, GroupPermission.CREATE_GROUP)) {
                     val groupName = Connection.encodeString(args[1])
                     val jsonResponse = Jsoup.connect(Main.requestURL + "createGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + groupName).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val `object` = Json.parse(jsonResponse).asObject()
@@ -68,7 +66,7 @@ class Group : Command {
                     MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.message, Color.red)
                 }
             } else if (args[0].equals("delete", ignoreCase = true)) {
-                if (Objects.requireNonNull(event.member)!!.hasPermission(Permission.ADMINISTRATOR) || event.member!!.isOwner) {
+                if (PermissionSystem.hasPermission(event.member, GroupPermission.DELETE_GROUP)) {
                     val groupName = Connection.encodeString(args[1])
                     val jsonResponse = Jsoup.connect(Main.requestURL + "deleteGroup.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&groupName=" + Connection.encodeString(groupName)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val `object` = Json.parse(jsonResponse).asObject()
@@ -136,7 +134,7 @@ class Group : Command {
                     MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.message, Color.red)
                 }
             } else if (args[0].equals("add", ignoreCase = true)) {
-                if (Objects.requireNonNull(event.member)!!.hasPermission(Permission.ADMINISTRATOR) || event.member!!.isOwner) {
+                if (PermissionSystem.hasPermission(event.member, GroupPermission.ADD_MEMBERS)) {
                     if (args.size >= 3) {
                         if (event.message.mentionedMembers.size > 0) {
                             val groupName = Connection.encodeString(args[1 + event.message.mentionedMembers.size])
@@ -179,7 +177,7 @@ class Group : Command {
                     MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.message, Color.red)
                 }
             } else if (args[0].equals("remove", ignoreCase = true) || args[0].equals("rem", ignoreCase = true)) {
-                if (Objects.requireNonNull(event.member)!!.hasPermission(Permission.ADMINISTRATOR) || event.member!!.isOwner) {
+                if (PermissionSystem.hasPermission(event.member, GroupPermission.REMOVE_MEMBERS)) {
                     if (args.size >= 3) {
                         if (event.message.mentionedMembers.size > 0) {
                             val groupName = Connection.encodeString(args[1 + event.message.mentionedMembers.size])

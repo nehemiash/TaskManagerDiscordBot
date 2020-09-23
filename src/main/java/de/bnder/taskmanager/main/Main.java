@@ -63,6 +63,8 @@ public class Main {
         CommandHandler.commands.put("prefix", new Prefix());
         CommandHandler.commands.put("group", new Group());
         CommandHandler.commands.put("task", new Task());
+        CommandHandler.commands.put("permission", new Permission());
+        CommandHandler.commands.put("perm", new Permission());
         CommandHandler.commands.put("token", new Token());
         CommandHandler.commands.put("help", new Help());
         CommandHandler.commands.put("support", new Support());

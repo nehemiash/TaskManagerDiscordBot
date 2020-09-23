@@ -7,7 +7,6 @@ import de.bnder.taskmanager.utils.*
 import de.bnder.taskmanager.utils.Settings
 import de.bnder.taskmanager.utils.Task
 import net.dv8tion.jda.api.EmbedBuilder
-import net.dv8tion.jda.api.Permission.ADMINISTRATOR
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.TextChannel
@@ -44,69 +43,73 @@ class Task : Command {
         val embedTitle = Localizations.getString("task_message_title", langCode)
         if (args.size >= 3) {
             if (args[0].equals("add", ignoreCase = true)) {
-                if (event.message.mentionedMembers.size > 0) {
-                    val task = getTaskFromArgs(1, event.message, true)
-                    for (member in event.message.mentionedMembers) {
-                        val taskObject = Task(guild, task, null, event.member)
+                if (PermissionSystem.hasPermission(event.member, TaskPermission.CREATE_TASK)) {
+                    if (event.message.mentionedMembers.size > 0) {
+                        val task = getTaskFromArgs(1, event.message, true)
+                        for (member in event.message.mentionedMembers) {
+                            val taskObject = Task(guild, task, null, event.member)
+                            if (taskObject.statusCode == 200) {
+                                sendTaskMessage(member, event, taskObject.id, langCode, task)
+                                MessageSender.send(embedTitle + " - " + taskObject.id, Localizations.getString("aufgabe_erstellt", langCode, object : ArrayList<String?>() {
+                                    init {
+                                        add(member.user.name)
+                                    }
+                                }), event.message, Color.green)
+                            } else {
+                                MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, object : ArrayList<String?>() {
+                                    init {
+                                        add(taskObject.statusCode.toString())
+                                    }
+                                }), event.message, Color.red)
+                            }
+                        }
+                    } else if (Group.serverHasGroup(args[1], event.guild)) {
+                        val groupName = Connection.encodeString(args[1])
+                        val task = getTaskFromArgs(3, event.message, false)
+                        val taskObject = Task(guild, task, null, groupName)
                         if (taskObject.statusCode == 200) {
-                            sendTaskMessage(member, event, taskObject.id, langCode, task)
-                            MessageSender.send(embedTitle + " - " + taskObject.id, Localizations.getString("aufgabe_erstellt", langCode, object : ArrayList<String?>() {
-                                init {
-                                    add(member.user.name)
+                            val groupMembersJsonResponse = Jsoup.connect(Main.requestURL + "getGroupMembers.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(event.guild.id) + "&group_name=" + groupName).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
+                            val groupMembersObject = Json.parse(groupMembersJsonResponse).asObject()
+                            val groupMembersStatusCode = groupMembersObject.getInt("status_code", 900)
+                            if (groupMembersStatusCode == 200) {
+                                var usersWhoReceivedTheTaskAmount = 0
+                                for (value in groupMembersObject["members"].asArray()) {
+                                    val id = value.asObject().getString("user_id", null)
+                                    if (id != null) {
+                                        val member = event.guild.retrieveMemberById(id).complete()
+                                        if (member != null) {
+                                            usersWhoReceivedTheTaskAmount++
+                                            sendTaskMessage(member, event, taskObject.id, langCode, task)
+                                        }
+                                    }
                                 }
-                            }), event.message, Color.green)
+                                MessageSender.send(embedTitle + " - " + taskObject.id, Localizations.getString("aufgabe_an_x_mitglieder_gesendet", langCode, object : ArrayList<String?>() {
+                                    init {
+                                        add(usersWhoReceivedTheTaskAmount.toString())
+                                    }
+                                }), event.message, Color.green)
+                            }
+                        } else if (taskObject.statusCode == 902) {
+                            MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode, object : ArrayList<String?>() {
+                                init {
+                                    add(groupName)
+                                }
+                            }), event.message, Color.red)
                         } else {
                             MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, object : ArrayList<String?>() {
                                 init {
-                                    add(taskObject.statusCode.toString())
+                                    add(groupName)
                                 }
                             }), event.message, Color.red)
                         }
-                    }
-                } else if (Group.serverHasGroup(args[1], event.guild)) {
-                    val groupName = Connection.encodeString(args[1])
-                    val task = getTaskFromArgs(3, event.message, false)
-                    val taskObject = Task(guild, task, null, groupName)
-                    if (taskObject.statusCode == 200) {
-                        val groupMembersJsonResponse = Jsoup.connect(Main.requestURL + "getGroupMembers.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(event.guild.id) + "&group_name=" + groupName).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
-                        val groupMembersObject = Json.parse(groupMembersJsonResponse).asObject()
-                        val groupMembersStatusCode = groupMembersObject.getInt("status_code", 900)
-                        if (groupMembersStatusCode == 200) {
-                            var usersWhoReceivedTheTaskAmount = 0
-                            for (value in groupMembersObject["members"].asArray()) {
-                                val id = value.asObject().getString("user_id", null)
-                                if (id != null) {
-                                    val member = event.guild.retrieveMemberById(id).complete()
-                                    if (member != null) {
-                                        usersWhoReceivedTheTaskAmount++
-                                        sendTaskMessage(member, event, taskObject.id, langCode, task)
-                                    }
-                                }
-                            }
-                            MessageSender.send(embedTitle + " - " + taskObject.id, Localizations.getString("aufgabe_an_x_mitglieder_gesendet", langCode, object : ArrayList<String?>() {
-                                init {
-                                    add(usersWhoReceivedTheTaskAmount.toString())
-                                }
-                            }), event.message, Color.green)
-                        }
-                    } else if (taskObject.statusCode == 902) {
-                        MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode, object : ArrayList<String?>() {
-                            init {
-                                add(groupName)
-                            }
-                        }), event.message, Color.red)
                     } else {
-                        MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, object : ArrayList<String?>() {
-                            init {
-                                add(groupName)
-                            }
-                        }), event.message, Color.red)
+                        MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellen_fehlende_argumente", langCode), event.message, Color.red)
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellen_fehlende_argumente", langCode), event.message, Color.red)
+                    MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.message, Color.red)
                 }
             } else if (args[0].equals("edit", ignoreCase = true)) {
-                if (event.member!!.hasPermission(ADMINISTRATOR)) {
+                if (PermissionSystem.hasPermission(event.member, TaskPermission.EDIT_TASK)) {
                     val taskID = StringEscapeUtils.escapeSql(args[1])
                     val newTask = getTaskFromArgs(3, event.message, false)
                     val task = Task(taskID, guild)
@@ -138,39 +141,43 @@ class Task : Command {
                     MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.message, Color.red)
                 }
             } else if (args[0].equals("deadline", ignoreCase = true)) {
-                val taskID = StringEscapeUtils.escapeSql(args[1])
-                val task = Task(taskID, guild)
-                var date = args[2]
-                if (args.size == 4) {
-                    date += " " + args[3]
-                }
-                if (DateUtil.convertToDate(date) != null) {
-                    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
-                    val newDate = dateFormat.format(DateUtil.convertToDate(date))
-                    task.deadline = newDate;
-                    if (task.statusCode == 200) {
-                        MessageSender.send(embedTitle, Localizations.getString("deadline_gesetzt", langCode, object : ArrayList<String?>() {
-                            init {
-                                add(taskID)
-                                add(newDate)
-                            }
-                        }), event.message, Color.green)
-                    } else if (task.statusCode == 902) {
-                        MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, object : ArrayList<String?>() {
-                            init {
-                                add(taskID)
-                            }
-                        }), event.message, Color.red)
+                if (PermissionSystem.hasPermission(event.member, TaskPermission.EDIT_TASK)) {
+                    val taskID = StringEscapeUtils.escapeSql(args[1])
+                    val task = Task(taskID, guild)
+                    var date = args[2]
+                    if (args.size == 4) {
+                        date += " " + args[3]
+                    }
+                    if (DateUtil.convertToDate(date) != null) {
+                        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
+                        val newDate = dateFormat.format(DateUtil.convertToDate(date))
+                        task.deadline = newDate;
+                        if (task.statusCode == 200) {
+                            MessageSender.send(embedTitle, Localizations.getString("deadline_gesetzt", langCode, object : ArrayList<String?>() {
+                                init {
+                                    add(taskID)
+                                    add(newDate)
+                                }
+                            }), event.message, Color.green)
+                        } else if (task.statusCode == 902) {
+                            MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, object : ArrayList<String?>() {
+                                init {
+                                    add(taskID)
+                                }
+                            }), event.message, Color.red)
+                        }
+                    } else {
+                        MessageSender.send(embedTitle, Localizations.getString("ungültiges_datum_format", langCode), event.message, Color.red)
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("ungültiges_datum_format", langCode), event.message, Color.red)
+                    MessageSender.send(embedTitle, Localizations.getString("help_message_task_commands", langCode), event.message, Color.red)
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("help_message_task_commands", langCode), event.message, Color.red)
+                MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.message, Color.red)
             }
         } else if (args.size >= 2) {
             if (args[0].equals("list", ignoreCase = true)) {
-                var jsonResponse: String = ""
+                var jsonResponse = ""
                 var text = ""
                 if (event.message.mentionedMembers.size > 0) {
                     val member = event.message.mentionedMembers[0]
@@ -238,7 +245,7 @@ class Task : Command {
                     MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), event.message, Color.red)
                 }
             } else if (args[0].equals("delete", ignoreCase = true)) {
-                if (event.member!!.hasPermission(ADMINISTRATOR)) {
+                if (PermissionSystem.hasPermission(event.member, TaskPermission.DELETE_TASK)) {
                     val taskID = StringEscapeUtils.escapeSql(args[1])
                     val task = Task(taskID, guild)
                     task.delete()
