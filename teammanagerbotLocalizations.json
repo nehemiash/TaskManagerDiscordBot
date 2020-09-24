@@ -798,5 +798,26 @@
     "pl": "Musisz być w grupie, aby modyfikować jej zadanie lub mieć uprawnienia administratora!",
     "fr": "Il faut être dans le groupe pour modifier sa tâche ou avoir des droits d'administrateur!",
     "ru": "Вы должны быть в группе, чтобы изменить ее задачу или иметь права администратора!"
+  },
+  "permissions_title": {
+    "de": "Berechtigungen"
+  },
+  "unknown_permission_name": {
+    "de": "Diese Berechtigung existiert nicht!"
+  },
+  "need_to_mention_user_or_role": {
+    "de": "Du musst einen Nutzer oder eine Rolle in deiner Nachricht erwähnen!"
+  },
+  "permission_added": {
+    "de": "Die Berechtigung hinzugefügt"
+  },
+  "already_has_permission": {
+    "de": "Die Rolle oder der Nutzer verfügt bereits über die Berechtigung!"
+  },
+  "permission_removed": {
+    "de": "Die Berechtigung wurde von dem Nutzer oder der Rolle entfernt!"
+  },
+  "dont_has_permission": {
+    "de": "Der Nutzer oder die Rolle verfügt nicht über die Berechtigung!"
   }
 }

@@ -1,4 +1,4 @@
-package de.bnder.taskmanager.utils;
+package de.bnder.taskmanager.utils.permissions;
 
 public enum GroupPermission {
 

@@ -4,6 +4,7 @@ import com.eclipsesource.json.Json
 import de.bnder.taskmanager.main.Command
 import de.bnder.taskmanager.main.Main
 import de.bnder.taskmanager.utils.*
+import de.bnder.taskmanager.utils.permissions.GroupPermission
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent

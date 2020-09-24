@@ -6,6 +6,7 @@ import de.bnder.taskmanager.main.Main
 import de.bnder.taskmanager.utils.*
 import de.bnder.taskmanager.utils.Settings
 import de.bnder.taskmanager.utils.Task
+import de.bnder.taskmanager.utils.permissions.TaskPermission
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Message
