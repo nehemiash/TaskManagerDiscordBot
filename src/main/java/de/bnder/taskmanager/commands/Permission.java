@@ -7,6 +7,8 @@ import de.bnder.taskmanager.utils.PermissionSystem;
 import de.bnder.taskmanager.utils.permissions.GroupPermission;
 import de.bnder.taskmanager.utils.permissions.PermissionPermission;
 import de.bnder.taskmanager.utils.permissions.TaskPermission;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
@@ -94,7 +96,41 @@ public class Permission implements Command {
                     MessageSender.send(embedTitle, Localizations.Companion.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
                 }
             }
+        } else if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("list")) {
+                if (event.getMessage().getMentionedMembers().size() > 0) {
+                    final Member member = event.getMessage().getMentionedMembers().get(0);
+                    final StringBuilder stringBuilder = new StringBuilder();
+                    for (TaskPermission  permission : TaskPermission.values()) {
+                        stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(member, permission))).append("\n");
+                    }
+                    for (GroupPermission  permission : GroupPermission.values()) {
+                        stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(member, permission))).append("\n");
+                    }
+                    for (PermissionPermission  permission : PermissionPermission.values()) {
+                        stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(member, permission))).append("\n");
+                    }
+                    MessageSender.send(embedTitle + " - " + member.getUser().getAsTag(), stringBuilder.toString(), event.getMessage(), Color.green);
+                } else if (event.getMessage().getMentionedRoles().size() > 0) {
+                    final Role role = event.getMessage().getMentionedRoles().get(0);
+                    final StringBuilder stringBuilder = new StringBuilder();
+                    for (TaskPermission  permission : TaskPermission.values()) {
+                        stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(role, permission))).append("\n");
+                    }
+                    for (GroupPermission  permission : GroupPermission.values()) {
+                        stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(role, permission))).append("\n");
+                    }
+                    for (PermissionPermission  permission : PermissionPermission.values()) {
+                        stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(role, permission))).append("\n");
+                    }
+                    MessageSender.send(embedTitle + " - " + role.getName(), stringBuilder.toString(), event.getMessage(), Color.green);
+                }
+            }
         }
+    }
+
+    private String hasPermString(boolean has) {
+        return has ? "✅" : "❌";
     }
 
     static boolean taskPermissionContains(String test) {

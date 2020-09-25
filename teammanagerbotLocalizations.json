@@ -800,24 +800,59 @@
     "ru": "Вы должны быть в группе, чтобы изменить ее задачу или иметь права администратора!"
   },
   "permissions_title": {
-    "de": "Berechtigungen"
+    "de": "Berechtigungen",
+    "en": "Permissions",
+    "bg": "Разрешения",
+    "pl": "Uprawnienia",
+    "fr": "Autorisations",
+    "ru": "Разрешения"
   },
   "unknown_permission_name": {
-    "de": "Diese Berechtigung existiert nicht!"
+    "de": "Diese Berechtigung existiert nicht! Benutze den Befehl `permissions` um alle Berechtigungen anzuzeigen.",
+    "en": "This permission does not exist! Use the command `permissions` to display all permissions.",
+    "bg": "Това разрешение не съществува! Използвайте командата `разрешения`, за да покажете всички разрешения.",
+    "pl": "To upoważnienie nie istnieje! Użyj polecenia „permissions”, aby wyświetlić wszystkie uprawnienia.",
+    "fr": "Cette autorisation n'existe pas! Utilisez la commande `permissions` pour afficher toutes les permissions.",
+    "ru": "Это разрешение не существует! Используйте команду `permissions`, чтобы отобразить все разрешения."
   },
   "need_to_mention_user_or_role": {
-    "de": "Du musst einen Nutzer oder eine Rolle in deiner Nachricht erwähnen!"
+    "de": "Du musst einen Nutzer oder eine Rolle in deiner Nachricht erwähnen!",
+    "en": "You have to mention a user or a role in your message!",
+    "bg": "Трябва да споменете потребител или роля в съобщението си!",
+    "pl": "W swojej wiadomości musisz wspomnieć o użytkowniku lub roli!",
+    "fr": "Vous devez mentionner un utilisateur ou un rôle dans votre message!",
+    "ru": "Вы должны упомянуть пользователя или роль в своем сообщении!"
   },
   "permission_added": {
-    "de": "Die Berechtigung hinzugefügt"
+    "de": "Die Berechtigung wurde hinzugefügt.",
+    "en": "The permission has been added.",
+    "bg": "Упълномощаването е добавено.",
+    "pl": "Autoryzacja została dodana.",
+    "fr": "L'autorisation a été ajoutée.",
+    "ru": "Авторизация добавлена."
   },
   "already_has_permission": {
-    "de": "Die Rolle oder der Nutzer verfügt bereits über die Berechtigung!"
+    "de": "Die Rolle oder der Nutzer verfügt bereits über diese Berechtigung!",
+    "en": "The role or the user already has this permission!",
+    "bg": "Ролята или потребителят вече има това разрешение!",
+    "pl": "Rola lub użytkownik ma już tę autoryzację!",
+    "fr": "Le rôle ou l'utilisateur a déjà cette autorisation!",
+    "ru": "Роль или пользователь уже имеют это разрешение!"
   },
   "permission_removed": {
-    "de": "Die Berechtigung wurde von dem Nutzer oder der Rolle entfernt!"
+    "de": "Die Berechtigung wurde von dem Nutzer oder der Rolle entfernt!",
+    "en": "The permission has been removed from the user or role!",
+    "bg": "Упълномощаването е премахнато от потребителя или ролята!",
+    "pl": "Autoryzacja została usunięta z użytkownika lub roli!",
+    "fr": "L'autorisation a été supprimée de l'utilisateur ou du rôle!",
+    "ru": "Авторизация удалена с пользователя или роли!"
   },
   "dont_has_permission": {
-    "de": "Der Nutzer oder die Rolle verfügt nicht über die Berechtigung!"
+    "de": "Der Nutzer oder die Rolle verfügt nicht über diese Berechtigung!",
+    "en": "The user or role does not have this permission!",
+    "bg": "Потребителят или ролята нямат това разрешение!",
+    "pl": "Użytkownik lub rola nie ma tej autoryzacji!",
+    "fr": "L'utilisateur ou le rôle n'a pas cette autorisation!",
+    "ru": "У пользователя или роли нет такой авторизации!"
   }
 }
