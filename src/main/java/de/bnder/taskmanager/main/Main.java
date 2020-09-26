@@ -22,7 +22,6 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
-import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
@@ -58,11 +57,13 @@ public class Main {
         builder.addEventListeners(new GuildJoin());
         builder.addEventListeners(new GuildLeave());
 
+//        CommandHandler.commands.put("calendar", new Calendar());
         CommandHandler.commands.put("settings", new Settings());
         CommandHandler.commands.put("version", new Version());
         CommandHandler.commands.put("prefix", new Prefix());
         CommandHandler.commands.put("group", new Group());
         CommandHandler.commands.put("task", new Task());
+        CommandHandler.commands.put("permission", new Permission());
         CommandHandler.commands.put("token", new Token());
         CommandHandler.commands.put("help", new Help());
         CommandHandler.commands.put("support", new Support());
@@ -73,7 +74,7 @@ public class Main {
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.playing("bnder.net"));
         try {
-            ShardManager shardManager = builder.build();
+            builder.build();
         } catch (LoginException e) {
             e.printStackTrace();
         }

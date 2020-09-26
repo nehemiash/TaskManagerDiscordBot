@@ -24,17 +24,30 @@ import java.util.Random;
 
 public class MessageSender {
     public static void send(String title, String s, Message msg, Color red) {
+        if (s.length() > 1990) {
+            while (s.length() > 1990) {
+                String textNow = s.substring(0, 1990);
+                buildMessageBuilder(title, msg, red, textNow);
+                s = s.substring(1990);
+            }
+            if (s.length() > 0) {
+                buildMessageBuilder(title, msg, red, s);
+            }
+        } else {
+            buildMessageBuilder(title, msg, red, s);
+        }
+    }
+
+    private static void buildMessageBuilder(String title, Message msg, Color red, String textNow) {
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle(title);
-        builder.setDescription(s);
+        builder.setDescription(textNow);
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
-
         if (new Random().nextInt(100) + 1 <= 5) {
             final String langCode = Localizations.Companion.getGuildLanguage(msg.getGuild());
             builder.setFooter(Localizations.Companion.getString("donate_alert", langCode));
         }
-
         msg.getChannel().sendMessage(builder.build()).queue();
     }
 }
