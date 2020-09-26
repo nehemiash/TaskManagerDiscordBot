@@ -24,12 +24,12 @@
     "ru": "Группа `$` не может быть создана. Код ошибки: $"
   },
   "muss_serverbesitzer_oder_adminrechte_haben": {
-    "de": "Du musst der Serverbesitzer sein oder Administratorrechte besitzen, um diese Aktion auszuführen.",
-    "en": "You have to be the server owner or have admin permissions to perform this action.",
-    "bg": "Трябва да сте притежател на сървара или да имате Админ права за да изпълните тази дейност.",
-    "pl": "Musisz być posiadaczem serwera albo permisji administratora by przprowadzić tę akcję.",
-    "fr": "Vous devez être le propriétaire du serveur ou disposer des privilèges d'administrateur pour effectuer cette action.",
-    "ru": "Вы должны быть владельцем сервера или иметь права администратора для выполнения этого действия."
+    "de": "Du musst der Serverbesitzer sein, Administratorrechte besitzen oder die Rechte über den Befehl `permission` erhalten um diese Aktion auszuführen.",
+    "en": "You have to be the server owner, have administrator rights or have the rights via the command `permission` to perform this action.",
+    "bg": "За да извършите това действие, трябва да сте собственик на сървъра, да имате администраторски права или да имате права чрез командата `permission`.",
+    "pl": "Aby wykonać tę akcję, musisz być właścicielem serwera, mieć uprawnienia administratora lub mieć uprawnienia za pośrednictwem polecenia „permission”.",
+    "fr": "Vous devez être le propriétaire du serveur, avoir des droits d'administrateur ou avoir les droits via la commande `permission` pour effectuer cette action.",
+    "ru": "Вы должны быть владельцем сервера, иметь права администратора или иметь права с помощью команды «permission» для выполнения этого действия."
   },
   "gruppe_wurde_gelöscht": {
     "de": "Die Gruppe `$` wurde gelöscht.",
@@ -455,6 +455,14 @@
     "fr": "`token` - Renvoie le jeton du site Web et de l'application\n`token new` - Renouveler le jeton\n`help` - Répertorie toutes les commandes\n`support` - Lien Discord\n`app` - Informations sur l'application\n`stats` - Statistiques\n`prefix <PREFIX>` - Modifie le préfixe du bot\n`settings` - Affiche les paramètres\n",
     "ru": "`token` - Возвращает токен для сайта и приложения\n`token new` - Обновить токен\n`help` - Перечисляет все команды\n`support` - Discord Link\n`app` - Информация о приложении\n`stats` - статистика\n`!prefix <PREFIX>` - Меняет префикс бота\n`settings` - Отображает настройки\n"
   },
+  "help_message_permission_commands": {
+    "de": "`permission` - Gibt diese Hilfe-Nachricht\n`permission add @NUTZER/@ROLLE <BERECHTIGUNG>` - Gibt einem Nutzer/einer Rolle eine Berechtigung\n`permission remove @NUTZER/@ROLLE <BERECHTIGUNG>` - Entfernt eine Berechtigung von einem Nutzer/einer Rolle\n`permission list @NUTZER/@ROLLE` - Listet alle Berechtigungen eines Nutzers/einer Rolle auf\n \nAktuelle Berechtigungen:\n`CREATE_TASK` - Aufgabe erstellen\n`DELETE_TASK` - Aufgabe löschen\n`EDIT_TASK` - Aufgabe bearbeiten\n`CREATE_GROUP` - Gruppe erstellen\n`DELETE_GROUP` - Gruppe löschen\n`ADD_MEMBERS` - Nutzer zu Gruppe hinzufügen\n`REMOVE_MEMBERS` - Nutzer aus Gruppe entfernen\n`ADD_PERMISSION` - Berechtigung hinzufügen\n`REMOVE_PERMISSION` - Berechtigung entfernen\n`SHOW_PERMISSIONS` - Berechtigungen anzeigen\n",
+    "en": "`permission` - Gives this help message\n`permission add @USER/@ROLLE <PERMISSION>` - Gives a user / role an authorization\n`permission remove @USER/@ROLLE <PERMISSION>` - Removes an authorization from a user / role\n`permission list @USER/@ROLE` - Lists all permissions of a user/role\n \nCurrent permissions:\n`CREATE_TASK` - create a task\n`DELETE_TASK` - delete task\n`EDIT_TASK` - edit task\n`CREATE_GROUP` - create a group\n`DELETE_GROUP` - delete group\n`ADD_MEMBERS` - add user to group\n`REMOVE_MEMBERS` - remove user from group\n`ADD_PERMISSION` - add permission\n`REMOVE_PERMISSION` - remove permission\n`SHOW_PERMISSIONS` - show permissions\n",
+    "bg": "`permission` - дава това съобщение за помощ\n`permission add @ПОТРЕБИТЕЛ/@РОЛЯ <AUTHORIZATION>` - дава разрешение на потребител / роля\n`permission remove @ПОТРЕБИТЕЛ/@РОЛЯ <AUTHORIZATION>` - Премахва оторизация от потребител / роля\n`списък с разрешения @ПОТРЕБИТЕЛ/@РОЛЯ` - изброява всички разрешения на потребител / роля\n \nТекущи разрешения:\n`CREATE_TASK` - създайте задача\n`DELETE_TSAK` - изтриване на задача\n`EDIT_TASK` - редактиране на задача\n`CREATE_GROUP` - създаване на група\n`DELETE_GROUP` - изтриване на група\n`ADD_MEMBERS` - добавяне на потребител към групата\n`REMOVE_MEMBERS` - премахване на потребител от групата\n`ADD_PERMISSION` - добавяне на разрешение\n`REMOVE_PERMISSION` - премахване на разрешение\n`SHOW_PERMISSIONS` - показва разрешения\n",
+    "pl": "`permission` - przekazuje ten komunikat pomocy\n`permission add @UŻYTKOWNIK/@ROLA <AUTORYZACJA>` - Daje użytkownikowi / roli autoryzację\n`permission remove @UŻYTKOWNIK/@ROLA <AUTORYZACJA>` - Usuwa autoryzację dla użytkownika / roli\n`permission list @UŻYTKOWNIK/@ROLA` - Wyświetla wszystkie uprawnienia użytkownika / roli\n \nAktualne uprawnienia:\n`CREATE_TASK` - utwórz zadanie\n`DELETE_TASK` - usuń zadanie\n`EDIT_TASK` - edycja zadania\n`CREATE_GROUP` - utwórz grupę\n`DELETE_GROUP` - usuń grupę\n`ADD_MEMBERS` - dodaj użytkownika do grupy\n`REMOVE_MEMBERS` - usuń użytkownika z grupy\n`ADD_PERMISSION` - dodaj uprawnienia\n`REMOVE_PERMISSION` - usuń pozwolenie\n`SHOW_PERMISSIONS` - pokaż uprawnienia\n",
+    "fr": "`permission` - Donne ce message d'aide\n`permission add @USER/@ROLLE <AUTHORIZATION>` - Donne une autorisation à un utilisateur / rôle\n`permission remove @USER/@ROLLE <AUTHORIZATION>` - Supprime une autorisation d'un utilisateur / rôle\n`permission list @USER/@ROLE` - Liste toutes les permissions d'un utilisateur / rôle\n \nAutorisations actuelles:\n`CREATE_TASK` - créer une tâche\n`DELETE_TASK` - supprimer la tâche\n`EDIT_TASK` - tâche d'édition\n`CREATE_GROUP` - créer un groupe\n`DELETE_GROUP` - supprimer le groupe\n`ADD_MEMBERS` - ajouter un utilisateur au groupe\n`REMOVE_MEMBERS` - supprimer l'utilisateur du groupe\n`ADD_PERMISSION` - ajouter une autorisation\n`REMOVE_PERMISSION` - supprimer l'autorisation\n`SHOW_PERMISSIONS` - afficher les autorisations\n",
+    "ru": "`permission` - выдает это справочное сообщение\n`permission add @USER/@ROLLE <AUTHORIZATION>` - дает пользователю / роли авторизацию\n`permission remove @USER/@ROLLE <AUTHORIZATION>` - Удаляет авторизацию от пользователя / роли\n`permission list @ПОЛЬЗОВАТЕЛЬ/@РОЛЬ` - перечисляет все разрешения пользователя / роли\n \nТекущие разрешения:\n`CREATE_TASK` - создать задачу\n`DELETE_TASK` - удалить задачу\n`EDIT_TASK` - редактировать задачу\n`CREATE_GROUP` - создать группу\n`DELETE_GROUP` - удалить группу\n`ADD_MEMBERS` - добавить пользователя в группу\n`REMOVE_MEMBERS` - удалить пользователя из группы\n`ADD_PERMISSION` - добавить разрешение\n`REMOVE_PERMISSION` - удалить разрешение\n`SHOW_PERMISSIONS` - показать разрешения\n"
+  },
   "stats_field_server": {
     "de": "Server",
     "en": "Server",
@@ -478,6 +486,14 @@
     "pl": "Ping",
     "fr": "Ping",
     "ru": "Ping"
+  },
+  "stats_field_requests_received": {
+    "de": "API-Anfragen bearbeitet (seit 26.09.20)",
+    "en": "API requests processed (since 09/26/20)",
+    "bg": "Обработени заявки за API (от 26.09.2020 г.)",
+    "pl": "Przetworzone żądania API (od 26.09.2020)",
+    "fr": "Demandes d'API traitées (depuis le 26/09/2020)",
+    "ru": "Обработано запросов API (с 26.09.2020)"
   },
   "language_message_invalid_params": {
     "de": "Bitte gib einen Ländercode mit an! Gültige Ländercodes sind:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski",

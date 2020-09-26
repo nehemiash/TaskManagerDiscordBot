@@ -36,11 +36,12 @@ class Stats : Command {
         builder.addField(Localizations.getString("stats_field_ping", langCode), ping.toString(), true)
         try {
             val jsonResponse = Jsoup.connect(Main.requestURL + "getStats.php?requestToken=" + Main.requestToken).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body()
-            val `object` = Json.parse(jsonResponse).asObject()
-            builder.addField(Localizations.getString("stats_field_tasks_done", langCode), `object`.getInt("tasks_done", -1).toString(), true)
-            builder.addField(Localizations.getString("stats_field_tasks_created", langCode), `object`.getInt("tasks_created", -1).toString(), true)
+            val jsonObject = Json.parse(jsonResponse).asObject()
+            builder.addField(Localizations.getString("stats_field_tasks_done", langCode), jsonObject.getInt("tasks_done", -1).toString(), true)
+            builder.addField(Localizations.getString("stats_field_tasks_created", langCode), jsonObject.getInt("tasks_created", -1).toString(), true)
             builder.addField("Shard", (event.jda.shardInfo.shardId).toString(), true)
             builder.addField("Shards", event.jda.shardInfo.shardTotal.toString(), true)
+            builder.addField(Localizations.getString("stats_field_requests_received", langCode), jsonObject.getInt("received_requests", -1).toString(), true)
         } catch (e: IOException) {
             e.printStackTrace()
         }

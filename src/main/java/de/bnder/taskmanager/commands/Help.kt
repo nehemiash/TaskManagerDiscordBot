@@ -24,6 +24,10 @@ import java.awt.Color
 class Help : Command {
     override fun action(args: Array<String>, event: GuildMessageReceivedEvent) {
         val langCode = Localizations.getGuildLanguage(event.guild)
-        MessageSender.send(Localizations.getString("help_message_title", langCode), Localizations.getString("help_message_group_commands", langCode) + Localizations.getString("help_message_task_commands", langCode) + Localizations.getString("help_message_other_commands", langCode), event.message, Color.cyan)
+        val embedTitle = Localizations.getString("help_message_title", langCode);
+        MessageSender.send(embedTitle + " - " + Localizations.getString("group_title", langCode), Localizations.getString("help_message_group_commands", langCode), event.message, Color.cyan)
+        MessageSender.send(embedTitle + " - " + Localizations.getString("task_message_title", langCode), Localizations.getString("help_message_task_commands", langCode), event.message, Color.cyan)
+        MessageSender.send(embedTitle, Localizations.getString("help_message_other_commands", langCode), event.message, Color.cyan)
+        MessageSender.send(embedTitle + " - " + Localizations.getString("permissions_title", langCode), Localizations.getString("help_message_permission_commands", langCode), event.message, Color.cyan)
     }
 }

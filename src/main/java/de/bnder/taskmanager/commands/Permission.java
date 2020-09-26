@@ -57,8 +57,7 @@ public class Permission implements Command {
                 } else {
                     MessageSender.send(embedTitle, Localizations.Companion.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
                 }
-            }
-            if (args[0].equalsIgnoreCase("remove")) {
+            } else if (args[0].equalsIgnoreCase("remove")) {
                 if (PermissionSystem.hasPermission(event.getMember(), PermissionPermission.REMOVE_PERMISSION)) {
                     int statusCode;
                     if (event.getMessage().getMentionedMembers().size() > 0) {
@@ -95,37 +94,45 @@ public class Permission implements Command {
                 } else {
                     MessageSender.send(embedTitle, Localizations.Companion.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
                 }
+            } else {
+                MessageSender.send(embedTitle, Localizations.Companion.getString("help_message_permission_commands", langCode), event.getMessage(), Color.cyan);
             }
         } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("list")) {
                 if (event.getMessage().getMentionedMembers().size() > 0) {
                     final Member member = event.getMessage().getMentionedMembers().get(0);
                     final StringBuilder stringBuilder = new StringBuilder();
-                    for (TaskPermission  permission : TaskPermission.values()) {
+                    for (TaskPermission permission : TaskPermission.values()) {
                         stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(member, permission))).append("\n");
                     }
-                    for (GroupPermission  permission : GroupPermission.values()) {
+                    for (GroupPermission permission : GroupPermission.values()) {
                         stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(member, permission))).append("\n");
                     }
-                    for (PermissionPermission  permission : PermissionPermission.values()) {
+                    for (PermissionPermission permission : PermissionPermission.values()) {
                         stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(member, permission))).append("\n");
                     }
                     MessageSender.send(embedTitle + " - " + member.getUser().getAsTag(), stringBuilder.toString(), event.getMessage(), Color.green);
                 } else if (event.getMessage().getMentionedRoles().size() > 0) {
                     final Role role = event.getMessage().getMentionedRoles().get(0);
                     final StringBuilder stringBuilder = new StringBuilder();
-                    for (TaskPermission  permission : TaskPermission.values()) {
+                    for (TaskPermission permission : TaskPermission.values()) {
                         stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(role, permission))).append("\n");
                     }
-                    for (GroupPermission  permission : GroupPermission.values()) {
+                    for (GroupPermission permission : GroupPermission.values()) {
                         stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(role, permission))).append("\n");
                     }
-                    for (PermissionPermission  permission : PermissionPermission.values()) {
+                    for (PermissionPermission permission : PermissionPermission.values()) {
                         stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(role, permission))).append("\n");
                     }
                     MessageSender.send(embedTitle + " - " + role.getName(), stringBuilder.toString(), event.getMessage(), Color.green);
+                } else {
+                    MessageSender.send(embedTitle, Localizations.Companion.getString("need_to_mention_user_or_role", langCode), event.getMessage(), Color.red);
                 }
+            } else {
+                MessageSender.send(embedTitle, Localizations.Companion.getString("help_message_permission_commands", langCode), event.getMessage(), Color.cyan);
             }
+        } else {
+            MessageSender.send(embedTitle, Localizations.Companion.getString("help_message_permission_commands", langCode), event.getMessage(), Color.cyan);
         }
     }
 
