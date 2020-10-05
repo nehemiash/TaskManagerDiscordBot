@@ -6,5 +6,6 @@ public enum GroupPermission {
     DELETE_GROUP,
     ADD_MEMBERS,
     REMOVE_MEMBERS,
+    SHOW_MEMBERS
 
 }
