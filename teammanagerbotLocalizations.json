@@ -495,14 +495,6 @@
     "fr": "Demandes d'API traitées (depuis le 26/09/2020)",
     "ru": "Обработано запросов API (с 26.09.2020)"
   },
-  "stats_field_messages_sent": {
-    "de": "Nachrichten gesendet (seit 04.10.20)",
-    "en": "Messages sent (since 10/04/20)",
-    "bg": "Изпратени съобщения (от 04.10.2020 г.)",
-    "pl": "Wiadomości wysłane (od 04.10.2020)",
-    "fr": "Messages envoyés (depuis le 04/10/2020)",
-    "ru": "Сообщения отправлены (с 04.10.2020)"
-  },
   "language_message_invalid_params": {
     "de": "Bitte gib einen Ländercode mit an! Gültige Ländercodes sind:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski",
     "en": "Please enter a valid languagecode! Valid languagecodes are:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski",

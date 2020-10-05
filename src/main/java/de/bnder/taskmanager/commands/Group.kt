@@ -95,7 +95,7 @@ class Group : Command {
                     MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.message, Color.red)
                 }
             } else if (args[0].equals("members", ignoreCase = true)) {
-                if (PermissionSystem.hasPermission(event.member, GroupPermission.SHOW_MEMBERS)) {
+                if (event.member!!.hasPermission(Permission.ADMINISTRATOR) || event.member!!.isOwner) {
                     val groupName = Connection.encodeString(args[1])
                     val jsonResponse = Jsoup.connect(Main.requestURL + "getGroupMembers.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(event.guild.id) + "&group_name=" + Connection.encodeString(groupName)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                     val `object` = Json.parse(jsonResponse).asObject()
