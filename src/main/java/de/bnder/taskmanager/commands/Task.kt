@@ -48,7 +48,7 @@ class Task : Command {
                     if (event.message.mentionedMembers.size > 0) {
                         val task = getTaskFromArgs(1, event.message, true)
                         for (member in event.message.mentionedMembers) {
-                            val taskObject = Task(guild, task, null, event.member)
+                            val taskObject = Task(guild, task, null, member)
                             if (taskObject.statusCode == 200) {
                                 sendTaskMessage(member, event, taskObject.id, langCode, task)
                                 MessageSender.send(embedTitle + " - " + taskObject.id, Localizations.getString("aufgabe_erstellt", langCode, object : ArrayList<String?>() {
