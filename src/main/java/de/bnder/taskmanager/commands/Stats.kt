@@ -42,6 +42,7 @@ class Stats : Command {
             builder.addField("Shard", (event.jda.shardInfo.shardId).toString(), true)
             builder.addField("Shards", event.jda.shardInfo.shardTotal.toString(), true)
             builder.addField(Localizations.getString("stats_field_requests_received", langCode), jsonObject.getInt("received_requests", -1).toString(), true)
+            builder.addField(Localizations.getString("stats_field_messages_sent", langCode), jsonObject.getInt("messages_sent", -1).toString(), true)
         } catch (e: IOException) {
             e.printStackTrace()
         }

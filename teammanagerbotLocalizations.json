@@ -503,6 +503,14 @@
     "fr": "Veuillez entrer un code de pays! Les codes de pays valides sont:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski",
     "ru": "Пожалуйста, введите код страны! Действительные коды стран:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski"
   },
+  "stats_field_messages_sent": {
+    "de": "Nachrichten gesendet (seit 04.10.20)",
+    "en": "Messages sent (since 10/04/20)",
+    "bg": "Изпратени съобщения (от 04.10.2020 г.)",
+    "pl": "Wiadomości wysłane (od 04.10.2020)",
+    "fr": "Messages envoyés (depuis le 04/10/2020)",
+    "ru": "Сообщения отправлены (с 04.10.2020)"
+  },
   "stats_field_tasks_done": {
     "de": "Aufgaben erledigt",
     "en": "Tasks Done",

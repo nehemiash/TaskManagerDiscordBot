@@ -15,10 +15,13 @@ package de.bnder.taskmanager.utils;
  * limitations under the License.
  */
 
+import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import org.jsoup.Jsoup;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -49,5 +52,10 @@ public class MessageSender {
             builder.setFooter(Localizations.Companion.getString("donate_alert", langCode));
         }
         msg.getChannel().sendMessage(builder.build()).queue();
+        try {
+            Jsoup.connect(Main.requestURL + "addStatMessageSent.php?requestToken=" + Main.requestToken).timeout(Connection.timeout).userAgent(Main.userAgent).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
