@@ -878,5 +878,21 @@
     "pl": "Użytkownik lub rola nie ma tej autoryzacji!",
     "fr": "L'utilisateur ou le rôle n'a pas cette autorisation!",
     "ru": "У пользователя или роли нет такой авторизации!"
+  },
+  "data_title":{
+    "de": "Daten",
+    "en": "Data",
+    "bg": "Данни",
+    "pl": "Dane",
+    "fr": "Les données",
+    "ru": "Данные"
+  },
+  "data_will_be_sent": {
+    "de": "Die Daten werden gesammelt und dir dann per Direktnachricht gesendet. Es werden dir nur Daten zu diesem Server zugesendet. Um alle Daten zu erhalten führe den Befehl auch auf anderen Servern mit diesem Bot aus. Dieser Prozess kann einen Moment in Anspruch nehmen.",
+    "en": "The data is collected and then sent to you via direct message. You will only be sent data to this server. To get all the data, run the command on other servers with this bot too. This process may take a moment.",
+    "bg": "Данните се събират и след това Ви се изпращат чрез директно съобщение. На този сървър ще ви бъдат изпратени само данни. За да получите всички данни, изпълнете командата на други сървъри с този бот. Този процес може да отнеме малко време.",
+    "pl": "Dane są gromadzone, a następnie przesyłane do Ciebie za pośrednictwem wiadomości bezpośredniej. Będziesz przesyłać dane tylko na ten serwer. Aby uzyskać wszystkie dane, uruchom polecenie na innych serwerach z tym botem. Ten proces może chwilę potrwać.",
+    "fr": "Les données sont collectées puis vous sont envoyées par message direct. Vous ne recevrez que des données sur ce serveur. Pour obtenir toutes les données, exécutez la commande sur d'autres serveurs avec ce bot. Ce processus peut prendre un moment.",
+    "ru": "Данные собираются, а затем отправляются вам через личное сообщение. Вам будут отправляться данные только на этот сервер. Чтобы получить все данные, запустите команду на других серверах с этим ботом. Этот процесс может занять некоторое время."
   }
 }
