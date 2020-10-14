@@ -213,16 +213,18 @@ class Task : Command {
                         }
                         builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_wird_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n")
                     }
-                    array = jsonObject["done"].asArray()
-                    for (i in 0 until array.size()) {
-                        val taskID = array[i].asString()
-                        val task = jsonObject[taskID].asObject()["task"].asString()
-                        val deadline = jsonObject[taskID].asObject()["deadline"].asString()
-                        var dLine = ""
-                        if (deadline.isNotEmpty()) {
-                            dLine = "$deadline |"
+                    if (Settings.getUserSettings(event.member).getString("show_done_tasks", "1") as String == "1") {
+                        array = jsonObject["done"].asArray()
+                        for (i in 0 until array.size()) {
+                            val taskID = array[i].asString()
+                            val task = jsonObject[taskID].asObject()["task"].asString()
+                            val deadline = jsonObject[taskID].asObject()["deadline"].asString()
+                            var dLine = ""
+                            if (deadline.isNotEmpty()) {
+                                dLine = "$deadline |"
+                            }
+                            builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_erledigt", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n")
                         }
-                        builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_erledigt", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n")
                     }
                     if (event.message.mentionedMembers.size > 0) {
                         val member = event.message.mentionedMembers[0]
