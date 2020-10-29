@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
@@ -65,13 +66,14 @@ public class Task {
         this.type = TaskType.USER;
         this.holder = member.getId();
         try {
-            final String jsonResponse = Jsoup.connect(Main.requestURL + "createTask.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.getId()) + "&task=" + text + "&userID=" + Connection.encodeString(member.getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
+            final Document a = Jsoup.connect("http://localhost:5000" + "/task/user/" + guild.getId()).method(org.jsoup.Connection.Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("task_text", text).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).postDataCharset("UTF-8").post();
+            final String jsonResponse = a.body().text();
+            System.out.println(jsonResponse);
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-            setStatusCode(jsonObject.getInt("status_code", 900));
-            if (getStatusCode() == 200) {
-                this.id = jsonObject.getString("task_id", "");
-            }
+            setStatusCode(200);
+            this.id = jsonObject.getString("id", "");
         } catch (Exception e) {
+            setStatusCode(-1);
             e.printStackTrace();
         }
     }

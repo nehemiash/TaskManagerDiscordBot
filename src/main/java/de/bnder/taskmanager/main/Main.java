@@ -32,6 +32,7 @@ public class Main {
 
     public static String requestURL = null;
     public static String requestToken = null;
+    public static String authorizationToken = null;
     public static final String userAgent = "TaskmanagerBot/1.0 (Windows; U; WindowsNT 5.1; de-DE; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
     public static int shard = 0;
     public static int totalShard = 2;

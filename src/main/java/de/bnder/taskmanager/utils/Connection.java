@@ -32,6 +32,7 @@ public class Connection {
             Main.requestToken = URLEncoder.encode(object.getString("password", null), StandardCharsets.UTF_8.toString());
             Main.shard = object.getInt("shard", 0);
             Main.totalShard = object.getInt("total_shards", 1);
+            Main.authorizationToken = object.getString("authorization_token", null);
         } catch (Exception e) {
             System.exit(1);
         }
