@@ -68,41 +68,52 @@ class Task : Command {
                         val groupName = Connection.encodeString(args[1])
                         val task = getTaskFromArgs(3, event.message, false)
                         val taskObject = Task(guild, task, null, groupName)
-                        if (taskObject.statusCode == 200) {
-                            //TODO
-                            val groupMembersJsonResponse = Jsoup.connect(Main.requestURL + "getGroupMembers.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(event.guild.id) + "&group_name=" + groupName).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
-                            val groupMembersObject = Json.parse(groupMembersJsonResponse).asObject()
-                            val groupMembersStatusCode = groupMembersObject.getInt("status_code", 900)
-                            if (groupMembersStatusCode == 200) {
-                                var usersWhoReceivedTheTaskAmount = 0
-                                for (value in groupMembersObject["members"].asArray()) {
-                                    val id = value.asObject().getString("user_id", null)
-                                    if (id != null) {
-                                        val member = event.guild.retrieveMemberById(id).complete()
-                                        if (member != null) {
-                                            usersWhoReceivedTheTaskAmount++
-                                            sendTaskMessage(member, event, taskObject.id, langCode, task)
+                        when (taskObject.statusCode) {
+                            200 -> {
+                                val res = Jsoup.connect("http://localhost:5000" + "/group/members/" + event.guild.id + "/" + groupName).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                                when (res.statusCode()) {
+                                    200 -> {
+                                        val jsonObject = Json.parse(res.parse().body().text()).asObject()
+                                        var usersWhoReceivedTheTaskAmount = 0
+                                        for (value in jsonObject["members"].asArray()) {
+                                            val id = value.asObject().getString("user_id", null)
+                                            if (id != null) {
+                                                val member = event.guild.retrieveMemberById(id).complete()
+                                                if (member != null) {
+                                                    usersWhoReceivedTheTaskAmount++
+                                                    sendTaskMessage(member, event, taskObject.id, langCode, task)
+                                                }
+                                            }
                                         }
+                                        MessageSender.send(embedTitle + " - " + taskObject.id, Localizations.getString("aufgabe_an_x_mitglieder_gesendet", langCode, object : ArrayList<String?>() {
+                                            init {
+                                                add(usersWhoReceivedTheTaskAmount.toString())
+                                            }
+                                        }), event.message, Color.green)
+                                    }
+                                    404 -> {
+                                        MessageSender.send(embedTitle + " - " + taskObject.id, Localizations.getString("aufgabe_an_x_mitglieder_gesendet", langCode, object : ArrayList<String?>() {
+                                            init {
+                                                add("0")
+                                            }
+                                        }), event.message, Color.green)
                                     }
                                 }
-                                MessageSender.send(embedTitle + " - " + taskObject.id, Localizations.getString("aufgabe_an_x_mitglieder_gesendet", langCode, object : ArrayList<String?>() {
-                                    init {
-                                        add(usersWhoReceivedTheTaskAmount.toString())
-                                    }
-                                }), event.message, Color.green)
                             }
-                        } else if (taskObject.statusCode == 902) {
-                            MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode, object : ArrayList<String?>() {
-                                init {
-                                    add(groupName)
-                                }
-                            }), event.message, Color.red)
-                        } else {
-                            MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, object : ArrayList<String?>() {
-                                init {
-                                    add(groupName)
-                                }
-                            }), event.message, Color.red)
+                            902 -> {
+                                MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode, object : ArrayList<String?>() {
+                                    init {
+                                        add(groupName)
+                                    }
+                                }), event.message, Color.red)
+                            }
+                            else -> {
+                                MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, object : ArrayList<String?>() {
+                                    init {
+                                        add(groupName)
+                                    }
+                                }), event.message, Color.red)
+                            }
                         }
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellen_fehlende_argumente", langCode), event.message, Color.red)
