@@ -3,9 +3,10 @@ package de.bnder.taskmanager.utils;
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonObject;
 import de.bnder.taskmanager.main.Main;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import org.jsoup.Connection.Method;
+import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -28,19 +29,38 @@ public class Task {
         this.guild = guild;
 
         try {
-            String jsonResponse = Jsoup.connect(Main.requestURL + "getTaskInfo.php?requestToken=" + Main.requestToken + "&task_id=" + taskID + "&server_id=" + Connection.encodeString(guild.getId())).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
-            JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-            setStatusCode(jsonObject.getInt("status_code", 900));
+            JsonObject jsonObject = null;
+            Response res;
+            //Try user task
+            res = Jsoup.connect("http://localhost:5000" + "/task/user/" + guild.getId() + "/" + taskID).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            setStatusCode(res.statusCode());
+            if (getStatusCode() == 200) {
+                this.type = TaskType.USER;
+                final Document a = res.parse();
+                jsonObject = Json.parse(a.body().text()).asObject();
+            } else if (getStatusCode() == 404) {
+                //Try group task
+                res = Jsoup.connect("http://localhost:5000" + "/task/group/" + guild.getId() + "/" + taskID).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                setStatusCode(res.statusCode());
+                if (getStatusCode() == 200) {
+                    this.type = TaskType.GROUP;
+                    final Document a = res.parse();
+                    jsonObject = Json.parse(a.body().text()).asObject();
+                } else {
+                    this.exists = false;
+                    return;
+                }
+            }
+
             if (getStatusCode() == 200) {
                 this.exists = true;
-                final int taskStatusInt = jsonObject.getInt("task_status", 0);
+                final int taskStatusInt = jsonObject.getInt("status", 0);
                 if (taskStatusInt >= 0) {
                     this.status = TaskStatus.values()[taskStatusInt];
                 }
-                this.deadline = jsonObject.getString("task_deadline", null);
-                this.type = jsonObject.getString("task_type", null).equalsIgnoreCase("user") ? TaskType.USER : TaskType.GROUP;
+                this.deadline = jsonObject.get("deadline").toString();
                 this.holder = this.type == TaskType.USER ? jsonObject.getString("user_id", null) : jsonObject.getString("group_name", null);
-                this.text = jsonObject.getString("task_text", null);
+                this.text = jsonObject.getString("text", null);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,12 +86,11 @@ public class Task {
         this.type = TaskType.USER;
         this.holder = member.getId();
         try {
-            final Document a = Jsoup.connect("http://localhost:5000" + "/task/user/" + guild.getId()).method(org.jsoup.Connection.Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("task_text", text).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).postDataCharset("UTF-8").post();
+            final Document a = Jsoup.connect("http://localhost:5000" + "/task/user/" + guild.getId()).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("task_text", text).data("deadline", deadline != null ? deadline : "").postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).post();
             final String jsonResponse = a.body().text();
-            System.out.println(jsonResponse);
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
             setStatusCode(200);
-            this.id = jsonObject.getString("id", "");
+            this.id = jsonObject.getString("id", null);
         } catch (Exception e) {
             setStatusCode(-1);
             e.printStackTrace();
@@ -85,22 +104,21 @@ public class Task {
         this.type = TaskType.GROUP;
         this.holder = holder;
         try {
-            final String jsonResponse = Jsoup.connect(Main.requestURL + "createTask.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.getId()) + "&task=" + Connection.encodeString(text) + "&groupName=" + holder).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
+            final Document a = Jsoup.connect("http://localhost:5000" + "/task/group/" + guild.getId() + "/" + holder).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("task_text", text).data("deadline", deadline != null ? deadline : "").postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).post();
+            final String jsonResponse = a.body().text();
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-            setStatusCode(jsonObject.getInt("status_code", 900));
-            if (getStatusCode() == 200) {
-                this.id = jsonObject.getString("task_id", "");
-            }
+            setStatusCode(200);
+            this.id = jsonObject.getString("id", null);
         } catch (Exception e) {
+            setStatusCode(-1);
             e.printStackTrace();
         }
     }
 
     public void setText(String text) {
         try {
-            final String jsonResponse = Jsoup.connect(Main.requestURL + "editTask.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(guild.getId()) + "&task=" + Connection.encodeString(text) + "&taskID=" + Connection.encodeString(this.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
-            JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-            setStatusCode(jsonObject.getInt("status_code", 900));
+            Response res = Jsoup.connect("http://localhost:5000" + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/edit/" + this.guild.getId() + "/" + this.id).method(Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("task_text", text).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            setStatusCode(res.statusCode());
             if (getStatusCode() == 200) {
                 this.text = text;
             }
@@ -111,9 +129,8 @@ public class Task {
 
     public Task setDeadline(String deadline) {
         try {
-            final String jsonResponse = Jsoup.connect(Main.requestURL + "setDeadline.php?requestToken=" + Main.requestToken + "&taskID=" + this.id + "&date=" + Connection.encodeString(deadline) + "&serverID=" + Connection.encodeString(guild.getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
-            final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-            setStatusCode(jsonObject.getInt("status_code", 900));
+            final Response res = Jsoup.connect("http://localhost:5000" + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/set-deadline/" + guild.getId() + "/" + this.id ).method(Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("deadline", deadline).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            setStatusCode(res.statusCode());
             if (getStatusCode() == 200) {
                 this.deadline = deadline;
             }
@@ -125,9 +142,8 @@ public class Task {
 
     public void delete() {
         try {
-            final String jsonResponse = Jsoup.connect(Main.requestURL + "deleteTask.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(guild.getId()) + "&taskID=" + id).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
-            final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-            setStatusCode(jsonObject.getInt("status_code", 900));
+            Response res = Jsoup.connect("http://localhost:5000" + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/" + this.guild.getId() + "/" + this.id).method(Method.DELETE).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            setStatusCode(res.statusCode());
             this.exists = false;
         } catch (IOException e) {
             e.printStackTrace();
@@ -136,46 +152,35 @@ public class Task {
 
     public Task setStatus(TaskStatus status, Member member) {
         try {
-            if (status == TaskStatus.DONE) {
-                final String jsonResponse = Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.getId()) + "&task_id=" + this.id + "&user_id=" + member.getId()).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
-                final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-                setStatusCode(jsonObject.getInt("status_code", 900));
-                if (getStatusCode() == 200) {
-                    Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.getId()) + "&task_id=" + this.id + "&user_id=" + member.getId()).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
-                } else if (getStatusCode() == 904) {
-                    final String jsonResponse2 = Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.getId()) + "&task_id=" + this.id + "&user_id=" + member.getId() + "&force=1").userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
-                    final JsonObject jsonObject2 = Json.parse(jsonResponse2).asObject();
-                    setStatusCode(jsonObject2.getInt("status_code", 900));
-                    if (getStatusCode() == 200) {
-                        Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.getId()) + "&task_id=" + this.id + "&user_id=" + member.getId() + "&force=1").userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
-                    }
-                }
+            int number = 0;
+            switch (status) {
+                case DONE:
+                    number = 2;
+                    break;
+                case IN_PROGRESS:
+                    number = 1;
+                    break;
+            }
+            final Response res = Jsoup.connect("http://localhost:5000" + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/set-status/" + guild.getId() + "/" + this.id + "/" + number).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            setStatusCode(res.statusCode());
+            if (getStatusCode() == 200) {
+                this.status = status;
             }
         } catch (Exception exception) {
             exception.printStackTrace();
-        }
-        if (getStatusCode() == 200) {
-            this.status = status;
         }
         return this;
     }
 
     public Task proceed(Member member) {
         try {
-            final String jsonResponse = Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&task_id=" + this.id + "&server_id=" + Connection.encodeString(guild.getId()) + "&user_id=" + Connection.encodeString(member.getId())).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
-            final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-            setStatusCode(jsonObject.getInt("status_code", 900));
+            final Response res = Jsoup.connect("http://localhost:5000" + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/update/" + guild.getId() + "/" + this.id).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            setStatusCode(res.statusCode());
             if (getStatusCode() == 200) {
-                this.status = TaskStatus.values()[jsonObject.getInt("process", 0)];
-            } else if (getStatusCode() == 904) {
-                if (member.isOwner() || member.hasPermission(Permission.ADMINISTRATOR)) {
-                    final String jsonResponse2 = Jsoup.connect(Main.requestURL + "updateTaskStatus.php?requestToken=" + Main.requestToken + "&task_id=" + this.id + "&server_id=" + Connection.encodeString(guild.getId()) + "&user_id=" + Connection.encodeString(member.getId()) + "&force=1").userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
-                    final JsonObject jsonObject2 = Json.parse(jsonResponse2).asObject();
-                    setStatusCode(jsonObject2.getInt("status_code", 900));
-                    if (getStatusCode() == 200) {
-                        this.status = TaskStatus.values()[jsonObject.getInt("process", 0)];
-                    }
-                }
+                final Document document = res.parse();
+                final String jsonResponse = document.body().text();
+                final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
+                this.status = TaskStatus.values()[jsonObject.getInt("status", 0)];
             }
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -185,15 +190,13 @@ public class Task {
 
     public Task undo(Member member) {
         try {
-            final String jsonResponse = Jsoup.connect(Main.requestURL + "undoTaskStatus.php?requestToken=" + Main.requestToken + "&task_id=" + this.id + "&server_id=" + Connection.encodeString(guild.getId())).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body();
-            final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-            setStatusCode(jsonObject.getInt("status_code", 900));
+            final Response res = Jsoup.connect("http://localhost:5000" + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/undo/" + guild.getId() + "/" + this.id).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            setStatusCode(res.statusCode());
             if (getStatusCode() == 200) {
-                if (jsonObject.getInt("process", 0) >= 0) {
-                    this.status = TaskStatus.values()[jsonObject.getInt("process", 0)];
-                } else {
-                    setStatusCode(931);
-                }
+                final Document document = res.parse();
+                final String jsonResponse = document.body().text();
+                final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
+                this.status = TaskStatus.values()[jsonObject.getInt("status", 0)];
             }
         } catch (Exception exception) {
             exception.printStackTrace();

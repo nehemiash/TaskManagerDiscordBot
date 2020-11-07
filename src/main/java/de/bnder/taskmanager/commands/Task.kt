@@ -69,6 +69,7 @@ class Task : Command {
                         val task = getTaskFromArgs(3, event.message, false)
                         val taskObject = Task(guild, task, null, groupName)
                         if (taskObject.statusCode == 200) {
+                            //TODO
                             val groupMembersJsonResponse = Jsoup.connect(Main.requestURL + "getGroupMembers.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(event.guild.id) + "&group_name=" + groupName).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
                             val groupMembersObject = Json.parse(groupMembersJsonResponse).asObject()
                             val groupMembersStatusCode = groupMembersObject.getInt("status_code", 900)
@@ -179,23 +180,30 @@ class Task : Command {
         } else if (args.size >= 2) {
             if (args[0].equals("list", ignoreCase = true)) {
                 var jsonResponse = ""
+                var statusCode = 0
                 var text = ""
                 if (event.message.mentionedMembers.size > 0) {
                     val member = event.message.mentionedMembers[0]
-                    jsonResponse = Jsoup.connect(Main.requestURL + "getUserTasks.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&userID=" + Connection.encodeString(member.user.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
+                    val res = Jsoup.connect("http://localhost:5000" + "/task/user/tasks/" + guild.id + "/" + member!!.id).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                    statusCode = res.statusCode()
+                    jsonResponse = res.parse().body().text()
                 } else {
                     val groupName = args[1]
-                    jsonResponse = Jsoup.connect(Main.requestURL + "getGroupTasks.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&group_name=" + Connection.encodeString(groupName)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
+                    val res = Jsoup.connect("http://localhost:5000" + "/task/group/tasks/" + guild.id + "/" + Connection.encodeString(groupName)).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                    statusCode = res.statusCode()
+                    jsonResponse = res.parse().body().text()
                 }
                 val jsonObject = Json.parse(jsonResponse).asObject()
-                val statusCode = jsonObject.getInt("status_code", 900)
                 if (statusCode == 200) {
                     var array = jsonObject["todo"].asArray()
                     val builder = StringBuilder()
                     for (i in 0 until array.size()) {
                         val taskID = array[i].asString()
-                        val task = jsonObject[taskID].asObject()["task"].asString()
-                        val deadline = jsonObject[taskID].asObject()["deadline"].asString()
+                        val task = jsonObject["allTasks"].asObject()[taskID].asObject()["task"].asString()
+                        var deadline = "";
+                        if (!jsonObject["allTasks"].asObject()[taskID].asObject()["deadline"].isNull) {
+                            deadline = jsonObject["allTasks"].asObject()[taskID].asObject()["deadline"].asString();
+                        }
                         var dLine = ""
                         if (deadline.isNotEmpty()) {
                             dLine = "$deadline |"
@@ -205,25 +213,36 @@ class Task : Command {
                     array = jsonObject["doing"].asArray()
                     for (i in 0 until array.size()) {
                         val taskID = array[i].asString()
-                        val task = jsonObject[taskID].asObject()["task"].asString()
-                        val deadline = jsonObject[taskID].asObject()["deadline"].asString()
+                        val task = jsonObject["allTasks"].asObject()[taskID].asObject()["task"].asString()
+                        var deadline = "";
+                        if (!jsonObject["allTasks"].asObject()[taskID].asObject()["deadline"].isNull) {
+                            deadline = jsonObject["allTasks"].asObject()[taskID].asObject()["deadline"].asString();
+                        }
                         var dLine = ""
                         if (deadline.isNotEmpty()) {
                             dLine = "$deadline |"
                         }
                         builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_wird_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n")
                     }
-                    if (Settings.getUserSettings(event.member).getString("show_done_tasks", "1") as String == "1") {
-                        array = jsonObject["done"].asArray()
-                        for (i in 0 until array.size()) {
-                            val taskID = array[i].asString()
-                            val task = jsonObject[taskID].asObject()["task"].asString()
-                            val deadline = jsonObject[taskID].asObject()["deadline"].asString()
-                            var dLine = ""
-                            if (deadline.isNotEmpty()) {
-                                dLine = "$deadline |"
-                            }
+                    array = jsonObject["done"].asArray()
+                    val showDoneTasks = Settings.getUserSettings(event.member).getString("show_done_tasks", "1") as String
+                    var tasksHidden = 0
+                    for (i in 0 until array.size()) {
+                        val taskID = array[i].asString()
+                        val task = jsonObject["allTasks"].asObject()[taskID].asObject()["task"].asString()
+                        var deadline = "";
+                        if (!jsonObject["allTasks"].asObject()[taskID].asObject()["deadline"].isNull) {
+                            deadline = jsonObject["allTasks"].asObject()[taskID].asObject()["deadline"].asString();
+                        }
+                        var dLine = ""
+                        if (deadline.isNotEmpty()) {
+                            dLine = "$deadline |"
+                        }
+
+                        if (showDoneTasks == "1") {
                             builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_erledigt", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n")
+                        } else {
+                            tasksHidden++
                         }
                     }
                     if (event.message.mentionedMembers.size > 0) {
@@ -398,6 +417,12 @@ class Task : Command {
                     }
                     builder.addField(Localizations.getString("task_info_field_task", langCode), task.text, false)
                     event.channel.sendMessage(builder.build()).queue()
+                } else {
+                    MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, object : ArrayList<String?>() {
+                        init {
+                            add(taskID)
+                        }
+                    }), event.message, Color.red)
                 }
             } else {
                 MessageSender.send(embedTitle, Localizations.getString("help_message_task_commands", langCode), event.message, Color.red)
@@ -405,16 +430,20 @@ class Task : Command {
         } else if (args.size == 1) {
             if (args[0].equals("list", ignoreCase = true)) {
                 val member = event.member
-                val jsonResponse = Jsoup.connect(Main.requestURL + "getUserTasks.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guild.id) + "&userID=" + Connection.encodeString(member!!.user.id)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
+                val res = Jsoup.connect("http://localhost:5000" + "/task/user/tasks/" + guild.id + "/" + member!!.id).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                val document = res.parse();
+                val jsonResponse = document.body().text()
                 val jsonObject = Json.parse(jsonResponse).asObject()
-                val statusCode = jsonObject.getInt("status_code", 900)
-                if (statusCode == 200) {
+                if (res.statusCode() == 200) {
                     var array = jsonObject["todo"].asArray()
                     val builder = StringBuilder()
                     for (i in 0 until array.size()) {
                         val taskID = array[i].asString()
-                        val task = jsonObject[taskID].asObject()["task"].asString()
-                        val deadline = jsonObject[taskID].asObject()["deadline"].asString()
+                        val task = jsonObject["allTasks"].asObject()[taskID].asObject()["task"].asString()
+                        var deadline = "";
+                        if (!jsonObject["allTasks"].asObject()[taskID].asObject()["deadline"].isNull) {
+                            deadline = jsonObject["allTasks"].asObject()[taskID].asObject()["deadline"].asString();
+                        }
                         var dLine = ""
                         if (deadline.isNotEmpty()) {
                             dLine = "$deadline |"
@@ -424,8 +453,11 @@ class Task : Command {
                     array = jsonObject["doing"].asArray()
                     for (i in 0 until array.size()) {
                         val taskID = array[i].asString()
-                        val task = jsonObject[taskID].asObject()["task"].asString()
-                        val deadline = jsonObject[taskID].asObject()["deadline"].asString()
+                        val task = jsonObject["allTasks"].asObject()[taskID].asObject()["task"].asString()
+                        var deadline = "";
+                        if (!jsonObject["allTasks"].asObject()[taskID].asObject()["deadline"].isNull) {
+                            deadline = jsonObject["allTasks"].asObject()[taskID].asObject()["deadline"].asString();
+                        }
                         var dLine = ""
                         if (deadline.isNotEmpty()) {
                             dLine = "$deadline |"
@@ -437,8 +469,11 @@ class Task : Command {
                     var tasksHidden = 0
                     for (i in 0 until array.size()) {
                         val taskID = array[i].asString()
-                        val task = jsonObject[taskID].asObject()["task"].asString()
-                        val deadline = jsonObject[taskID].asObject()["deadline"].asString()
+                        val task = jsonObject["allTasks"].asObject()[taskID].asObject()["task"].asString()
+                        var deadline = "";
+                        if (!jsonObject["allTasks"].asObject()[taskID].asObject()["deadline"].isNull) {
+                            deadline = jsonObject["allTasks"].asObject()[taskID].asObject()["deadline"].asString();
+                        }
                         var dLine = ""
                         if (deadline.isNotEmpty()) {
                             dLine = "$deadline |"
@@ -453,14 +488,14 @@ class Task : Command {
                     if (showDoneTasks == "1") {
                         MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer", langCode, object : ArrayList<String?>() {
                             init {
-                                add(member.asMention)
+                                add(member!!.asMention)
                                 add(builder.toString())
                             }
                         }), event.message, Color.green)
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer_no_done_tasks", langCode, object : ArrayList<String?>() {
                             init {
-                                add(member.asMention)
+                                add(member!!.asMention)
                                 add(builder.toString())
                                 add(tasksHidden.toString())
                             }
@@ -519,7 +554,7 @@ class Task : Command {
             if (taskBuilder.isNotEmpty()) {
                 taskBuilder.subSequence(0, taskBuilder.length - 1)
             }
-            return Connection.encodeString(taskBuilder.toString())
+            return taskBuilder.toString()
         }
     }
 }
