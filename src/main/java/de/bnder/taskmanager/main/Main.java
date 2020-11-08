@@ -71,7 +71,7 @@ public class Main {
         CommandHandler.commands.put("stats", new Stats());
         CommandHandler.commands.put("language", new Language());
         CommandHandler.commands.put("app", new App());
-//        CommandHandler.commands.put("data", new Data());
+        CommandHandler.commands.put("data", new Data());
 
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.playing("bnder.net"));

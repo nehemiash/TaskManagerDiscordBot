@@ -34,10 +34,9 @@ public class CommandListener extends ListenerAdapter {
         if (event.getMessage().getContentRaw().length() > 3) {
             if (CommandHandler.commands.containsKey(event.getMessage().getContentRaw().split(" ")[0].substring(1))) {
                 try {
-                    String jsonResponse = Jsoup.connect(Main.requestURL + "getPrefix.php?requestToken=" + Main.requestToken + "&serverID=" + de.bnder.taskmanager.utils.Connection.encodeString(event.getGuild().getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
-                    JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-                    int statusCode = jsonObject.getInt("status_code", 900);
-                    if (statusCode == 200) {
+                    final org.jsoup.Connection.Response getPrefixRes = Jsoup.connect("http://localhost:5000" + "/server/prefix/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getMember().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                    JsonObject jsonObject = Json.parse(getPrefixRes.parse().body().text()).asObject();
+                    if (getPrefixRes.statusCode() == 200) {
                         String prefix = jsonObject.getString("prefix", "-");
                         if (event.getMessage().getContentRaw().startsWith(prefix)) {
                             processCommand(event);

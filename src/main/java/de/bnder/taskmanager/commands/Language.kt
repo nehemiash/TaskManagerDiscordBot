@@ -1,6 +1,5 @@
 package de.bnder.taskmanager.commands
 
-import com.eclipsesource.json.Json
 import de.bnder.taskmanager.main.Command
 import de.bnder.taskmanager.main.Main
 import de.bnder.taskmanager.utils.Connection
@@ -41,15 +40,12 @@ class Language : Command {
             if (language.equals("de", ignoreCase = true) || language.equals("en", ignoreCase = true) || language.equals("bg", ignoreCase = true)
                     || language.equals("fr", ignoreCase = true) || language.equals("ru", ignoreCase = true) || language.equals("pl", ignoreCase = true)) {
                 if (Objects.requireNonNull(event.member)!!.hasPermission(Permission.ADMINISTRATOR)) {
-                    val jsonResponse = Jsoup.connect(Main.requestURL + "setLanguage.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(guild.id) + "&language=" + Connection.encodeString(language)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
-                    val `object` = Json.parse(jsonResponse).asObject()
-                    val statusCode = `object`.getInt("status_code", 900)
-                    val langCode = Localizations.getGuildLanguage(event.guild)
-                    val embedTitle = Localizations.getString("language_message_title", langCode)
-                    if (statusCode == 200) {
-                        MessageSender.send(embedTitle, Localizations.getString("sprache_geändert", langCode), event.message, Color.green)
+                    val res = Jsoup.connect("http://localhost:5000" + "/server/language/" + event.guild.id).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).data("language", language).postDataCharset("UTF-8").header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                    val embedTitle = Localizations.getString("language_message_title", language)
+                    if (res.statusCode() == 200) {
+                        MessageSender.send(embedTitle, Localizations.getString("sprache_geändert", language), event.message, Color.green)
                     } else {
-                        MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode), event.message, Color.red)
+                        MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", language), event.message, Color.red)
                     }
                 } else {
                     val langCode = Localizations.getGuildLanguage(event.guild)

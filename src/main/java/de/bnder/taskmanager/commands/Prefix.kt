@@ -1,12 +1,10 @@
 package de.bnder.taskmanager.commands
 
-import com.eclipsesource.json.Json
 import de.bnder.taskmanager.main.Command
 import de.bnder.taskmanager.main.Main
 import de.bnder.taskmanager.utils.Connection
 import de.bnder.taskmanager.utils.Localizations
 import de.bnder.taskmanager.utils.MessageSender
-import jdk.nashorn.internal.runtime.regexp.joni.CodeRangeBuffer
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
 import org.jsoup.Jsoup
@@ -36,10 +34,8 @@ class Prefix : Command {
             if (args.size == 1) {
                 val prefix = args[0]
                 if (prefix.length == 1) {
-                    val jsonResponse = Jsoup.connect(Main.requestURL + "setPrefix.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.guild.id) + "&prefix=" + Connection.encodeString(prefix)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
-                    val jsonObject = Json.parse(jsonResponse).asObject()
-                    val statusCode = jsonObject.getInt("status_code", 900)
-                    if (statusCode == 200) {
+                    val res = Jsoup.connect("http://localhost:5000" + "/server/prefix/" + event.guild.id).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).data("prefix", prefix).postDataCharset("UTF-8").header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                    if (res.statusCode() == 200) {
                         MessageSender.send(embedTitle, Localizations.getString("prefix_changed", langCode, object : ArrayList<String?>() {
                             init {
                                 add(prefix)
@@ -48,7 +44,7 @@ class Prefix : Command {
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, object : ArrayList<String?>() {
                             init {
-                                add("PREFIX-$statusCode")
+                                add("PREFIX-${res.statusCode()}")
                             }
                         }), event.message, Color.red)
                     }
