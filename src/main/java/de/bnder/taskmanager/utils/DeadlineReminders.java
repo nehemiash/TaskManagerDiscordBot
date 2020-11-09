@@ -36,6 +36,7 @@ public class DeadlineReminders {
             @Override
             public void run() {
                 try {
+                    //TODO
                     final String jsonResponse = Jsoup.connect(Main.requestURL + "getDeadlineReminders.php?requestToken=" + Main.requestToken).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
                     final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
                     final int statusCode = jsonObject.getInt("status_code", 900);
@@ -83,6 +84,7 @@ public class DeadlineReminders {
     }
 
     private static void setReminded(final String serverID, final String taskID) throws IOException {
+        //TODO
         Jsoup.connect(Main.requestURL + "setDeadlineReminded.php?requestToken=" + Main.requestToken + "&server_id=" + serverID + "&task_id=" + taskID).timeout(Connection.timeout).userAgent(Main.userAgent).execute();
     }
 }

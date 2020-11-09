@@ -91,7 +91,7 @@ public class PermissionSystem {
     }
 
     //Methods
-    private static boolean checkPerms(Member member, String name) {
+    private static boolean checkPerms(Member member, String permission) {
         if (member.isOwner() || member.hasPermission(Permission.ADMINISTRATOR)) {
             return true;
         } else {
@@ -100,11 +100,10 @@ public class PermissionSystem {
                 for (Role role : member.getRoles()) {
                     rolesBuilder.append(role.getId()).append(",");
                 }
-                final String jsonResponse = Jsoup.connect(Main.requestURL + "hasPermission.php?requestToken=" + Main.requestToken + "&serverID=" + member.getGuild().getId() + "&userID=" + member.getUser().getId() + "&permission=" + Connection.encodeString(name) + "&roleIDs=" + Connection.encodeString(rolesBuilder.toString())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
-                final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-                final int statusCode = jsonObject.getInt("status_code", 900);
-                if (statusCode == 200) {
-                    return true;
+                final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/user/get-perms/" + member.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("roles", rolesBuilder.toString()).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                if (res.statusCode() == 200) {
+                    final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
+                    return jsonObject.getBoolean(permission, false);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -113,16 +112,15 @@ public class PermissionSystem {
         return false;
     }
 
-    private static boolean checkPerms(Role role, String name) {
+    private static boolean checkPerms(Role role, String permission) {
         if (role.hasPermission(Permission.ADMINISTRATOR)) {
             return true;
         } else {
             try {
-                final String jsonResponse = Jsoup.connect(Main.requestURL + "hasPermissionRole.php?requestToken=" + Main.requestToken + "&serverID=" + role.getGuild().getId() + "&roleID=" + role.getId() + "&permission=" + Connection.encodeString(name)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
-                final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-                final int statusCode = jsonObject.getInt("status_code", 900);
-                if (statusCode == 200) {
-                    return true;
+                final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/user/get-perms/" + role.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("roles", role + ",").postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                if (res.statusCode() == 200) {
+                    final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
+                    return jsonObject.getBoolean(permission, false);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -131,6 +129,7 @@ public class PermissionSystem {
         return false;
     }
 
+    //TODO
     private static int sendAddPermRequestRole(Role role, String name) {
         try {
             final String jsonResponse = Jsoup.connect(Main.requestURL + "addPermissionRole.php?requestToken=" + Main.requestToken + "&serverID=" + role.getGuild().getId() + "&roleID=" + role.getId() + "&permission=" + Connection.encodeString(name)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
@@ -142,6 +141,7 @@ public class PermissionSystem {
         return 912;
     }
 
+    //TODO
     private static int sendAddPermRequestUser(Member member, String name) {
         try {
             final String jsonResponse = Jsoup.connect(Main.requestURL + "addPermission.php?requestToken=" + Main.requestToken + "&serverID=" + member.getGuild().getId() + "&userID=" + member.getUser().getId() + "&permission=" + Connection.encodeString(name)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
@@ -153,6 +153,7 @@ public class PermissionSystem {
         return 912;
     }
 
+    //TODO
     private static int sendRemovePermRequestUser(Member member, String name) {
         try {
             final String jsonResponse = Jsoup.connect(Main.requestURL + "removePermission.php?requestToken=" + Main.requestToken + "&serverID=" + member.getGuild().getId() + "&userID=" + member.getUser().getId() + "&permission=" + Connection.encodeString(name)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
@@ -164,6 +165,7 @@ public class PermissionSystem {
         return 912;
     }
 
+    //TODO
     private static int sendRemovePermRequestRole(Role role, String name) {
         try {
             final String jsonResponse = Jsoup.connect(Main.requestURL + "removePermissionRole.php?requestToken=" + Main.requestToken + "&serverID=" + role.getGuild().getId() + "&roleID=" + role.getId() + "&permission=" + Connection.encodeString(name)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();

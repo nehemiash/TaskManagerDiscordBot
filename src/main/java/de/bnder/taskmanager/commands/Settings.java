@@ -40,43 +40,33 @@ public class Settings implements Command {
         if (args.length == 1) {
             final String arg0 = args[0].replaceAll("-", "").replaceAll("_", "");
             if (arg0.equalsIgnoreCase("directmessage")) {
-                final String jsonResponse = Jsoup.connect(Main.requestURL + "updateSettings.php?requestToken=" + Main.requestToken + "&user_id=" + Connection.encodeString(event.getAuthor().getId()) + "&source=" + Connection.encodeString("direct_message") + "&default=0" + "&guild_id=" + Connection.encodeString(event.getGuild().getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
-                final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-                final int statusCode = jsonObject.getInt("status_code", 900);
-                if (statusCode == 200) {
-                    final int newValue = jsonObject.getInt("newValue", -1);
-                    if (newValue == 1) {
+                final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/user/settings/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getAuthor().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).data("type", "direct_message").postDataCharset("UTF-8").ignoreContentType(true).ignoreHttpErrors(true).execute();
+                final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
+                if (res.statusCode() == 200) {
+                    final boolean newValue = jsonObject.getBoolean("newValue", false);
+                    if (newValue) {
                         MessageSender.send(embedTitle, Localizations.Companion.getString("settings_dm_enabled", langCode), event.getMessage(), Color.green);
-                    } else if (newValue == 0) {
-                        MessageSender.send(embedTitle, Localizations.Companion.getString("settings_dm_disabled", langCode), event.getMessage(), Color.green);
                     } else {
-                        MessageSender.send(embedTitle, Localizations.Companion.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {{
-                            add("SETTINGS-1-" + newValue);
-                        }}), event.getMessage(), Color.red);
+                        MessageSender.send(embedTitle, Localizations.Companion.getString("settings_dm_disabled", langCode), event.getMessage(), Color.green);
                     }
                 } else {
                     MessageSender.send(embedTitle, Localizations.Companion.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {{
-                        add("SETTINGS-1.1-" + statusCode);
+                        add("SETTINGS-1.1-" + res.statusCode());
                     }}), event.getMessage(), Color.red);
                 }
             } else if (arg0.equalsIgnoreCase("showdonetasks")) {
-                final String jsonResponse = Jsoup.connect(Main.requestURL + "updateSettings.php?requestToken=" + Main.requestToken + "&user_id=" + Connection.encodeString(event.getAuthor().getId()) + "&source=" + Connection.encodeString("show_done_tasks") + "&default=1" + "&guild_id=" + Connection.encodeString(event.getGuild().getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
-                final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-                final int statusCode = jsonObject.getInt("status_code", 900);
-                if (statusCode == 200) {
-                    final int newValue = jsonObject.getInt("newValue", -1);
-                    if (newValue == 1) {
+                final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/user/settings/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getAuthor().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).data("type", "show_done_tasks").postDataCharset("UTF-8").ignoreContentType(true).ignoreHttpErrors(true).execute();
+                final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
+                if (res.statusCode() == 200) {
+                    final boolean newValue = jsonObject.getBoolean("newValue", false);
+                    if (newValue) {
                         MessageSender.send(embedTitle, Localizations.Companion.getString("settings_show_done_tasks_enabled", langCode), event.getMessage(), Color.green);
-                    } else if (newValue == 0) {
-                        MessageSender.send(embedTitle, Localizations.Companion.getString("settings_show_done_tasks_disabled", langCode), event.getMessage(), Color.green);
                     } else {
-                        MessageSender.send(embedTitle, Localizations.Companion.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {{
-                            add("SETTINGS-2-" + newValue);
-                        }}), event.getMessage(), Color.red);
+                        MessageSender.send(embedTitle, Localizations.Companion.getString("settings_show_done_tasks_disabled", langCode), event.getMessage(), Color.green);
                     }
                 } else {
                     MessageSender.send(embedTitle, Localizations.Companion.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {{
-                        add("SETTINGS-2.1-" + statusCode);
+                        add("SETTINGS-2.1-" + res.statusCode());
                     }}), event.getMessage(), Color.red);
                 }
             } else {
@@ -84,7 +74,6 @@ public class Settings implements Command {
             }
         } else if (args.length == 0) {
             final JsonObject userSettings = de.bnder.taskmanager.utils.Settings.getUserSettings(event.getMember());
-            System.out.println(userSettings.toString());
             final EmbedBuilder embedBuilder = new EmbedBuilder().setColor(Color.cyan).setTimestamp(Calendar.getInstance().toInstant()).setTitle(embedTitle + " - " + event.getAuthor().getAsTag());
             if (userSettings.getString("direct_message", "1").equals("1")) {
                 embedBuilder.addField(Localizations.Companion.getString("settings_list_direct_message", langCode), Localizations.Companion.getString("settings_list_enabled", langCode), false);
@@ -108,10 +97,8 @@ public class Settings implements Command {
             if (arg0.equalsIgnoreCase("notifychannel")) {
                 if (event.getMessage().getMentionedChannels().size() == 1) {
                     final TextChannel channel = event.getMessage().getMentionedChannels().get(0);
-                    final String jsonResponse = Jsoup.connect(Main.requestURL + "updateSettings.php?requestToken=" + Main.requestToken + "&default=0" +  "&user_id=" + Connection.encodeString(event.getAuthor().getId()) + "&source=" + Connection.encodeString("notify_channel") + "&value=" + Connection.encodeString(channel.getId()) + "&guild_id=" + Connection.encodeString(event.getGuild().getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
-                    final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-                    final int statusCode = jsonObject.getInt("status_code", 900);
-                    if (statusCode == 200) {
+                    final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/user/settings/value/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getAuthor().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).data("type", "notify_channel").data("value", channel.getId()).postDataCharset("UTF-8").ignoreContentType(true).ignoreHttpErrors(true).execute();
+                    if (res.statusCode() == 200) {
                         if (!de.bnder.taskmanager.utils.Settings.getUserSettings(event.getMember()).getString("direct_message", "1").equals("0")) {
                             MessageSender.send(embedTitle, Localizations.Companion.getString("notify_channel_set_but_dms_are_enabled", langCode, new ArrayList<String>(){{
                                 add(channel.getAsMention());
@@ -123,7 +110,7 @@ public class Settings implements Command {
                         }
                     } else {
                         MessageSender.send(embedTitle, Localizations.Companion.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {{
-                            add("SETTINGS-3-" + statusCode);
+                            add("SETTINGS-3-" + res.statusCode());
                         }}), event.getMessage(), Color.red);
                     }
                 } else {

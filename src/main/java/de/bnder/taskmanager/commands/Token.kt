@@ -57,10 +57,9 @@ class Token : Command {
     companion object {
         private fun getNewToken(user: User): String? {
             try {
-                val jsonResponse = Jsoup.connect(Main.requestURL + "createToken.php?requestToken=" + Main.requestToken + "&userID=" + Connection.encodeString(user.id) + "&new=true").userAgent(Main.userAgent).timeout(Connection.timeout).execute().body()
-                val jsonObject = Json.parse(jsonResponse).asObject()
-                val statusCode = jsonObject.getInt("status_code", 900)
-                if (statusCode == 200) {
+                val res = Jsoup.connect("http://localhost:5000" + "/user/token/create").method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", user.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                val jsonObject = Json.parse(res.parse().body().text()).asObject()
+                if (res.statusCode() == 200) {
                     return jsonObject.getString("token", null)
                 }
             } catch (e: IOException) {
@@ -71,10 +70,9 @@ class Token : Command {
 
         private fun getToken(user: User): String? {
             try {
-                val jsonResponse = Jsoup.connect(Main.requestURL + "createToken.php?requestToken=" + Main.requestToken + "&userID=" + Connection.encodeString(user.id) + "&new=false").timeout(Connection.timeout).userAgent(Main.userAgent).execute().body()
-                val jsonObject = Json.parse(jsonResponse).asObject()
-                val statusCode = jsonObject.getInt("status_code", 900)
-                if (statusCode == 200) {
+                val res = Jsoup.connect("http://localhost:5000" + "/user/token").method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", user.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                val jsonObject = Json.parse(res.parse().body().text()).asObject()
+                if (res.statusCode() == 200) {
                     return jsonObject.getString("token", null)
                 }
             } catch (e: IOException) {
