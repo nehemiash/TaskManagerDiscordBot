@@ -27,7 +27,6 @@ public class Connection {
             String jsonSource = sb.toString();
             JsonObject object = Json.parse(jsonSource).asObject();
             Main.requestURL = object.getString("requestURL", null);
-            Main.requestToken = URLEncoder.encode(object.getString("password", null), StandardCharsets.UTF_8.toString());
             Main.shard = object.getInt("shard", 0);
             Main.totalShard = object.getInt("total_shards", 1);
             Main.authorizationToken = object.getString("authorization_token", null);

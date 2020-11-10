@@ -58,7 +58,7 @@ public class Main {
         builder.addEventListeners(new GuildJoin());
         builder.addEventListeners(new GuildLeave());
 
-        CommandHandler.commands.put("settings", new Settings());
+//        CommandHandler.commands.put("settings", new Settings());
         CommandHandler.commands.put("version", new Version());
         CommandHandler.commands.put("prefix", new Prefix());
         CommandHandler.commands.put("group", new Group());
