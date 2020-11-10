@@ -18,6 +18,7 @@ package de.bnder.taskmanager.main;
 import de.bnder.taskmanager.commands.*;
 import de.bnder.taskmanager.listeners.*;
 import de.bnder.taskmanager.utils.Connection;
+import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -27,22 +28,24 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import javax.security.auth.login.LoginException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 
 public class Main {
 
-    public static String requestURL = null;
+    public static final Dotenv dotenv = Dotenv.load();
+    public static String requestURL = dotenv.get("REQUEST_URL");
     public static String requestToken = null;
-    public static String authorizationToken = null;
+    public static String authorizationToken = dotenv.get("AUTHORIZATION_TOKEN");
     public static final String userAgent = "TaskmanagerBot/1.0 (Windows; U; WindowsNT 5.1; de-DE; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
-    public static int shard = 0;
-    public static int totalShard = 2;
+    public static int shard = Integer.parseInt(Objects.requireNonNull(dotenv.get("SHARD")));
+    public static int totalShard = Integer.parseInt(Objects.requireNonNull(dotenv.get("TOTAL_SHARDS")));
 
     public static final String prefix = "-";
 
     public static void main(String[] args) {
-        new Connection().defineConnection();
+//        new Connection().defineConnection();
 
-        final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(Connection.botToken,
+        final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"),
                 Collections.singletonList(GatewayIntent.GUILD_MESSAGES));
 
         builder.disableCache(Arrays.asList(CacheFlag.VOICE_STATE, CacheFlag.EMOTE));

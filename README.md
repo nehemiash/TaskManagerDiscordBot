@@ -14,3 +14,12 @@ limitations under the License.
 
 ## Support
 You can get support on [Twitter](https://twitter.com/bnderde), [Discord](https://bnder.de/discord), [E-Mail](mailto:support@bnder.de) or [Documentation](https://support.bnder.de).
+
+
+## .env
+
+BOT_TOKEN = <String>
+REQUEST_URL = <String> (the api url)
+SHARD = <Number>
+TOTAL_SHARDS = <Number>
+AUTHORIZATION_TOKEN = <String>

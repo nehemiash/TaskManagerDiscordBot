@@ -12,7 +12,6 @@ import java.nio.charset.StandardCharsets;
 
 public class Connection {
 
-    public static String botToken = null;
     public static int timeout = 15000;
 
     public void defineConnection() {
@@ -27,7 +26,6 @@ public class Connection {
 
             String jsonSource = sb.toString();
             JsonObject object = Json.parse(jsonSource).asObject();
-            botToken = object.getString("botToken", null);
             Main.requestURL = object.getString("requestURL", null);
             Main.requestToken = URLEncoder.encode(object.getString("password", null), StandardCharsets.UTF_8.toString());
             Main.shard = object.getInt("shard", 0);
