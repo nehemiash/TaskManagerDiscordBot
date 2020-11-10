@@ -40,7 +40,7 @@ class Language : Command {
             if (language.equals("de", ignoreCase = true) || language.equals("en", ignoreCase = true) || language.equals("bg", ignoreCase = true)
                     || language.equals("fr", ignoreCase = true) || language.equals("ru", ignoreCase = true) || language.equals("pl", ignoreCase = true)) {
                 if (Objects.requireNonNull(event.member)!!.hasPermission(Permission.ADMINISTRATOR)) {
-                    val res = Jsoup.connect("http://localhost:5000" + "/server/language/" + event.guild.id).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).data("language", language).postDataCharset("UTF-8").header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                    val res = Jsoup.connect(Main.requestURL + "/server/language/" + event.guild.id).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).data("language", language).postDataCharset("UTF-8").header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
                     val embedTitle = Localizations.getString("language_message_title", language)
                     if (res.statusCode() == 200) {
                         MessageSender.send(embedTitle, Localizations.getString("sprache_geändert", language), event.message, Color.green)

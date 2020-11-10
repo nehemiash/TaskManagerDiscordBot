@@ -39,7 +39,7 @@ class Group : Command {
             if (args[0].equals("create", ignoreCase = true)) {
                 if (PermissionSystem.hasPermission(event.member, GroupPermission.CREATE_GROUP)) {
                     val groupName = Connection.encodeString(args[1])
-                    val res = Jsoup.connect("http://localhost:5000" + "/group/create/" + event.guild.id).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.member!!.id).data("group_name", groupName).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                    val res = Jsoup.connect(Main.requestURL + "/group/create/" + event.guild.id).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.member!!.id).data("group_name", groupName).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
                     when (val statusCode = res.statusCode()) {
                         200 -> {
                             MessageSender.send(embedTitle, Localizations.getString("gruppe_erfolgreich_erstellt", langCode, object : ArrayList<String?>() {
@@ -70,7 +70,7 @@ class Group : Command {
             } else if (args[0].equals("delete", ignoreCase = true)) {
                 if (PermissionSystem.hasPermission(event.member, GroupPermission.DELETE_GROUP)) {
                     val groupName = Connection.encodeString(args[1])
-                    val res = Jsoup.connect("http://localhost:5000" + "/group/" + event.guild.id + "/" + groupName).method(org.jsoup.Connection.Method.DELETE).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                    val res = Jsoup.connect(Main.requestURL + "/group/" + event.guild.id + "/" + groupName).method(org.jsoup.Connection.Method.DELETE).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
                     when (res.statusCode()) {
                         200 -> {
                             MessageSender.send(embedTitle, Localizations.getString("gruppe_wurde_gelöscht", langCode, object : ArrayList<String?>() {
@@ -100,7 +100,7 @@ class Group : Command {
             } else if (args[0].equals("members", ignoreCase = true)) {
                 if (PermissionSystem.hasPermission(event.member, GroupPermission.SHOW_MEMBERS)) {
                     val groupName = Connection.encodeString(args[1])
-                    val res = Jsoup.connect("http://localhost:5000" + "/group/members/" + event.guild.id + "/" + groupName).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                    val res = Jsoup.connect(Main.requestURL + "/group/members/" + event.guild.id + "/" + groupName).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
                     val jsonObject = Json.parse(res.parse().body().text()).asObject()
                     when (val statusCode = res.statusCode()) {
                         200 -> {
@@ -147,7 +147,7 @@ class Group : Command {
                         if (event.message.mentionedMembers.size > 0) {
                             val groupName = Connection.encodeString(args[1 + event.message.mentionedMembers.size])
                             for (member in event.message.mentionedMembers) {
-                                val res = Jsoup.connect("http://localhost:5000" + "/group/add-member/" + event.guild.id).method(org.jsoup.Connection.Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member!!.id).data("group_name", groupName).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                                val res = Jsoup.connect(Main.requestURL + "/group/add-member/" + event.guild.id).method(org.jsoup.Connection.Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member!!.id).data("group_name", groupName).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
                                 when (val statusCode = res.statusCode()) {
                                     200 -> {
                                         MessageSender.send(embedTitle, Localizations.getString("nutzer_zu_gruppe_hinzugefügt", langCode, object : ArrayList<String?>() {
@@ -193,7 +193,7 @@ class Group : Command {
                         if (event.message.mentionedMembers.size > 0) {
                             val groupName = Connection.encodeString(args[1 + event.message.mentionedMembers.size])
                             for (member in event.message.mentionedMembers) {
-                                val res = Jsoup.connect("http://localhost:5000" + "/group/remove-member/" + event.guild.id).method(org.jsoup.Connection.Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member!!.id).data("group_name", groupName).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                                val res = Jsoup.connect(Main.requestURL + "/group/remove-member/" + event.guild.id).method(org.jsoup.Connection.Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member!!.id).data("group_name", groupName).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
                                 when (val statusCode = res.statusCode()) {
                                     200 -> {
                                         MessageSender.send(embedTitle, Localizations.getString("nutzer_aus_gruppe_entfernt", langCode, object : ArrayList<String?>() {
@@ -241,7 +241,7 @@ class Group : Command {
             }
         } else if (args.size == 1) {
             if (args[0].equals("list", ignoreCase = true)) {
-                val res = Jsoup.connect("http://localhost:5000" + "/group/list/" + event.guild.id).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                val res = Jsoup.connect(Main.requestURL + "/group/list/" + event.guild.id).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
                 val `object` = Json.parse(res.parse().body().text()).asObject()
                 val statusCode = res.statusCode()
                 if (statusCode == 200) {
@@ -274,7 +274,7 @@ class Group : Command {
     companion object {
         fun serverHasGroup(group: String, guild: Guild): Boolean {
             try {
-                val res = Jsoup.connect("http://localhost:5000" + "/group/list/" + guild.id).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                val res = Jsoup.connect(Main.requestURL + "/group/list/" + guild.id).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
                 val `object` = Json.parse(res.parse().body().text()).asObject()
                 val statusCode = res.statusCode()
                 if (statusCode == 200) {

@@ -19,7 +19,7 @@ import java.io.IOException
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
-import java.util.Calendar
+import java.util.*
 
 /*
  * Copyright (C) 2019 Jan Brinkmann
@@ -70,7 +70,7 @@ class Task : Command {
                         val taskObject = Task(guild, task, null, groupName)
                         when (taskObject.statusCode) {
                             200 -> {
-                                val res = Jsoup.connect("http://localhost:5000" + "/group/members/" + event.guild.id + "/" + groupName).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                                val res = Jsoup.connect(Main.requestURL + "/group/members/" + event.guild.id + "/" + groupName).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
                                 when (res.statusCode()) {
                                     200 -> {
                                         val jsonObject = Json.parse(res.parse().body().text()).asObject()
@@ -195,12 +195,12 @@ class Task : Command {
                 var text = ""
                 if (event.message.mentionedMembers.size > 0) {
                     val member = event.message.mentionedMembers[0]
-                    val res = Jsoup.connect("http://localhost:5000" + "/task/user/tasks/" + guild.id + "/" + member!!.id).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                    val res = Jsoup.connect(Main.requestURL + "/task/user/tasks/" + guild.id + "/" + member!!.id).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
                     statusCode = res.statusCode()
                     jsonResponse = res.parse().body().text()
                 } else {
                     val groupName = args[1]
-                    val res = Jsoup.connect("http://localhost:5000" + "/task/group/tasks/" + guild.id + "/" + Connection.encodeString(groupName)).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                    val res = Jsoup.connect(Main.requestURL + "/task/group/tasks/" + guild.id + "/" + Connection.encodeString(groupName)).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
                     statusCode = res.statusCode()
                     jsonResponse = res.parse().body().text()
                 }
@@ -441,7 +441,7 @@ class Task : Command {
         } else if (args.size == 1) {
             if (args[0].equals("list", ignoreCase = true)) {
                 val member = event.member
-                val res = Jsoup.connect("http://localhost:5000" + "/task/user/tasks/" + guild.id + "/" + member!!.id).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                val res = Jsoup.connect(Main.requestURL + "/task/user/tasks/" + guild.id + "/" + member!!.id).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
                 val document = res.parse();
                 val jsonResponse = document.body().text()
                 val jsonObject = Json.parse(jsonResponse).asObject()

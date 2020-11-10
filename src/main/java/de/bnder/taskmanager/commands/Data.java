@@ -42,7 +42,7 @@ public class Data implements Command {
         final Member member = guild.retrieveMember(event.getAuthor()).complete();
 
         //Get Tasks
-        final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/task/user/tasks/" + guild.getId() + "/" + member.getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+        final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/task/user/tasks/" + guild.getId() + "/" + member.getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
         final String jsonResponse = res.parse().body().text();
         final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
         if (res.statusCode() == 200) {
@@ -97,14 +97,14 @@ public class Data implements Command {
         yamlConfiguration.set("guild" + "." + guildId + "." + "settings" + ".notify channel", settingsObject.get("notify_channel") != null && !settingsObject.get("notify_channel").isNull() ? settingsObject.getString("notify_channel", null) : null);
 
         //Get Users Groups
-        final org.jsoup.Connection.Response getGroupsRes = Jsoup.connect("http://localhost:5000" + "/group/list/" + guild.getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+        final org.jsoup.Connection.Response getGroupsRes = Jsoup.connect(Main.requestURL + "/group/list/" + guild.getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
         final JsonObject getGroupsObject = Json.parse(getGroupsRes.parse().body().text()).asObject();
         if (getGroupsRes.statusCode() == 200) {
             JsonArray servers = getGroupsObject.get("groups").asArray();
             if (servers.size() > 0) {
                 for (int i = 0; i < servers.size(); i++) {
                     final String groupName = servers.get(i).asString();
-                    final org.jsoup.Connection.Response getMembersRes = Jsoup.connect("http://localhost:5000" + "/group/members/" + guild.getId() + "/" + Connection.encodeString(groupName)).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                    final org.jsoup.Connection.Response getMembersRes = Jsoup.connect(Main.requestURL + "/group/members/" + guild.getId() + "/" + Connection.encodeString(groupName)).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                     final JsonObject getMembersObject = Json.parse(getMembersRes.parse().body().text()).asObject();
                     if (getMembersObject.getInt("status_code", 900) == 200) {
                         final String groupID = getMembersObject.getString("group_id", null);

@@ -25,7 +25,7 @@ public class UpdateServerName {
 
     public static void update(Guild guild) throws IOException {
         String name = guild.getName();
-        Jsoup.connect("http://localhost:5000" + "/server/name/" + guild.getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("name", name).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+        org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/server/name/" + guild.getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("name", name).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
     }
 
 }

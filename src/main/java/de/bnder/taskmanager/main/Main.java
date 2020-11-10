@@ -34,7 +34,6 @@ public class Main {
 
     public static final Dotenv dotenv = Dotenv.load();
     public static String requestURL = dotenv.get("REQUEST_URL");
-    public static String requestToken = null;
     public static String authorizationToken = dotenv.get("AUTHORIZATION_TOKEN");
     public static final String userAgent = "TaskmanagerBot/1.0 (Windows; U; WindowsNT 5.1; de-DE; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
     public static int shard = Integer.parseInt(Objects.requireNonNull(dotenv.get("SHARD")));
@@ -43,8 +42,6 @@ public class Main {
     public static final String prefix = "-";
 
     public static void main(String[] args) {
-//        new Connection().defineConnection();
-
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"),
                 Collections.singletonList(GatewayIntent.GUILD_MESSAGES));
 
@@ -61,7 +58,6 @@ public class Main {
         builder.addEventListeners(new GuildJoin());
         builder.addEventListeners(new GuildLeave());
 
-//        CommandHandler.commands.put("calendar", new Calendar());
         CommandHandler.commands.put("settings", new Settings());
         CommandHandler.commands.put("version", new Version());
         CommandHandler.commands.put("prefix", new Prefix());

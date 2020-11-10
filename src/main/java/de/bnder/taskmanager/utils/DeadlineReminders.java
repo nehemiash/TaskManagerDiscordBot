@@ -36,17 +36,15 @@ public class DeadlineReminders {
             @Override
             public void run() {
                 try {
-                    //TODO
-                    final String jsonResponse = Jsoup.connect(Main.requestURL + "getDeadlineReminders.php?requestToken=" + Main.requestToken).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
-                    final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-                    final int statusCode = jsonObject.getInt("status_code", 900);
-                    if (statusCode == 200) {
+                    final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/global/deadline-reminders").method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                    if (res.statusCode() == 200) {
+                        final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
                         for (final JsonValue value : jsonObject.get("list").asArray()) {
                             final JsonObject taskObject = value.asObject();
-                            final String taskID = taskObject.getString("task_id", null);
+                            final String taskID = taskObject.getString("id", null);
                             final String task = taskObject.getString("task", null);
                             final String serverID = taskObject.getString("server_id", null);
-                            final String taskType = taskObject.getString("task_type", null);
+                            final String taskType = taskObject.getString("type", null);
                             final String deadline = taskObject.getString("deadline", null);
                             final Guild guild = shardManager.getGuildById(serverID);
                             if (guild != null) {
@@ -84,7 +82,6 @@ public class DeadlineReminders {
     }
 
     private static void setReminded(final String serverID, final String taskID) throws IOException {
-        //TODO
-        Jsoup.connect(Main.requestURL + "setDeadlineReminded.php?requestToken=" + Main.requestToken + "&server_id=" + serverID + "&task_id=" + taskID).timeout(Connection.timeout).userAgent(Main.userAgent).execute();
+        Jsoup.connect(Main.requestURL + "/global/deadline-reminders/" + serverID).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("task_id", taskID).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
     }
 }

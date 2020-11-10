@@ -25,7 +25,7 @@ public class GuildLeave extends ListenerAdapter {
 
     public void onGuildLeave(GuildLeaveEvent event) {
         try {
-            Jsoup.connect(Main.requestURL + "deleteServer.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(event.getGuild().getId())).userAgent(Main.userAgent).execute();
+            Jsoup.connect(Main.requestURL + "/server/delete/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
         } catch (Exception e) {
             e.printStackTrace();
         }

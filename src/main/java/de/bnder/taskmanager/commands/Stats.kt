@@ -35,8 +35,8 @@ class Stats : Command {
         builder.addField(Localizations.getString("stats_field_server", langCode), server.toString(), true)
         builder.addField(Localizations.getString("stats_field_ping", langCode), ping.toString(), true)
         try {
-            val jsonResponse = Jsoup.connect(Main.requestURL + "getStats.php?requestToken=" + Main.requestToken).userAgent(Main.userAgent).timeout(Connection.timeout).execute().body()
-            val jsonObject = Json.parse(jsonResponse).asObject()
+            val res = Jsoup.connect(Main.requestURL + "/stats").method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+            val jsonObject = Json.parse(res.parse().body().text()).asObject()
             builder.addField(Localizations.getString("stats_field_tasks_done", langCode), jsonObject.getInt("tasks_done", -1).toString(), true)
             builder.addField(Localizations.getString("stats_field_tasks_created", langCode), jsonObject.getInt("tasks_created", -1).toString(), true)
             builder.addField("Shard", (event.jda.shardInfo.shardId).toString(), true)

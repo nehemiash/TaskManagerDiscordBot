@@ -53,7 +53,7 @@ public class MessageSender {
         }
         msg.getChannel().sendMessage(builder.build()).queue();
         try {
-            Jsoup.connect(Main.requestURL + "addStatMessageSent.php?requestToken=" + Main.requestToken).timeout(Connection.timeout).userAgent(Main.userAgent).execute();
+            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/stats/messages-sent").method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }

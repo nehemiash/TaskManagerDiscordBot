@@ -32,7 +32,7 @@ public class Task {
             JsonObject jsonObject = null;
             Response res;
             //Try user task
-            res = Jsoup.connect("http://localhost:5000" + "/task/user/" + guild.getId() + "/" + taskID).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            res = Jsoup.connect(Main.requestURL + "/task/user/" + guild.getId() + "/" + taskID).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             setStatusCode(res.statusCode());
             if (getStatusCode() == 200) {
                 this.type = TaskType.USER;
@@ -40,7 +40,7 @@ public class Task {
                 jsonObject = Json.parse(a.body().text()).asObject();
             } else if (getStatusCode() == 404) {
                 //Try group task
-                res = Jsoup.connect("http://localhost:5000" + "/task/group/" + guild.getId() + "/" + taskID).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                res = Jsoup.connect(Main.requestURL + "/task/group/" + guild.getId() + "/" + taskID).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                 setStatusCode(res.statusCode());
                 if (getStatusCode() == 200) {
                     this.type = TaskType.GROUP;
@@ -86,7 +86,7 @@ public class Task {
         this.type = TaskType.USER;
         this.holder = member.getId();
         try {
-            final Document a = Jsoup.connect("http://localhost:5000" + "/task/user/" + guild.getId()).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("task_text", text).data("deadline", deadline != null ? deadline : "").postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).post();
+            final Document a = Jsoup.connect(Main.requestURL + "/task/user/" + guild.getId()).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("task_text", text).data("deadline", deadline != null ? deadline : "").postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).post();
             final String jsonResponse = a.body().text();
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
             setStatusCode(200);
@@ -104,7 +104,7 @@ public class Task {
         this.type = TaskType.GROUP;
         this.holder = holder;
         try {
-            final Document a = Jsoup.connect("http://localhost:5000" + "/task/group/" + guild.getId() + "/" + holder).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("task_text", text).data("deadline", deadline != null ? deadline : "").postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).post();
+            final Document a = Jsoup.connect(Main.requestURL + "/task/group/" + guild.getId() + "/" + holder).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("task_text", text).data("deadline", deadline != null ? deadline : "").postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).post();
             final String jsonResponse = a.body().text();
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
             setStatusCode(200);
@@ -117,7 +117,7 @@ public class Task {
 
     public void setText(String text) {
         try {
-            Response res = Jsoup.connect("http://localhost:5000" + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/edit/" + this.guild.getId() + "/" + this.id).method(Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("task_text", text).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            Response res = Jsoup.connect(Main.requestURL + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/edit/" + this.guild.getId() + "/" + this.id).method(Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("task_text", text).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             setStatusCode(res.statusCode());
             if (getStatusCode() == 200) {
                 this.text = text;
@@ -129,7 +129,7 @@ public class Task {
 
     public Task setDeadline(String deadline) {
         try {
-            final Response res = Jsoup.connect("http://localhost:5000" + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/set-deadline/" + guild.getId() + "/" + this.id ).method(Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("deadline", deadline).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            final Response res = Jsoup.connect(Main.requestURL + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/set-deadline/" + guild.getId() + "/" + this.id ).method(Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("deadline", deadline).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             setStatusCode(res.statusCode());
             if (getStatusCode() == 200) {
                 this.deadline = deadline;
@@ -142,7 +142,7 @@ public class Task {
 
     public void delete() {
         try {
-            Response res = Jsoup.connect("http://localhost:5000" + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/" + this.guild.getId() + "/" + this.id).method(Method.DELETE).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            Response res = Jsoup.connect(Main.requestURL + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/" + this.guild.getId() + "/" + this.id).method(Method.DELETE).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             setStatusCode(res.statusCode());
             this.exists = false;
         } catch (IOException e) {
@@ -161,7 +161,7 @@ public class Task {
                     number = 1;
                     break;
             }
-            final Response res = Jsoup.connect("http://localhost:5000" + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/set-status/" + guild.getId() + "/" + this.id + "/" + number).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            final Response res = Jsoup.connect(Main.requestURL + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/set-status/" + guild.getId() + "/" + this.id + "/" + number).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             setStatusCode(res.statusCode());
             if (getStatusCode() == 200) {
                 this.status = status;
@@ -174,7 +174,7 @@ public class Task {
 
     public Task proceed(Member member) {
         try {
-            final Response res = Jsoup.connect("http://localhost:5000" + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/update/" + guild.getId() + "/" + this.id).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            final Response res = Jsoup.connect(Main.requestURL + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/update/" + guild.getId() + "/" + this.id).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             setStatusCode(res.statusCode());
             if (getStatusCode() == 200) {
                 final Document document = res.parse();
@@ -190,7 +190,7 @@ public class Task {
 
     public Task undo(Member member) {
         try {
-            final Response res = Jsoup.connect("http://localhost:5000" + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/undo/" + guild.getId() + "/" + this.id).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            final Response res = Jsoup.connect(Main.requestURL + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/undo/" + guild.getId() + "/" + this.id).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             setStatusCode(res.statusCode());
             if (getStatusCode() == 200) {
                 final Document document = res.parse();

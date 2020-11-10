@@ -34,7 +34,7 @@ class Prefix : Command {
             if (args.size == 1) {
                 val prefix = args[0]
                 if (prefix.length == 1) {
-                    val res = Jsoup.connect("http://localhost:5000" + "/server/prefix/" + event.guild.id).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).data("prefix", prefix).postDataCharset("UTF-8").header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
+                    val res = Jsoup.connect(Main.requestURL + "/server/prefix/" + event.guild.id).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).data("prefix", prefix).postDataCharset("UTF-8").header("user_id", event.member!!.id).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute()
                     if (res.statusCode() == 200) {
                         MessageSender.send(embedTitle, Localizations.getString("prefix_changed", langCode, object : ArrayList<String?>() {
                             init {

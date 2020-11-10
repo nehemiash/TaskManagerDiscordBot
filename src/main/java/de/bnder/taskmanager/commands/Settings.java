@@ -40,7 +40,7 @@ public class Settings implements Command {
         if (args.length == 1) {
             final String arg0 = args[0].replaceAll("-", "").replaceAll("_", "");
             if (arg0.equalsIgnoreCase("directmessage")) {
-                final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/user/settings/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getAuthor().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).data("type", "direct_message").postDataCharset("UTF-8").ignoreContentType(true).ignoreHttpErrors(true).execute();
+                final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/user/settings/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getAuthor().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).data("type", "direct_message").postDataCharset("UTF-8").ignoreContentType(true).ignoreHttpErrors(true).execute();
                 final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
                 if (res.statusCode() == 200) {
                     final boolean newValue = jsonObject.getBoolean("newValue", false);
@@ -55,7 +55,7 @@ public class Settings implements Command {
                     }}), event.getMessage(), Color.red);
                 }
             } else if (arg0.equalsIgnoreCase("showdonetasks")) {
-                final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/user/settings/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getAuthor().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).data("type", "show_done_tasks").postDataCharset("UTF-8").ignoreContentType(true).ignoreHttpErrors(true).execute();
+                final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/user/settings/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getAuthor().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).data("type", "show_done_tasks").postDataCharset("UTF-8").ignoreContentType(true).ignoreHttpErrors(true).execute();
                 final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
                 if (res.statusCode() == 200) {
                     final boolean newValue = jsonObject.getBoolean("newValue", false);
@@ -97,7 +97,7 @@ public class Settings implements Command {
             if (arg0.equalsIgnoreCase("notifychannel")) {
                 if (event.getMessage().getMentionedChannels().size() == 1) {
                     final TextChannel channel = event.getMessage().getMentionedChannels().get(0);
-                    final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/user/settings/value/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getAuthor().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).data("type", "notify_channel").data("value", channel.getId()).postDataCharset("UTF-8").ignoreContentType(true).ignoreHttpErrors(true).execute();
+                    final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/user/settings/value/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getAuthor().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).data("type", "notify_channel").data("value", channel.getId()).postDataCharset("UTF-8").ignoreContentType(true).ignoreHttpErrors(true).execute();
                     if (res.statusCode() == 200) {
                         if (!de.bnder.taskmanager.utils.Settings.getUserSettings(event.getMember()).getString("direct_message", "1").equals("0")) {
                             MessageSender.send(embedTitle, Localizations.Companion.getString("notify_channel_set_but_dms_are_enabled", langCode, new ArrayList<String>(){{

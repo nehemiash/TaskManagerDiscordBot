@@ -15,7 +15,6 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Permission implements Command {
-    //TODO
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
         final String langCode = Localizations.Companion.getGuildLanguage(event.getGuild());

@@ -27,8 +27,7 @@ public class Settings {
 
     public static JsonObject getUserSettings(Member member) {
         try {
-            final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/user/settings/" + member.getGuild().getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
-            System.out.println(res.parse().body().text());
+            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/user/settings/" + member.getGuild().getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
             if (res.statusCode() == 200) {
                 return jsonObject;

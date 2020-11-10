@@ -100,7 +100,7 @@ public class PermissionSystem {
                 for (Role role : member.getRoles()) {
                     rolesBuilder.append(role.getId()).append(",");
                 }
-                final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/user/get-perms/" + member.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("roles", rolesBuilder.toString()).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/user/get-perms/" + member.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("roles", rolesBuilder.toString()).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                 if (res.statusCode() == 200) {
                     final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
                     return jsonObject.getBoolean(permission.toLowerCase(), false);
@@ -117,7 +117,7 @@ public class PermissionSystem {
             return true;
         } else {
             try {
-                final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/role/get-perms/" + role.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("role_id", role.getId()).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/role/get-perms/" + role.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("role_id", role.getId()).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                 if (res.statusCode() == 200) {
                     final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
                     return jsonObject.getBoolean(permission.toLowerCase(), false);
@@ -131,7 +131,7 @@ public class PermissionSystem {
 
     private static int sendAddPermRequestRole(Role role, String name) {
         try {
-            final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/role/add-perms/" + role.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("role_id", role.getId()).data("permission", name).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/role/add-perms/" + role.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("role_id", role.getId()).data("permission", name).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             return res.statusCode();
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,7 +141,7 @@ public class PermissionSystem {
 
     private static int sendAddPermRequestUser(Member member, String name) {
         try {
-            final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/user/add-perms/" + member.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("permission", name).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/user/add-perms/" + member.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("permission", name).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             return res.statusCode();
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,7 +151,7 @@ public class PermissionSystem {
 
     private static int sendRemovePermRequestUser(Member member, String name) {
         try {
-            final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/user/rem-perms/" + member.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("permission", name).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/user/rem-perms/" + member.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("permission", name).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             return res.statusCode();
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,7 +161,7 @@ public class PermissionSystem {
 
     private static int sendRemovePermRequestRole(Role role, String name) {
         try {
-            final org.jsoup.Connection.Response res = Jsoup.connect("http://localhost:5000" + "/role/rem-perms/" + role.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("role_id", role.getId()).data("permission", name).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/role/rem-perms/" + role.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("role_id", role.getId()).data("permission", name).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             return res.statusCode();
         } catch (Exception e) {
             e.printStackTrace();
