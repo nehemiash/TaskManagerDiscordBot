@@ -1,5 +1,6 @@
 #FROM maven:3.5.2-jdk-8-alpine
-FROM maven:3.6.3-jdk-8-slim
+#FROM maven:3.6.3-jdk-8-slim
+FROM maven:3.6.3-jdk-8
 COPY pom.xml /
 RUN mvn verify clean
 COPY . /
