@@ -43,6 +43,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("########aaaaaaa################aaaaaaaaaaaaaaaa");
         System.out.println(System.getProperty("AUTHORIZATION_TOKEN"));
+        System.out.println(System.getenv("AUTHORIZATION_TOKEN"));
     }
 
     public static void maina(String[] args) {
