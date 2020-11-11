@@ -46,8 +46,8 @@ public class CommandListener extends ListenerAdapter {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    final String langCode = Localizations.Companion.getGuildLanguage(event.getGuild());
-                    MessageSender.send(Localizations.Companion.getString("error_title", langCode), Localizations.Companion.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getMessage(), Color.red);
+                    final String langCode = Localizations.getGuildLanguage(event.getGuild());
+                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getMessage(), Color.red);
                 }
             }
         }
@@ -62,8 +62,8 @@ public class CommandListener extends ListenerAdapter {
             CommandHandler.handleCommand(CommandHandler.parse.parse(msg, event), event.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
-            final String langCode = Localizations.Companion.getGuildLanguage(event.getGuild());
-            MessageSender.send(Localizations.Companion.getString("error_title", langCode), Localizations.Companion.getString("error_text", langCode), event.getMessage(), Color.red);
+            final String langCode = Localizations.getGuildLanguage(event.getGuild());
+            MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode), event.getMessage(), Color.red);
         }
     }
 }

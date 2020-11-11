@@ -48,13 +48,13 @@ public class DeadlineReminders {
                             final String deadline = taskObject.getString("deadline", null);
                             final Guild guild = shardManager.getGuildById(serverID);
                             if (guild != null) {
-                                final String langCode = Localizations.Companion.getGuildLanguage(guild);
+                                final String langCode = Localizations.getGuildLanguage(guild);
                                 if (taskType.equalsIgnoreCase("group")) {
                                     final String groupName = taskObject.getString("group_name", null);
                                     for (final JsonValue groupMemberValue : taskObject.get("group_members").asArray()) {
                                         final String userID = groupMemberValue.asString();
                                         final PrivateChannel channel = guild.retrieveMemberById(userID).complete().getUser().openPrivateChannel().complete();
-                                        channel.sendMessage(Localizations.Companion.getString("deadline_remind_group", langCode, new ArrayList<String>(){{
+                                        channel.sendMessage(Localizations.getString("deadline_remind_group", langCode, new ArrayList<String>(){{
                                             add(task);
                                             add(taskID);
                                             add(groupName);
@@ -64,7 +64,7 @@ public class DeadlineReminders {
                                 } else if (taskType.equalsIgnoreCase("user")) {
                                     final String userID = taskObject.getString("user_id", null);
                                     final PrivateChannel channel = guild.retrieveMemberById(userID).complete().getUser().openPrivateChannel().complete();
-                                    channel.sendMessage(Localizations.Companion.getString("deadline_remind_user", langCode, new ArrayList<String>(){{
+                                    channel.sendMessage(Localizations.getString("deadline_remind_user", langCode, new ArrayList<String>(){{
                                         add(task);
                                         add(taskID);
                                         add(deadline);

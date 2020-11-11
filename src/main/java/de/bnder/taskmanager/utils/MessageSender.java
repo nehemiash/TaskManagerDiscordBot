@@ -48,8 +48,8 @@ public class MessageSender {
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
         if (new Random().nextInt(100) + 1 <= 5) {
-            final String langCode = Localizations.Companion.getGuildLanguage(msg.getGuild());
-            builder.setFooter(Localizations.Companion.getString("donate_alert", langCode));
+            final String langCode = Localizations.getGuildLanguage(msg.getGuild());
+            builder.setFooter(Localizations.getString("donate_alert", langCode));
         }
         msg.getChannel().sendMessage(builder.build()).queue();
         try {

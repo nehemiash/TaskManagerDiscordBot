@@ -17,7 +17,6 @@ package de.bnder.taskmanager.main;
 
 import de.bnder.taskmanager.commands.*;
 import de.bnder.taskmanager.listeners.*;
-import de.bnder.taskmanager.utils.Connection;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -58,7 +57,6 @@ public class Main {
         builder.addEventListeners(new GuildJoin());
         builder.addEventListeners(new GuildLeave());
 
-//        CommandHandler.commands.put("settings", new Settings());
         CommandHandler.commands.put("version", new Version());
         CommandHandler.commands.put("prefix", new Prefix());
         CommandHandler.commands.put("group", new Group());
