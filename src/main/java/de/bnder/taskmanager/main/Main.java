@@ -27,16 +27,15 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import javax.security.auth.login.LoginException;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Objects;
 
 public class Main {
 
-    public static final Dotenv dotenv = Dotenv.load();
+    public static final Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
     public static String requestURL = dotenv.get("REQUEST_URL");
     public static String authorizationToken = dotenv.get("AUTHORIZATION_TOKEN");
     public static final String userAgent = "TaskmanagerBot/1.0 (Windows; U; WindowsNT 5.1; de-DE; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
-    public static int shard = Integer.parseInt(Objects.requireNonNull(dotenv.get("SHARD")));
-    public static int totalShard = Integer.parseInt(Objects.requireNonNull(dotenv.get("TOTAL_SHARDS")));
+    public static int shard = Integer.parseInt(dotenv.get("SHARD", "0"));
+    public static int totalShard = Integer.parseInt(dotenv.get("TOTAL_SHARDS", "1"));
 
     public static final String prefix = "-";
 
