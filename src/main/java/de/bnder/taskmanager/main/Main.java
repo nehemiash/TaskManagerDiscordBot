@@ -30,9 +30,10 @@ import java.util.Collections;
 
 public class Main {
 
-    public static final Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+    public static final Dotenv dotenv = Dotenv.configure().ignoreIfMissing().systemProperties().load();
     public static String requestURL = dotenv.get("REQUEST_URL");
-    public static String authorizationToken = dotenv.get("AUTHORIZATION_TOKEN");
+//    public static String authorizationToken = dotenv.get("AUTHORIZATION_TOKEN");
+    public static String authorizationToken = System.getProperty("AUTHORIZATION_TOKEN");
     public static final String userAgent = "TaskmanagerBot/1.0 (Windows; U; WindowsNT 5.1; de-DE; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
     public static int shard = Integer.parseInt(dotenv.get("SHARD", "0"));
     public static int totalShard = Integer.parseInt(dotenv.get("TOTAL_SHARDS", "1"));
@@ -40,6 +41,11 @@ public class Main {
     public static final String prefix = "-";
 
     public static void main(String[] args) {
+        System.out.println("########aaaaaaa################aaaaaaaaaaaaaaaa");
+        System.out.println(System.getProperty("AUTHORIZATION_TOKEN"));
+    }
+
+    public static void maina(String[] args) {
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"),
                 Collections.singletonList(GatewayIntent.GUILD_MESSAGES));
 
