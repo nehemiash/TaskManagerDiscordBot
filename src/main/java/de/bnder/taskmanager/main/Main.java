@@ -15,6 +15,9 @@ package de.bnder.taskmanager.main;
  * limitations under the License.
  */
 
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 import de.bnder.taskmanager.commands.*;
 import de.bnder.taskmanager.listeners.*;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -25,8 +28,15 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
+import java.io.*;
+import java.math.BigInteger;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Main {
 
@@ -40,7 +50,8 @@ public class Main {
 
     public static final String prefix = "-";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"),
                 Collections.singletonList(GatewayIntent.GUILD_MESSAGES));
 
@@ -76,6 +87,22 @@ public class Main {
             builder.build();
         } catch (LoginException e) {
             e.printStackTrace();
+        }
+
+        HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
+        server.createContext("/", new MyHandler());
+        server.setExecutor(null); // creates a default executor
+        server.start();
+    }
+
+    static class MyHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange t) throws IOException {
+            String response = "res";
+            t.sendResponseHeaders(200, response.length());
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
         }
     }
 
