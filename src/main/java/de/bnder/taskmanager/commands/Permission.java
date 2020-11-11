@@ -17,8 +17,8 @@ import java.io.IOException;
 public class Permission implements Command {
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
-        final String langCode = Localizations.Companion.getGuildLanguage(event.getGuild());
-        final String embedTitle = Localizations.Companion.getString("permissions_title", langCode);
+        final String langCode = Localizations.getGuildLanguage(event.getGuild());
+        final String embedTitle = Localizations.getString("permissions_title", langCode);
         if (args.length == 3) {
             if (args[0].equalsIgnoreCase("add")) {
                 if (PermissionSystem.hasPermission(event.getMember(), PermissionPermission.ADD_PERMISSION)) {
@@ -31,7 +31,7 @@ public class Permission implements Command {
                         } else if (permissionPermissionContains(args[2].toUpperCase())) {
                             statusCode = PermissionSystem.addPermissionStatusCode(event.getMessage().getMentionedMembers().get(0), PermissionPermission.valueOf(args[2].toUpperCase()));
                         } else {
-                            MessageSender.send(embedTitle, Localizations.Companion.getString("unknown_permission_name", langCode), event.getMessage(), Color.red);
+                            MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), event.getMessage(), Color.red);
                             return;
                         }
                     } else if (event.getMessage().getMentionedRoles().size() > 0) {
@@ -42,20 +42,20 @@ public class Permission implements Command {
                         } else if (permissionPermissionContains(args[2].toUpperCase())) {
                             statusCode = PermissionSystem.addPermissionStatusCode(event.getMessage().getMentionedRoles().get(0), PermissionPermission.valueOf(args[2].toUpperCase()));
                         } else {
-                            MessageSender.send(embedTitle, Localizations.Companion.getString("unknown_permission_name", langCode), event.getMessage(), Color.red);
+                            MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), event.getMessage(), Color.red);
                             return;
                         }
                     } else {
-                        MessageSender.send(embedTitle, Localizations.Companion.getString("need_to_mention_user_or_role", langCode), event.getMessage(), Color.red);
+                        MessageSender.send(embedTitle, Localizations.getString("need_to_mention_user_or_role", langCode), event.getMessage(), Color.red);
                         return;
                     }
                     if (statusCode == 200) {
-                        MessageSender.send(embedTitle, Localizations.Companion.getString("permission_added", langCode), event.getMessage(), Color.green);
+                        MessageSender.send(embedTitle, Localizations.getString("permission_added", langCode), event.getMessage(), Color.green);
                     } else if (statusCode == 903) {
-                        MessageSender.send(embedTitle, Localizations.Companion.getString("already_has_permission", langCode), event.getMessage(), Color.red);
+                        MessageSender.send(embedTitle, Localizations.getString("already_has_permission", langCode), event.getMessage(), Color.red);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.Companion.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
                 }
             } else if (args[0].equalsIgnoreCase("remove")) {
                 if (PermissionSystem.hasPermission(event.getMember(), PermissionPermission.REMOVE_PERMISSION)) {
@@ -68,7 +68,7 @@ public class Permission implements Command {
                         } else if (permissionPermissionContains(args[2].toUpperCase())) {
                             statusCode = PermissionSystem.removePermissionStatusCode(event.getMessage().getMentionedMembers().get(0), PermissionPermission.valueOf(args[2].toUpperCase()));
                         } else {
-                            MessageSender.send(embedTitle, Localizations.Companion.getString("unknown_permission_name", langCode), event.getMessage(), Color.red);
+                            MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), event.getMessage(), Color.red);
                             return;
                         }
                     } else if (event.getMessage().getMentionedRoles().size() > 0) {
@@ -79,23 +79,23 @@ public class Permission implements Command {
                         } else if (permissionPermissionContains(args[2].toUpperCase())) {
                             statusCode = PermissionSystem.removePermissionStatusCode(event.getMessage().getMentionedRoles().get(0), PermissionPermission.valueOf(args[2].toUpperCase()));
                         } else {
-                            MessageSender.send(embedTitle, Localizations.Companion.getString("unknown_permission_name", langCode), event.getMessage(), Color.red);
+                            MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), event.getMessage(), Color.red);
                             return;
                         }
                     } else {
-                        MessageSender.send(embedTitle, Localizations.Companion.getString("need_to_mention_user_or_role", langCode), event.getMessage(), Color.red);
+                        MessageSender.send(embedTitle, Localizations.getString("need_to_mention_user_or_role", langCode), event.getMessage(), Color.red);
                         return;
                     }
                     if (statusCode == 200) {
-                        MessageSender.send(embedTitle, Localizations.Companion.getString("permission_removed", langCode), event.getMessage(), Color.green);
+                        MessageSender.send(embedTitle, Localizations.getString("permission_removed", langCode), event.getMessage(), Color.green);
                     } else if (statusCode == 903) {
-                        MessageSender.send(embedTitle, Localizations.Companion.getString("dont_has_permission", langCode), event.getMessage(), Color.red);
+                        MessageSender.send(embedTitle, Localizations.getString("dont_has_permission", langCode), event.getMessage(), Color.red);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.Companion.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.Companion.getString("help_message_permission_commands", langCode), event.getMessage(), Color.cyan);
+                MessageSender.send(embedTitle, Localizations.getString("help_message_permission_commands", langCode), event.getMessage(), Color.cyan);
             }
         } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("list")) {
@@ -126,13 +126,13 @@ public class Permission implements Command {
                     }
                     MessageSender.send(embedTitle + " - " + role.getName(), stringBuilder.toString(), event.getMessage(), Color.green);
                 } else {
-                    MessageSender.send(embedTitle, Localizations.Companion.getString("need_to_mention_user_or_role", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_mention_user_or_role", langCode), event.getMessage(), Color.red);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.Companion.getString("help_message_permission_commands", langCode), event.getMessage(), Color.cyan);
+                MessageSender.send(embedTitle, Localizations.getString("help_message_permission_commands", langCode), event.getMessage(), Color.cyan);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.Companion.getString("help_message_permission_commands", langCode), event.getMessage(), Color.cyan);
+            MessageSender.send(embedTitle, Localizations.getString("help_message_permission_commands", langCode), event.getMessage(), Color.cyan);
         }
     }
 
