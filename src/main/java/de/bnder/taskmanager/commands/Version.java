@@ -30,8 +30,8 @@ public class Version implements Command {
 
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
-        final String langCode = Localizations.Companion.getGuildLanguage(event.getGuild());
-        MessageSender.send(Localizations.Companion.getString("version_title", langCode), Localizations.Companion.getString("version_text", langCode, new ArrayList<String>(){{
+        final String langCode = Localizations.getGuildLanguage(event.getGuild());
+        MessageSender.send(Localizations.getString("version_title", langCode), Localizations.getString("version_text", langCode, new ArrayList<String>(){{
             add(version);
         }}), event.getMessage(), Color.cyan);
     }
