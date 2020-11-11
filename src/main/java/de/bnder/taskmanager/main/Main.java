@@ -89,7 +89,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        HttpServer server = HttpServer.create(new InetSocketAddress(System.getenv("REQUEST_URL") != null ? Integer.parseInt(System.getenv("REQUEST_URL")) : 8080), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(System.getenv("PORT") != null ? Integer.parseInt(System.getenv("PORT")) : 8080), 0);
         server.createContext("/", new MyHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
