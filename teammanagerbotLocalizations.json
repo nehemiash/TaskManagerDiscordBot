@@ -560,12 +560,12 @@
     "ru": "ошибка"
   },
   "error_text": {
-    "de": "Ein unerwarteter Fehler bei der Ausführung des Befehls ist aufgetreten!\n",
-    "en": "An unexpected error occurred while executing the command!\n",
-    "bg": "Възникнала неочаквана грешка при изпълнение на командата!\n",
-    "pl": "Wystąpił nieoczekiwany błąd podczas wykonywania polecenia!\n",
-    "fr": "Une erreur inattendue s'est produite lors de l'exécution de la commande!\n",
-    "ru": "Произошла непредвиденная ошибка при выполнении команды!\n"
+    "de": "Ein unerwarteter Fehler bei der Ausführung des Befehls ist aufgetreten! Bitte versuche es erneut. Sollte der Fehler weiterhin auftreten, kontaktiere bitte ein bnder-Teammitglied.\n",
+    "en": "An unexpected error occurred while executing the command! Please try again. If the error occurs again, please contact a bnder Team-Member.\n",
+    "bg": "Възникнала неочаквана грешка при изпълнение на командата! Please try again. If the error occurs again, please contact a bnder Team-Member.\n",
+    "pl": "Wystąpił nieoczekiwany błąd podczas wykonywania polecenia! Please try again. If the error occurs again, please contact a bnder Team-Member.\n",
+    "fr": "Une erreur inattendue s'est produite lors de l'exécution de la commande! Please try again. If the error occurs again, please contact a bnder Team-Member.\n",
+    "ru": "Произошла непредвиденная ошибка при выполнении команды! Please try again. If the error occurs again, please contact a bnder Team-Member.\n"
   },
   "unknown_command_message": {
     "de": "Dieser Befehl ist unbekannt! Benutze `-help` um alle Befehle aufzulisten.",
