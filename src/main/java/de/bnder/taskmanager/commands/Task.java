@@ -38,7 +38,7 @@ public class Task implements Command {
                         for (Member member : event.getMessage().getMentionedMembers()) {
                             final de.bnder.taskmanager.utils.Task taskObject = new de.bnder.taskmanager.utils.Task(guild, task, null, member);
                             if (taskObject.getStatusCode() == 200) {
-                                String newLanguageSuggestionAppend = taskObject.newLanguageSuggestion() != null ? Localizations.getString("task_new_language_suggestion_text", langCode, new ArrayList<String>(){{
+                                String newLanguageSuggestionAppend = taskObject.newLanguageSuggestion() != null ? Localizations.getString("task_new_language_suggestion_text", taskObject.newLanguageSuggestion(), new ArrayList<String>(){{
                                     add(String.valueOf(event.getMessage().getContentRaw().charAt(0)));
                                     add(taskObject.newLanguageSuggestion());
                                 }}) : "";
@@ -194,8 +194,8 @@ public class Task implements Command {
                 if (statusCode == 200) {
                     JsonArray array = jsonObject.get("todo").asArray();
                     final StringBuilder builder = new StringBuilder();
-                    for (int i = 0; i < array.size(); i++) {
-                        final String taskID = array.get(0).asString();
+                    for (int i = 0; i < array.size(); i++){
+                        final String taskID = array.get(i).asString();
                         final String task = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("task").asString();
                         String deadline = "";
                         if (!jsonObject.get("allTasks").asObject().get(taskID).asObject().get("deadline").isNull()) {
@@ -207,9 +207,30 @@ public class Task implements Command {
                         }
                         builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                     }
+                    //TASKS NOT STARTED
+                    if (builder.length() > 0) {
+                        if (event.getMessage().getMentionedMembers().size() > 0) {
+                            final Member member = event.getMessage().getMentionedMembers().get(0);
+                            text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
+                                {
+                                    add(member.getAsMention());
+                                    add(builder.toString());
+                                }
+                            });
+                        } else {
+                            final String groupName = args[1];
+                            text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<String>() {
+                                {
+                                    add(groupName);
+                                    add(builder.toString());
+                                }
+                            });
+                        }
+                        MessageSender.send(embedTitle, text, event.getMessage(), Color.orange);
+                    }
                     array = jsonObject.get("doing").asArray();
-                    for (int i = 0; i < array.size(); i++) {
-                        final String taskID = array.get(0).asString();
+                    for (int i = 0; i < array.size(); i++){
+                        final String taskID = array.get(i).asString();
                         final String task = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("task").asString();
                         String deadline = "";
                         if (!jsonObject.get("allTasks").asObject().get(taskID).asObject().get("deadline").isNull()) {
@@ -221,10 +242,30 @@ public class Task implements Command {
                         }
                         builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_wird_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                     }
+                    //TASKS IN PROGRESS
+                    if (builder.length() > 0) {
+                        if (event.getMessage().getMentionedMembers().size() > 0) {
+                            final Member member = event.getMessage().getMentionedMembers().get(0);
+                            text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
+                                {
+                                    add(member.getAsMention());
+                                    add(builder.toString());
+                                }
+                            });
+                        } else {
+                            final String groupName = args[1];
+                            text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<String>() {
+                                {
+                                    add(groupName);
+                                    add(builder.toString());
+                                }
+                            });
+                        }
+                        MessageSender.send(embedTitle, text, event.getMessage(), Color.yellow);
+                    }
                     array = jsonObject.get("done").asArray();
-                    final String showDoneTasks = de.bnder.taskmanager.utils.Settings.getUserSettings(event.getMember()).getString("show_done_tasks", "1");
-                    int tasksHidden = 0;
-                    for (int i = 0; i < array.size(); i++) {
+                    String showDoneTasks = Settings.getUserSettings(event.getMember()).getString("show_done_tasks", "1");
+                    for (int i = 0; i < array.size(); i++){
                         final String taskID = array.get(i).asString();
                         final String task = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("task").asString();
                         String deadline = "";
@@ -238,28 +279,28 @@ public class Task implements Command {
 
                         if (showDoneTasks == "1") {
                             builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_erledigt", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
-                        } else {
-                            tasksHidden++;
                         }
                     }
-                    if (event.getMessage().getMentionedMembers().size() > 0) {
-                        final Member member = event.getMessage().getMentionedMembers().get(0);
-                        text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
-                            {
-                                add(member.getAsMention());
-                                add(builder.toString());
-                            }
-                        });
-                    } else {
-                        final String groupName = args[1];
-                        text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<String>() {
-                            {
-                                add(groupName);
-                                add(builder.toString());
-                            }
-                        });
+                    if (showDoneTasks == "1" && builder.length() > 0) {
+                        if (event.getMessage().getMentionedMembers().size() > 0) {
+                            final Member member = event.getMessage().getMentionedMembers().get(0);
+                            text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
+                                {
+                                    add(member.getAsMention());
+                                    add(builder.toString());
+                                }
+                            });
+                        } else {
+                            final String groupName = args[1];
+                            text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<String>() {
+                                {
+                                    add(groupName);
+                                    add(builder.toString());
+                                }
+                            });
+                        }
+                        MessageSender.send(embedTitle, text, event.getMessage(), Color.green);
                     }
-                    MessageSender.send(embedTitle, text, event.getMessage(), Color.green);
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), event.getMessage(), Color.red);
                 }
@@ -410,7 +451,7 @@ public class Task implements Command {
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("list")) {
                 final Member member = event.getMember();
-                final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/task/user/tasks/" + guild.getId() + "/" + member.getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/task/user/tasks/" + guild.getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                 final Document document = res.parse();
                 final String jsonResponse = document.body().text();
                 final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
@@ -430,6 +471,16 @@ public class Task implements Command {
                         }
                         builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                     }
+                    //TASKS NOT STARTED
+                    if (builder.length() > 0) {
+                        MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
+                            {
+                                add(member.getAsMention());
+                                add(builder.toString());
+                            }
+                        }), event.getMessage(), Color.orange);
+                        builder.delete(0, builder.length());
+                    }
                     array = jsonObject.get("doing").asArray();
                     for (int i = 0; i < array.size(); i++){
                         final String taskID = array.get(i).asString();
@@ -444,9 +495,18 @@ public class Task implements Command {
                         }
                         builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_wird_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                     }
+                    //TASKS IN PROGRESS
+                    if (builder.length() > 0) {
+                        MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
+                            {
+                                add(member.getAsMention());
+                                add(builder.toString());
+                            }
+                        }), event.getMessage(), Color.yellow);
+                        builder.delete(0, builder.length());
+                    }
                     array = jsonObject.get("done").asArray();
                     String showDoneTasks = Settings.getUserSettings(event.getMember()).getString("show_done_tasks", "1");
-                    int tasksHidden = 0;
                     for (int i = 0; i < array.size(); i++){
                         final String taskID = array.get(i).asString();
                         final String task = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("task").asString();
@@ -461,24 +521,13 @@ public class Task implements Command {
 
                         if (showDoneTasks == "1") {
                             builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_erledigt", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
-                        } else {
-                            tasksHidden++;
                         }
                     }
-                    if (showDoneTasks == "1") {
+                    if (showDoneTasks == "1" && builder.length() > 0) {
                         MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
                             {
                                 add(member.getAsMention());
                                 add(builder.toString());
-                            }
-                        }),event.getMessage(), Color.green);
-                    } else {
-                        int finalTasksHidden = tasksHidden;
-                        MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer_no_done_tasks", langCode, new ArrayList<String>() {
-                            {
-                                add(member.getAsMention());
-                                add(builder.toString());
-                                add(String.valueOf(finalTasksHidden));
                             }
                         }),event.getMessage(), Color.green);
                     }

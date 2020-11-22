@@ -33,7 +33,7 @@ public class Task {
             JsonObject jsonObject = null;
             Response res;
             //Try user task
-            res = Jsoup.connect(Main.requestURL + "/task/user/" + guild.getId() + "/" + taskID).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            res = Jsoup.connect(Main.requestURL + "/task/user/info/" + guild.getId() + "/" + taskID).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             setStatusCode(res.statusCode());
             if (getStatusCode() == 200) {
                 this.type = TaskType.USER;
@@ -41,7 +41,7 @@ public class Task {
                 jsonObject = Json.parse(a.body().text()).asObject();
             } else if (getStatusCode() == 404) {
                 //Try group task
-                res = Jsoup.connect(Main.requestURL + "/task/group/" + guild.getId() + "/" + taskID).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                res = Jsoup.connect(Main.requestURL + "/task/group/info/" + guild.getId() + "/" + taskID).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                 setStatusCode(res.statusCode());
                 if (getStatusCode() == 200) {
                     this.type = TaskType.GROUP;
