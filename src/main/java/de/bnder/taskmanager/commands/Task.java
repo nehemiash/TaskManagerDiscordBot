@@ -38,12 +38,16 @@ public class Task implements Command {
                         for (Member member : event.getMessage().getMentionedMembers()) {
                             final de.bnder.taskmanager.utils.Task taskObject = new de.bnder.taskmanager.utils.Task(guild, task, null, member);
                             if (taskObject.getStatusCode() == 200) {
+                                String newLanguageSuggestionAppend = taskObject.newLanguageSuggestion() != null ? Localizations.getString("task_new_language_suggestion_text", langCode, new ArrayList<String>(){{
+                                    add(String.valueOf(event.getMessage().getContentRaw().charAt(0)));
+                                    add(taskObject.newLanguageSuggestion());
+                                }}) : "";
                                 sendTaskMessage(member, event, taskObject.getId(), langCode, task);
                                 MessageSender.send(embedTitle + " - " + taskObject.getId(), Localizations.getString("aufgabe_erstellt", langCode, new ArrayList<String>() {
                                     {
                                         add(member.getUser().getName());
                                     }
-                                }), event.getMessage(), Color.green);
+                                }) + newLanguageSuggestionAppend, event.getMessage(), Color.green);
                             } else {
                                 MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, new ArrayList<String>() {
                                     {

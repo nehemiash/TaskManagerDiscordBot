@@ -23,6 +23,7 @@ public class Task {
     int statusCode = -1;
     boolean exists = false;
     final Guild guild;
+    String newLanguageSuggestion = null;
 
     public Task(String taskID, Guild guild) {
         this.id = taskID;
@@ -91,6 +92,7 @@ public class Task {
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
             setStatusCode(200);
             this.id = jsonObject.getString("id", null);
+            this.newLanguageSuggestion = jsonObject.get("new_language_suggestion").isNull() ? null : jsonObject.getString("new_language_suggestion", null);
         } catch (Exception e) {
             setStatusCode(-1);
             e.printStackTrace();
@@ -113,6 +115,10 @@ public class Task {
             setStatusCode(-1);
             e.printStackTrace();
         }
+    }
+
+    public String newLanguageSuggestion() {
+        return newLanguageSuggestion;
     }
 
     public void setText(String text) {
