@@ -557,7 +557,7 @@ public class Task implements Command {
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-        } else if (settings.get("notify_channel") != null) {
+        } else if (!settings.get("notify_channel").isNull()) {
             final TextChannel channel = event.getGuild().getTextChannelById(settings.getString("notify_channel", ""));
             if (channel != null) {
                 channel.sendMessage(member.getAsMention() + Localizations.getString("aufgabe_erhalten", langCode, new ArrayList<String>() {
