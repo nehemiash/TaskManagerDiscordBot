@@ -11,6 +11,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Task {
 
@@ -55,7 +56,7 @@ public class Task {
 
             if (getStatusCode() == 200) {
                 this.exists = true;
-                final int taskStatusInt = jsonObject.getInt("status", 0);
+                final int taskStatusInt = Objects.requireNonNull(jsonObject).getInt("status", 0);
                 if (taskStatusInt >= 0) {
                     this.status = TaskStatus.values()[taskStatusInt];
                 }
@@ -181,29 +182,27 @@ public class Task {
     public Task proceed(Member member) {
         try {
             final Response res = Jsoup.connect(Main.requestURL + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/update/" + guild.getId() + "/" + this.id).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
-            setStatusCode(res.statusCode());
-            if (getStatusCode() == 200) {
-                final Document document = res.parse();
-                final String jsonResponse = document.body().text();
-                final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-                this.status = TaskStatus.values()[jsonObject.getInt("status", 0)];
-            }
+            processResponseProceedUndoCommand(res);
         } catch (Exception exception) {
             exception.printStackTrace();
         }
         return this;
     }
 
+    private void processResponseProceedUndoCommand(Response res) throws IOException {
+        setStatusCode(res.statusCode());
+        if (getStatusCode() == 200) {
+            final Document document = res.parse();
+            final String jsonResponse = document.body().text();
+            final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
+            this.status = TaskStatus.values()[jsonObject.getInt("status", 0)];
+        }
+    }
+
     public Task undo(Member member) {
         try {
             final Response res = Jsoup.connect(Main.requestURL + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/undo/" + guild.getId() + "/" + this.id).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
-            setStatusCode(res.statusCode());
-            if (getStatusCode() == 200) {
-                final Document document = res.parse();
-                final String jsonResponse = document.body().text();
-                final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-                this.status = TaskStatus.values()[jsonObject.getInt("status", 0)];
-            }
+            processResponseProceedUndoCommand(res);
         } catch (Exception exception) {
             exception.printStackTrace();
         }
