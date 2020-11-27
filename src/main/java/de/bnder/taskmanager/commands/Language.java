@@ -24,12 +24,13 @@ public class Language implements Command {
         } else if (args.length == 1) {
             final String language = args[0].toLowerCase();
             if (language.equalsIgnoreCase("de") || language.equalsIgnoreCase("en") || language.equalsIgnoreCase("bg")
-                    || language.equalsIgnoreCase("fr") || language.equalsIgnoreCase("ru") || language.equalsIgnoreCase("pl")) {
+                    || language.equalsIgnoreCase("fr") || language.equalsIgnoreCase("ru") || language.equalsIgnoreCase("pl")
+             || language.equalsIgnoreCase("tr")) {
                 if (event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
                     final Connection.Response res = Jsoup.connect(Main.requestURL + "/server/language/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).data("language", language).postDataCharset("UTF-8").header("user_id", event.getMember().getId()).timeout(de.bnder.taskmanager.utils.Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                     final String embedTitle = Localizations.getString("language_message_title", language);
                     if (res.statusCode() == 200) {
-                        MessageSender.send(embedTitle, Localizations.getString("sprache_geändert", language), event.getMessage(), Color.green);
+                        MessageSender.send(embedTitle, Localizations.getString("sprache_geaendert", language), event.getMessage(), Color.green);
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", language), event.getMessage(), Color.red);
                     }

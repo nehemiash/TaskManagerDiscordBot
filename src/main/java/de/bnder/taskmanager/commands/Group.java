@@ -60,7 +60,7 @@ public class Group implements Command {
                     final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/group/" + event.getGuild().getId() + "/" + groupName).method(org.jsoup.Connection.Method.DELETE).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getMember().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                     final int statusCode = res.statusCode();
                     if (statusCode == 200) {
-                        MessageSender.send(embedTitle, Localizations.getString("gruppe_wurde_gelöscht", langCode, new ArrayList<String>() {
+                        MessageSender.send(embedTitle, Localizations.getString("gruppe_wurde_geloescht", langCode, new ArrayList<String>() {
                             {
                                 add(groupName);
                             }
@@ -72,7 +72,7 @@ public class Group implements Command {
                             }
                         }), event.getMessage(), Color.red);
                     } else {
-                        MessageSender.send(embedTitle, Localizations.getString("gruppe_löschen_unbekannter_fehler", langCode, new ArrayList<String>() {
+                        MessageSender.send(embedTitle, Localizations.getString("gruppe_loeschen_unbekannter_fehler", langCode, new ArrayList<String>() {
                             {
                                 add(groupName);
                             }
@@ -130,7 +130,7 @@ public class Group implements Command {
                                 final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/group/add-member/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("group_name", groupName).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                                 final int statusCode = res.statusCode();
                                 if (statusCode == 200) {
-                                    MessageSender.send(embedTitle, Localizations.getString("nutzer_zu_gruppe_hinzugefügt", langCode, new ArrayList<String>() {
+                                    MessageSender.send(embedTitle, Localizations.getString("nutzer_zu_gruppe_hinzugefuegt", langCode, new ArrayList<String>() {
                                         {
                                             add(member.getUser().getName());
                                             add(groupName);
@@ -146,7 +146,7 @@ public class Group implements Command {
                                 } else if (statusCode == 904) {
                                     MessageSender.send(embedTitle, Localizations.getString("nutzer_bereits_in_gruppe", langCode), event.getMessage(), Color.red);
                                 } else {
-                                    MessageSender.send(embedTitle, Localizations.getString("nutzer_zu_gruppe_hinzufügen_unbekannter_fehler", langCode, new ArrayList<String>() {
+                                    MessageSender.send(embedTitle, Localizations.getString("nutzer_zu_gruppe_hinzufuegen_unbekannter_fehler", langCode, new ArrayList<String>() {
                                         {
                                             add(String.valueOf(statusCode));
                                         }

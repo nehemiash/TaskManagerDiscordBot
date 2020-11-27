@@ -166,7 +166,7 @@ public class Task implements Command {
                             }), event.getMessage(), Color.red);
                         }
                     } else {
-                        MessageSender.send(embedTitle, Localizations.getString("ungültiges_datum_format", langCode), event.getMessage(), Color.red);
+                        MessageSender.send(embedTitle, Localizations.getString("ungueltiges_datum_format", langCode), event.getMessage(), Color.red);
                     }
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("help_message_task_commands", langCode), event.getMessage(), Color.red);
@@ -311,7 +311,7 @@ public class Task implements Command {
                     task.delete();
                     final int statusCode = task.getStatusCode();
                     if (statusCode == 200) {
-                        MessageSender.send(embedTitle, Localizations.getString("aufgabe_gelöscht", langCode, new ArrayList<String>() {
+                        MessageSender.send(embedTitle, Localizations.getString("aufgabe_geloescht", langCode, new ArrayList<String>() {
                             {
                                 add(taskID);
                             }

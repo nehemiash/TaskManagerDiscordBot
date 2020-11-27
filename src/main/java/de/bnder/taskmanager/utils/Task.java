@@ -87,7 +87,7 @@ public class Task {
         this.type = TaskType.USER;
         this.holder = member.getId();
         try {
-            final Document a = Jsoup.connect(Main.requestURL + "/task/user/" + guild.getId()).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("task_text", text).data("deadline", deadline != null ? deadline : "").postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).post();
+            final Document a = Jsoup.connect(Main.requestURL + "/task/user/" + guild.getId()).method(Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("task_text", text).data("deadline", deadline != null ? deadline : "").postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).post();
             final String jsonResponse = a.body().text();
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
             setStatusCode(200);

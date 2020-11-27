@@ -5,7 +5,8 @@
     "bg": "Групата `$` беше създадена успешно.",
     "pl": "Grupa `$` została utowrzona pomyślnie.",
     "fr": "Le groupe `$` a été créé avec succès.",
-    "ru": "Группа `$` была успешно создана."
+    "ru": "Группа `$` была успешно создана.",
+    "tr": "`$` Grubu başarı ile oluşturuldu."
   },
   "gruppe_nicht_erstellt_name_exisitert": {
     "de": "Die Gruppe `$` konnte nicht erstellt werden, da eine gleichnamige Gruppe bereits exisitert.",
@@ -13,7 +14,8 @@
     "bg": "Групата `$` не беше създадена, защото това име вече е заето.",
     "pl": "Grupa `$` nie została utworzona, ponieważ ta nazwa została już zajęta.",
     "fr": "Le groupe `$` n'a pas pu être créé car un groupe du même nom existe déjà.",
-    "ru": "Группа `$` не будет создана, потому что группа с таким именем уже существует."
+    "ru": "Группа `$` не будет создана, потому что группа с таким именем уже существует.",
+    "tr": " `$` Grubu oluşturulamadı, bu isimde başka bir grup var."
   },
   "gruppe_nicht_erstellt_unbekannter_fehler": {
     "de": "Die Gruppe `$` konnte nicht erstellt werden. Fehlercode: $",
@@ -21,7 +23,8 @@
     "bg": "Групата `$` не беше създадена. Грешка: $.",
     "pl": "Grupa `$` nie została utworzona. Błąd kodu: $.",
     "fr": "Le groupe `$` n'a pas pu être créé. Code d'erreur: $",
-    "ru": "Группа `$` не может быть создана. Код ошибки: $"
+    "ru": "Группа `$` не может быть создана. Код ошибки: $",
+    "tr": "`$` Grubu oluşturulamadı. Hata Kodu: $."
   },
   "muss_serverbesitzer_oder_adminrechte_haben": {
     "de": "Du musst der Serverbesitzer sein, Administratorrechte besitzen oder die Rechte über den Befehl `permission` erhalten um diese Aktion auszuführen.",
@@ -29,15 +32,17 @@
     "bg": "За да извършите това действие, трябва да сте собственик на сървъра, да имате администраторски права или да имате права чрез командата `permission`.",
     "pl": "Aby wykonać tę akcję, musisz być właścicielem serwera, mieć uprawnienia administratora lub mieć uprawnienia za pośrednictwem polecenia „permission”.",
     "fr": "Vous devez être le propriétaire du serveur, avoir des droits d'administrateur ou avoir les droits via la commande `permission` pour effectuer cette action.",
-    "ru": "Вы должны быть владельцем сервера, иметь права администратора или иметь права с помощью команды «permission» для выполнения этого действия."
+    "ru": "Вы должны быть владельцем сервера, иметь права администратора или иметь права с помощью команды «permission» для выполнения этого действия.",
+    "tr": "Bu işlemi yapabilmek için server sahibi, yönetici yetkilerine ya da `permission` komutundaki yetkilere sahip olmalısınız."
   },
-  "gruppe_wurde_gelöscht": {
+  "gruppe_wurde_geloescht": {
     "de": "Die Gruppe `$` wurde gelöscht.",
     "en": "The group `$` was deleted.",
     "bg": "Групата `$` беше изтрита",
     "pl": "Grupa `$` została usunięta.",
     "fr": "Le groupe `$` a été supprimé.",
-    "ru": "Группа `$` была удалена."
+    "ru": "Группа `$` была удалена.",
+    "tr": "`$` isimli grup silindi."
   },
   "gruppe_mit_namen_existiert_nicht": {
     "de": "Es existiert keine Gruppe mit dem Namen `$` auf dem Server.",
@@ -45,23 +50,26 @@
     "bg": "Няма група `$` в сървъра.",
     "pl": "Nie ma grupy `$` na serwerze",
     "fr": "Il n'y a pas de groupe avec le nom `$` sur le serveur.",
-    "ru": "На сервере нет группы с именем `$`."
+    "ru": "На сервере нет группы с именем `$`.",
+    "tr": "Sunucuda `$` isimli bir grup bulunamadı."
   },
-  "gruppe_löschen_unbekannter_fehler": {
+  "gruppe_loeschen_unbekannter_fehler": {
     "de": "Die Gruppe `$` konnte nicht gelöscht werden. Fehlercode: $",
     "en": "The group `$` wasnt't deleted. Errorcode: $.",
     "bg": "Групата `$` не е изтрита. Грешка:$.",
     "pl": "Grupa `$` nie została usunięta. Błąd kodu:$.",
     "fr": "Le groupe `$` n'a pas pu être supprimé. Code d'erreur: $",
-    "ru": "Группа `$` не может быть удалена. Код ошибки: $"
+    "ru": "Группа `$` не может быть удалена. Код ошибки: $",
+    "tr": "`$` isimli grup silinemedi. Hata Kodu: $."
   },
-  "nutzer_zu_gruppe_hinzugefügt": {
+  "nutzer_zu_gruppe_hinzugefuegt": {
     "de": "$ wurde zu der Gruppe `$` hinzugefügt.",
     "en": "$ was added to $.",
     "bg": "$ беше добавено към $",
     "pl": "$ dodano do `$` ",
     "fr": "$ a été ajouté au groupe `$`.",
-    "ru": "$ был добавлен в группу `$`."
+    "ru": "$ был добавлен в группу `$`.",
+    "tr": "$ başarı ile $ grubuna eklendi."
   },
   "nutzer_bereits_in_gruppe": {
     "de": "Der Nutzer konnte nicht zur Gruppe hinzugefügt werden, da er bereits in der Gruppe ist!",
@@ -69,15 +77,17 @@
     "bg": "Потребителя вече е в тази група!",
     "pl": "Użytkownik jest już w tej grupie!",
     "fr": "L'utilisateur n'a pas pu être ajouté au groupe car il est déjà dans le groupe!",
-    "ru": "Пользователь не может быть добавлен в группу, потому что он уже в группе!"
+    "ru": "Пользователь не может быть добавлен в группу, потому что он уже в группе!",
+    "tr": "Kullanıcı zaten bu gruba dahil!"
   },
-  "nutzer_zu_gruppe_hinzufügen_unbekannter_fehler": {
+  "nutzer_zu_gruppe_hinzufuegen_unbekannter_fehler": {
     "de": "Der Nutzer konnte nicht zur Gruppe hinzugefügt werden! Fehlercode: $",
     "en": "The user wasn't added to the group. Errorcode: $",
     "bg": "Потребителя не беше добавен към групата. Грешка: $",
     "pl": "Użytkownik nie został dodany do grupy. Błąd kodu: $",
     "fr": "L'utilisateur n'a pas pu être ajouté au groupe! Code d'erreur: $",
-    "ru": "Пользователь не может быть добавлен в группу! Код ошибки: $"
+    "ru": "Пользователь не может быть добавлен в группу! Код ошибки: $",
+    "tr": "Kullanıcı gruba eklenemedi. Hata Kodu: $"
   },
   "nutzer_muss_markiert_werden": {
     "de": "Du musst einen Nutzer markieren!",
@@ -85,7 +95,8 @@
     "bg": "Трябва да назовете потребител!",
     "pl": "Musisz wspomnieć o użytkowniku!",
     "fr": "Vous devez marquer un utilisateur!",
-    "ru": "Вы должны отметить пользователя!"
+    "ru": "Вы должны отметить пользователя!",
+    "tr": "Bir kullanıcıyı etiketlemeniz gerekiyor!"
   },
   "gruppen_name_muss_angegeben_werden": {
     "de": "Du musst einen Gruppennamen angeben!",
@@ -93,7 +104,8 @@
     "bg": "Трябва да дадете име на групата.",
     "pl": "Musisz nadać nazwę grupie.",
     "fr": "Vous devez entrer un nom de groupe!",
-    "ru": "Вы должны ввести имя группы!"
+    "ru": "Вы должны ввести имя группы!",
+    "tr": "Gruba bir isim vermelisiniz!"
   },
   "nutzer_aus_gruppe_entfernt": {
     "de": "$ wurde aus der Gruppe `$` entfernt.",
@@ -101,7 +113,8 @@
     "bg": "$ беше премахнат от $",
     "pl": "$ został usunięty z $",
     "fr": "$ a été supprimé du groupe `$`.",
-    "ru": "$ был удален из группы `$`."
+    "ru": "$ был удален из группы `$`.",
+    "tr": "$ artık $ grubunda değil"
   },
   "nutzer_ist_in_keiner_gruppe": {
     "de": "Der Nutzer `$` ist in keiner Gruppe!",
@@ -109,7 +122,8 @@
     "bg": "Този потребител `$` не е в групата!",
     "pl": "Ten użytkownik `$` nie jest w grupie!",
     "fr": "L'utilisateur `$` n'est pas dans un groupe!",
-    "ru": "Пользователь `$` не в группе!"
+    "ru": "Пользователь `$` не в группе!",
+    "tr": "Kullanıcı `$` bir grupta değil!"
   },
   "nutzer_aus_gruppe_entfernen_unbekannter_fehler": {
     "de": "Der Nutzer konnte nicht aus der Gruppe entfernt werden! Fehlercode: $",
@@ -117,7 +131,8 @@
     "bg": "Този потребител не беше премахнат от групата! Грешка: $",
     "pl": "Użytkownik nie został usunięty z grupy! Błąd kodu: $",
     "fr": "L'utilisateur n'a pas pu être supprimé du groupe! Code d'erreur: $",
-    "ru": "Пользователь не может быть удален из группы! Код ошибки: $"
+    "ru": "Пользователь не может быть удален из группы! Код ошибки: $",
+    "tr": "Kullanıcı gruptan çıkarılamadı! Hata Kodu: $"
   },
   "keine_gruppen_auf_server": {
     "de": "Es sind keine Gruppen auf dem Server vorhanden!",
@@ -125,7 +140,8 @@
     "bg": "Няма групи !",
     "pl": "Tutaj nie ma grup!",
     "fr": "Il n'y a aucun groupe sur le serveur!",
-    "ru": "На сервере нет групп!"
+    "ru": "На сервере нет групп!",
+    "tr": "Sunucuda hiç bir grup yok!"
   },
   "abfrage_unbekannter_fehler": {
     "de": "Bei der Abfrage ist ein unerwarteter Fehler aufgetreten! Fehlercode: $",
@@ -133,7 +149,8 @@
     "bg": "Има непредвидена грешка ! Грешка: $",
     "pl": "Tutaj jest niespodziewany błąd! Błąd kodu: $",
     "fr": "Une erreur inattendue s'est produite lors de la requête! Code d'erreur: $",
-    "ru": "Во время запроса произошла непредвиденная ошибка! Код ошибки: $"
+    "ru": "Во время запроса произошла непредвиденная ошибка! Код ошибки: $",
+    "tr": "Beklenmeyen bir hata meydana geldi! Hata Kodu: $"
   },
   "aufgabe_erstellt": {
     "de": "$ hat die Aufgabe erhalten.",
@@ -141,7 +158,8 @@
     "bg": "$ получи задачата.",
     "pl": "$ posiada zadanie.",
     "fr": "$ a la tâche.",
-    "ru": "$ получил задание."
+    "ru": "$ получил задание.",
+    "tr": "$ için görev oluşturuldu."
   },
   "aufgabe_an_x_mitglieder_gesendet": {
     "de": "Die Aufgabe wurde an $ Gruppenmitglieder gesendet.",
@@ -149,7 +167,8 @@
     "bg": "Задачата беше изпратена до членове на $ group.",
     "pl": "Zadanie zostało wysłane do członków grupy $.",
     "fr": "La tâche a été envoyée aux membres du groupe $.",
-    "ru": "Задание было отправлено членам группы $."
+    "ru": "Задание было отправлено членам группы $.",
+    "tr": "Görev gruptaki $ kişiye gönderildi."
   },
   "aufgabe_erstellt_unbekannter_fehler": {
     "de": "Beim erstellen der Aufgabe ist ein unerwarteter Fehler aufgetreten. Fehlercode: $",
@@ -157,7 +176,8 @@
     "bg": "По време на създаване на задачата се случи неочаквана грешка. Грешка:$",
     "pl": "Podczas tworzenia zadania wystąpił się niespodziewany błąd. Błąd kodu: $",
     "fr": "Une erreur inattendue s'est produite lors de la création de la tâche. Code d'erreur: $",
-    "ru": "Произошла непредвиденная ошибка при создании задачи. Код ошибки: $"
+    "ru": "Произошла непредвиденная ошибка при создании задачи. Код ошибки: $",
+    "tr": "Görev oluşturulurken beklenmedik bir hata meydana geldi. Hata Kodu: $"
   },
   "aufgabe_gruppe_erstellt": {
     "de": "Die Aufgabe wurde an die Gruppe `$` übergeben.",
@@ -165,7 +185,8 @@
     "bg": "Задачата е дадена на `$`",
     "pl": "Zadanie zostało oddano do `$`",
     "fr": "La tâche a été confiée au groupe `$`.",
-    "ru": "Задание было передано группе `$`."
+    "ru": "Задание было передано группе `$`.",
+    "tr": "Görev `$` grubuna devredildi."
   },
   "aufgabe_erstellen_fehlende_argumente": {
     "de": "Bitte markiere einen Nutzer oder verwende den Namen einer Gruppe, um eine Aufgabe für diese hinzuzufügen.",
@@ -173,7 +194,8 @@
     "bg": "Моля, тагнете потребител или подайте име на група за да създадете задачата.",
     "pl": "Proszę wspomnieć o użytkowniku albo nadać nazwę grupie aby utworzyć zadanie.",
     "fr": "La tâche a été confiée au groupe `$`.",
-    "ru": "Пожалуйста, выберите пользователя или используйте имя группы, чтобы добавить задачу для него."
+    "ru": "Пожалуйста, выберите пользователя или используйте имя группы, чтобы добавить задачу для него.",
+    "tr": "Lütfen bir kullanıcıyı etiketleyerek veya bir grup adını kullanarak görev oluşturunuz."
   },
   "task_abfrage_unbekannter_fehler": {
     "de": "Bei der Abfrage ist ein unerwarteter Fehler aufgetreten! Möglicherweise ist die Aufgabe bereits erledigt!",
@@ -181,7 +203,8 @@
     "bg": "Има непредвидена грешка ! Задачата може вече да е свършена!",
     "pl": "Tutaj jest niespodziewany błąd! Zadanie może być już wykonane!",
     "fr": "Une erreur inattendue s'est produite lors de la requête! La tâche est peut-être déjà terminée!",
-    "ru": "Во время запроса произошла непредвиденная ошибка! Задача уже может быть выполнена!"
+    "ru": "Во время запроса произошла непредвиденная ошибка! Задача уже может быть выполнена!",
+    "tr": "Beklenmeyen bir hata meydana geldi! Görev çoktan bitirilmiş olabilir!"
   },
   "deadline_gesetzt": {
     "de": "Die Deadline für die Aufgabe `$` wurde für $ gesetzt.",
@@ -189,7 +212,8 @@
     "bg": "Краен срок за $ сега е $",
     "pl": "Ostatecznym terminem dla $ teraz jest $",
     "fr": "La date limite pour la tâche `$` a été fixée à $.",
-    "ru": "Срок выполнения задачи `$` был установлен для $."
+    "ru": "Срок выполнения задачи `$` был установлен для $.",
+    "tr": "$ görevinin bitiş tarihi $ olarak ayarlandı."
   },
   "keine_aufgabe_mit_id": {
     "de": "Es wurde keine Aufgabe mit der ID `$` gefunden!",
@@ -197,15 +221,17 @@
     "bg": "Задача с ид`$` не беше намерена. ",
     "pl": "Nie odnaleziono żadnego zadania z id `$`.",
     "fr": "Aucune tâche avec l'ID `$` n'a été trouvée!",
-    "ru": "Не найдено ни одной задачи с идентификатором `$`!"
+    "ru": "Не найдено ни одной задачи с идентификатором `$`!",
+    "tr": "`$` isimli bir görev bulunamadı."
   },
-  "ungültiges_datum_format": {
+  "ungueltiges_datum_format": {
     "de": "Das angegebene Datum hat ein ungültiges Format!",
     "en": "The dateformat is invalid.",
     "bg": "Невалиден времеви формат",
     "pl": "Format daty jest niepoprawny.",
     "fr": "La date spécifiée a un format non valide!",
-    "ru": "Указанная дата имеет неверный формат!"
+    "ru": "Указанная дата имеет неверный формат!",
+    "tr": "Tarihin yazılma şekli geçersiz."
   },
   "nutzer_oder_gruppe_angeben": {
     "de": "Bitte gib an, ob die Aufgabe zu einem Nutzer oder eine Gruppe gehört! (Nutzer = user, Gruppe = group)",
@@ -213,7 +239,8 @@
     "bg": "Моля посочете задачата за потребител или група е. (User = user, Group = group)",
     "pl": "Proszę powiedzieć jeżeli zadanie jest dla użytkownika albo dla grupy. (User = user, Group = group)",
     "fr": "Veuillez indiquer si la tâche appartient à un utilisateur ou à un groupe! (Utilisateur = user, groupe = group)",
-    "ru": "Пожалуйста, укажите, принадлежит ли задача пользователю или группе! (Пользователь = user, группа = group)"
+    "ru": "Пожалуйста, укажите, принадлежит ли задача пользователю или группе! (Пользователь = user, группа = group)",
+    "tr": "Lütfen görevin bir kullanıcıya mı yoksa bir gruba mı ait olduğunu belirtin (User = user, Group = group)"
   },
   "aufgabe_invalid_args_length": {
     "de": "Bitte benutze `-task deadline <Aufgaben-ID> <Datum> <Uhrzeit>`.",
@@ -221,15 +248,17 @@
     "bg": "Моля използвайте `-task deadline <Task-ID> <Date> <Time>`.",
     "pl": "Proszę użyć `-task deadline <Task-ID> <Date> <Time>`.",
     "fr": "Veuillez utiliser `-task deadline <task ID> <date> <time>`.",
-    "ru": "Пожалуйста, используйте `-task крайний срок <идентификатор задачи> <дата> <время>`."
+    "ru": "Пожалуйста, используйте `-task крайний срок <идентификатор задачи> <дата> <время>`.",
+    "tr": "Lütfen `-task deadline <Task-ID> <Date> <Time>` olarak kullanınız."
   },
-  "aufgabe_gelöscht": {
+  "aufgabe_geloescht": {
     "de": "Die Aufgabe `$` wurde gelöscht.",
     "en": "Task `$` got deleted.",
     "bg": "Задача `$` беше изтрита.",
     "pl": "Zadanie `$` zostało usunięte.",
     "fr": "La tâche `$` a été supprimée.",
-    "ru": "Задача `$` была удалена."
+    "ru": "Задача `$` была удалена.",
+    "tr": "`$` isimli görev silindi."
   },
   "aufgabe_editiert": {
     "de": "Die Aufgabe `$` wurde erfolgreich geändert.",
@@ -237,7 +266,8 @@
     "bg": "Задачата `$` беше променена успешно.",
     "pl": "Zadanie `$` zostało pomyślnie zmienione.",
     "fr": "La tâche `$` a été modifiée avec succès.",
-    "ru": "Задача `$` была успешно изменена."
+    "ru": "Задача `$` была успешно изменена.",
+    "tr": "Görev `$` başarıyla değiştirildi."
   },
   "aufgabe_wird_nun_bearbeitet": {
     "de": "Die Aufgabe wird nun bearbeitet.",
@@ -245,7 +275,8 @@
     "bg": "Задачата е в процес на работа.",
     "pl": "Zadanie jest teraz w toku.",
     "fr": "La tâche est en cours de traitement.",
-    "ru": "Задача сейчас обрабатывается."
+    "ru": "Задача сейчас обрабатывается.",
+    "tr": "Görev durumu yapım aşamasında olarak değişti."
   },
   "aufgabe_wird_nicht_bearbeitet": {
     "de": "Die Aufgabe wird nicht bearbeitet.",
@@ -253,7 +284,8 @@
     "bg": "Задачата не се обработва.",
     "pl": "Zadanie nie jest przetwarzane.",
     "fr": "La tâche n'est pas traitée.",
-    "ru": "Задача не обработана."
+    "ru": "Задача не обработана.",
+    "tr": "Görev artık yapım aşamasında değil."
   },
   "aufgabe_erledigt": {
     "de": "Die Aufgabe ist erledigt.",
@@ -261,7 +293,8 @@
     "bg": "Задачата е завършена.",
     "pl": "Zadanie zostało ukończone.",
     "fr": "La tâche est terminée.",
-    "ru": "Задача выполнена."
+    "ru": "Задача выполнена.",
+    "tr": "Görev tamamlandı."
   },
   "support_nachricht": {
     "de": "Bei jeglichen Problemen:\nhttps://bnder.de/discord",
@@ -269,7 +302,8 @@
     "bg": "За контакти с подръжка\nhttps://bnder.de/discord",
     "pl": "Proszę się skontaktować z nami na\nhttps://bnder.de/discord",
     "fr": "En cas de problème:\nhttps://bnder.de/discord",
-    "ru": "С любыми проблемами:\nhttps://bnder.de/discord"
+    "ru": "С любыми проблемами:\nhttps://bnder.de/discord",
+    "tr": "https://bnder.de/discord \nadresinden iletişime geçebilirsiniz."
   },
   "keine_aufgaben": {
     "de": "Es sind keine Aufgaben für den Nutzer verfügbar.",
@@ -277,7 +311,8 @@
     "bg": "Няма задачи.",
     "pl": "Tutaj nie ma żadnego zadania.",
     "fr": "Aucune tâche n'est disponible pour l'utilisateur.",
-    "ru": "Для пользователя нет задач."
+    "ru": "Для пользователя нет задач.",
+    "tr": "Görev yok."
   },
   "keine_aufgaben_gruppen": {
     "de": "Es sind keine Aufgaben für diese Gruppe verfügbar.",
@@ -285,15 +320,17 @@
     "bg": "Няма задачи.",
     "pl": "Tu nie ma zadań.",
     "fr": "Aucune tâche n'est disponible pour ce groupe.",
-    "ru": "Для этой группы нет задач."
+    "ru": "Для этой группы нет задач.",
+    "tr": "Görev yok."
   },
-  "sprache_geändert": {
+  "sprache_geaendert": {
     "de": "Die Sprache ist nun Deutsch.",
     "en": "The language was set to english",
     "bg": "Зададеният език е Български",
     "pl": "Język został ustawiony jako Polski",
     "fr": "La langue est maintenant le français",
-    "ru": "Язык теперь русский."
+    "ru": "Язык теперь русский.",
+    "tr": "Dil Türkçe olarak ayarlandı."
   },
   "token_erhalten": {
     "de": "Du erhältst den Token per Direktnachricht.",
@@ -301,7 +338,8 @@
     "bg": "Получихте токена чрез директно съобщение.",
     "pl": "Otrzymasz token poprzez wiadomości prywatne.",
     "fr": "Vous recevrez le jeton par message direct.",
-    "ru": "Вы получите токен прямым сообщением."
+    "ru": "Вы получите токен прямым сообщением.",
+    "tr": "Token direkt mesaj olarak gönderildi."
   },
   "token_konnte_nicht_gesendet_werden": {
     "de": "Der Token konnte nicht gesendet werden. Bitte überprüfe ob deine Privatnachrichten aktiviert sind.",
@@ -309,7 +347,8 @@
     "bg": "Токена не беше изпратен. Моля, проверете директните си съобщения",
     "pl": "Token nie został wysłany. Proszę sprawdź czy twoje wiadomości prywatne są otwarte.",
     "fr": "Le jeton n'a pas pu être envoyé. Veuillez vérifier si vos messages privés sont activés.",
-    "ru": "Токен не может быть отправлен. Пожалуйста, проверьте, активированы ли ваши личные сообщения."
+    "ru": "Токен не может быть отправлен. Пожалуйста, проверьте, активированы ли ваши личные сообщения.",
+    "tr": "Token gönderilemedi. Direkt mesaj ayarlarınızı kontrol ediniz."
   },
   "language_message_title": {
     "de": "Sprache",
@@ -317,7 +356,8 @@
     "bg": "Език",
     "pl": "Język",
     "fr": "La langue",
-    "ru": "язык"
+    "ru": "язык",
+    "tr": "Dil"
   },
   "help_message_title": {
     "de": "Hilfe",
@@ -325,7 +365,8 @@
     "bg": "Помощ",
     "pl": "Pomoc",
     "fr": "Aide",
-    "ru": "Помощь"
+    "ru": "Помощь",
+    "tr": "Yardım"
   },
   "stats_message_title": {
     "de": "Statistiken",
@@ -333,7 +374,8 @@
     "bg": "Статистика",
     "pl": "Statystyki",
     "fr": "Statistiques",
-    "ru": "статистика"
+    "ru": "статистика",
+    "tr": "İstatistikler"
   },
   "task_message_title": {
     "de": "Aufgaben",
@@ -341,7 +383,8 @@
     "bg": "Задачи",
     "pl": "Zadanie",
     "fr": "Tâches",
-    "ru": "задачи"
+    "ru": "задачи",
+    "tr": "Görevler"
   },
   "token_message_title": {
     "de": "Token",
@@ -349,7 +392,8 @@
     "bg": "Токен",
     "pl": "Token",
     "fr": "Jeton",
-    "ru": "знак"
+    "ru": "знак",
+    "tr": "Token"
   },
   "app_message_title": {
     "de": "App",
@@ -357,7 +401,8 @@
     "bg": "Приложение",
     "pl": "Aplikacji",
     "fr": "App",
-    "ru": "приложение"
+    "ru": "приложение",
+    "tr": "Uygulama"
   },
   "app_befehl_nachricht": {
     "de": "Du kannst unsere App von **Google Play** hier herunterladen: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
@@ -365,7 +410,8 @@
     "bg": "Можете да изтеглите нашето приложение от **Google Play** тук: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
     "pl": "Możesz uzyskać naszą aplikację na **Google Play**: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
     "fr": "Vous pouvez télécharger notre application depuis **Google Play** ici: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
-    "ru": "Вы можете скачать наше приложение из **Google Play** здесь: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app"
+    "ru": "Вы можете скачать наше приложение из **Google Play** здесь: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
+    "tr": "Uygulamaya linkten erişebilirsiniz **Google Play**: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app"
   },
   "aufgaben_status_erledigt": {
     "de": "Erledigt",
@@ -373,7 +419,8 @@
     "bg": "Готов",
     "pl": "Ukończone",
     "fr": "Terminé",
-    "ru": "выполненный"
+    "ru": "выполненный",
+    "tr": "Tamamlanmış"
   },
   "aufgaben_status_wird_bearbeitet": {
     "de": "Wird bearbeitet",
@@ -381,7 +428,8 @@
     "bg": "В процес на работа",
     "pl": "Prace w toku",
     "fr": "Traitement",
-    "ru": "Обрабатывается"
+    "ru": "Обрабатывается",
+    "tr": "Yapım Aşamasında"
   },
   "aufgaben_status_nicht_bearbeitet": {
     "de": "Nicht bearbeitet",
@@ -389,7 +437,8 @@
     "bg": "Не редактирано",
     "pl": "Nie edytowane",
     "fr": "Non édité",
-    "ru": "Не редактируется"
+    "ru": "Не редактируется",
+    "tr": "Düzenlenmemiş"
   },
   "aufgabe_erhalten": {
     "de": "Du hast folgende Aufgabe von $ erhalten (ID: $):",
@@ -397,7 +446,8 @@
     "bg": "Получихте дадената задача от $ (ID: $):",
     "pl": "Otrzymałeś następujące zadanie od $ (ID: $):",
     "fr": "Vous avez obtenu la tâche suivante de $ (ID: $):",
-    "ru": "Вы получили следующее задание от $ (ID: $):"
+    "ru": "Вы получили следующее задание от $ (ID: $):",
+    "tr": "Yeni bir görev aldın. Görev : $ Görevi veren : (ID: $):"
   },
   "alle_aufgaben_von_nutzer": {
     "de": "Alle Aufgaben von $:\n$",
@@ -405,7 +455,8 @@
     "bg": "$ задачи:\n$",
     "pl": "$ zadania:\n$",
     "fr": "Toutes les tâches de $:\n$",
-    "ru": "Все задания от $:\n$"
+    "ru": "Все задания от $:\n$",
+    "tr": "$ Görevler:\n$"
   },
   "alle_aufgaben_von_nutzer_no_done_tasks": {
     "de": "Alle Aufgaben von $:\n$\n$ Aufgaben ausgeblendet",
@@ -413,7 +464,8 @@
     "bg": "$ задачи:\n$\n$ Задачи скрити",
     "pl": "$ zadania:\n$\n$ Zadania ukryte",
     "fr": "Toutes les tâches de $:\n$\n$ Tâches masquées",
-    "ru": "Все задания от $:\n$\n$ Задачи скрыты"
+    "ru": "Все задания от $:\n$\n$ Задачи скрыты",
+    "tr": "$ Görevler:\n$\n$ Gizlenmiş görevler"
   },
   "alle_aufgaben_von_gruppe": {
     "de": "Alle Aufgaben von Gruppe $:\n$",
@@ -421,7 +473,8 @@
     "bg": "Всички задачи от група $:\n$",
     "pl": "Wszystkie zadania z grupy $:\n$",
     "fr": "Toutes les tâches du groupe $:\n$",
-    "ru": "Все задания группы $:\n$"
+    "ru": "Все задания группы $:\n$",
+    "tr": "$ Grubuna ait bütün görevler:\n$"
   },
   "token_info": {
     "de": "\nDieser Token kann für die App genutzt werden.\n**Teile deinen Token niemals mit einem anderen Nutzer!**",
@@ -429,7 +482,8 @@
     "bg": "\nТози токен може да бъде използван за приложението. \n **Не споделяйте вашия токен!**",
     "pl": "\nTego tokena można użyć w aplikacji. \nNie udostępniaj tego tokena!",
     "fr": "\nCe jeton peut être utilisé pour l'application.\n**Ne partagez jamais votre jeton avec un autre utilisateur!**",
-    "ru": "\nЭтот токен можно использовать для приложения.\n**Никогда не делитесь своим токеном с другим пользователем!**"
+    "ru": "\nЭтот токен можно использовать для приложения.\n**Никогда не делитесь своим токеном с другим пользователем!**",
+    "tr": "\nBu token uygulama için kullanılabilir. \n**Token kişiye özeldir paylaşmayınız!**"
   },
   "help_message_group_commands": {
     "de": "`$group create <GRUPPENNAME>` - Gruppe erstellen\n`$group add @NUTZER <GRUPPENNAME>` - Nutzer zu Gruppe hinzufügen\n`$group remove @NUTZER <GRUPPENNAME>` - Nutzer aus Gruppe entfernen\n`$group delete <GRUPPENNAME>` - Gruppe löschen\n`$group list` - Alle Gruppen auflisten\n`$group members <GRUPPENNAME>` - Alle Gruppenmitglieder auflisten",
@@ -437,7 +491,8 @@
     "bg": "`$group create <GROUPNAME>` - Създава група\n`$group add @USER <GROUPNAME>` - Добавете потребители в групата\n`$group remove @USER <GROUPNAME>` - Премахване на потребителите от групата\n`$group delete <GROUPNAME>` - Изтриване на групата\n`group list` - Списък с групи\n`$group members <GROUPNAME>` - Списък на всички членове на групата",
     "pl": "`$group create <NAZWA GRUPY>` - Utwórz grupę\n`$group add @UŻYTKOWNIK <NAZWA GRUPY>` - Dodaj użytkownika do grupy\n`$group remove @UŻYTKOWNIK <NAZWA GRUPY>` - Usuń użytkownika z grupy\n`$group delete <NAZWA GRUPY>` - Usuń grupę\n`$group list` - Wyświetl wszystkie grupy\n`$group members <NAZWA GRUPY>` - Lista wszystkich członków grupy",
     "fr": "`$group create <NOM DU GROUPE>` - Créer un groupe\n `$group add @UTILISATEUR <NOM DU GROUPE>` - Ajouter des utilisateurs au groupe\n`$group remove @UTILISATEUR <NOM DU GROUPE>` - Supprimer des utilisateurs du groupe\n`$group delete <NOM DU GROUPE>` - Supprimer le groupe\n`$group list` - Lister tous les groupes\n`$group members <NOM DU GROUPE>` - Lister tous les membres du groupe",
-    "ru": "`$group create <ИМЯ ГРУППЫ>` - Создать группу\n`$group add @ПОЛЬЗОВАТЕЛИ <ИМЯ ГРУППЫ>` - Добавить пользователей в группу\n`$group remove @ПОЛЬЗОВАТЕЛИ <ИМЯ ГРУППЫ>` - Удалить пользователей из группы\n`$group delete <ИМЯ ГРУППЫ>` - Удалить группу\n`$group list` - Список всех групп\n`$group members <GRUPPENNAME>` - Список всех членов группы"
+    "ru": "`$group create <ИМЯ ГРУППЫ>` - Создать группу\n`$group add @ПОЛЬЗОВАТЕЛИ <ИМЯ ГРУППЫ>` - Добавить пользователей в группу\n`$group remove @ПОЛЬЗОВАТЕЛИ <ИМЯ ГРУППЫ>` - Удалить пользователей из группы\n`$group delete <ИМЯ ГРУППЫ>` - Удалить группу\n`$group list` - Список всех групп\n`$group members <GRUPPENNAME>` - Список всех членов группы",
+    "tr": "`group create <GROUPNAME>` - Grup oluşturur\n`group add @USER <GROUPNAME>` - Gruba üye ekler\n`group remove @USER <GROUPNAME>` - Gruptan üye çıkarır\n`group delete <GROUPNAME>` - Grubu siler\n`group list` - Grupları listeler\n`group members <GROUPNAME>` - Grup üyelerini listeler"
   },
   "help_message_task_commands": {
     "de": "`$task add @NUTZER <AUFGABE>` - Aufgabe an Nutzer geben\n`$task add <GRUPPENNAME> <AUFGABE>` - Aufgabe an Gruppe geben\n`$task proceed <AUFGABEN-ID>` - Ändert Status der Aufgabe zu bearbeitet/erledigt\n`$task deadline <AUFGABEN-ID> <DATUM> <UHRZEIT>` - Deadline für Aufgabe setzen\n`$task list <@NUTZER/GRUPPENNAME>` - Listet alle Aufgaben auf\n`$task delete <AUFGABEN-ID>` - Aufgabe löschen\n`$task edit <AUFGABEN-ID> <AUFGABE>` - Überarbeite den Aufgaben Text\n`$task info <AUFGABEN-ID>` - Zeigt einzelne Informationen für die Aufgabe an\n`$task done <AUFGABEN-ID` - Setzt eine Aufgabe direkt auf erledigt\n",
@@ -445,7 +500,8 @@
     "bg": "`$task add @USER <TASK>` - Дайте задача на потребителя\n`$task add <GROUPNAME> <TASK>` - Дайте задача на групата\n`$task proceed <TASK-ID>` - Продължи задачата към \"в процес\", повтори командата за да се завърши\n`$task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Определете срок за изпълнение на задачата\n`$task list <@USER/GROUPNAME>` - Списък със задачи\n`$task delete <TASK-ID>` - Изтриване на задача\n`$task edit <TASK-ID> <TASK>` - Прегледайте текста на задачите\n`$task info <TASK-ID>` - Показва индивидуална информация за задачата\n`$task done <ID на задачата>` - задава задачата директно да бъде изпълнена\n",
     "pl": "`$task add @UŻYTKOWNIK <TASK>` - Przypisz zadanie do użytkownika\n`$task add <NAZWA GRUPY> <TASK>` - Przypisz zadanie do grupy\n`$task proceed <TASK-ID>` - Zmienia status zadania na przetworzone/ukończone\n`$task deadline <ID Zadania> <DATE (in european format)> <TIME>` - Wyświetla listę wszystkich zadań\n`$task list` <TASK-ID> - Usuwa zadanie\n`$task edit <TASK-ID> <TASK>` - Popraw tekst zadania\n`$task info <TASK-ID>` - Wyświetla indywidualne informacje dla zadania\n`$task done <ID ZADANIA>` - ustawia zadanie bezpośrednio na ukończone\n",
     "fr": "`$task add @UTILISATEUR <TÂCHE>` - Donner une tâche à l'utilisateur\n`$task add <NOM DU GROUPE> <TÂCHE>` - Donner une tâche au groupe\n`$task proceed <ID DE TÂCHE>` - Change le statut de la tâche en traitée/terminée\n`$task deadline <ID DE TÂCHE> <DATE> <TIME>` - Fixer la date limite de la tâche\n`$task list <@UTILISATEUR/NOM DU GROUPE>` - Répertorie toutes les tâches\n`$task delete <ID DE TÂCHE>` - Supprimer la tâche\n`$task edit <ID DE TÂCHE> <TÂCHE>` - Réviser le texte des tâches\n`$task info <ID DE TÂCHE>` - Affiche des informations individuelles pour la tâche\n`$task done <TASK ID>` - définit une tâche directement comme terminée\n",
-    "ru": "`$task add @ПОЛЬЗОВАТЕЛИ <ЗАДАЧА>` - Дайте задание пользователю\n`$task add <ИМЯ ГРУППЫ> <ЗАДАЧА>` - Дайте задание группе\n`$task proceed <TASK ID>` - Изменяет статус задания на обработанное/выполненное\n`$task deadline <TASK ID> <ДАТА> <ВРЕМЯ>` - Установить срок выполнения задания\n`$task list <@ПОЛЬЗОВАТЕЛИ/ИМЯ ГРУППЫ>` - Перечисляет все задачи\n`$task delete <TASK ID>` - Удалить задачу\n`$task edit <TASK-ID> <TASK>` - Пересмотреть текст задания\n`$task info <TASK-ID>` - Отображает индивидуальную информацию для задачи\n`$task done <TASK ID>` - устанавливает задачу как выполненную\n"
+    "ru": "`$task add @ПОЛЬЗОВАТЕЛИ <ЗАДАЧА>` - Дайте задание пользователю\n`$task add <ИМЯ ГРУППЫ> <ЗАДАЧА>` - Дайте задание группе\n`$task proceed <TASK ID>` - Изменяет статус задания на обработанное/выполненное\n`$task deadline <TASK ID> <ДАТА> <ВРЕМЯ>` - Установить срок выполнения задания\n`$task list <@ПОЛЬЗОВАТЕЛИ/ИМЯ ГРУППЫ>` - Перечисляет все задачи\n`$task delete <TASK ID>` - Удалить задачу\n`$task edit <TASK-ID> <TASK>` - Пересмотреть текст задания\n`$task info <TASK-ID>` - Отображает индивидуальную информацию для задачи\n`$task done <TASK ID>` - устанавливает задачу как выполненную\n",
+    "tr": "`task add @USER <TASK>` - Kullanıcıya görev verir\n`task add <GROUPNAME> <TASK>` - Gruba görev verir\n`task proceed <TASK-ID>` - Yapılacak görevin durumunu değiştirir/completed\n`task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Görev için bitiş tarihi belirler\n`task list <@USER/GROUPNAME>` - Bütün görevleri listeler\n`task delete <TASK-ID>` - Görevi siler\n`task edit <TASK-ID> <TASK>` - Görev metnini düzenler\n`task info <TASK-ID>` - Görev için bireysel bilgileri görüntüler\n`task done <TASK ID>` - Görevi bitmiş olarak işaretler\n"
   },
   "help_message_other_commands": {
     "de": "`$token` - Gibt den Token für die Website & App\n`$token new` - Erneuert den Token\n`$help` - Listet alle Befehle auf\n`$support` - Discord Link\n`$app` - App-Informationen\n`$stats` - Statistiken\n`$prefix <PREFIX>` - Ändert den Präfix des Bots\n`$settings` - Zeigt Einstellungen an\n",
@@ -453,7 +509,8 @@
     "bg": "`$token` - Връща символа за уебсайта и приложението\n`$token new` - Променя маркера\n`$help` - Изброява всички команди\n`$support` - Discord Link\n`$app` - Информация за приложението\n`$stats` - статистика\n`$prefix <PREFIX>` - Променя префикса на бота\n`$settings` - Показва настройките\n",
     "pl": "`$token` - Daje token dla strony internetowej i aplikacji\n`$token new` - Generuje nowy token\n`$help` - Wyświetlam wszystkie polecenia\n`$support` - Discord Link\n`$app` - Informacje o Aplikacji\n`$stats` - Statystyki\n`$prefix <PREFIX>` - Zmienia prefiks bota\n`$settings` - Wyświetla ustawienia\n",
     "fr": "`$token` - Renvoie le jeton du site Web et de l'application\n`$token new` - Renouveler le jeton\n`$help` - Répertorie toutes les commandes\n`$support` - Lien Discord\n`$app` - Informations sur l'application\n`$stats` - Statistiques\n`$prefix <PREFIX>` - Modifie le préfixe du bot\n`$settings` - Affiche les paramètres\n",
-    "ru": "`$token` - Возвращает токен для сайта и приложения\n`$token new` - Обновить токен\n`$help` - Перечисляет все команды\n`$support` - Discord Link\n`$app` - Информация о приложении\n`$stats` - статистика\n`$!prefix <PREFIX>` - Меняет префикс бота\n`$settings` - Отображает настройки\n"
+    "ru": "`$token` - Возвращает токен для сайта и приложения\n`$token new` - Обновить токен\n`$help` - Перечисляет все команды\n`$support` - Discord Link\n`$app` - Информация о приложении\n`$stats` - статистика\n`$!prefix <PREFIX>` - Меняет префикс бота\n`$settings` - Отображает настройки\n",
+    "tr": "`token` - Websitesi & Uygulama için bir token verir\n`token new` - Yeni token oluşturur\n`help` - Komutları listeler\n`support` - Discord Link\n`app` - Uygulama hakkında bilgi\n`stats` - Bazı istatistikleri gösterir\n`prefix <PREFIX>` - Botun prefixini değiştirir\n`settings` - Ayarları gösterir\n"
   },
   "help_message_permission_commands": {
     "de": "`$permission` - Gibt diese Hilfe-Nachricht\n`$permission add @NUTZER/@ROLLE <BERECHTIGUNG>` - Gibt einem Nutzer/einer Rolle eine Berechtigung\n`$permission remove @NUTZER/@ROLLE <BERECHTIGUNG>` - Entfernt eine Berechtigung von einem Nutzer/einer Rolle\n`$permission list @NUTZER/@ROLLE` - Listet alle Berechtigungen eines Nutzers/einer Rolle auf\n \nAktuelle Berechtigungen:\n`CREATE_TASK` - Aufgabe erstellen\n`DELETE_TASK` - Aufgabe löschen\n`EDIT_TASK` - Aufgabe bearbeiten\n`CREATE_GROUP` - Gruppe erstellen\n`DELETE_GROUP` - Gruppe löschen\n`ADD_MEMBERS` - Nutzer zu Gruppe hinzufügen\n`REMOVE_MEMBERS` - Nutzer aus Gruppe entfernen\n`ADD_PERMISSION` - Berechtigung hinzufügen\n`REMOVE_PERMISSION` - Berechtigung entfernen\n`SHOW_PERMISSIONS` - Berechtigungen anzeigen\n",
@@ -461,7 +518,8 @@
     "bg": "`$permission` - дава това съобщение за помощ\n`$permission add @ПОТРЕБИТЕЛ/@РОЛЯ <AUTHORIZATION>` - дава разрешение на потребител / роля\n`$permission remove @ПОТРЕБИТЕЛ/@РОЛЯ <AUTHORIZATION>` - Премахва оторизация от потребител / роля\n`$списък с разрешения @ПОТРЕБИТЕЛ/@РОЛЯ` - изброява всички разрешения на потребител / роля\n \nТекущи разрешения:\n`CREATE_TASK` - създайте задача\n`DELETE_TSAK` - изтриване на задача\n`EDIT_TASK` - редактиране на задача\n`CREATE_GROUP` - създаване на група\n`DELETE_GROUP` - изтриване на група\n`ADD_MEMBERS` - добавяне на потребител към групата\n`REMOVE_MEMBERS` - премахване на потребител от групата\n`ADD_PERMISSION` - добавяне на разрешение\n`REMOVE_PERMISSION` - премахване на разрешение\n`SHOW_PERMISSIONS` - показва разрешения\n",
     "pl": "`$permission` - przekazuje ten komunikat pomocy\n`$permission add @UŻYTKOWNIK/@ROLA <AUTORYZACJA>` - Daje użytkownikowi / roli autoryzację\n`$permission remove @UŻYTKOWNIK/@ROLA <AUTORYZACJA>` - Usuwa autoryzację dla użytkownika / roli\n`$permission list @UŻYTKOWNIK/@ROLA` - Wyświetla wszystkie uprawnienia użytkownika / roli\n \nAktualne uprawnienia:\n`CREATE_TASK` - utwórz zadanie\n`DELETE_TASK` - usuń zadanie\n`EDIT_TASK` - edycja zadania\n`CREATE_GROUP` - utwórz grupę\n`DELETE_GROUP` - usuń grupę\n`ADD_MEMBERS` - dodaj użytkownika do grupy\n`REMOVE_MEMBERS` - usuń użytkownika z grupy\n`ADD_PERMISSION` - dodaj uprawnienia\n`REMOVE_PERMISSION` - usuń pozwolenie\n`SHOW_PERMISSIONS` - pokaż uprawnienia\n",
     "fr": "`$permission` - Donne ce message d'aide\n`$permission add @USER/@ROLLE <AUTHORIZATION>` - Donne une autorisation à un utilisateur / rôle\n`$permission remove @USER/@ROLLE <AUTHORIZATION>` - Supprime une autorisation d'un utilisateur / rôle\n`$permission list @USER/@ROLE` - Liste toutes les permissions d'un utilisateur / rôle\n \nAutorisations actuelles:\n`CREATE_TASK` - créer une tâche\n`DELETE_TASK` - supprimer la tâche\n`EDIT_TASK` - tâche d'édition\n`CREATE_GROUP` - créer un groupe\n`DELETE_GROUP` - supprimer le groupe\n`ADD_MEMBERS` - ajouter un utilisateur au groupe\n`REMOVE_MEMBERS` - supprimer l'utilisateur du groupe\n`ADD_PERMISSION` - ajouter une autorisation\n`REMOVE_PERMISSION` - supprimer l'autorisation\n`SHOW_PERMISSIONS` - afficher les autorisations\n",
-    "ru": "`$permission` - выдает это справочное сообщение\n`$permission add @USER/@ROLLE <AUTHORIZATION>` - дает пользователю / роли авторизацию\n`$permission remove @USER/@ROLLE <AUTHORIZATION>` - Удаляет авторизацию от пользователя / роли\n`$permission list @ПОЛЬЗОВАТЕЛЬ/@РОЛЬ` - перечисляет все разрешения пользователя / роли\n \nТекущие разрешения:\n`CREATE_TASK` - создать задачу\n`DELETE_TASK` - удалить задачу\n`EDIT_TASK` - редактировать задачу\n`CREATE_GROUP` - создать группу\n`DELETE_GROUP` - удалить группу\n`ADD_MEMBERS` - добавить пользователя в группу\n`REMOVE_MEMBERS` - удалить пользователя из группы\n`ADD_PERMISSION` - добавить разрешение\n`REMOVE_PERMISSION` - удалить разрешение\n`SHOW_PERMISSIONS` - показать разрешения\n"
+    "ru": "`$permission` - выдает это справочное сообщение\n`$permission add @USER/@ROLLE <AUTHORIZATION>` - дает пользователю / роли авторизацию\n`$permission remove @USER/@ROLLE <AUTHORIZATION>` - Удаляет авторизацию от пользователя / роли\n`$permission list @ПОЛЬЗОВАТЕЛЬ/@РОЛЬ` - перечисляет все разрешения пользователя / роли\n \nТекущие разрешения:\n`CREATE_TASK` - создать задачу\n`DELETE_TASK` - удалить задачу\n`EDIT_TASK` - редактировать задачу\n`CREATE_GROUP` - создать группу\n`DELETE_GROUP` - удалить группу\n`ADD_MEMBERS` - добавить пользователя в группу\n`REMOVE_MEMBERS` - удалить пользователя из группы\n`ADD_PERMISSION` - добавить разрешение\n`REMOVE_PERMISSION` - удалить разрешение\n`SHOW_PERMISSIONS` - показать разрешения\n",
+    "tr": "`permission` - Bu yardım mesajını verir.\n`permission add @USER/@ROLLE <PERMISSION>` - Bir kullanıcıya / role bir yetki verir.\n`permission remove @USER/@ROLLE <PERMISSION>` - Bir kullanıcıdan / rolden bir yetkilendirmeyi kaldırır\n`permission list @USER/@ROLE` - Bir kullanıcının / rolün tüm izinlerini listeler\n \nGüncel izinler:\n`CREATE_TASK` - Görev oluşturma\n`DELETE_TASK` - Görev silme\n`EDIT_TASK` - Görev düzenleme\n`CREATE_GROUP` - Grup oluşturma\n`DELETE_GROUP` - Grup silme\n`ADD_MEMBERS` - Gruba üye ekleme\n`REMOVE_MEMBERS` - Gruptan üye çıkarma\n`ADD_PERMISSION` - İzin ekleme\n`REMOVE_PERMISSION` - İzin kaldırma\n`SHOW_PERMISSIONS` - İzinleri gösterme\n"
   },
   "stats_field_server": {
     "de": "Server",
@@ -469,7 +527,8 @@
     "bg": "Сървър",
     "pl": "Server",
     "fr": "Serveur",
-    "ru": "сервер"
+    "ru": "сервер",
+    "tr": "Sunucu"
   },
   "stats_field_user": {
     "de": "Nutzer",
@@ -477,7 +536,8 @@
     "bg": "Потребител",
     "pl": "Użytkownicy",
     "fr": "Les utilisateurs",
-    "ru": "пользователь"
+    "ru": "пользователь",
+    "tr": "Kullanıcılar"
   },
   "stats_field_ping": {
     "de": "Ping",
@@ -485,7 +545,8 @@
     "bg": "Ping",
     "pl": "Ping",
     "fr": "Ping",
-    "ru": "Ping"
+    "ru": "Ping",
+    "tr": "Ping"
   },
   "stats_field_requests_received": {
     "de": "API-Anfragen bearbeitet (seit 26.09.20)",
@@ -493,15 +554,17 @@
     "bg": "Обработени заявки за API (от 26.09.2020 г.)",
     "pl": "Przetworzone żądania API (od 26.09.2020)",
     "fr": "Demandes d'API traitées (depuis le 26/09/2020)",
-    "ru": "Обработано запросов API (с 26.09.2020)"
+    "ru": "Обработано запросов API (с 26.09.2020)",
+    "tr": "İşlenen api istekleri (26.09.2020 tarihinden beri)"
   },
   "language_message_invalid_params": {
-    "de": "Bitte gib einen Ländercode mit an! Gültige Ländercodes sind:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski",
-    "en": "Please enter a valid languagecode! Valid languagecodes are:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski",
-    "bg": "Моля, въведете валиден езиков код! Valid languagecodes are:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski",
-    "pl": "Proszę wprowadź poprawny kod języka! Poprawne kody języków to:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski",
-    "fr": "Veuillez entrer un code de pays! Les codes de pays valides sont:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski",
-    "ru": "Пожалуйста, введите код страны! Действительные коды стран:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski"
+    "de": "Bitte gib einen Ländercode mit an! Gültige Ländercodes sind:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski\n`tr` - Türkçe",
+    "en": "Please enter a valid languagecode! Valid languagecodes are:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski\n`tr` - Türkçe",
+    "bg": "Моля, въведете валиден езиков код! Valid languagecodes are:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski\n`tr` - Türkçe",
+    "pl": "Proszę wprowadź poprawny kod języka! Poprawne kody języków to:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski\n`tr` - Türkçe",
+    "fr": "Veuillez entrer un code de pays! Les codes de pays valides sont:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski\n`tr` - Türkçe",
+    "ru": "Пожалуйста, введите код страны! Действительные коды стран:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski\n`tr` - Türkçe",
+    "tr": "Lütfen geçerli bir dil kodu giriniz! Geçerli dil kodları:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - Polski\n`ru` - Russian\n`tr` - Türkçe"
   },
   "stats_field_messages_sent": {
     "de": "Nachrichten gesendet (seit 04.10.20)",
@@ -509,7 +572,8 @@
     "bg": "Изпратени съобщения (от 04.10.2020 г.)",
     "pl": "Wiadomości wysłane (od 04.10.2020)",
     "fr": "Messages envoyés (depuis le 04/10/2020)",
-    "ru": "Сообщения отправлены (с 04.10.2020)"
+    "ru": "Сообщения отправлены (с 04.10.2020)",
+    "tr": "Gönderilen mesajlar. (10/04/20 tarihinden beri)"
   },
   "stats_field_tasks_done": {
     "de": "Aufgaben erledigt",
@@ -517,7 +581,8 @@
     "bg": "Изпълнени задачи",
     "pl": "Zadania wykonane",
     "fr": "Tâches accomplies",
-    "ru": "Задачи выполнены"
+    "ru": "Задачи выполнены",
+    "tr": "Görevler tamamlandı"
   },
   "stats_field_tasks_created": {
     "de": "Aufgaben verteilt",
@@ -525,7 +590,8 @@
     "bg": "Задачи създадени",
     "pl": "Zadania utworzone",
     "fr": "Tâches distribuées",
-    "ru": "Задачи распределены"
+    "ru": "Задачи распределены",
+    "tr": "Görevler oluşturuldu"
   },
   "group_no_members": {
     "de": "Die Gruppe hat keine Mitglieder.",
@@ -533,7 +599,8 @@
     "bg": "Групата няма членове.",
     "pl": "Grupa nie ma członków.",
     "fr": "Le groupe n'a pas de membres.",
-    "ru": "В группе нет участников."
+    "ru": "В группе нет участников.",
+    "tr": "Bu grup boş."
   },
   "group_members": {
     "de": "Gruppenmitglieder:\n$",
@@ -541,7 +608,8 @@
     "bg": "Членове на групата:\n$",
     "pl": "Członkowie grupy:\n$",
     "fr": "Membres du groupe:\n$",
-    "ru": "Члены группы:\n$"
+    "ru": "Члены группы:\n$",
+    "tr": "Grup üyeleri:\n$"
   },
   "group_title": {
     "de": "Gruppen",
@@ -549,7 +617,8 @@
     "bg": "групи",
     "pl": "Grupy",
     "fr": "Les groupes",
-    "ru": "группы"
+    "ru": "группы",
+    "tr": "Gruplar"
   },
   "error_title": {
     "de": "Fehler",
@@ -557,7 +626,8 @@
     "bg": "грешка",
     "pl": "Błąd",
     "fr": "Erreur",
-    "ru": "ошибка"
+    "ru": "ошибка",
+    "tr": "Hata"
   },
   "error_text": {
     "de": "Ein unerwarteter Fehler bei der Ausführung des Befehls ist aufgetreten! Bitte versuche es erneut. Sollte der Fehler weiterhin auftreten, kontaktiere bitte ein bnder-Teammitglied.\n",
@@ -565,7 +635,8 @@
     "bg": "Възникнала неочаквана грешка при изпълнение на командата! Please try again. If the error occurs again, please contact a bnder Team-Member.\n",
     "pl": "Wystąpił nieoczekiwany błąd podczas wykonywania polecenia! Please try again. If the error occurs again, please contact a bnder Team-Member.\n",
     "fr": "Une erreur inattendue s'est produite lors de l'exécution de la commande! Please try again. If the error occurs again, please contact a bnder Team-Member.\n",
-    "ru": "Произошла непредвиденная ошибка при выполнении команды! Please try again. If the error occurs again, please contact a bnder Team-Member.\n"
+    "ru": "Произошла непредвиденная ошибка при выполнении команды! Please try again. If the error occurs again, please contact a bnder Team-Member.\n",
+    "tr": "Komutu uygularken beklenmedik bir hata oluştu!\n"
   },
   "unknown_command_message": {
     "de": "Dieser Befehl ist unbekannt! Benutze `-help` um alle Befehle aufzulisten.",
@@ -573,7 +644,8 @@
     "bg": "Тази команда е неизвестна! Използвайте `-help`, за да изброите всички команди.",
     "pl": "To polecenie jest nieznane! Użyj `-help`, aby wyświetlić listę wszystkich poleceń.",
     "fr": "Cette commande est inconnue! Utilisez `-help` pour lister toutes les commandes.",
-    "ru": "Эта команда неизвестна! Используйте `-help` для вывода списка всех команд."
+    "ru": "Эта команда неизвестна! Используйте `-help` для вывода списка всех команд.",
+    "tr": "Bu komut bilinmiyor. `-help` Komutu ile komut listesini görebilirsin."
   },
   "prefix_title": {
     "de": "Präfix",
@@ -581,7 +653,8 @@
     "bg": "префикс",
     "pl": "Prefiks",
     "fr": "Préfixe",
-    "ru": "префикс"
+    "ru": "префикс",
+    "tr": "Prefix"
   },
   "prefix_changed": {
     "de": "Der Präfix des Bots ist nun `$`",
@@ -589,7 +662,8 @@
     "bg": "Префиксът на бота вече е `$`",
     "pl": "Prefiks bota to teraz `$`",
     "fr": "Le préfixe du bot est maintenant `$`",
-    "ru": "Приставка бота теперь `$`"
+    "ru": "Приставка бота теперь `$`",
+    "tr": "Botun prefixi artık `$`"
   },
   "prefix_only_one_char": {
     "de": "Der Präfix darf nur ein Zeichen lang sein!",
@@ -597,7 +671,8 @@
     "bg": "Префиксът може да бъде само един знак!",
     "pl": "Prefiks może mieć tylko jeden znak!",
     "fr": "Le préfixe ne peut contenir qu'un caractère!",
-    "ru": "Префикс может быть длиной всего один символ!"
+    "ru": "Префикс может быть длиной всего один символ!",
+    "tr": "Prefix sadece bir karakter uzunluğunda olabilir!"
   },
   "prefix_no_arg": {
     "de": "Bitte gib das Zeichen an, dass als Präfix verwendet werden soll!",
@@ -605,7 +680,8 @@
     "bg": "Моля, посочете символа, който трябва да се използва като префикс!",
     "pl": "Podaj znak, który powinien być użyty jako prefiks!",
     "fr": "Veuillez indiquer le caractère à utiliser comme préfixe!",
-    "ru": "Пожалуйста, укажите символ, который должен использоваться в качестве префикса!"
+    "ru": "Пожалуйста, укажите символ, который должен использоваться в качестве префикса!",
+    "tr": "Lütfen prefix olarak kullanılacak karakteri belirtin!"
   },
   "task_info_field_state": {
     "de": "Status",
@@ -613,7 +689,8 @@
     "bg": "Статус",
     "pl": "Status",
     "fr": "Statut",
-    "ru": "Положение дел"
+    "ru": "Положение дел",
+    "tr": "Durum"
   },
   "task_info_field_task": {
     "de": "Aufgabe",
@@ -621,7 +698,8 @@
     "bg": "задача",
     "pl": "zadanie",
     "fr": "Tâche",
-    "ru": "задача"
+    "ru": "задача",
+    "tr": "Görev"
   },
   "task_info_field_deadline": {
     "de": "Deadline",
@@ -629,7 +707,8 @@
     "bg": "Краен срок",
     "pl": "Ostateczny termin",
     "fr": "Date limite",
-    "ru": "Крайний срок"
+    "ru": "Крайний срок",
+    "tr": "Bitiş Tarihi"
   },
   "task_info_field_type": {
     "de": "Typ",
@@ -637,7 +716,8 @@
     "bg": "Тип",
     "pl": "Rodzaj",
     "fr": "Type",
-    "ru": "Тип"
+    "ru": "Тип",
+    "tr": "Tür"
   },
   "task_info_field_type_user": {
     "de": "Nutzer",
@@ -645,7 +725,8 @@
     "bg": "потребител",
     "pl": "Użytkownik",
     "fr": "Utilisateur",
-    "ru": "пользователь"
+    "ru": "пользователь",
+    "tr": "Kullanıcı"
   },
   "task_info_field_type_group": {
     "de": "Gruppe",
@@ -653,7 +734,8 @@
     "bg": "група",
     "pl": "Grupa",
     "fr": "groupe",
-    "ru": "группа"
+    "ru": "группа",
+    "tr": "Grup"
   },
   "task_info_field_assigned": {
     "de": "Zugewiesen",
@@ -661,7 +743,8 @@
     "bg": "целеви",
     "pl": "Przydzielony",
     "fr": "Attribué",
-    "ru": "назначенный"
+    "ru": "назначенный",
+    "tr": "Atandı"
   },
   "version_title": {
     "de": "Version",
@@ -669,7 +752,8 @@
     "bg": "версия",
     "pl": "wersja",
     "fr": "version",
-    "ru": "версия"
+    "ru": "версия",
+    "tr": "Versiyon"
   },
   "version_text": {
     "de": "Aktuelle Version: $",
@@ -677,7 +761,8 @@
     "bg": "Текуща версия: $",
     "pl": "Aktualna wersja: $",
     "fr": "Version actuelle: $",
-    "ru": "Текущая версия: $"
+    "ru": "Текущая версия: $",
+    "tr": "Güncel versiyon: $"
   },
   "deadline_remind_group": {
     "de": "Du hast weniger als 24 Stunden Zeit für die Aufgabe `$`($) aus der Gruppe `$`! Deadline: **$**",
@@ -685,7 +770,8 @@
     "bg": "Имате по-малко от 24 часа, за да изпълните задачата `$` ($) от групата `$`! Краен срок: **$**",
     "pl": "Masz mniej niż 24 godziny na wykonanie zadania `$` ($) z grupy `$`! Termin: **$**",
     "fr": "Vous avez moins de 24 heures pour terminer la tâche `$` ($) du groupe `$`! Date limite: **$**",
-    "ru": "У вас меньше 24 часов для выполнения задачи `$` ($) из группы `$`! Срок исполнения: **$**"
+    "ru": "У вас меньше 24 часов для выполнения задачи `$` ($) из группы `$`! Срок исполнения: **$**",
+    "tr": "`$` ($) görevinizi tamamlamanız için 24 saatten az süre var! Grup: `$`! Bitiş tarihi: **$**"
   },
   "deadline_remind_user": {
     "de": "Du hast weniger als 24 Stunden Zeit für die Aufgabe `$`($)! Deadline: **$**",
@@ -693,7 +779,8 @@
     "bg": "Имате по-малко от 24 часа, за да изпълните задачата `$` ($)! Краен срок: **$**",
     "pl": "Masz mniej niż 24 godziny na wykonanie zadania `$` ($)! Termin: **$**",
     "fr": "Vous avez moins de 24 heures pour terminer la tâche `$` ($)! Date limite: **$**",
-    "ru": "У вас меньше 24 часов для выполнения задачи `$` ($)! Срок исполнения: **$**"
+    "ru": "У вас меньше 24 часов для выполнения задачи `$` ($)! Срок исполнения: **$**",
+    "tr": "`$` ($) görevinizi tamamlamanız için 24 saatten az süre var! Bitiş tarihi: **$**"
   },
   "settings_title": {
     "de": "Einstellungen",
@@ -701,7 +788,8 @@
     "bg": "Настройки",
     "pl": "Ustawienia",
     "fr": "Réglages",
-    "ru": "настройки"
+    "ru": "настройки",
+    "tr": "Ayarlar"
   },
   "settings_dm_enabled": {
     "de": "Du erhältst nun eine Direktnachricht sobald eine Aufgabe an dich verteilt wurde.",
@@ -709,7 +797,8 @@
     "bg": "Вече ще получите директно съобщение, веднага щом задачата ви бъде разпределена.",
     "pl": "Otrzymasz teraz bezpośrednią wiadomość, gdy tylko zadanie zostanie Ci przekazane.",
     "fr": "Vous recevrez désormais un message direct dès qu'une tâche vous aura été distribuée.",
-    "ru": "Теперь вы получите прямое сообщение, как только вам будет передано задание."
+    "ru": "Теперь вы получите прямое сообщение, как только вам будет передано задание.",
+    "tr": "Size bir görev verildiğinde artık doğrudan mesaj alacaksınız."
   },
   "settings_dm_disabled": {
     "de": "Du erhältst nun keine Direktnachricht mehr, wenn eine Aufgabe an dich verteilt wurde.",
@@ -717,7 +806,8 @@
     "bg": "Вече няма да получавате директно съобщение, когато задача е била разпространена до вас.",
     "pl": "Po otrzymaniu zadania nie będziesz już otrzymywać bezpośredniej wiadomości.",
     "fr": "Vous ne recevrez plus de message direct lorsqu'une tâche vous aura été distribuée.",
-    "ru": "Вы больше не будете получать прямое сообщение, когда вам будет передано задание."
+    "ru": "Вы больше не будете получать прямое сообщение, когда вам будет передано задание.",
+    "tr": "Size bir görev verildiğinde artık doğrudan mesaj almayacaksınız."
   },
   "settings_show_done_tasks_enabled": {
     "de": "Erledigte Aufgaben werden nun wieder in der Aufgabenliste angezeigt.",
@@ -725,7 +815,8 @@
     "bg": "Завършените задачи отново се показват в списъка със задачи.",
     "pl": "Ukończone zadania są teraz ponownie wyświetlane na liście zadań.",
     "fr": "Les tâches terminées sont à nouveau affichées dans la liste des tâches.",
-    "ru": "Завершенные задачи теперь снова отображаются в списке задач."
+    "ru": "Завершенные задачи теперь снова отображаются в списке задач.",
+    "tr": "Tamamlanmış görevler tekrar listede görünür."
   },
   "settings_show_done_tasks_disabled": {
     "de": "Erledigte Aufgaben werden nun aus der Aufgabenliste ausgeblendet.",
@@ -733,7 +824,8 @@
     "bg": "Завършените задачи вече са скрити от списъка със задачи.",
     "pl": "Ukończone zadania są teraz ukryte na liście zadań.",
     "fr": "Les tâches terminées sont désormais masquées dans la liste des tâches.",
-    "ru": "Завершенные задачи теперь скрыты от списка задач."
+    "ru": "Завершенные задачи теперь скрыты от списка задач.",
+    "tr": "Tamamlanmış görevler artık listede görünmez."
   },
   "settings_list_enabled": {
     "de": ":white_check_mark: Aktiviert",
@@ -741,7 +833,8 @@
     "bg": ":white_check_mark: Активиран",
     "pl": ":white_check_mark: Aktywowany",
     "fr": ":white_check_mark: Activé",
-    "ru": ":white_check_mark: активированная"
+    "ru": ":white_check_mark: активированная",
+    "tr": ":white_check_mark: Etkinleştirildi"
   },
   "settings_list_disabled": {
     "de": ":x: Deaktiviert",
@@ -749,7 +842,8 @@
     "bg": ":x: хора с увреждания",
     "pl": ":x: Niepełnosprawny",
     "fr": ":x: désactivé",
-    "ru": ":x: Отключено"
+    "ru": ":x: Отключено",
+    "tr": ":x: Devredışı bırakıldı"
   },
   "settings_list_direct_message": {
     "de": "Direktnachricht bei neuer Aufgabe",
@@ -757,7 +851,8 @@
     "bg": "Директно съобщение за нова задача",
     "pl": "Bezpośrednia wiadomość dla nowego zadania",
     "fr": "Message direct pour une nouvelle tâche",
-    "ru": "Прямое сообщение для новой задачи"
+    "ru": "Прямое сообщение для новой задачи",
+    "tr": "Yeni görevler için direkt mesaj"
   },
   "settings_list_show_done_tasks": {
     "de": "Erledigte Nachrichten in der Liste anzeigen",
@@ -765,7 +860,8 @@
     "bg": "Показване на завършените съобщения в списъка",
     "pl": "Pokaż ukończone wiadomości na liście",
     "fr": "Afficher les messages terminés dans la liste",
-    "ru": "Показать завершенные сообщения в списке"
+    "ru": "Показать завершенные сообщения в списке",
+    "tr": "Listede tamamlanmış görevleri göster"
   },
   "settings_list_notify_channel": {
     "de": "Textkanal für neue Aufgaben",
@@ -773,7 +869,8 @@
     "bg": "Текстов канал за нови задачи",
     "pl": "Kanał tekstowy do nowych zadań",
     "fr": "Canal de texte pour les nouvelles tâches",
-    "ru": "Текстовый канал для новых задач"
+    "ru": "Текстовый канал для новых задач",
+    "tr": "Yeni görevler için metin kanalı"
   },
   "settings_invalid_arg": {
     "de": "Gültige Einstellungen:\n`settings direct-message` - De-/Aktiviert die Direktnachricht bei einer neuen Aufgabe\n`settings show-done-tasks` - De-/Aktiviert die Anzeige von erledigten Aufgaben bei der Aufgabenliste\n`settings notify-channel #KANAL` - Ändert den Kanal für neue Aufgaben",
@@ -781,7 +878,8 @@
     "bg": "Валидни настройки:\n`settings direct-message` - активиране / деактивиране на директното съобщение за нова задача\n`settings show-done-tasks` - активиране / деактивиране на показването на изпълнени задачи в списъка със задачи\n`settings notifiy-channel #канал` - променя канала за нови задачи",
     "pl": "Prawidłowe ustawienia:\n`settings direct-message` - włącza / wyłącza bezpośredni komunikat dla nowego zadania\n`settings show-done-tasks` - włącza / wyłącza wyświetlanie ukończonych zadań na liście zadań\n`settings notify-channel #Channel` - zmienia kanał dla nowych zadań",
     "fr": "Paramètres valides:\n`settings direct-message` - active / désactive le message direct pour une nouvelle tâche\n`settings show-done-tasks` - active / désactive l'affichage des tâches terminées dans la liste des tâches\n`settings notify-channel #CHANNEL` - change le canal pour les nouvelles tâches",
-    "ru": "Допустимые настройки:\n`settings direct-message` - включить / отключить прямое сообщение для новой задачи\n`settings show-done-tasks` - включить / отключить отображение выполненных задач в списке задач\n`settings notify-channel #Channel` - меняет канал на новые задачи"
+    "ru": "Допустимые настройки:\n`settings direct-message` - включить / отключить прямое сообщение для новой задачи\n`settings show-done-tasks` - включить / отключить отображение выполненных задач в списке задач\n`settings notify-channel #Channel` - меняет канал на новые задачи",
+    "tr": "Geçerli Ayarlar:n`settings direct-message` - yeni görevler için direkt mesajları etkinleştir/devredışı bırak\n`settings show-done-tasks` - görev listesinde tamamlanan görevlerin görüntülenmesini etkinleştir/devredışı bırak\n`settings notify-channel #channel` - yeni görevler için bildirim kanalını değiştir"
   },
   "donate_alert": {
     "de": "Unterstütze uns auf bnder.de/donate",
@@ -789,7 +887,8 @@
     "bg": "Поддержите нас на bnder.net/donate",
     "pl": "Wesprzyj nas na bnder.net/donate",
     "fr": "Soutenez-nous sur bnder.net/donate",
-    "ru": "Поддержите нас на bnder.net/donate"
+    "ru": "Поддержите нас на bnder.net/donate",
+    "tr": "Bize destek olmak için bnder.net/donate"
   },
   "notify_channel_set_but_dms_are_enabled": {
     "de": "Neue Aufgaben für dich werden in $ gesendet, sobald die Direktnachrichten (direct-message) deaktiviert wurde.",
@@ -797,7 +896,8 @@
     "bg": "Новите задачи за вас ще бъдат изпратени в $, веднага щом директното съобщение е деактивирано.",
     "pl": "Nowe zadania zostaną wysłane w $, jak tylko wiadomość bezpośrednia zostanie dezaktywowana.",
     "fr": "De nouvelles tâches pour vous seront envoyées en $ dès que le message direct aura été désactivé.",
-    "ru": "Новые задачи для вас будут отправлены в $, как только прямое сообщение будет деактивировано."
+    "ru": "Новые задачи для вас будут отправлены в $, как только прямое сообщение будет деактивировано.",
+    "tr": "Direkt mesaj devre dışı bırakılır bırakılmaz sizin için yeni görevler $ içerisine gönderilecektir."
   },
   "notify_channel_set": {
     "de": "Neue Aufgaben für dich werden nun in $ gesendet.",
@@ -805,7 +905,8 @@
     "bg": "Нови задачи за вас сега ще бъдат изпратени в $.",
     "pl": "Nowe zadania dla ciebie będą teraz wysyłane w $.",
     "fr": "De nouvelles tâches pour vous seront désormais envoyées en $.",
-    "ru": "Новые задания для вас теперь будут отправляться в $."
+    "ru": "Новые задания для вас теперь будут отправляться в $.",
+    "tr": "Yeni görevlerin $ içerisine gönderilecek."
   },
   "notify_mention_one_channel": {
     "de": "Bitte markiere einen Textkanal!",
@@ -813,7 +914,8 @@
     "bg": "Моля, маркирайте текстов канал!",
     "pl": "Proszę zaznaczyć kanał tekstowy!",
     "fr": "Veuillez marquer une chaîne de texte!",
-    "ru": "Пожалуйста, отметьте текстовый канал!"
+    "ru": "Пожалуйста, отметьте текстовый канал!",
+    "tr": "Lütfen bir metin kanalını etiketleyin!"
   },
   "task_proceed_need_to_be_in_group": {
     "de": "Du musst in der Gruppe sein, um ihre Aufgabe zu modifizieren oder über Administratorrechte verfügen!",
@@ -821,7 +923,8 @@
     "bg": "Трябва да сте в групата, за да промените задачата си или да имате администраторски права!",
     "pl": "Musisz być w grupie, aby modyfikować jej zadanie lub mieć uprawnienia administratora!",
     "fr": "Il faut être dans le groupe pour modifier sa tâche ou avoir des droits d'administrateur!",
-    "ru": "Вы должны быть в группе, чтобы изменить ее задачу или иметь права администратора!"
+    "ru": "Вы должны быть в группе, чтобы изменить ее задачу или иметь права администратора!",
+    "tr": "Bir görevi düzenlemek için görevin grubunda ya da yönetici izinlerine sahip olmalısınız."
   },
   "permissions_title": {
     "de": "Berechtigungen",
@@ -829,7 +932,8 @@
     "bg": "Разрешения",
     "pl": "Uprawnienia",
     "fr": "Autorisations",
-    "ru": "Разрешения"
+    "ru": "Разрешения",
+    "tr": "İzinler"
   },
   "unknown_permission_name": {
     "de": "Diese Berechtigung existiert nicht! Benutze den Befehl `permissions` um alle Berechtigungen anzuzeigen.",
@@ -837,7 +941,8 @@
     "bg": "Това разрешение не съществува! Използвайте командата `разрешения`, за да покажете всички разрешения.",
     "pl": "To upoważnienie nie istnieje! Użyj polecenia „permissions”, aby wyświetlić wszystkie uprawnienia.",
     "fr": "Cette autorisation n'existe pas! Utilisez la commande `permissions` pour afficher toutes les permissions.",
-    "ru": "Это разрешение не существует! Используйте команду `permissions`, чтобы отобразить все разрешения."
+    "ru": "Это разрешение не существует! Используйте команду `permissions`, чтобы отобразить все разрешения.",
+    "tr": "Böyle bir izin yok! `permissions` komutunu kullanarak izinleri görebilirsiniz."
   },
   "need_to_mention_user_or_role": {
     "de": "Du musst einen Nutzer oder eine Rolle in deiner Nachricht erwähnen!",
@@ -845,7 +950,8 @@
     "bg": "Трябва да споменете потребител или роля в съобщението си!",
     "pl": "W swojej wiadomości musisz wspomnieć o użytkowniku lub roli!",
     "fr": "Vous devez mentionner un utilisateur ou un rôle dans votre message!",
-    "ru": "Вы должны упомянуть пользователя или роль в своем сообщении!"
+    "ru": "Вы должны упомянуть пользователя или роль в своем сообщении!",
+    "tr": "Mesajınızda bir kullanıcı veya rolü etiketlemelisiniz!"
   },
   "permission_added": {
     "de": "Die Berechtigung wurde hinzugefügt.",
@@ -853,7 +959,8 @@
     "bg": "Упълномощаването е добавено.",
     "pl": "Autoryzacja została dodana.",
     "fr": "L'autorisation a été ajoutée.",
-    "ru": "Авторизация добавлена."
+    "ru": "Авторизация добавлена.",
+    "tr": "İzin verildi!"
   },
   "already_has_permission": {
     "de": "Die Rolle oder der Nutzer verfügt bereits über diese Berechtigung!",
@@ -861,7 +968,8 @@
     "bg": "Ролята или потребителят вече има това разрешение!",
     "pl": "Rola lub użytkownik ma już tę autoryzację!",
     "fr": "Le rôle ou l'utilisateur a déjà cette autorisation!",
-    "ru": "Роль или пользователь уже имеют это разрешение!"
+    "ru": "Роль или пользователь уже имеют это разрешение!",
+    "tr": "Rol veya kullanıcı zaten bu izine sahip!"
   },
   "permission_removed": {
     "de": "Die Berechtigung wurde von dem Nutzer oder der Rolle entfernt!",
@@ -869,7 +977,8 @@
     "bg": "Упълномощаването е премахнато от потребителя или ролята!",
     "pl": "Autoryzacja została usunięta z użytkownika lub roli!",
     "fr": "L'autorisation a été supprimée de l'utilisateur ou du rôle!",
-    "ru": "Авторизация удалена с пользователя или роли!"
+    "ru": "Авторизация удалена с пользователя или роли!",
+    "tr": "İzin kullanıcı veya rolden kaldırıldı!"
   },
   "dont_has_permission": {
     "de": "Der Nutzer oder die Rolle verfügt nicht über diese Berechtigung!",
@@ -877,7 +986,8 @@
     "bg": "Потребителят или ролята нямат това разрешение!",
     "pl": "Użytkownik lub rola nie ma tej autoryzacji!",
     "fr": "L'utilisateur ou le rôle n'a pas cette autorisation!",
-    "ru": "У пользователя или роли нет такой авторизации!"
+    "ru": "У пользователя или роли нет такой авторизации!",
+    "tr": "Kullanıcı veya rol bu izine sahip değil."
   },
   "data_title":{
     "de": "Daten",
@@ -885,7 +995,8 @@
     "bg": "Данни",
     "pl": "Dane",
     "fr": "Les données",
-    "ru": "Данные"
+    "ru": "Данные",
+    "tr": "Veri"
   },
   "data_will_be_sent": {
     "de": "Die Daten werden gesammelt und dir dann per Direktnachricht gesendet. Es werden dir nur Daten zu diesem Server zugesendet. Um alle Daten zu erhalten führe den Befehl auch auf anderen Servern mit diesem Bot aus. Dieser Prozess kann einen Moment in Anspruch nehmen.",
@@ -893,7 +1004,8 @@
     "bg": "Данните се събират и след това Ви се изпращат чрез директно съобщение. На този сървър ще ви бъдат изпратени само данни. За да получите всички данни, изпълнете командата на други сървъри с този бот. Този процес може да отнеме малко време.",
     "pl": "Dane są gromadzone, a następnie przesyłane do Ciebie za pośrednictwem wiadomości bezpośredniej. Będziesz przesyłać dane tylko na ten serwer. Aby uzyskać wszystkie dane, uruchom polecenie na innych serwerach z tym botem. Ten proces może chwilę potrwać.",
     "fr": "Les données sont collectées puis vous sont envoyées par message direct. Vous ne recevrez que des données sur ce serveur. Pour obtenir toutes les données, exécutez la commande sur d'autres serveurs avec ce bot. Ce processus peut prendre un moment.",
-    "ru": "Данные собираются, а затем отправляются вам через личное сообщение. Вам будут отправляться данные только на этот сервер. Чтобы получить все данные, запустите команду на других серверах с этим ботом. Этот процесс может занять некоторое время."
+    "ru": "Данные собираются, а затем отправляются вам через личное сообщение. Вам будут отправляться данные только на этот сервер. Чтобы получить все данные, запустите команду на других серверах с этим ботом. Этот процесс может занять некоторое время.",
+    "tr": "Veriler toplandı ve direkt mesaj olarak gönderildi. Sadece bu sunucuya ait dataları aldınız. Bütün dataları almak için diğer sunucularda da komutu kullanmalısınız. Bu işlem biraz zaman alabilir."
   },
   "task_new_language_suggestion_text": {
     "de": "\n \n:information_source: Sprache ändern: Die Sprache der Aufgabe ist nicht die konfigurierte Serversprache. Du kannst die Sprache mit dem Befehl`$language $` anpassen.",
@@ -901,6 +1013,7 @@
     "bg": "\n \n:information_source: Смени езика: Езикът на задачата не е конфигуриран език на сървъра. Можете да промените езика с командата `$language $`.",
     "pl": "\n \n:information_source: Zmień język: Język zadania nie jest skonfigurowanym językiem serwera. Możesz zmienić język za pomocą polecenia `$language $`.",
     "fr": "\n \n:information_source: Changer de langue: La langue de la tâche n'est pas la langue du serveur configurée. Vous pouvez changer la langue avec la commande `$language $`.",
-    "ru": "\n \n:information_source: Изменить язык: Язык задачи не является языком настроенного сервера. Вы можете изменить язык с помощью команды `$language $`."
+    "ru": "\n \n:information_source: Изменить язык: Язык задачи не является языком настроенного сервера. Вы можете изменить язык с помощью команды `$language $`.",
+    "tr": "\n \n:information_source: Изменить язык: Язык задачи не является языком настроенного сервера. Вы можете изменить язык с помощью команды `$language $`."
   }
 }
