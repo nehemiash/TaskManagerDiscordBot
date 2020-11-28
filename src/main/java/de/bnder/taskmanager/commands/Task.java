@@ -585,8 +585,8 @@ public class Task implements Command {
         final StringBuilder taskBuilder = new StringBuilder();
         final String[] args = message.getContentDisplay().split(" ");
         if (mentionedUsers) {
-            for (User user : message.getMentionedUsers()) {
-                beginIndex += user.getAsTag().split(" ").length;
+            for (Member member : message.getMentionedMembers()) {
+                beginIndex += member.getEffectiveName().split(" ").length;
             }
             beginIndex += 1;
         }
@@ -594,7 +594,7 @@ public class Task implements Command {
             taskBuilder.append(args[i]).append(" ");
         }
         if (taskBuilder.length() > 0) {
-            taskBuilder.subSequence(0, taskBuilder.length() - 1);
+            taskBuilder.subSequence(0, taskBuilder.length() - 2);
         }
         return taskBuilder.toString();
     }
