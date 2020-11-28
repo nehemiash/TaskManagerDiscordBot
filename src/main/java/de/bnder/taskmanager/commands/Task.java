@@ -6,8 +6,8 @@ import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 import de.bnder.taskmanager.main.Command;
 import de.bnder.taskmanager.main.Main;
-import de.bnder.taskmanager.utils.*;
 import de.bnder.taskmanager.utils.Settings;
+import de.bnder.taskmanager.utils.*;
 import de.bnder.taskmanager.utils.permissions.TaskPermission;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
@@ -457,7 +457,7 @@ public class Task implements Command {
                 final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
                 if (res.statusCode() == 200) {
                     JsonArray array = jsonObject.get("todo").asArray();
-                    final StringBuilder builder = new StringBuilder();
+                    StringBuilder builder = new StringBuilder();
                     for (int i = 0; i < array.size(); i++){
                         final String taskID = array.get(i).asString();
                         final String task = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("task").asString();
@@ -473,14 +473,15 @@ public class Task implements Command {
                     }
                     //TASKS NOT STARTED
                     if (builder.length() > 0) {
+                        StringBuilder finalBuilder2 = builder;
                         MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
                             {
                                 add(member.getAsMention());
-                                add(builder.toString());
+                                add(finalBuilder2.toString());
                             }
                         }), event.getMessage(), Color.orange);
-                        builder.delete(0, builder.length());
                     }
+                    builder = new StringBuilder();
                     array = jsonObject.get("doing").asArray();
                     for (int i = 0; i < array.size(); i++){
                         final String taskID = array.get(i).asString();
@@ -491,20 +492,23 @@ public class Task implements Command {
                         }
                         String dLine = "";
                         if (deadline.length() > 0) {
-                            dLine = "$deadline |";
+                            dLine = deadline + " |";
                         }
                         builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_wird_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                     }
                     //TASKS IN PROGRESS
                     if (builder.length() > 0) {
+                        StringBuilder finalBuilder = builder;
                         MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
                             {
                                 add(member.getAsMention());
-                                add(builder.toString());
+                                add(finalBuilder.toString());
                             }
                         }), event.getMessage(), Color.yellow);
-                        builder.delete(0, builder.length());
                     }
+                    builder = new StringBuilder();
+
+                    //TASKS DONE
                     array = jsonObject.get("done").asArray();
                     String showDoneTasks = Settings.getUserSettings(event.getMember()).getString("show_done_tasks", "1");
                     for (int i = 0; i < array.size(); i++){
@@ -516,18 +520,19 @@ public class Task implements Command {
                         }
                         String dLine = "";
                         if (deadline.length() > 0) {
-                            dLine = "$deadline |";
+                            dLine = deadline + " |";
                         }
 
-                        if (showDoneTasks == "1") {
+                        if (showDoneTasks.equals("1")) {
                             builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_erledigt", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                         }
                     }
-                    if (showDoneTasks == "1" && builder.length() > 0) {
+                    if (showDoneTasks.equals("1") && builder.length() > 0) {
+                        StringBuilder finalBuilder1 = builder;
                         MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
                             {
                                 add(member.getAsMention());
-                                add(builder.toString());
+                                add(finalBuilder1.toString());
                             }
                         }),event.getMessage(), Color.green);
                     }
@@ -544,7 +549,7 @@ public class Task implements Command {
 
     private void sendTaskMessage(Member member, GuildMessageReceivedEvent event, String task_id, String langCode, String task) {
         final JsonObject settings = de.bnder.taskmanager.utils.Settings.getUserSettings(member);
-        if (settings.getString("direct_message", "1") == "1") {
+        if (settings.getString("direct_message", "1").equalsIgnoreCase("1")) {
             final PrivateChannel channel = member.getUser().openPrivateChannel().complete();
             channel.sendMessage(Localizations.getString("aufgabe_erhalten", langCode, new ArrayList<String>() {
                 {

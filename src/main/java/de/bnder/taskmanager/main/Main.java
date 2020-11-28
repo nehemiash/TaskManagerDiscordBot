@@ -28,15 +28,11 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
-import java.io.*;
-import java.math.BigInteger;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Scanner;
 
 public class Main {
 
@@ -80,6 +76,7 @@ public class Main {
         CommandHandler.commands.put("language", new Language());
         CommandHandler.commands.put("app", new App());
         CommandHandler.commands.put("data", new Data());
+        CommandHandler.commands.put("settings", new Settings());
 
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.playing("bnder.net"));
