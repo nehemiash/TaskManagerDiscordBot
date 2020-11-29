@@ -1,5 +1,5 @@
 {
-  "gruppe_erfolgreich_erstellt": {
+  "group_created_successfully": {
     "de": "Die Gruppe `$` wurde erfolgreich erstellt.",
     "en": "The Group `$` was created successfully.",
     "bg": "Групата `$` беше създадена успешно.",
@@ -8,7 +8,7 @@
     "ru": "Группа `$` была успешно создана.",
     "tr": "`$` Grubu başarı ile oluşturuldu."
   },
-  "gruppe_nicht_erstellt_name_exisitert": {
+  "group_not_created_name_already_exists": {
     "de": "Die Gruppe `$` konnte nicht erstellt werden, da eine gleichnamige Gruppe bereits exisitert.",
     "en": "The group `$` wasn't created, because that name is already taken.",
     "bg": "Групата `$` не беше създадена, защото това име вече е заето.",
@@ -17,7 +17,7 @@
     "ru": "Группа `$` не будет создана, потому что группа с таким именем уже существует.",
     "tr": " `$` Grubu oluşturulamadı, bu isimde başka bir grup var."
   },
-  "gruppe_nicht_erstellt_unbekannter_fehler": {
+  "group_not_created_unknown_error": {
     "de": "Die Gruppe `$` konnte nicht erstellt werden. Fehlercode: $",
     "en": "The group `$` wasn't created. Errorcode: $.",
     "bg": "Групата `$` не беше създадена. Грешка: $.",
@@ -26,7 +26,7 @@
     "ru": "Группа `$` не может быть создана. Код ошибки: $",
     "tr": "`$` Grubu oluşturulamadı. Hata Kodu: $."
   },
-  "muss_serverbesitzer_oder_adminrechte_haben": {
+  "need_to_be_serveradmin_or_habe_admin_permissions": {
     "de": "Du musst der Serverbesitzer sein, Administratorrechte besitzen oder die Rechte über den Befehl `permission` erhalten um diese Aktion auszuführen.",
     "en": "You have to be the server owner, have administrator rights or have the rights via the command `permission` to perform this action.",
     "bg": "За да извършите това действие, трябва да сте собственик на сървъра, да имате администраторски права или да имате права чрез командата `permission`.",
@@ -35,7 +35,7 @@
     "ru": "Вы должны быть владельцем сервера, иметь права администратора или иметь права с помощью команды «permission» для выполнения этого действия.",
     "tr": "Bu işlemi yapabilmek için server sahibi, yönetici yetkilerine ya da `permission` komutundaki yetkilere sahip olmalısınız."
   },
-  "gruppe_wurde_geloescht": {
+  "group_was_deleted": {
     "de": "Die Gruppe `$` wurde gelöscht.",
     "en": "The group `$` was deleted.",
     "bg": "Групата `$` беше изтрита",
@@ -44,7 +44,7 @@
     "ru": "Группа `$` была удалена.",
     "tr": "`$` isimli grup silindi."
   },
-  "gruppe_mit_namen_existiert_nicht": {
+  "group_with_name_doesnt_exist": {
     "de": "Es existiert keine Gruppe mit dem Namen `$` auf dem Server.",
     "en": "There is no group `$` on the server.",
     "bg": "Няма група `$` в сървъра.",
@@ -53,7 +53,7 @@
     "ru": "На сервере нет группы с именем `$`.",
     "tr": "Sunucuda `$` isimli bir grup bulunamadı."
   },
-  "gruppe_loeschen_unbekannter_fehler": {
+  "group_delete_unknown_error": {
     "de": "Die Gruppe `$` konnte nicht gelöscht werden. Fehlercode: $",
     "en": "The group `$` wasnt't deleted. Errorcode: $.",
     "bg": "Групата `$` не е изтрита. Грешка:$.",
@@ -62,7 +62,7 @@
     "ru": "Группа `$` не может быть удалена. Код ошибки: $",
     "tr": "`$` isimli grup silinemedi. Hata Kodu: $."
   },
-  "nutzer_zu_gruppe_hinzugefuegt": {
+  "user_added_to_group": {
     "de": "$ wurde zu der Gruppe `$` hinzugefügt.",
     "en": "$ was added to $.",
     "bg": "$ беше добавено към $",
@@ -71,7 +71,7 @@
     "ru": "$ был добавлен в группу `$`.",
     "tr": "$ başarı ile $ grubuna eklendi."
   },
-  "nutzer_bereits_in_gruppe": {
+  "user_already_in_group": {
     "de": "Der Nutzer konnte nicht zur Gruppe hinzugefügt werden, da er bereits in der Gruppe ist!",
     "en": "The user is already in the that group!",
     "bg": "Потребителя вече е в тази група!",
@@ -80,7 +80,7 @@
     "ru": "Пользователь не может быть добавлен в группу, потому что он уже в группе!",
     "tr": "Kullanıcı zaten bu gruba dahil!"
   },
-  "nutzer_zu_gruppe_hinzufuegen_unbekannter_fehler": {
+  "user_added_to_group_unknown_error": {
     "de": "Der Nutzer konnte nicht zur Gruppe hinzugefügt werden! Fehlercode: $",
     "en": "The user wasn't added to the group. Errorcode: $",
     "bg": "Потребителя не беше добавен към групата. Грешка: $",
@@ -89,7 +89,7 @@
     "ru": "Пользователь не может быть добавлен в группу! Код ошибки: $",
     "tr": "Kullanıcı gruba eklenemedi. Hata Kodu: $"
   },
-  "nutzer_muss_markiert_werden": {
+  "user_needs_to_be_mentioned": {
     "de": "Du musst einen Nutzer markieren!",
     "en": "You need to mention an user!",
     "bg": "Трябва да назовете потребител!",
@@ -98,7 +98,7 @@
     "ru": "Вы должны отметить пользователя!",
     "tr": "Bir kullanıcıyı etiketlemeniz gerekiyor!"
   },
-  "gruppen_name_muss_angegeben_werden": {
+  "group_name_needs_to_be_given": {
     "de": "Du musst einen Gruppennamen angeben!",
     "en": "You have to give the name of the group!",
     "bg": "Трябва да дадете име на групата.",
@@ -405,8 +405,8 @@
     "tr": "Uygulama"
   },
   "app_befehl_nachricht": {
-    "de": "Du kannst unsere App von **Google Play** hier herunterladen: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
-    "en": "You can get our App on **Google Play**: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
+    "de": "Du kannst unsere App von **Google Play** hier herunterladen: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app oder unsere Web-App benutzen: https://bnder.net/discordbot/taskmanagerbot/app",
+    "en": "You can get our App on **Google Play**: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app or use our Web-App: https://bnder.net/discordbot/taskmanagerbot/app",
     "bg": "Можете да изтеглите нашето приложение от **Google Play** тук: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
     "pl": "Możesz uzyskać naszą aplikację na **Google Play**: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
     "fr": "Vous pouvez télécharger notre application depuis **Google Play** ici: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
@@ -492,7 +492,7 @@
     "pl": "`$group create <NAZWA GRUPY>` - Utwórz grupę\n`$group add @UŻYTKOWNIK <NAZWA GRUPY>` - Dodaj użytkownika do grupy\n`$group remove @UŻYTKOWNIK <NAZWA GRUPY>` - Usuń użytkownika z grupy\n`$group delete <NAZWA GRUPY>` - Usuń grupę\n`$group list` - Wyświetl wszystkie grupy\n`$group members <NAZWA GRUPY>` - Lista wszystkich członków grupy",
     "fr": "`$group create <NOM DU GROUPE>` - Créer un groupe\n `$group add @UTILISATEUR <NOM DU GROUPE>` - Ajouter des utilisateurs au groupe\n`$group remove @UTILISATEUR <NOM DU GROUPE>` - Supprimer des utilisateurs du groupe\n`$group delete <NOM DU GROUPE>` - Supprimer le groupe\n`$group list` - Lister tous les groupes\n`$group members <NOM DU GROUPE>` - Lister tous les membres du groupe",
     "ru": "`$group create <ИМЯ ГРУППЫ>` - Создать группу\n`$group add @ПОЛЬЗОВАТЕЛИ <ИМЯ ГРУППЫ>` - Добавить пользователей в группу\n`$group remove @ПОЛЬЗОВАТЕЛИ <ИМЯ ГРУППЫ>` - Удалить пользователей из группы\n`$group delete <ИМЯ ГРУППЫ>` - Удалить группу\n`$group list` - Список всех групп\n`$group members <GRUPPENNAME>` - Список всех членов группы",
-    "tr": "`group create <GROUPNAME>` - Grup oluşturur\n`group add @USER <GROUPNAME>` - Gruba üye ekler\n`group remove @USER <GROUPNAME>` - Gruptan üye çıkarır\n`group delete <GROUPNAME>` - Grubu siler\n`group list` - Grupları listeler\n`group members <GROUPNAME>` - Grup üyelerini listeler"
+    "tr": "`$group create <GROUPNAME>` - Grup oluşturur\n`$group add @USER <GROUPNAME>` - Gruba üye ekler\n`$group remove @USER <GROUPNAME>` - Gruptan üye çıkarır\n`$group delete <GROUPNAME>` - Grubu siler\n`$group list` - Grupları listeler\n`$group members <GROUPNAME>` - Grup üyelerini listeler"
   },
   "help_message_task_commands": {
     "de": "`$task add @NUTZER <AUFGABE>` - Aufgabe an Nutzer geben\n`$task add <GRUPPENNAME> <AUFGABE>` - Aufgabe an Gruppe geben\n`$task proceed <AUFGABEN-ID>` - Ändert Status der Aufgabe zu bearbeitet/erledigt\n`$task deadline <AUFGABEN-ID> <DATUM> <UHRZEIT>` - Deadline für Aufgabe setzen\n`$task list <@NUTZER/GRUPPENNAME>` - Listet alle Aufgaben auf\n`$task delete <AUFGABEN-ID>` - Aufgabe löschen\n`$task edit <AUFGABEN-ID> <AUFGABE>` - Überarbeite den Aufgaben Text\n`$task info <AUFGABEN-ID>` - Zeigt einzelne Informationen für die Aufgabe an\n`$task done <AUFGABEN-ID` - Setzt eine Aufgabe direkt auf erledigt\n",
@@ -501,16 +501,16 @@
     "pl": "`$task add @UŻYTKOWNIK <TASK>` - Przypisz zadanie do użytkownika\n`$task add <NAZWA GRUPY> <TASK>` - Przypisz zadanie do grupy\n`$task proceed <TASK-ID>` - Zmienia status zadania na przetworzone/ukończone\n`$task deadline <ID Zadania> <DATE (in european format)> <TIME>` - Wyświetla listę wszystkich zadań\n`$task list` <TASK-ID> - Usuwa zadanie\n`$task edit <TASK-ID> <TASK>` - Popraw tekst zadania\n`$task info <TASK-ID>` - Wyświetla indywidualne informacje dla zadania\n`$task done <ID ZADANIA>` - ustawia zadanie bezpośrednio na ukończone\n",
     "fr": "`$task add @UTILISATEUR <TÂCHE>` - Donner une tâche à l'utilisateur\n`$task add <NOM DU GROUPE> <TÂCHE>` - Donner une tâche au groupe\n`$task proceed <ID DE TÂCHE>` - Change le statut de la tâche en traitée/terminée\n`$task deadline <ID DE TÂCHE> <DATE> <TIME>` - Fixer la date limite de la tâche\n`$task list <@UTILISATEUR/NOM DU GROUPE>` - Répertorie toutes les tâches\n`$task delete <ID DE TÂCHE>` - Supprimer la tâche\n`$task edit <ID DE TÂCHE> <TÂCHE>` - Réviser le texte des tâches\n`$task info <ID DE TÂCHE>` - Affiche des informations individuelles pour la tâche\n`$task done <TASK ID>` - définit une tâche directement comme terminée\n",
     "ru": "`$task add @ПОЛЬЗОВАТЕЛИ <ЗАДАЧА>` - Дайте задание пользователю\n`$task add <ИМЯ ГРУППЫ> <ЗАДАЧА>` - Дайте задание группе\n`$task proceed <TASK ID>` - Изменяет статус задания на обработанное/выполненное\n`$task deadline <TASK ID> <ДАТА> <ВРЕМЯ>` - Установить срок выполнения задания\n`$task list <@ПОЛЬЗОВАТЕЛИ/ИМЯ ГРУППЫ>` - Перечисляет все задачи\n`$task delete <TASK ID>` - Удалить задачу\n`$task edit <TASK-ID> <TASK>` - Пересмотреть текст задания\n`$task info <TASK-ID>` - Отображает индивидуальную информацию для задачи\n`$task done <TASK ID>` - устанавливает задачу как выполненную\n",
-    "tr": "`task add @USER <TASK>` - Kullanıcıya görev verir\n`task add <GROUPNAME> <TASK>` - Gruba görev verir\n`task proceed <TASK-ID>` - Yapılacak görevin durumunu değiştirir/completed\n`task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Görev için bitiş tarihi belirler\n`task list <@USER/GROUPNAME>` - Bütün görevleri listeler\n`task delete <TASK-ID>` - Görevi siler\n`task edit <TASK-ID> <TASK>` - Görev metnini düzenler\n`task info <TASK-ID>` - Görev için bireysel bilgileri görüntüler\n`task done <TASK ID>` - Görevi bitmiş olarak işaretler\n"
+    "tr": "`$task add @USER <TASK>` - Kullanıcıya görev verir\n`$task add <GROUPNAME> <TASK>` - Gruba görev verir\n`$task proceed <TASK-ID>` - Yapılacak görevin durumunu değiştirir/completed\n`$task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Görev için bitiş tarihi belirler\n`$task list <@USER/GROUPNAME>` - Bütün görevleri listeler\n`$task delete <TASK-ID>` - Görevi siler\n`$task edit <TASK-ID> <TASK>` - Görev metnini düzenler\n`$task info <TASK-ID>` - Görev için bireysel bilgileri görüntüler\n`$task done <TASK ID>` - Görevi bitmiş olarak işaretler\n"
   },
   "help_message_other_commands": {
-    "de": "`$token` - Gibt den Token für die Website & App\n`$token new` - Erneuert den Token\n`$help` - Listet alle Befehle auf\n`$support` - Discord Link\n`$app` - App-Informationen\n`$stats` - Statistiken\n`$prefix <PREFIX>` - Ändert den Präfix des Bots\n`$settings` - Zeigt Einstellungen an\n",
-    "en": "`$token` - Gives the token for the Website & App\n`$token new` - Generates a new token\n`$help` - Lists all commands\n`$support` - Discord Link\n`$app` - Information about the App\n`$stats` - Shows some stats\n`$prefix <PREFIX>` - Changes the prefix of the bot\n`$settings` - Displays settings\n",
-    "bg": "`$token` - Връща символа за уебсайта и приложението\n`$token new` - Променя маркера\n`$help` - Изброява всички команди\n`$support` - Discord Link\n`$app` - Информация за приложението\n`$stats` - статистика\n`$prefix <PREFIX>` - Променя префикса на бота\n`$settings` - Показва настройките\n",
-    "pl": "`$token` - Daje token dla strony internetowej i aplikacji\n`$token new` - Generuje nowy token\n`$help` - Wyświetlam wszystkie polecenia\n`$support` - Discord Link\n`$app` - Informacje o Aplikacji\n`$stats` - Statystyki\n`$prefix <PREFIX>` - Zmienia prefiks bota\n`$settings` - Wyświetla ustawienia\n",
-    "fr": "`$token` - Renvoie le jeton du site Web et de l'application\n`$token new` - Renouveler le jeton\n`$help` - Répertorie toutes les commandes\n`$support` - Lien Discord\n`$app` - Informations sur l'application\n`$stats` - Statistiques\n`$prefix <PREFIX>` - Modifie le préfixe du bot\n`$settings` - Affiche les paramètres\n",
-    "ru": "`$token` - Возвращает токен для сайта и приложения\n`$token new` - Обновить токен\n`$help` - Перечисляет все команды\n`$support` - Discord Link\n`$app` - Информация о приложении\n`$stats` - статистика\n`$!prefix <PREFIX>` - Меняет префикс бота\n`$settings` - Отображает настройки\n",
-    "tr": "`token` - Websitesi & Uygulama için bir token verir\n`token new` - Yeni token oluşturur\n`help` - Komutları listeler\n`support` - Discord Link\n`app` - Uygulama hakkında bilgi\n`stats` - Bazı istatistikleri gösterir\n`prefix <PREFIX>` - Botun prefixini değiştirir\n`settings` - Ayarları gösterir\n"
+    "de": "`$token` - Gibt den Token für die Website & App\n`$token new` - Erneuert den Token\n`$help` - Listet alle Befehle auf\n`$support` - Discord Link\n`$app` - App-Informationen\n`$stats` - Statistiken\n`$prefix <PREFIX>` - Ändert den Präfix des Bots\n`$settings` - Zeigt Einstellungen an\n`$data` - Lade alle Daten herunter, die bnder von dir auf diesem Server gespeichert hat\n",
+    "en": "`$token` - Gives the token for the Website & App\n`$token new` - Generates a new token\n`$help` - Lists all commands\n`$support` - Discord Link\n`$app` - Information about the App\n`$stats` - Shows some stats\n`$prefix <PREFIX>` - Changes the prefix of the bot\n`$settings` - Displays settings\n`$data` - Download all the data that bnder has saved about you on this server\n",
+    "bg": "`$token` - Връща символа за уебсайта и приложението\n`$token new` - Променя маркера\n`$help` - Изброява всички команди\n`$support` - Discord Link\n`$app` - Информация за приложението\n`$stats` - статистика\n`$prefix <PREFIX>` - Променя префикса на бота\n`$settings` - Показва настройките\n`$data` - Изтеглете всички данни, които bnder е запазил за вас на този сървър",
+    "pl": "`$token` - Daje token dla strony internetowej i aplikacji\n`$token new` - Generuje nowy token\n`$help` - Wyświetlam wszystkie polecenia\n`$support` - Discord Link\n`$app` - Informacje o Aplikacji\n`$stats` - Statystyki\n`$prefix <PREFIX>` - Zmienia prefiks bota\n`$settings` - Wyświetla ustawienia\n`$data` - Pobierz wszystkie dane o Tobie zapisane przez bnder na tym serwerze\n",
+    "fr": "`$token` - Renvoie le jeton du site Web et de l'application\n`$token new` - Renouveler le jeton\n`$help` - Répertorie toutes les commandes\n`$support` - Lien Discord\n`$app` - Informations sur l'application\n`$stats` - Statistiques\n`$prefix <PREFIX>` - Modifie le préfixe du bot\n`$settings` - Affiche les paramètres\n`$data` - Téléchargez toutes les données que bnder a enregistrées à votre sujet sur ce serveur",
+    "ru": "`$token` - Возвращает токен для сайта и приложения\n`$token new` - Обновить токен\n`$help` - Перечисляет все команды\n`$support` - Discord Link\n`$app` - Информация о приложении\n`$stats` - статистика\n`$prefix <PREFIX>` - Меняет префикс бота\n`$settings` - Отображает настройки\n`$data` - Загрузите все данные, которые bnder сохранил о вас на этом сервере\n",
+    "tr": "`$token` - Websitesi & Uygulama için bir token verir\n`token new` - Yeni token oluşturur\n`$help` - Komutları listeler\n`$support` - Discord Link\n`app` - Uygulama hakkında bilgi\n`$stats` - Bazı istatistikleri gösterir\n`$prefix <PREFIX>` - Botun prefixini değiştirir\n`$settings` - Ayarları gösterir\n`$data` - Bnder'ın sizinle ilgili kaydettiği tüm verileri bu sunucuya indirin\n"
   },
   "help_message_permission_commands": {
     "de": "`$permission` - Gibt diese Hilfe-Nachricht\n`$permission add @NUTZER/@ROLLE <BERECHTIGUNG>` - Gibt einem Nutzer/einer Rolle eine Berechtigung\n`$permission remove @NUTZER/@ROLLE <BERECHTIGUNG>` - Entfernt eine Berechtigung von einem Nutzer/einer Rolle\n`$permission list @NUTZER/@ROLLE` - Listet alle Berechtigungen eines Nutzers/einer Rolle auf\n \nAktuelle Berechtigungen:\n`CREATE_TASK` - Aufgabe erstellen\n`DELETE_TASK` - Aufgabe löschen\n`EDIT_TASK` - Aufgabe bearbeiten\n`CREATE_GROUP` - Gruppe erstellen\n`DELETE_GROUP` - Gruppe löschen\n`ADD_MEMBERS` - Nutzer zu Gruppe hinzufügen\n`REMOVE_MEMBERS` - Nutzer aus Gruppe entfernen\n`ADD_PERMISSION` - Berechtigung hinzufügen\n`REMOVE_PERMISSION` - Berechtigung entfernen\n`SHOW_PERMISSIONS` - Berechtigungen anzeigen\n",
@@ -519,7 +519,7 @@
     "pl": "`$permission` - przekazuje ten komunikat pomocy\n`$permission add @UŻYTKOWNIK/@ROLA <AUTORYZACJA>` - Daje użytkownikowi / roli autoryzację\n`$permission remove @UŻYTKOWNIK/@ROLA <AUTORYZACJA>` - Usuwa autoryzację dla użytkownika / roli\n`$permission list @UŻYTKOWNIK/@ROLA` - Wyświetla wszystkie uprawnienia użytkownika / roli\n \nAktualne uprawnienia:\n`CREATE_TASK` - utwórz zadanie\n`DELETE_TASK` - usuń zadanie\n`EDIT_TASK` - edycja zadania\n`CREATE_GROUP` - utwórz grupę\n`DELETE_GROUP` - usuń grupę\n`ADD_MEMBERS` - dodaj użytkownika do grupy\n`REMOVE_MEMBERS` - usuń użytkownika z grupy\n`ADD_PERMISSION` - dodaj uprawnienia\n`REMOVE_PERMISSION` - usuń pozwolenie\n`SHOW_PERMISSIONS` - pokaż uprawnienia\n",
     "fr": "`$permission` - Donne ce message d'aide\n`$permission add @USER/@ROLLE <AUTHORIZATION>` - Donne une autorisation à un utilisateur / rôle\n`$permission remove @USER/@ROLLE <AUTHORIZATION>` - Supprime une autorisation d'un utilisateur / rôle\n`$permission list @USER/@ROLE` - Liste toutes les permissions d'un utilisateur / rôle\n \nAutorisations actuelles:\n`CREATE_TASK` - créer une tâche\n`DELETE_TASK` - supprimer la tâche\n`EDIT_TASK` - tâche d'édition\n`CREATE_GROUP` - créer un groupe\n`DELETE_GROUP` - supprimer le groupe\n`ADD_MEMBERS` - ajouter un utilisateur au groupe\n`REMOVE_MEMBERS` - supprimer l'utilisateur du groupe\n`ADD_PERMISSION` - ajouter une autorisation\n`REMOVE_PERMISSION` - supprimer l'autorisation\n`SHOW_PERMISSIONS` - afficher les autorisations\n",
     "ru": "`$permission` - выдает это справочное сообщение\n`$permission add @USER/@ROLLE <AUTHORIZATION>` - дает пользователю / роли авторизацию\n`$permission remove @USER/@ROLLE <AUTHORIZATION>` - Удаляет авторизацию от пользователя / роли\n`$permission list @ПОЛЬЗОВАТЕЛЬ/@РОЛЬ` - перечисляет все разрешения пользователя / роли\n \nТекущие разрешения:\n`CREATE_TASK` - создать задачу\n`DELETE_TASK` - удалить задачу\n`EDIT_TASK` - редактировать задачу\n`CREATE_GROUP` - создать группу\n`DELETE_GROUP` - удалить группу\n`ADD_MEMBERS` - добавить пользователя в группу\n`REMOVE_MEMBERS` - удалить пользователя из группы\n`ADD_PERMISSION` - добавить разрешение\n`REMOVE_PERMISSION` - удалить разрешение\n`SHOW_PERMISSIONS` - показать разрешения\n",
-    "tr": "`permission` - Bu yardım mesajını verir.\n`permission add @USER/@ROLLE <PERMISSION>` - Bir kullanıcıya / role bir yetki verir.\n`permission remove @USER/@ROLLE <PERMISSION>` - Bir kullanıcıdan / rolden bir yetkilendirmeyi kaldırır\n`permission list @USER/@ROLE` - Bir kullanıcının / rolün tüm izinlerini listeler\n \nGüncel izinler:\n`CREATE_TASK` - Görev oluşturma\n`DELETE_TASK` - Görev silme\n`EDIT_TASK` - Görev düzenleme\n`CREATE_GROUP` - Grup oluşturma\n`DELETE_GROUP` - Grup silme\n`ADD_MEMBERS` - Gruba üye ekleme\n`REMOVE_MEMBERS` - Gruptan üye çıkarma\n`ADD_PERMISSION` - İzin ekleme\n`REMOVE_PERMISSION` - İzin kaldırma\n`SHOW_PERMISSIONS` - İzinleri gösterme\n"
+    "tr": "`$permission` - Bu yardım mesajını verir.\n`$permission add @USER/@ROLLE <PERMISSION>` - Bir kullanıcıya / role bir yetki verir.\n`$permission remove @USER/@ROLLE <PERMISSION>` - Bir kullanıcıdan / rolden bir yetkilendirmeyi kaldırır\n`$permission list @USER/@ROLE` - Bir kullanıcının / rolün tüm izinlerini listeler\n \nGüncel izinler:\n`CREATE_TASK` - Görev oluşturma\n`DELETE_TASK` - Görev silme\n`EDIT_TASK` - Görev düzenleme\n`CREATE_GROUP` - Grup oluşturma\n`DELETE_GROUP` - Grup silme\n`ADD_MEMBERS` - Gruba üye ekleme\n`REMOVE_MEMBERS` - Gruptan üye çıkarma\n`ADD_PERMISSION` - İzin ekleme\n`REMOVE_PERMISSION` - İzin kaldırma\n`SHOW_PERMISSIONS` - İzinleri gösterme\n"
   },
   "stats_field_server": {
     "de": "Server",
@@ -539,23 +539,32 @@
     "ru": "пользователь",
     "tr": "Kullanıcılar"
   },
-  "stats_field_ping": {
-    "de": "Ping",
-    "en": "Ping",
-    "bg": "Ping",
-    "pl": "Ping",
-    "fr": "Ping",
-    "ru": "Ping",
-    "tr": "Ping"
+  "stats_field_ping_discord": {
+    "de": "Ping zu Discord",
+    "en": "Ping to Discord",
+    "bg": "Pinged to Discord",
+    "pl": "Pingował do Discorda",
+    "fr": "Pinged to Discord",
+    "ru": "Ping в Discord",
+    "tr": "Discord Ping Gönderildi"
+  },
+  "stats_field_ping_bnder": {
+    "de": "Ping zu bnder",
+    "en": "Ping to bnder",
+    "bg": "Pinged to bnder",
+    "pl": "Pingował do bnder",
+    "fr": "Pinged to bnder",
+    "ru": "Ping в bnder",
+    "tr": "bnder Ping Gönderildi"
   },
   "stats_field_requests_received": {
-    "de": "API-Anfragen bearbeitet (seit 26.09.20)",
-    "en": "API requests processed (since 09/26/20)",
-    "bg": "Обработени заявки за API (от 26.09.2020 г.)",
-    "pl": "Przetworzone żądania API (od 26.09.2020)",
-    "fr": "Demandes d'API traitées (depuis le 26/09/2020)",
-    "ru": "Обработано запросов API (с 26.09.2020)",
-    "tr": "İşlenen api istekleri (26.09.2020 tarihinden beri)"
+    "de": "API-Anfragen bearbeitet (seit 28.11.20)",
+    "en": "API requests processed (since 11/28/20)",
+    "bg": "Обработени заявки за API (от 28.11.2020 г.)",
+    "pl": "Przetworzone żądania API (od 28.11.2020)",
+    "fr": "Demandes d'API traitées (depuis le 28/11/2020)",
+    "ru": "Обработано запросов API (с 28.11.2020)",
+    "tr": "İşlenen api istekleri (28.11.2020 tarihinden beri)"
   },
   "language_message_invalid_params": {
     "de": "Bitte gib einen Ländercode mit an! Gültige Ländercodes sind:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - polski\n`tr` - Türkçe",
@@ -567,13 +576,13 @@
     "tr": "Lütfen geçerli bir dil kodu giriniz! Geçerli dil kodları:\n`de` - Deutsch\n`en` - English\n`bg` - български\n`fr` - français\n`ru` - русский\n`pl` - Polski\n`ru` - Russian\n`tr` - Türkçe"
   },
   "stats_field_messages_sent": {
-    "de": "Nachrichten gesendet (seit 04.10.20)",
-    "en": "Messages sent (since 10/04/20)",
-    "bg": "Изпратени съобщения (от 04.10.2020 г.)",
-    "pl": "Wiadomości wysłane (od 04.10.2020)",
-    "fr": "Messages envoyés (depuis le 04/10/2020)",
-    "ru": "Сообщения отправлены (с 04.10.2020)",
-    "tr": "Gönderilen mesajlar. (10/04/20 tarihinden beri)"
+    "de": "Nachrichten gesendet (seit 28.11.20)",
+    "en": "Messages sent (since 11/28/20)",
+    "bg": "Изпратени съобщения (от 28.11.2020 г.)",
+    "pl": "Wiadomości wysłane (od 28.11.2020)",
+    "fr": "Messages envoyés (depuis le 28/11/2020)",
+    "ru": "Сообщения отправлены (с 28.11.2020)",
+    "tr": "Gönderilen mesajlar. (11/28/20 tarihinden beri)"
   },
   "stats_field_tasks_done": {
     "de": "Aufgaben erledigt",
@@ -989,7 +998,7 @@
     "ru": "У пользователя или роли нет такой авторизации!",
     "tr": "Kullanıcı veya rol bu izine sahip değil."
   },
-  "data_title":{
+  "data_title": {
     "de": "Daten",
     "en": "Data",
     "bg": "Данни",

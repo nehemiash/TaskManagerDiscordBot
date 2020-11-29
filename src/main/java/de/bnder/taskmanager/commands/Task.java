@@ -30,6 +30,7 @@ public class Task implements Command {
         final Guild guild = event.getGuild();
         final String langCode = Localizations.getGuildLanguage(guild);
         final String embedTitle = Localizations.getString("task_message_title", langCode);
+        final String prefix = String.valueOf(event.getMessage().getContentRaw().charAt(0));
         if (args.length >= 3) {
             if (args[0].equalsIgnoreCase("add")) {
                 if (PermissionSystem.hasPermission(event.getMember(), TaskPermission.CREATE_TASK)) {
@@ -90,8 +91,7 @@ public class Task implements Command {
                                     }
                                 }), event.getMessage(), Color.green);
                             }
-                        }
-                        if (statusCode == 902) {
+                        } else if (statusCode == 404) {
                             MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode, new ArrayList<String>() {
                                 {
                                     add(groupName);
@@ -108,7 +108,7 @@ public class Task implements Command {
                         MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellen_fehlende_argumente", langCode), event.getMessage(), Color.red);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);
                 }
             } else if (args[0].equalsIgnoreCase("edit")) {
                 if (PermissionSystem.hasPermission(event.getMember(), TaskPermission.EDIT_TASK)) {
@@ -123,7 +123,7 @@ public class Task implements Command {
                                 add(taskID);
                             }
                         }), event.getMessage(), Color.green);
-                    } else if (statusCode == 902) {
+                    } else if (statusCode == 404) {
                         MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
                             {
                                 add(taskID);
@@ -137,7 +137,7 @@ public class Task implements Command {
                         }), event.getMessage(), Color.red);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);
                 }
             } else if (args[0].equalsIgnoreCase("deadline")) {
                 if (PermissionSystem.hasPermission(event.getMember(), TaskPermission.EDIT_TASK)) {
@@ -158,7 +158,7 @@ public class Task implements Command {
                                     add(newDate);
                                 }
                             }), event.getMessage(), Color.green);
-                        } else if (task.getStatusCode() == 902) {
+                        } else if (task.getStatusCode() == 404) {
                             MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
                                 {
                                     add(taskID);
@@ -169,19 +169,29 @@ public class Task implements Command {
                         MessageSender.send(embedTitle, Localizations.getString("ungueltiges_datum_format", langCode), event.getMessage(), Color.red);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("help_message_task_commands", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
+                MessageSender.send(embedTitle + " - " + Localizations.getString("task_message_title", langCode), Localizations.getString("help_message_task_commands", langCode, new ArrayList<String>(){{
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                }}), event.getMessage(), Color.red);
             }
         } else if (args.length >= 2) {
             if (args[0].equalsIgnoreCase("list")) {
-                String jsonResponse = "";
-                int statusCode = 0;
-                String text = "";
+                String jsonResponse;
+                int statusCode;
+                String text;
                 if (event.getMessage().getMentionedMembers().size() > 0) {
                     final Member member = event.getMessage().getMentionedMembers().get(0);
-                    final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/task/user/tasks/" + guild.getId() + "/" + member.getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                    final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/task/user/tasks/" + guild.getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                     statusCode = res.statusCode();
                     jsonResponse = res.parse().body().text();
                 } else {
@@ -203,7 +213,7 @@ public class Task implements Command {
                         }
                         String dLine = "";
                         if (deadline.length() > 0) {
-                            dLine = "$deadline |";
+                            dLine = deadline + " |";
                         }
                         builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                     }
@@ -228,6 +238,7 @@ public class Task implements Command {
                         }
                         MessageSender.send(embedTitle, text, event.getMessage(), Color.orange);
                     }
+                    builder.delete(0, builder.length());
                     array = jsonObject.get("doing").asArray();
                     for (int i = 0; i < array.size(); i++){
                         final String taskID = array.get(i).asString();
@@ -238,7 +249,7 @@ public class Task implements Command {
                         }
                         String dLine = "";
                         if (deadline.length() > 0) {
-                            dLine = "$deadline |";
+                            dLine = deadline + " |";
                         }
                         builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_wird_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                     }
@@ -263,8 +274,9 @@ public class Task implements Command {
                         }
                         MessageSender.send(embedTitle, text, event.getMessage(), Color.yellow);
                     }
+                    builder.delete(0, builder.length());
                     array = jsonObject.get("done").asArray();
-                    String showDoneTasks = Settings.getUserSettings(event.getMember()).getString("show_done_tasks", "1");
+                    final String showDoneTasks = Settings.getUserSettings(event.getMember()).getString("show_done_tasks", "1");
                     for (int i = 0; i < array.size(); i++){
                         final String taskID = array.get(i).asString();
                         final String task = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("task").asString();
@@ -274,14 +286,14 @@ public class Task implements Command {
                         }
                         String dLine = "";
                         if (deadline.length() > 0) {
-                            dLine = "$deadline |";
+                            dLine = deadline + " |";
                         }
 
-                        if (showDoneTasks == "1") {
+                        if (showDoneTasks.equals("1")) {
                             builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_erledigt", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                         }
                     }
-                    if (showDoneTasks == "1" && builder.length() > 0) {
+                    if (showDoneTasks.equals("1") && builder.length() > 0) {
                         if (event.getMessage().getMentionedMembers().size() > 0) {
                             final Member member = event.getMessage().getMentionedMembers().get(0);
                             text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
@@ -316,7 +328,7 @@ public class Task implements Command {
                                 add(taskID);
                             }
                         }), event.getMessage(), Color.green);
-                    } else if (statusCode == 902) {
+                    } else if (statusCode == 404) {
                         MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
                             {
                                 add(taskID);
@@ -330,7 +342,7 @@ public class Task implements Command {
                         }), event.getMessage(), Color.red);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);
                 }
             } else if (args[0].equalsIgnoreCase("done")) {
                 final String taskID = Connection.encodeString(args[1]);
@@ -338,7 +350,7 @@ public class Task implements Command {
                 final int statusCode = task.setStatus(TaskStatus.DONE, event.getMember()).getStatusCode();
                 if (statusCode == 200) {
                     MessageSender.send(embedTitle, Localizations.getString("aufgabe_erledigt", langCode), event.getMessage(), Color.green);
-                } else if (statusCode == 902) {
+                } else if (statusCode == 404) {
                     MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
                         {
                             add(taskID);
@@ -364,7 +376,7 @@ public class Task implements Command {
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("task_abfrage_unbekannter_fehler", langCode), event.getMessage(), Color.red);
                     }
-                } else if (statusCode == 902) {
+                } else if (statusCode == 404) {
                     MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
                                 {
                                     add(taskID);
@@ -395,7 +407,7 @@ public class Task implements Command {
                             else {
                                 MessageSender.send(embedTitle, Localizations.getString("task_abfrage_unbekannter_fehler", langCode), event.getMessage(), Color.red);
                             }
-                    } else if (statusCode == 902) {
+                    } else if (statusCode == 404) {
                         MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
                             {
                                 add(taskID);
@@ -446,7 +458,17 @@ public class Task implements Command {
                     }),event.getMessage(), Color.red);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("help_message_task_commands", langCode), event.getMessage(), Color.red);
+                MessageSender.send(embedTitle + " - " + Localizations.getString("task_message_title", langCode), Localizations.getString("help_message_task_commands", langCode, new ArrayList<String>(){{
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                }}), event.getMessage(), Color.red);
             }
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("list")) {
@@ -467,7 +489,7 @@ public class Task implements Command {
                         }
                         String dLine = "";
                         if (deadline.length() > 0) {
-                            dLine = "$deadline |";
+                            dLine = deadline + " |";
                         }
                         builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                     }
@@ -540,10 +562,30 @@ public class Task implements Command {
                     MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), event.getMessage(), Color.red);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("help_message_task_commands", langCode), event.getMessage(), Color.red);
+                MessageSender.send(embedTitle + " - " + Localizations.getString("task_message_title", langCode), Localizations.getString("help_message_task_commands", langCode, new ArrayList<String>(){{
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                }}), event.getMessage(), Color.red);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("help_message_task_commands", langCode), event.getMessage(), Color.red);
+            MessageSender.send(embedTitle + " - " + Localizations.getString("task_message_title", langCode), Localizations.getString("help_message_task_commands", langCode, new ArrayList<String>(){{
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+            }}), event.getMessage(), Color.red);
         }
     }
 

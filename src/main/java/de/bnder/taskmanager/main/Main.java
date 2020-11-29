@@ -15,9 +15,6 @@ package de.bnder.taskmanager.main;
  * limitations under the License.
  */
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
 import de.bnder.taskmanager.commands.*;
 import de.bnder.taskmanager.listeners.*;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -28,9 +25,6 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -46,12 +40,13 @@ public class Main {
 
     public static final String prefix = "-";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"),
                 Collections.singletonList(GatewayIntent.GUILD_MESSAGES));
 
-        builder.disableCache(Arrays.asList(CacheFlag.VOICE_STATE, CacheFlag.EMOTE));
+        //Disable Caches for better memory usage
+        builder.disableCache(Arrays.asList(CacheFlag.VOICE_STATE, CacheFlag.EMOTE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ROLE_TAGS, CacheFlag.MEMBER_OVERRIDES));
 
         builder.setShardsTotal(totalShard);
         builder.setShards(shard);
@@ -80,27 +75,11 @@ public class Main {
 
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.playing("bnder.net"));
+
         try {
             builder.build();
         } catch (LoginException e) {
             e.printStackTrace();
         }
-
-        HttpServer server = HttpServer.create(new InetSocketAddress(System.getenv("PORT") != null ? Integer.parseInt(System.getenv("PORT")) : 8080), 0);
-        server.createContext("/", new MyHandler());
-        server.setExecutor(null); // creates a default executor
-        server.start();
     }
-
-    static class MyHandler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange t) throws IOException {
-            String response = "res";
-            t.sendResponseHeaders(200, response.length());
-            OutputStream os = t.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
-        }
-    }
-
 }

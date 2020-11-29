@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class Version implements Command {
 
-    public static String version = "2020.3.1";
+    public static String version = "2020.4.1";
 
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {

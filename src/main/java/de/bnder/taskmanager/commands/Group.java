@@ -32,19 +32,19 @@ public class Group implements Command {
                     final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/group/create/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getMember().getId()).data("group_name", groupName).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                     final int statusCode = res.statusCode();
                     if (statusCode == 200) {
-                        MessageSender.send(embedTitle, Localizations.getString("gruppe_erfolgreich_erstellt", langCode, new ArrayList<String>() {
+                        MessageSender.send(embedTitle, Localizations.getString("group_created_successfully", langCode, new ArrayList<String>() {
                             {
                                 add(groupName);
                             }
                         }), event.getMessage(), Color.green);
                     } else if (statusCode == 400) {
-                        MessageSender.send(embedTitle, Localizations.getString("gruppe_nicht_erstellt_name_exisitert", langCode, new ArrayList<String>() {
+                        MessageSender.send(embedTitle, Localizations.getString("group_not_created_name_already_exists", langCode, new ArrayList<String>() {
                             {
                                 add(groupName);
                             }
                         }), event.getMessage(), Color.red);
                     } else {
-                        MessageSender.send(embedTitle, Localizations.getString("gruppe_nicht_erstellt_unbekannter_fehler", langCode, new ArrayList<String>() {
+                        MessageSender.send(embedTitle, Localizations.getString("group_not_created_unknown_error", langCode, new ArrayList<String>() {
                             {
                                 add(groupName);
                                 add(String.valueOf(statusCode));
@@ -52,7 +52,7 @@ public class Group implements Command {
                         }), event.getMessage(), Color.red);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);
                 }
             } else if (args[0].equalsIgnoreCase("delete")) {
                 if (PermissionSystem.hasPermission(event.getMember(), GroupPermission.DELETE_GROUP)) {
@@ -60,26 +60,26 @@ public class Group implements Command {
                     final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/group/" + event.getGuild().getId() + "/" + groupName).method(org.jsoup.Connection.Method.DELETE).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getMember().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                     final int statusCode = res.statusCode();
                     if (statusCode == 200) {
-                        MessageSender.send(embedTitle, Localizations.getString("gruppe_wurde_geloescht", langCode, new ArrayList<String>() {
+                        MessageSender.send(embedTitle, Localizations.getString("group_was_deleted", langCode, new ArrayList<String>() {
                             {
                                 add(groupName);
                             }
                         }), event.getMessage(), Color.green);
                     } else if (statusCode == 404) {
-                        MessageSender.send(embedTitle, Localizations.getString("gruppe_mit_namen_existiert_nicht", langCode, new ArrayList<String>() {
+                        MessageSender.send(embedTitle, Localizations.getString("group_with_name_doesnt_exist", langCode, new ArrayList<String>() {
                             {
                                 add(groupName);
                             }
                         }), event.getMessage(), Color.red);
                     } else {
-                        MessageSender.send(embedTitle, Localizations.getString("gruppe_loeschen_unbekannter_fehler", langCode, new ArrayList<String>() {
+                        MessageSender.send(embedTitle, Localizations.getString("group_delete_unknown_error", langCode, new ArrayList<String>() {
                             {
                                 add(groupName);
                             }
                         }), event.getMessage(), Color.red);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);
                 }
             } else if (args[0].equalsIgnoreCase("members")) {
                 if (PermissionSystem.hasPermission(event.getMember(), GroupPermission.SHOW_MEMBERS)) {
@@ -103,13 +103,13 @@ public class Group implements Command {
                                 add(builder.substring(0, builder.length() - 1));
                             }
                         }), event.getMessage(), Color.green);
-                    } else if (statusCode == 902) {
-                        MessageSender.send(embedTitle, Localizations.getString("gruppe_mit_namen_existiert_nicht", langCode, new ArrayList<String>() {
+                    } else if (statusCode == 404) {
+                        MessageSender.send(embedTitle, Localizations.getString("group_with_name_doesnt_exist", langCode, new ArrayList<String>() {
                             {
                                 add(groupName);
                             }
                         }), event.getMessage(), Color.red);
-                    } else if (statusCode == 404) {
+                    } else if (statusCode == 400) {
                         MessageSender.send(embedTitle, Localizations.getString("group_no_members", langCode), event.getMessage(), Color.red);
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
@@ -119,7 +119,7 @@ public class Group implements Command {
                         }), event.getMessage(), Color.red);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);
                 }
             } else if (args[0].equalsIgnoreCase("add")) {
                 if (PermissionSystem.hasPermission(event.getMember(), GroupPermission.ADD_MEMBERS)) {
@@ -130,23 +130,23 @@ public class Group implements Command {
                                 final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/group/add-member/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).data("group_name", groupName).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                                 final int statusCode = res.statusCode();
                                 if (statusCode == 200) {
-                                    MessageSender.send(embedTitle, Localizations.getString("nutzer_zu_gruppe_hinzugefuegt", langCode, new ArrayList<String>() {
+                                    MessageSender.send(embedTitle, Localizations.getString("user_added_to_group", langCode, new ArrayList<String>() {
                                         {
                                             add(member.getUser().getName());
                                             add(groupName);
                                         }
                                     }), event.getMessage(), Color.green);
                                 } else if (statusCode == 404) {
-                                    MessageSender.send(embedTitle, Localizations.getString("gruppe_mit_namen_existiert_nicht", langCode, new ArrayList<String>() {
+                                    MessageSender.send(embedTitle, Localizations.getString("group_with_name_doesnt_exist", langCode, new ArrayList<String>() {
                                         {
                                             add(groupName);
                                         }
                                     }), event.getMessage(), Color.red);
                                     return;
-                                } else if (statusCode == 904) {
-                                    MessageSender.send(embedTitle, Localizations.getString("nutzer_bereits_in_gruppe", langCode), event.getMessage(), Color.red);
+                                } else if (statusCode == 400) {
+                                    MessageSender.send(embedTitle, Localizations.getString("user_already_in_group", langCode), event.getMessage(), Color.red);
                                 } else {
-                                    MessageSender.send(embedTitle, Localizations.getString("nutzer_zu_gruppe_hinzufuegen_unbekannter_fehler", langCode, new ArrayList<String>() {
+                                    MessageSender.send(embedTitle, Localizations.getString("user_added_to_group_unknown_error", langCode, new ArrayList<String>() {
                                         {
                                             add(String.valueOf(statusCode));
                                         }
@@ -155,13 +155,13 @@ public class Group implements Command {
                                 }
                             }
                         } else {
-                            MessageSender.send(embedTitle, Localizations.getString("nutzer_muss_markiert_werden", langCode), event.getMessage(), Color.red);
+                            MessageSender.send(embedTitle, Localizations.getString("user_needs_to_be_mentioned", langCode), event.getMessage(), Color.red);
                         }
                     } else {
-                        MessageSender.send(embedTitle, Localizations.getString("gruppen_name_muss_angegeben_werden", langCode), event.getMessage(), Color.red);
+                        MessageSender.send(embedTitle, Localizations.getString("group_name_needs_to_be_given", langCode), event.getMessage(), Color.red);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);
                 }
             } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem")) {
                 if (PermissionSystem.hasPermission(event.getMember(), GroupPermission.REMOVE_MEMBERS)) {
@@ -179,14 +179,14 @@ public class Group implements Command {
                                         }
                                     }), event.getMessage(), Color.green);
                                 }
-                                if (statusCode == 903) {
-                                    MessageSender.send(embedTitle, Localizations.getString("gruppe_mit_namen_existiert_nicht", langCode, new ArrayList<String>() {
+                                if (statusCode == 404) {
+                                    MessageSender.send(embedTitle, Localizations.getString("group_with_name_doesnt_exist", langCode, new ArrayList<String>() {
                                         {
                                             add(groupName);
                                         }
                                     }), event.getMessage(), Color.red);
                                     return;
-                                } else if (statusCode == 904) {
+                                } else if (statusCode == 400) {
                                     MessageSender.send(embedTitle, Localizations.getString("nutzer_ist_in_keiner_gruppe", langCode, new ArrayList<String>() {
                                         {
                                             add(member.getUser().getAsTag());
@@ -201,13 +201,13 @@ public class Group implements Command {
                                 }
                             }
                         } else {
-                            MessageSender.send(embedTitle, Localizations.getString("nutzer_muss_markiert_werden", langCode), event.getMessage(), Color.red);
+                            MessageSender.send(embedTitle, Localizations.getString("user_needs_to_be_mentioned", langCode), event.getMessage(), Color.red);
                         }
                     } else {
-                        MessageSender.send(embedTitle, Localizations.getString("gruppen_name_muss_angegeben_werden", langCode), event.getMessage(), Color.red);
+                        MessageSender.send(embedTitle, Localizations.getString("group_name_needs_to_be_given", langCode), event.getMessage(), Color.red);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);
                 }
             } else {
                 MessageSender.send(embedTitle, Localizations.getString("help_message_group_commands", langCode), event.getMessage(), Color.red);

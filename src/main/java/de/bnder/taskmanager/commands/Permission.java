@@ -13,12 +13,14 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Permission implements Command {
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
         final String langCode = Localizations.getGuildLanguage(event.getGuild());
         final String embedTitle = Localizations.getString("permissions_title", langCode);
+        final String prefix = String.valueOf(event.getMessage().getContentRaw().charAt(0));
         if (args.length == 3) {
             if (args[0].equalsIgnoreCase("add")) {
                 if (PermissionSystem.hasPermission(event.getMember(), PermissionPermission.ADD_PERMISSION)) {
@@ -55,7 +57,7 @@ public class Permission implements Command {
                         MessageSender.send(embedTitle, Localizations.getString("already_has_permission", langCode), event.getMessage(), Color.red);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);
                 }
             } else if (args[0].equalsIgnoreCase("remove")) {
                 if (PermissionSystem.hasPermission(event.getMember(), PermissionPermission.REMOVE_PERMISSION)) {
@@ -92,10 +94,15 @@ public class Permission implements Command {
                         MessageSender.send(embedTitle, Localizations.getString("dont_has_permission", langCode), event.getMessage(), Color.red);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("muss_serverbesitzer_oder_adminrechte_haben", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("help_message_permission_commands", langCode), event.getMessage(), Color.cyan);
+                MessageSender.send(embedTitle, Localizations.getString("help_message_permission_commands", langCode, new ArrayList<String>(){{
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                }}), event.getMessage(), Color.red);
             }
         } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("list")) {
@@ -129,10 +136,20 @@ public class Permission implements Command {
                     MessageSender.send(embedTitle, Localizations.getString("need_to_mention_user_or_role", langCode), event.getMessage(), Color.red);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("help_message_permission_commands", langCode), event.getMessage(), Color.cyan);
+                MessageSender.send(embedTitle, Localizations.getString("help_message_permission_commands", langCode, new ArrayList<String>(){{
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
+                }}), event.getMessage(), Color.red);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("help_message_permission_commands", langCode), event.getMessage(), Color.cyan);
+            MessageSender.send(embedTitle, Localizations.getString("help_message_permission_commands", langCode, new ArrayList<String>(){{
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+            }}), event.getMessage(), Color.red);
         }
     }
 

@@ -90,7 +90,7 @@
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.8.3</version>
+            <version>1.13.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.eclipsesource.minimal-json/minimal-json -->
         <dependency>
@@ -101,7 +101,7 @@
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>4.2.0_214</version>
+            <version>4.2.0_222</version>
         </dependency>
         <dependency>
             <groupId>io.github.cdimascio</groupId>
