@@ -6,6 +6,7 @@ public enum GroupPermission {
     DELETE_GROUP,
     ADD_MEMBERS,
     REMOVE_MEMBERS,
-    SHOW_MEMBERS
+    SHOW_MEMBERS,
+    DEFINE_NOTIFY_CHANNEL
 
 }

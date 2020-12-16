@@ -27,13 +27,10 @@ public class Settings {
 
     public static JsonObject getUserSettings(Member member) {
         try {
-            final String jsonResponse = Jsoup.connect(Main.requestURL + "getSettings.php?requestToken=" + Main.requestToken + "&user_id=" + Connection.encodeString(member.getId()) + "&guild_id=" + Connection.encodeString(member.getGuild().getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
-            final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-            final int statusCode = jsonObject.getInt("status_code", 900);
-            if (statusCode == 200) {
-                if (jsonObject.get("result") != null && !jsonObject.get("result").isNull()) {
-                    return jsonObject.get("result").asObject();
-                }
+            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/user/settings/" + member.getGuild().getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
+            if (res.statusCode() == 200) {
+                return jsonObject;
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -24,9 +24,8 @@ import java.io.IOException;
 public class UpdateServerName {
 
     public static void update(Guild guild) throws IOException {
-        String id = guild.getId();
         String name = guild.getName();
-        Jsoup.connect(Main.requestURL + "setServername.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(id) + "&serverName=" + Connection.encodeString(name)).timeout(Connection.timeout).userAgent(Main.userAgent).execute();
+        Jsoup.connect(Main.requestURL + "/server/name/" + guild.getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("name", name).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
     }
 
 }

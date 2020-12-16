@@ -34,10 +34,9 @@ public class CommandListener extends ListenerAdapter {
         if (event.getMessage().getContentRaw().length() > 3) {
             if (CommandHandler.commands.containsKey(event.getMessage().getContentRaw().split(" ")[0].substring(1))) {
                 try {
-                    String jsonResponse = Jsoup.connect(Main.requestURL + "getPrefix.php?requestToken=" + Main.requestToken + "&serverID=" + de.bnder.taskmanager.utils.Connection.encodeString(event.getGuild().getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
-                    JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-                    int statusCode = jsonObject.getInt("status_code", 900);
-                    if (statusCode == 200) {
+                    final org.jsoup.Connection.Response getPrefixRes = Jsoup.connect(Main.requestURL + "/server/prefix/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getMember().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                    JsonObject jsonObject = Json.parse(getPrefixRes.parse().body().text()).asObject();
+                    if (getPrefixRes.statusCode() == 200) {
                         String prefix = jsonObject.getString("prefix", "-");
                         if (event.getMessage().getContentRaw().startsWith(prefix)) {
                             processCommand(event);
@@ -47,8 +46,8 @@ public class CommandListener extends ListenerAdapter {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    final String langCode = Localizations.Companion.getGuildLanguage(event.getGuild());
-                    MessageSender.send(Localizations.Companion.getString("error_title", langCode), Localizations.Companion.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getMessage(), Color.red);
+                    final String langCode = Localizations.getGuildLanguage(event.getGuild());
+                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getMessage(), Color.red);
                 }
             }
         }
@@ -63,8 +62,8 @@ public class CommandListener extends ListenerAdapter {
             CommandHandler.handleCommand(CommandHandler.parse.parse(msg, event), event.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
-            final String langCode = Localizations.Companion.getGuildLanguage(event.getGuild());
-            MessageSender.send(Localizations.Companion.getString("error_title", langCode), Localizations.Companion.getString("error_text", langCode), event.getMessage(), Color.red);
+            final String langCode = Localizations.getGuildLanguage(event.getGuild());
+            MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode), event.getMessage(), Color.red);
         }
     }
 }

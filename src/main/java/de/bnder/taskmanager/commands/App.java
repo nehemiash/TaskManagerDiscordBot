@@ -1,6 +1,15 @@
 package de.bnder.taskmanager.commands;
+
+import de.bnder.taskmanager.main.Command;
+import de.bnder.taskmanager.utils.Localizations;
+import de.bnder.taskmanager.utils.MessageSender;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+
+import java.awt.*;
+import java.io.IOException;
+
 /*
- * Copyright (C) 2020 Jan Brinkmann
+ * Copyright (C) 2019 Jan Brinkmann
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +23,11 @@ package de.bnder.taskmanager.commands;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import de.bnder.taskmanager.main.Command;
-import de.bnder.taskmanager.utils.Localizations;
-import de.bnder.taskmanager.utils.MessageSender;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-
-import java.awt.*;
-import java.io.IOException;
-import java.util.ArrayList;
-
-public class Version implements Command {
-
-    public static String version = "2020.4.1";
+public class App implements Command {
 
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
         final String langCode = Localizations.getGuildLanguage(event.getGuild());
-        MessageSender.send(Localizations.getString("version_title", langCode), Localizations.getString("version_text", langCode, new ArrayList<String>(){{
-            add(version);
-        }}), event.getMessage(), Color.cyan);
+        MessageSender.send(Localizations.getString("app_message_title", langCode), Localizations.getString("app_befehl_nachricht", langCode), event.getMessage(), Color.green);
     }
 }

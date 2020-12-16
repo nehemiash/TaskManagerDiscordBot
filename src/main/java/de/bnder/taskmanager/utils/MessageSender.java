@@ -48,12 +48,12 @@ public class MessageSender {
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
         if (new Random().nextInt(100) + 1 <= 5) {
-            final String langCode = Localizations.Companion.getGuildLanguage(msg.getGuild());
-            builder.setFooter(Localizations.Companion.getString("donate_alert", langCode));
+            final String langCode = Localizations.getGuildLanguage(msg.getGuild());
+            builder.setFooter(Localizations.getString("donate_alert", langCode));
         }
         msg.getChannel().sendMessage(builder.build()).queue();
         try {
-            Jsoup.connect(Main.requestURL + "addStatMessageSent.php?requestToken=" + Main.requestToken).timeout(Connection.timeout).userAgent(Main.userAgent).execute();
+            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/stats/messages-sent").method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }

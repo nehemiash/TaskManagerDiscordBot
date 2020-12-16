@@ -17,7 +17,7 @@ package de.bnder.taskmanager.main;
 
 import de.bnder.taskmanager.commands.*;
 import de.bnder.taskmanager.listeners.*;
-import de.bnder.taskmanager.utils.Connection;
+import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -30,21 +30,23 @@ import java.util.Collections;
 
 public class Main {
 
-    public static String requestURL = null;
-    public static String requestToken = null;
+    public static final Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+
+    public static String requestURL = dotenv.get("REQUEST_URL") != null ? dotenv.get("REQUEST_URL") : System.getenv("REQUEST_URL");
+    public static String authorizationToken = dotenv.get("AUTHORIZATION_TOKEN") != null ? dotenv.get("AUTHORIZATION_TOKEN") : System.getenv("AUTHORIZATION_TOKEN");
     public static final String userAgent = "TaskmanagerBot/1.0 (Windows; U; WindowsNT 5.1; de-DE; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
-    public static int shard = 0;
-    public static int totalShard = 2;
+    public static int shard = Integer.parseInt(dotenv.get("SHARD") != null ? dotenv.get("SHARD") : System.getenv("SHARD"));
+    public static int totalShard = Integer.parseInt(dotenv.get("TOTAL_SHARDS") != null ? dotenv.get("TOTAL_SHARDS") : System.getenv(("TOTAL_SHARDS")));
 
     public static final String prefix = "-";
 
     public static void main(String[] args) {
-        new Connection().defineConnection();
 
-        final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(Connection.botToken,
+        final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"),
                 Collections.singletonList(GatewayIntent.GUILD_MESSAGES));
 
-        builder.disableCache(Arrays.asList(CacheFlag.VOICE_STATE, CacheFlag.EMOTE));
+        //Disable Caches for better memory usage
+        builder.disableCache(Arrays.asList(CacheFlag.VOICE_STATE, CacheFlag.EMOTE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ROLE_TAGS, CacheFlag.MEMBER_OVERRIDES));
 
         builder.setShardsTotal(totalShard);
         builder.setShards(shard);
@@ -57,8 +59,6 @@ public class Main {
         builder.addEventListeners(new GuildJoin());
         builder.addEventListeners(new GuildLeave());
 
-//        CommandHandler.commands.put("calendar", new Calendar());
-        CommandHandler.commands.put("settings", new Settings());
         CommandHandler.commands.put("version", new Version());
         CommandHandler.commands.put("prefix", new Prefix());
         CommandHandler.commands.put("group", new Group());
@@ -70,15 +70,16 @@ public class Main {
         CommandHandler.commands.put("stats", new Stats());
         CommandHandler.commands.put("language", new Language());
         CommandHandler.commands.put("app", new App());
-//        CommandHandler.commands.put("data", new Data());
+        CommandHandler.commands.put("data", new Data());
+        CommandHandler.commands.put("settings", new Settings());
 
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.playing("bnder.net"));
+
         try {
             builder.build();
         } catch (LoginException e) {
             e.printStackTrace();
         }
     }
-
 }

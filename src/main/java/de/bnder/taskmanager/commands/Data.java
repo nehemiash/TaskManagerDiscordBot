@@ -6,8 +6,8 @@ import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 import de.bnder.taskmanager.main.Command;
 import de.bnder.taskmanager.main.Main;
-import de.bnder.taskmanager.utils.*;
 import de.bnder.taskmanager.utils.Settings;
+import de.bnder.taskmanager.utils.*;
 import de.bnder.taskmanager.utils.permissions.GroupPermission;
 import de.bnder.taskmanager.utils.permissions.PermissionPermission;
 import de.bnder.taskmanager.utils.permissions.TaskPermission;
@@ -25,8 +25,8 @@ public class Data implements Command {
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
         final Guild guild = event.getGuild();
-        final String langCode = Localizations.Companion.getGuildLanguage(guild);
-        MessageSender.send(Localizations.Companion.getString("data_title", langCode), Localizations.Companion.getString("data_will_be_sent", langCode), event.getMessage(), Color.cyan);
+        final String langCode = Localizations.getGuildLanguage(guild);
+        MessageSender.send(Localizations.getString("data_title", langCode), Localizations.getString("data_will_be_sent", langCode), event.getMessage(), Color.cyan);
 
         //Get every user data
         final File file = new File("userData-" + guild.getId() + "-" + event.getAuthor().getId() + ".yml");
@@ -42,17 +42,17 @@ public class Data implements Command {
         final Member member = guild.retrieveMember(event.getAuthor()).complete();
 
         //Get Tasks
-        final String jsonResponse = Jsoup.connect(Main.requestURL + "getUserTasks.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guildId) + "&userID=" + Connection.encodeString(event.getAuthor().getId())).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
+        final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/task/user/tasks/" + guild.getId() + "/" + member.getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+        final String jsonResponse = res.parse().body().text();
         final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-        final int statusCode = jsonObject.getInt("status_code", 900);
-        if (statusCode == 200) {
+        if (res.statusCode() == 200) {
             JsonArray array = jsonObject.get("todo").asArray();
             for (int i = 0; i < array.size(); i++) {
                 final String taskID = array.get(i).asString();
-                final String task = jsonObject.get(taskID).asObject().get("task").asString();
-                final String deadline = jsonObject.get(taskID).asObject().get("deadline").asString();
-                final String type = jsonObject.get(taskID).asObject().get("taskType").asString();
-                final String groupID = jsonObject.get(taskID).asObject().get("group_id") != null ? jsonObject.get(taskID).asObject().get("group_id").asString() : null;
+                final String task = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("task").asString();
+                final String deadline = !jsonObject.get("allTasks").asObject().get(taskID).asObject().get("deadline").isNull() ? jsonObject.get("allTasks").asObject().get(taskID).asObject().get("deadline").asString() : "---";
+                final String type = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("type").asString();
+                final String groupID = !jsonObject.get("allTasks").asObject().get(taskID).asObject().get("group_id").isNull() ? jsonObject.get("allTasks").asObject().get(taskID).asObject().get("group_id").asString() : "---";
 
                 yamlConfiguration.set("guild" + "." + guildId + "." + "tasks" + "." + taskID + "." + "text", task);
                 yamlConfiguration.set("guild" + "." + guildId + "." + "tasks" + "." + taskID + "." + "deadline", deadline);
@@ -63,10 +63,10 @@ public class Data implements Command {
             array = jsonObject.get("doing").asArray();
             for (int i = 0; i < array.size(); i++) {
                 final String taskID = array.get(i).asString();
-                final String task = jsonObject.get(taskID).asObject().get("task").asString();
-                final String deadline = jsonObject.get(taskID).asObject().get("deadline").asString();
-                final String type = jsonObject.get(taskID).asObject().get("taskType").asString();
-                final String groupID = jsonObject.get(taskID).asObject().get("group_id") != null ? jsonObject.get(taskID).asObject().get("group_id").asString() : null;
+                final String task = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("task").asString();
+                final String deadline = !jsonObject.get("allTasks").asObject().get(taskID).asObject().get("deadline").isNull() ? jsonObject.get("allTasks").asObject().get(taskID).asObject().get("deadline").asString() : "---";
+                final String type = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("taskType").asString();
+                final String groupID = !jsonObject.get("allTasks").asObject().get(taskID).asObject().get("group_id").isNull() ? jsonObject.get("allTasks").asObject().get(taskID).asObject().get("group_id").asString() : "---";
 
                 yamlConfiguration.set("guild" + "." + guildId + "." + "tasks" + "." + taskID + "." + "text", task);
                 yamlConfiguration.set("guild" + "." + guildId + "." + "tasks" + "." + taskID + "." + "deadline", deadline);
@@ -77,10 +77,10 @@ public class Data implements Command {
             array = jsonObject.get("done").asArray();
             for (int i = 0; i < array.size(); i++) {
                 final String taskID = array.get(i).asString();
-                final String task = jsonObject.get(taskID).asObject().get("task").asString();
-                final String deadline = jsonObject.get(taskID).asObject().get("deadline").asString();
-                final String type = jsonObject.get(taskID).asObject().get("taskType").asString();
-                final String groupID = jsonObject.get(taskID).asObject().get("group_id") != null ? jsonObject.get(taskID).asObject().get("group_id").asString() : null;
+                final String task = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("task").asString();
+                final String deadline = !jsonObject.get("allTasks").asObject().get(taskID).asObject().get("deadline").isNull() ? jsonObject.get("allTasks").asObject().get(taskID).asObject().get("deadline").asString() : "---";
+                final String type = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("type").asString();
+                final String groupID = !jsonObject.get("allTasks").asObject().get(taskID).asObject().get("group_id").isNull() ? jsonObject.get("allTasks").asObject().get(taskID).asObject().get("group_id").asString() : "---";
 
                 yamlConfiguration.set("guild" + "." + guildId + "." + "tasks" + "." + taskID + "." + "text", task);
                 yamlConfiguration.set("guild" + "." + guildId + "." + "tasks" + "." + taskID + "." + "deadline", deadline);
@@ -97,15 +97,15 @@ public class Data implements Command {
         yamlConfiguration.set("guild" + "." + guildId + "." + "settings" + ".notify channel", settingsObject.get("notify_channel") != null && !settingsObject.get("notify_channel").isNull() ? settingsObject.getString("notify_channel", null) : null);
 
         //Get Users Groups
-        final String getGroupsJsonResponse = Jsoup.connect(Main.requestURL + "getGroups.php?requestToken=" + Main.requestToken + "&serverID=" + Connection.encodeString(guildId)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
-        final JsonObject getGroupsObject = Json.parse(getGroupsJsonResponse).asObject();
-        if (getGroupsObject.getInt("status_code", 900) == 200) {
+        final org.jsoup.Connection.Response getGroupsRes = Jsoup.connect(Main.requestURL + "/group/list/" + guild.getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+        final JsonObject getGroupsObject = Json.parse(getGroupsRes.parse().body().text()).asObject();
+        if (getGroupsRes.statusCode() == 200) {
             JsonArray servers = getGroupsObject.get("groups").asArray();
             if (servers.size() > 0) {
                 for (int i = 0; i < servers.size(); i++) {
                     final String groupName = servers.get(i).asString();
-                    final String getMembersJsonReponse = Jsoup.connect(Main.requestURL + "getGroupMembers.php?requestToken=" + Main.requestToken + "&server_id=" + Connection.encodeString(guildId) + "&group_name=" + Connection.encodeString(groupName)).timeout(Connection.timeout).userAgent(Main.userAgent).execute().body();
-                    final JsonObject getMembersObject = Json.parse(getMembersJsonReponse).asObject();
+                    final org.jsoup.Connection.Response getMembersRes = Jsoup.connect(Main.requestURL + "/group/members/" + guild.getId() + "/" + Connection.encodeString(groupName)).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                    final JsonObject getMembersObject = Json.parse(getMembersRes.parse().body().text()).asObject();
                     if (getMembersObject.getInt("status_code", 900) == 200) {
                         final String groupID = getMembersObject.getString("group_id", null);
                         for (JsonValue value : getMembersObject.get("members").asArray()) {

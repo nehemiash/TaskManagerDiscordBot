@@ -8,36 +8,32 @@
     <artifactId>TeamManagerDiscordBot</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <properties>
-        <kotlin.version>1.3.72</kotlin.version>
-    </properties>
-
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-maven-plugin</artifactId>
-                <version>${kotlin.version}</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.6</version>
                 <executions>
                     <execution>
-                        <id>compile</id>
-                        <phase>compile</phase>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
                         <goals>
-                            <goal>compile</goal>
+                            <goal>single</goal>
                         </goals>
-                    </execution>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>test-compile</goal>
-                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>de.bnder.taskmanager.main.Main</mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <jvmTarget>1.8</jvmTarget>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -94,7 +90,7 @@
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.8.3</version>
+            <version>1.13.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.eclipsesource.minimal-json/minimal-json -->
         <dependency>
@@ -105,24 +101,20 @@
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>4.2.0_208</version>
+            <version>4.2.0_222</version>
         </dependency>
         <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>2.2.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.neovisionaries/nv-websocket-client -->
         <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
+            <groupId>com.neovisionaries</groupId>
+            <artifactId>nv-websocket-client</artifactId>
+            <version>2.10</version>
         </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
+
     </dependencies>
 
 </project>
