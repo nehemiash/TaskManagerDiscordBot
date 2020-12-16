@@ -178,8 +178,7 @@ public class Group implements Command {
                                             add(groupName);
                                         }
                                     }), event.getMessage(), Color.green);
-                                }
-                                if (statusCode == 404) {
+                                } else if (statusCode == 404) {
                                     MessageSender.send(embedTitle, Localizations.getString("group_with_name_doesnt_exist", langCode, new ArrayList<String>() {
                                         {
                                             add(groupName);
@@ -205,6 +204,37 @@ public class Group implements Command {
                         }
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("group_name_needs_to_be_given", langCode), event.getMessage(), Color.red);
+                    }
+                } else {
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);
+                }
+            } else if (args[0].equalsIgnoreCase("connect")) {
+                if (PermissionSystem.hasPermission(event.getMember(), GroupPermission.DEFINE_NOTIFY_CHANNEL)) {
+                    if (event.getMessage().getMentionedChannels().size() > 0) {
+                        String groupName = args[1];
+                        if (serverHasGroup(groupName, event.getGuild())) {
+                            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/group/notify-channel/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getMember().getId()).data("group_name", groupName).data("notify_channel", event.getMessage().getMentionedChannels().get(0).getId()).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                            if (res.statusCode() == 200) {
+                                MessageSender.send(embedTitle, Localizations.getString("group_connect_channel_connected", langCode, new ArrayList<String>() {{
+                                    add(groupName);
+                                    add(event.getMessage().getMentionedChannels().get(0).getAsMention());
+                                }}), event.getMessage(), Color.green);
+                            } else {
+                                MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
+                                    {
+                                        add(String.valueOf(res.statusCode()));
+                                    }
+                                }), event.getMessage(), Color.red);
+                            }
+                        } else {
+                            MessageSender.send(embedTitle, Localizations.getString("group_with_name_doesnt_exist", langCode, new ArrayList<String>() {
+                                {
+                                    add(groupName);
+                                }
+                            }), event.getMessage(), Color.red);
+                        }
+                    } else {
+                        MessageSender.send(embedTitle, Localizations.getString("notify_mention_one_channel", langCode), event.getMessage(), Color.red);
                     }
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);

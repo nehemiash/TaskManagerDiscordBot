@@ -719,6 +719,15 @@
     "ru": "Крайний срок",
     "tr": "Bitiş Tarihi"
   },
+  "task_info_field_id": {
+    "de": "ID",
+    "en": "ID",
+    "bg": "ID",
+    "pl": "ID",
+    "fr": "ID",
+    "ru": "ID",
+    "tr": "ID"
+  },
   "task_info_field_type": {
     "de": "Typ",
     "en": "Type",
@@ -1024,5 +1033,14 @@
     "fr": "\n \n:information_source: Changer de langue: La langue de la tâche n'est pas la langue du serveur configurée. Vous pouvez changer la langue avec la commande `$language $`.",
     "ru": "\n \n:information_source: Изменить язык: Язык задачи не является языком настроенного сервера. Вы можете изменить язык с помощью команды `$language $`.",
     "tr": "\n \n:information_source: Изменить язык: Язык задачи не является языком настроенного сервера. Вы можете изменить язык с помощью команды `$language $`."
+  },
+  "group_connect_channel_connected": {
+    "de": "Die Gruppe `$` wurde mit dem Kanal $ verknüpft. Aufgaben werden nun in dem Kanal protokolliert.",
+    "en": "The group `$` has been linked to the channel $. Tasks are now logged in the channel.",
+    "bg": "Групата `$` е свързана с канала $. Задачите вече са регистрирани в канала.",
+    "pl": "Grupa `$` została połączona z kanałem $. Zadania są teraz rejestrowane w kanale.",
+    "fr": "Le groupe `$` a été lié au canal $. Les tâches sont maintenant enregistrées dans le canal.",
+    "ru": "Группа `$` связана с каналом $. Теперь задачи регистрируются в канале.",
+    "tr": "`$` Grubu $ kanalına bağlandı. Görevler artık kanala kaydedilir."
   }
 }
