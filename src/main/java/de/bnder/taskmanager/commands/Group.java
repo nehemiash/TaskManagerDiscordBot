@@ -208,7 +208,7 @@ public class Group implements Command {
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);
                 }
-            } else if (args[0].equalsIgnoreCase("connect")) {
+            } else if (args[0].equalsIgnoreCase("notifications") || args[0].equalsIgnoreCase("notification")) {
                 if (PermissionSystem.hasPermission(event.getMember(), GroupPermission.DEFINE_NOTIFY_CHANNEL)) {
                     if (event.getMessage().getMentionedChannels().size() > 0) {
                         String groupName = args[1];

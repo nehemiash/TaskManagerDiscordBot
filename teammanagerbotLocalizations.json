@@ -325,12 +325,12 @@
   },
   "sprache_geaendert": {
     "de": "Die Sprache ist nun Deutsch.",
-    "en": "The language was set to english",
-    "bg": "Зададеният език е Български",
-    "pl": "Język został ustawiony jako Polski",
-    "fr": "La langue est maintenant le français",
+    "en": "The language was set to english.",
+    "bg": "Зададеният език е Български. Благодаря на `Виктор Узунов#3049` за превода",
+    "pl": "Język został ustawiony jako Polski. Podziękowania dla `☆_☆Lenar☆_☆#9682` za tłumaczenie",
+    "fr": "La langue est maintenant le français.",
     "ru": "Язык теперь русский.",
-    "tr": "Dil Türkçe olarak ayarlandı."
+    "tr": "Dil Türkçe olarak ayarlandı. Çeviri için `arsarys#7702` 'ye teşekkürler"
   },
   "token_erhalten": {
     "de": "Du erhältst den Token per Direktnachricht.",
@@ -504,13 +504,13 @@
     "tr": "`$task add @USER <TASK>` - Kullanıcıya görev verir\n`$task add <GROUPNAME> <TASK>` - Gruba görev verir\n`$task proceed <TASK-ID>` - Yapılacak görevin durumunu değiştirir/completed\n`$task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Görev için bitiş tarihi belirler\n`$task list <@USER/GROUPNAME>` - Bütün görevleri listeler\n`$task delete <TASK-ID>` - Görevi siler\n`$task edit <TASK-ID> <TASK>` - Görev metnini düzenler\n`$task info <TASK-ID>` - Görev için bireysel bilgileri görüntüler\n`$task done <TASK ID>` - Görevi bitmiş olarak işaretler\n"
   },
   "help_message_other_commands": {
-    "de": "`$token` - Gibt den Token für die Website & App\n`$token new` - Erneuert den Token\n`$help` - Listet alle Befehle auf\n`$support` - Discord Link\n`$app` - App-Informationen\n`$stats` - Statistiken\n`$prefix <PREFIX>` - Ändert den Präfix des Bots\n`$settings` - Zeigt Einstellungen an\n`$data` - Lade alle Daten herunter, die bnder von dir auf diesem Server gespeichert hat\n",
-    "en": "`$token` - Gives the token for the Website & App\n`$token new` - Generates a new token\n`$help` - Lists all commands\n`$support` - Discord Link\n`$app` - Information about the App\n`$stats` - Shows some stats\n`$prefix <PREFIX>` - Changes the prefix of the bot\n`$settings` - Displays settings\n`$data` - Download all the data that bnder has saved about you on this server\n",
-    "bg": "`$token` - Връща символа за уебсайта и приложението\n`$token new` - Променя маркера\n`$help` - Изброява всички команди\n`$support` - Discord Link\n`$app` - Информация за приложението\n`$stats` - статистика\n`$prefix <PREFIX>` - Променя префикса на бота\n`$settings` - Показва настройките\n`$data` - Изтеглете всички данни, които bnder е запазил за вас на този сървър",
-    "pl": "`$token` - Daje token dla strony internetowej i aplikacji\n`$token new` - Generuje nowy token\n`$help` - Wyświetlam wszystkie polecenia\n`$support` - Discord Link\n`$app` - Informacje o Aplikacji\n`$stats` - Statystyki\n`$prefix <PREFIX>` - Zmienia prefiks bota\n`$settings` - Wyświetla ustawienia\n`$data` - Pobierz wszystkie dane o Tobie zapisane przez bnder na tym serwerze\n",
-    "fr": "`$token` - Renvoie le jeton du site Web et de l'application\n`$token new` - Renouveler le jeton\n`$help` - Répertorie toutes les commandes\n`$support` - Lien Discord\n`$app` - Informations sur l'application\n`$stats` - Statistiques\n`$prefix <PREFIX>` - Modifie le préfixe du bot\n`$settings` - Affiche les paramètres\n`$data` - Téléchargez toutes les données que bnder a enregistrées à votre sujet sur ce serveur",
-    "ru": "`$token` - Возвращает токен для сайта и приложения\n`$token new` - Обновить токен\n`$help` - Перечисляет все команды\n`$support` - Discord Link\n`$app` - Информация о приложении\n`$stats` - статистика\n`$prefix <PREFIX>` - Меняет префикс бота\n`$settings` - Отображает настройки\n`$data` - Загрузите все данные, которые bnder сохранил о вас на этом сервере\n",
-    "tr": "`$token` - Websitesi & Uygulama için bir token verir\n`token new` - Yeni token oluşturur\n`$help` - Komutları listeler\n`$support` - Discord Link\n`app` - Uygulama hakkında bilgi\n`$stats` - Bazı istatistikleri gösterir\n`$prefix <PREFIX>` - Botun prefixini değiştirir\n`$settings` - Ayarları gösterir\n`$data` - Bnder'ın sizinle ilgili kaydettiği tüm verileri bu sunucuya indirin\n"
+    "de": "`$token` - Gibt den Token für die Website & App\n`$token new` - Erneuert den Token\n`$help` - Listet alle Befehle auf\n`$support` - Discord Link\n`$app` - App-Informationen\n`$stats` - Statistiken\n`$prefix <PREFIX>` - Ändert den Präfix des Bots\n`$settings` - Zeigt Einstellungen an\n`$data` - Lade alle Daten herunter, die bnder von dir auf diesem Server gespeichert hat\n`$invite` - Sendet dir den Link um den Bot einzuladen\n",
+    "en": "`$token` - Gives the token for the Website & App\n`$token new` - Generates a new token\n`$help` - Lists all commands\n`$support` - Discord Link\n`$app` - Information about the App\n`$stats` - Shows some stats\n`$prefix <PREFIX>` - Changes the prefix of the bot\n`$settings` - Displays settings\n`$data` - Download all the data that bnder has saved about you on this server\n`$invite` - Sends you the link to invite the bot\n",
+    "bg": "`$token` - Връща символа за уебсайта и приложението\n`$token new` - Променя маркера\n`$help` - Изброява всички команди\n`$support` - Discord Link\n`$app` - Информация за приложението\n`$stats` - статистика\n`$prefix <PREFIX>` - Променя префикса на бота\n`$settings` - Показва настройките\n`$data` - Изтеглете всички данни, които bnder е запазил за вас на този сървър\n`$покани` - изпраща ви връзката, за да поканите бота\n",
+    "pl": "`$token` - Daje token dla strony internetowej i aplikacji\n`$token new` - Generuje nowy token\n`$help` - Wyświetlam wszystkie polecenia\n`$support` - Discord Link\n`$app` - Informacje o Aplikacji\n`$stats` - Statystyki\n`$prefix <PREFIX>` - Zmienia prefiks bota\n`$settings` - Wyświetla ustawienia\n`$data` - Pobierz wszystkie dane o Tobie zapisane przez bnder na tym serwerze\n`$invite` - Wysyła link do zaproszenia bota\n",
+    "fr": "`$token` - Renvoie le jeton du site Web et de l'application\n`$token new` - Renouveler le jeton\n`$help` - Répertorie toutes les commandes\n`$support` - Lien Discord\n`$app` - Informations sur l'application\n`$stats` - Statistiques\n`$prefix <PREFIX>` - Modifie le préfixe du bot\n`$settings` - Affiche les paramètres\n`$data` - Téléchargez toutes les données que bnder a enregistrées à votre sujet sur ce serveur\n`$invite` - Vous envoie le lien pour inviter le bot\n",
+    "ru": "`$token` - Возвращает токен для сайта и приложения\n`$token new` - Обновить токен\n`$help` - Перечисляет все команды\n`$support` - Discord Link\n`$app` - Информация о приложении\n`$stats` - статистика\n`$prefix <PREFIX>` - Меняет префикс бота\n`$settings` - Отображает настройки\n`$data` - Загрузите все данные, которые bnder сохранил о вас на этом сервере\n`$invite` - отправляет вам ссылку для приглашения бота\n",
+    "tr": "`$token` - Websitesi & Uygulama için bir token verir\n`token new` - Yeni token oluşturur\n`$help` - Komutları listeler\n`$support` - Discord Link\n`app` - Uygulama hakkında bilgi\n`$stats` - Bazı istatistikleri gösterir\n`$prefix <PREFIX>` - Botun prefixini değiştirir\n`$settings` - Ayarları gösterir\n`$data` - Bnder'ın sizinle ilgili kaydettiği tüm verileri bu sunucuya indirin\n`$invite` - Botu davet etmeniz için size bağlantı gönderir\n"
   },
   "help_message_permission_commands": {
     "de": "`$permission` - Gibt diese Hilfe-Nachricht\n`$permission add @NUTZER/@ROLLE <BERECHTIGUNG>` - Gibt einem Nutzer/einer Rolle eine Berechtigung\n`$permission remove @NUTZER/@ROLLE <BERECHTIGUNG>` - Entfernt eine Berechtigung von einem Nutzer/einer Rolle\n`$permission list @NUTZER/@ROLLE` - Listet alle Berechtigungen eines Nutzers/einer Rolle auf\n \nAktuelle Berechtigungen:\n`CREATE_TASK` - Aufgabe erstellen\n`DELETE_TASK` - Aufgabe löschen\n`EDIT_TASK` - Aufgabe bearbeiten\n`CREATE_GROUP` - Gruppe erstellen\n`DELETE_GROUP` - Gruppe löschen\n`ADD_MEMBERS` - Nutzer zu Gruppe hinzufügen\n`REMOVE_MEMBERS` - Nutzer aus Gruppe entfernen\n`ADD_PERMISSION` - Berechtigung hinzufügen\n`REMOVE_PERMISSION` - Berechtigung entfernen\n`SHOW_PERMISSIONS` - Berechtigungen anzeigen\n",
@@ -891,13 +891,13 @@
     "tr": "Yeni görevler için metin kanalı"
   },
   "settings_invalid_arg": {
-    "de": "Gültige Einstellungen:\n`settings direct-message` - De-/Aktiviert die Direktnachricht bei einer neuen Aufgabe\n`settings show-done-tasks` - De-/Aktiviert die Anzeige von erledigten Aufgaben bei der Aufgabenliste\n`settings notify-channel #KANAL` - Ändert den Kanal für neue Aufgaben",
-    "en": "Valid settings:\n`settings direct-message` - enable / disable the direct message for a new task\n`settings show-done-tasks` - enable / disable the display of completed tasks in the task list\n`settings notify-channel #channel` - changes the channel for new tasks",
-    "bg": "Валидни настройки:\n`settings direct-message` - активиране / деактивиране на директното съобщение за нова задача\n`settings show-done-tasks` - активиране / деактивиране на показването на изпълнени задачи в списъка със задачи\n`settings notifiy-channel #канал` - променя канала за нови задачи",
-    "pl": "Prawidłowe ustawienia:\n`settings direct-message` - włącza / wyłącza bezpośredni komunikat dla nowego zadania\n`settings show-done-tasks` - włącza / wyłącza wyświetlanie ukończonych zadań na liście zadań\n`settings notify-channel #Channel` - zmienia kanał dla nowych zadań",
-    "fr": "Paramètres valides:\n`settings direct-message` - active / désactive le message direct pour une nouvelle tâche\n`settings show-done-tasks` - active / désactive l'affichage des tâches terminées dans la liste des tâches\n`settings notify-channel #CHANNEL` - change le canal pour les nouvelles tâches",
-    "ru": "Допустимые настройки:\n`settings direct-message` - включить / отключить прямое сообщение для новой задачи\n`settings show-done-tasks` - включить / отключить отображение выполненных задач в списке задач\n`settings notify-channel #Channel` - меняет канал на новые задачи",
-    "tr": "Geçerli Ayarlar:n`settings direct-message` - yeni görevler için direkt mesajları etkinleştir/devredışı bırak\n`settings show-done-tasks` - görev listesinde tamamlanan görevlerin görüntülenmesini etkinleştir/devredışı bırak\n`settings notify-channel #channel` - yeni görevler için bildirim kanalını değiştir"
+    "de": "Gültige Einstellungen:\n`settings direct-message` - De-/Aktiviert die Direktnachricht bei einer neuen Aufgabe\n`settings show-done-tasks` - De-/Aktiviert die Anzeige von erledigten Aufgaben bei der Aufgabenliste\n`settings notify-channel #KANAL` - Ändert den Kanal für neue Aufgaben\n`settings notifications @NUTZER #KANAL` - Ändert den Kanal für die Aufgabenprotokollierung",
+    "en": "Valid settings:\n`settings direct-message` - enable / disable the direct message for a new task\n`settings show-done-tasks` - enable / disable the display of completed tasks in the task list\n`settings notify-channel #channel` - changes the channel for new tasks\n`settings notifications @USER #CHANNEL` - Changes the task logging channel",
+    "bg": "Валидни настройки:\n`settings direct-message` - активиране / деактивиране на директното съобщение за нова задача\n`settings show-done-tasks` - активиране / деактивиране на показването на изпълнени задачи в списъка със задачи\n`settings notifiy-channel #канал` - променя канала за нови задачи\n`settings notifications @USER #CHANNEL` - Промени в канала за регистриране на задачите",
+    "pl": "Prawidłowe ustawienia:\n`settings direct-message` - włącza / wyłącza bezpośredni komunikat dla nowego zadania\n`settings show-done-tasks` - włącza / wyłącza wyświetlanie ukończonych zadań na liście zadań\n`settings notify-channel #Channel` - zmienia kanał dla nowych zadań\n`settings notifications @USER #CHANNEL` - Zmiany w kanale logowania zadań",
+    "fr": "Paramètres valides:\n`settings direct-message` - active / désactive le message direct pour une nouvelle tâche\n`settings show-done-tasks` - active / désactive l'affichage des tâches terminées dans la liste des tâches\n`settings notify-channel #CHANNEL` - change le canal pour les nouvelles tâches\n`settings notifications @USER #CHANNEL` - Modifications du canal de journalisation des tâches",
+    "ru": "Допустимые настройки:\n`settings direct-message` - включить / отключить прямое сообщение для новой задачи\n`settings show-done-tasks` - включить / отключить отображение выполненных задач в списке задач\n`settings notify-channel #Channel` - меняет канал на новые задачи\n`settings notifications @USER #CHANNEL` - Изменение канала логирования задачи",
+    "tr": "Geçerli Ayarlar:n`settings direct-message` - yeni görevler için direkt mesajları etkinleştir/devredışı bırak\n`settings show-done-tasks` - görev listesinde tamamlanan görevlerin görüntülenmesini etkinleştir/devredışı bırak\n`settings notify-channel #channel` - yeni görevler için bildirim kanalını değiştir\n`settings notifications @USER #CHANNEL` - Görev günlüğü kanalında değişiklikler"
   },
   "donate_alert": {
     "de": "Unterstütze uns auf bnder.de/donate",
@@ -1042,5 +1042,32 @@
     "fr": "Le groupe `$` a été lié au canal $. Les tâches sont maintenant enregistrées dans le canal.",
     "ru": "Группа `$` связана с каналом $. Теперь задачи регистрируются в канале.",
     "tr": "`$` Grubu $ kanalına bağlandı. Görevler artık kanala kaydedilir."
+  },
+  "user_connect_channel_connected": {
+    "de": "Der Nutzer `$` wurde mit dem Kanal $ verknüpft. Aufgaben werden nun in dem Kanal protokolliert.",
+    "en": "The user `$` has been linked to the channel $. Tasks are now logged in the channel.",
+    "bg": "потребител `$` е свързана с канала $. Задачите вече са регистрирани в канала.",
+    "pl": "użytkownik `$` została połączona z kanałem $. Zadania są teraz rejestrowane w kanale.",
+    "fr": "l'utilisateur `$` a été lié au canal $. Les tâches sont maintenant enregistrées dans le canal.",
+    "ru": "Пользователь `$` связана с каналом $. Теперь задачи регистрируются в канале.",
+    "tr": "`$` Kullanıcı $ kanalına bağlandı. Görevler artık kanala kaydedilir."
+  },
+  "invite_title": {
+    "de": "Einladen",
+    "en": "Invite",
+    "bg": "Поканете",
+    "pl": "Zapraszam",
+    "fr": "Inviter",
+    "ru": "Пригласить",
+    "tr": "Davet et"
+  },
+  "invite_text": {
+    "de": "Du kannst den Bot [unter diesem Link](https://bnder.de/discordbot/taskmanagerbot/invite \"https://bnder.de/discordbot/taskmanagerbot/invite\") einladen.",
+    "en": "You can invite the bot [via this Link](https://bnder.net/discordbot/taskmanagerbot/invite \"https://bnder.net/discordbot/taskmanagerbot/invite\").",
+    "bg": "Можете да поканите бота [под тази връзка](https://bnder.net/discordbot/taskmanagerbot/invite \"https://bnder.net/discordbot/taskmanagerbot/invite\").",
+    "pl": "Możesz zaprosić bota [pod tym linkiem](https://bnder.net/discordbot/taskmanagerbot/invite \"https://bnder.net/discordbot/taskmanagerbot/invite\").",
+    "fr": "Vous pouvez inviter le bot [sous ce lien](https://bnder.net/discordbot/taskmanagerbot/invite \"https://bnder.net/discordbot/taskmanagerbot/invite\").",
+    "ru": "Вы можете пригласить бота [по этой ссылке](https://bnder.net/discordbot/taskmanagerbot/invite \"https://bnder.net/discordbot/taskmanagerbot/invite\").",
+    "tr": "Botu [bu bağlantı altında](https://bnder.net/discordbot/taskmanagerbot/invite \"https://bnder.net/discordbot/taskmanagerbot/invite\") davet edebilirsiniz."
   }
 }

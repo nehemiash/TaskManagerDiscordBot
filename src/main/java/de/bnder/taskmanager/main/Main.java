@@ -30,6 +30,11 @@ import java.util.Collections;
 
 public class Main {
 
+    //CHANGELOG 2020.4.2:
+    //-invite command added
+    //Translators are shown when changing language if language wasn't translated by bnder
+    //Task Command more detailed error messages
+
     public static final Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
     public static String requestURL = dotenv.get("REQUEST_URL") != null ? dotenv.get("REQUEST_URL") : System.getenv("REQUEST_URL");
@@ -72,6 +77,7 @@ public class Main {
         CommandHandler.commands.put("app", new App());
         CommandHandler.commands.put("data", new Data());
         CommandHandler.commands.put("settings", new Settings());
+        CommandHandler.commands.put("invite", new Invite());
 
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.playing("bnder.net"));

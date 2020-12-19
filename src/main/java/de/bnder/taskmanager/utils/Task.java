@@ -30,6 +30,7 @@ public class Task {
     final Guild guild;
     String newLanguageSuggestion = null;
     String notifyChannelMessageID = null;
+    String responseMessage = null;
 
     public Task(String taskID, Guild guild) {
         this.id = taskID;
@@ -41,19 +42,22 @@ public class Task {
             //Try user task
             res = Jsoup.connect(Main.requestURL + "/task/user/info/" + guild.getId() + "/" + taskID).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             setStatusCode(res.statusCode());
+            setResponseMessage(res.body());
             if (getStatusCode() == 200) {
                 this.type = TaskType.USER;
                 final Document a = res.parse();
                 jsonObject = Json.parse(a.body().text()).asObject();
+                notifyChannelMessageID = !jsonObject.get("notify_channel_message_id").isNull() ? jsonObject.getString("notify_channel_message_id", null) : null;
             } else if (getStatusCode() == 404) {
                 //Try group task
                 res = Jsoup.connect(Main.requestURL + "/task/group/info/" + guild.getId() + "/" + taskID).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                 setStatusCode(res.statusCode());
+                setResponseMessage(res.body());
                 if (getStatusCode() == 200) {
                     this.type = TaskType.GROUP;
                     final Document a = res.parse();
                     jsonObject = Json.parse(a.body().text()).asObject();
-                    notifyChannelMessageID = jsonObject.getString("notify_channel_message_id", null);
+                    notifyChannelMessageID = !jsonObject.get("notify_channel_message_id").isNull() ? jsonObject.getString("notify_channel_message_id", null) : null;
                 } else {
                     this.exists = false;
                     return;
@@ -98,8 +102,30 @@ public class Task {
             final String jsonResponse = a.body().text();
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
             setStatusCode(200);
+            setResponseMessage(a.body().text());
             this.id = jsonObject.getString("id", null);
             this.newLanguageSuggestion = jsonObject.get("new_language_suggestion").isNull() ? null : jsonObject.getString("new_language_suggestion", null);
+
+
+            //Send task into group notify channel
+            final org.jsoup.Connection.Response getNotifyChannelRes = Jsoup.connect(Main.requestURL + "/user/notify-channel/" + guild.getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", holder).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            if (getNotifyChannelRes.statusCode() == 200) {
+                final JsonObject notifyChannelObject = Json.parse(getNotifyChannelRes.parse().body().text()).asObject();
+                if (notifyChannelObject.get("channel") != null) {
+                    final String channel = notifyChannelObject.getString("channel", null);
+                    if (guild.getTextChannelById(channel) != null) {
+                        final String langCode = Localizations.getGuildLanguage(guild);
+                        EmbedBuilder builder = new EmbedBuilder().setColor(Color.cyan);
+                        builder.addField(Localizations.getString("task_info_field_task", langCode), text, false);
+                        builder.addField(Localizations.getString("task_info_field_type_user", langCode), member.getUser().getAsTag(), true);
+                        builder.addField(Localizations.getString("task_info_field_deadline", langCode), (deadline != null) ? deadline : "---", true);
+                        builder.addField(Localizations.getString("task_info_field_id", langCode), id, true);
+                        builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
+                        final Message message = guild.getTextChannelById(channel).sendMessage(builder.build()).complete();
+                        Jsoup.connect(Main.requestURL + "/task/user/set-notify-channel-message-id/" + guild.getId() + "/" + this.id).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", holder).data("notify_channel_message_id", message.getId()).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                    }
+                }
+            }
         } catch (Exception e) {
             setStatusCode(-1);
             e.printStackTrace();
@@ -117,6 +143,7 @@ public class Task {
             final String jsonResponse = a.body().text();
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
             setStatusCode(200);
+            setResponseMessage(a.body().text());
             this.id = jsonObject.getString("id", null);
 
 
@@ -145,27 +172,33 @@ public class Task {
         }
     }
 
+    void setResponseMessage(String jsoupResponse) {
+        final JsonObject object = Json.parse(jsoupResponse).asObject();
+        if (!object.get("message").isNull()) {
+            this.responseMessage = object.getString("message", null);
+        }
+    }
+
     public String newLanguageSuggestion() {
         return newLanguageSuggestion;
     }
 
     public String getNotifyChannelMessageID() {
         if (this.notifyChannelMessageID == null) {
-            if (this.type == TaskType.GROUP) {
-                try {
-                    final Response res = Jsoup.connect(Main.requestURL + "/task/group/info/" + this.guild.getId() + "/" + this.id).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
-                    setStatusCode(res.statusCode());
-                    if (getStatusCode() == 200) {
-                        this.type = TaskType.GROUP;
-                        final Document a = res.parse();
-                        final JsonObject jsonObject = Json.parse(a.body().text()).asObject();
-                        this.notifyChannelMessageID = jsonObject.get("notify_channel_message_id") != null ? jsonObject.getString("notify_channel_message_id", null) : null;
-                        return jsonObject.get("notify_channel_message_id") != null ? jsonObject.getString("notify_channel_message_id", null) : null;
-                    }
-                } catch (Exception e) {
-                    setStatusCode(-2);
-                    e.printStackTrace();
+            try {
+                final Response res = Jsoup.connect(Main.requestURL + "/task/" + ((this.type == TaskType.GROUP) ? "group" : "user") + "/info/" + this.guild.getId() + "/" + this.id).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                setStatusCode(res.statusCode());
+                setResponseMessage(res.body());
+                if (getStatusCode() == 200) {
+                    this.type = TaskType.GROUP;
+                    final Document a = res.parse();
+                    final JsonObject jsonObject = Json.parse(a.body().text()).asObject();
+                    this.notifyChannelMessageID = !jsonObject.get("notify_channel_message_id").isNull() ? jsonObject.getString("notify_channel_message_id", null) : null;
+                    return !jsonObject.get("notify_channel_message_id").isNull()  ? jsonObject.getString("notify_channel_message_id", null) : null;
                 }
+            } catch (Exception e) {
+                setStatusCode(-2);
+                e.printStackTrace();
             }
             return null;
         }
@@ -176,20 +209,13 @@ public class Task {
         try {
             Response res = Jsoup.connect(Main.requestURL + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/edit/" + this.guild.getId() + "/" + this.id).method(Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("task_text", text).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             setStatusCode(res.statusCode());
+            setResponseMessage(res.body());
             if (getStatusCode() == 200) {
                 this.text = text;
 
                 //Update in notify channel
-                if (this.type == TaskType.GROUP) {
-                    final String channel = getGroupNotifyChannelID(this.guild, this.holder);
-                    if (guild.getTextChannelById(channel) != null) {
-                        final String langCode = Localizations.getGuildLanguage(guild);
-                        final String notifyChannelMessageID = getNotifyChannelMessageID();
-                        if (notifyChannelMessageID != null) {
-                            updateGroupNotifyChannel(this.guild, channel, notifyChannelMessageID, Localizations.getString("task_info_field_task", langCode), this.text);
-                        }
-                    }
-                }
+                final String langCode = Localizations.getGuildLanguage(guild);
+                updateNotifyChannel(this.guild, Localizations.getString("task_info_field_task", langCode), this.text);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -200,20 +226,13 @@ public class Task {
         try {
             final Response res = Jsoup.connect(Main.requestURL + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/set-deadline/" + guild.getId() + "/" + this.id).method(Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("deadline", deadline).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             setStatusCode(res.statusCode());
+            setResponseMessage(res.body());
             if (getStatusCode() == 200) {
                 this.deadline = deadline;
 
                 //Update in notify channel
-                if (this.type == TaskType.GROUP) {
-                    final String channel = getGroupNotifyChannelID(this.guild, this.holder);
-                    if (guild.getTextChannelById(channel) != null) {
-                        final String langCode = Localizations.getGuildLanguage(guild);
-                        final String notifyChannelMessageID = getNotifyChannelMessageID();
-                        if (notifyChannelMessageID != null) {
-                            updateGroupNotifyChannel(this.guild, channel, notifyChannelMessageID, Localizations.getString("task_info_field_deadline", langCode), this.deadline);
-                        }
-                    }
-                }
+                final String langCode = Localizations.getGuildLanguage(guild);
+                updateNotifyChannel(this.guild, Localizations.getString("task_info_field_deadline", langCode), this.deadline);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -221,9 +240,9 @@ public class Task {
         return this;
     }
 
-    public static String getGroupNotifyChannelID(Guild guild, String groupID) {
+    public String getNotifyChannelID(Guild guild) {
         try {
-            final org.jsoup.Connection.Response getNotifyChannelRes = Jsoup.connect(Main.requestURL + "/group/notify-channel/" + guild.getId() + "/" + groupID).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            final org.jsoup.Connection.Response getNotifyChannelRes = Jsoup.connect(Main.requestURL + "/" + ((this.type == TaskType.GROUP) ? "group" : "user") + "/notify-channel/" + guild.getId() + "/" + ((this.type == TaskType.GROUP) ? holder : "")).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", (this.type == TaskType.GROUP) ? "---" : holder).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             if (getNotifyChannelRes.statusCode() == 200) {
                 final JsonObject notifyChannelObject = Json.parse(getNotifyChannelRes.parse().body().text()).asObject();
                 if (notifyChannelObject.get("channel") != null) {
@@ -237,22 +256,28 @@ public class Task {
         return null;
     }
 
-    public void updateGroupNotifyChannel(Guild guild, String channelID, String messageID, String valueTitle, String newValue) {
-        final Message message = guild.getTextChannelById(channelID).retrieveMessageById(messageID).complete();
-        if (message.getAuthor().isBot()) {
-            EmbedBuilder newEmbed = new EmbedBuilder();
-            for (MessageEmbed embed : message.getEmbeds()) {
-                newEmbed.setColor(embed.getColor());
-                newEmbed.setTitle(embed.getTitle());
-                for (MessageEmbed.Field field : embed.getFields()) {
-                    if (!field.getName().equalsIgnoreCase(valueTitle)) {
-                        newEmbed.addField(field.getName(), field.getValue(), field.isInline());
-                    } else {
-                        newEmbed.addField(field.getName(), newValue, field.isInline());
+    public void updateNotifyChannel(Guild guild, String valueTitle, String newValue) {
+        final String messageID = getNotifyChannelMessageID();
+        if (messageID != null) {
+            final String channelID = getNotifyChannelID(guild);
+            if (channelID != null && guild.getTextChannelById(channelID) != null) {
+                final Message message = guild.getTextChannelById(channelID).retrieveMessageById(messageID).complete();
+                if (message.getAuthor().isBot()) {
+                    EmbedBuilder newEmbed = new EmbedBuilder();
+                    for (MessageEmbed embed : message.getEmbeds()) {
+                        newEmbed.setColor(embed.getColor());
+                        newEmbed.setTitle(embed.getTitle());
+                        for (MessageEmbed.Field field : embed.getFields()) {
+                            if (!field.getName().equalsIgnoreCase(valueTitle)) {
+                                newEmbed.addField(field.getName(), field.getValue(), field.isInline());
+                            } else {
+                                newEmbed.addField(field.getName(), newValue, field.isInline());
+                            }
+                        }
                     }
+                    message.editMessage(newEmbed.build()).queue();
                 }
             }
-            message.editMessage(newEmbed.build()).queue();
         }
     }
 
@@ -260,7 +285,18 @@ public class Task {
         try {
             Response res = Jsoup.connect(Main.requestURL + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/" + this.guild.getId() + "/" + this.id).method(Method.DELETE).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             setStatusCode(res.statusCode());
+            setResponseMessage(res.body());
             this.exists = false;
+
+            //Delete message channel
+            final String messageID = getNotifyChannelMessageID();
+            if (messageID != null) {
+                final String channelID = getNotifyChannelID(guild);
+                if (channelID != null && guild.getTextChannelById(channelID) != null) {
+                    final Message message = guild.getTextChannelById(channelID).retrieveMessageById(messageID).complete();
+                    message.delete().queue();
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -279,23 +315,18 @@ public class Task {
             }
             final Response res = Jsoup.connect(Main.requestURL + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/set-status/" + guild.getId() + "/" + this.id + "/" + number).method(Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             setStatusCode(res.statusCode());
+            setResponseMessage(res.body());
             if (getStatusCode() == 200) {
                 this.status = status;
 
                 //Update in notify channel
-                if (this.type == TaskType.GROUP) {
-                    final String channel = getGroupNotifyChannelID(this.guild, this.holder);
-                    if (guild.getTextChannelById(channel) != null) {
-                        final String langCode = Localizations.getGuildLanguage(guild);
-                        final String notifyChannelMessageID = getNotifyChannelMessageID();
-                        if (notifyChannelMessageID != null) {
-                            String newStatus = Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode);
-                            if (status == TaskStatus.IN_PROGRESS) newStatus = Localizations.getString("aufgaben_status_wird_bearbeitet", langCode);
-                            else if (status == TaskStatus.DONE) newStatus = Localizations.getString("aufgaben_status_erledigt", langCode);
-                            updateGroupNotifyChannel(this.guild, channel, notifyChannelMessageID, Localizations.getString("task_info_field_state", langCode), newStatus);
-                        }
-                    }
-                }
+                final String langCode = Localizations.getGuildLanguage(guild);
+                String newStatus = Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode);
+                if (status == TaskStatus.IN_PROGRESS)
+                    newStatus = Localizations.getString("aufgaben_status_wird_bearbeitet", langCode);
+                else if (status == TaskStatus.DONE)
+                    newStatus = Localizations.getString("aufgaben_status_erledigt", langCode);
+                updateNotifyChannel(this.guild, Localizations.getString("task_info_field_state", langCode), newStatus);
             }
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -315,6 +346,7 @@ public class Task {
 
     private void processResponseProceedUndoCommand(Response res) throws IOException {
         setStatusCode(res.statusCode());
+        setResponseMessage(res.body());
         if (getStatusCode() == 200) {
             final Document document = res.parse();
             final String jsonResponse = document.body().text();
@@ -322,19 +354,13 @@ public class Task {
             this.status = TaskStatus.values()[jsonObject.getInt("status", 0)];
 
             //Update in notify channel
-            if (this.type == TaskType.GROUP) {
-                final String channel = getGroupNotifyChannelID(this.guild, this.holder);
-                if (guild.getTextChannelById(channel) != null) {
-                    final String langCode = Localizations.getGuildLanguage(guild);
-                    final String notifyChannelMessageID = getNotifyChannelMessageID();
-                    if (notifyChannelMessageID != null) {
-                        String newStatus = Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode);
-                        if (status == TaskStatus.IN_PROGRESS) newStatus = Localizations.getString("aufgaben_status_wird_bearbeitet", langCode);
-                        else if (status == TaskStatus.DONE) newStatus = Localizations.getString("aufgaben_status_erledigt", langCode);
-                        updateGroupNotifyChannel(this.guild, channel, notifyChannelMessageID, Localizations.getString("task_info_field_state", langCode), newStatus);
-                    }
-                }
-            }
+            final String langCode = Localizations.getGuildLanguage(guild);
+            String newStatus = Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode);
+            if (status == TaskStatus.IN_PROGRESS)
+                newStatus = Localizations.getString("aufgaben_status_wird_bearbeitet", langCode);
+            else if (status == TaskStatus.DONE)
+                newStatus = Localizations.getString("aufgaben_status_erledigt", langCode);
+            updateNotifyChannel(this.guild, Localizations.getString("task_info_field_state", langCode), newStatus);
         }
     }
 
@@ -346,6 +372,10 @@ public class Task {
             exception.printStackTrace();
         }
         return this;
+    }
+
+    public String getResponseMessage() {
+        return responseMessage;
     }
 
     private void setStatusCode(int statusCode) {

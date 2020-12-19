@@ -52,7 +52,7 @@ public class Task implements Command {
                             } else {
                                 MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, new ArrayList<String>() {
                                     {
-                                        add(String.valueOf(taskObject.getStatusCode()));
+                                        add(taskObject.getStatusCode() + " " + taskObject.getResponseMessage());
                                     }
                                 }), event.getMessage(), Color.red);
                             }
@@ -100,7 +100,7 @@ public class Task implements Command {
                         } else {
                             MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, new ArrayList<String>() {
                                 {
-                                    add(groupName);
+                                    add(taskObject.getStatusCode()  + " " + taskObject.getResponseMessage());
                                 }
                             }), event.getMessage(), Color.red);
                         }
@@ -132,7 +132,7 @@ public class Task implements Command {
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
                             {
-                                add(String.valueOf(statusCode));
+                                add(String.valueOf(statusCode) + " " + task.getResponseMessage());
                             }
                         }), event.getMessage(), Color.red);
                     }
@@ -337,7 +337,7 @@ public class Task implements Command {
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
                             {
-                                add(String.valueOf(statusCode));
+                                add(String.valueOf(statusCode)+ " " + task.getResponseMessage());
                             }
                         }), event.getMessage(), Color.red);
                     }
@@ -359,7 +359,7 @@ public class Task implements Command {
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
                         {
-                            add(String.valueOf(statusCode));
+                            add(String.valueOf(statusCode)+ " " + task.getResponseMessage());
                         }
                     }), event.getMessage(), Color.red);
                 }
@@ -385,7 +385,7 @@ public class Task implements Command {
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
                         {
-                            add(String.valueOf(statusCode));
+                            add(String.valueOf(statusCode)+ " " + task.getResponseMessage());
                         }
                     }),event.getMessage(), Color.red);
                 }
@@ -405,7 +405,7 @@ public class Task implements Command {
                                 MessageSender.send(embedTitle, Localizations.getString("aufgabe_erledigt", langCode), event.getMessage(), Color.green);
                             }
                             else {
-                                MessageSender.send(embedTitle, Localizations.getString("task_abfrage_unbekannter_fehler", langCode), event.getMessage(), Color.red);
+                                MessageSender.send(embedTitle, Localizations.getString("task_abfrage_unbekannter_fehler", langCode) + " " + task.getResponseMessage(), event.getMessage(), Color.red);
                             }
                     } else if (statusCode == 404) {
                         MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
@@ -413,11 +413,10 @@ public class Task implements Command {
                                 add(taskID);
                             }
                         }),event.getMessage(), Color.red);
-                    }
-                    else {
+                    } else {
                         MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
                             {
-                                add(String.valueOf(statusCode));
+                                add(String.valueOf(statusCode)+ " " + task.getResponseMessage());
                             }
                         }),event.getMessage(), Color.red);
                     }

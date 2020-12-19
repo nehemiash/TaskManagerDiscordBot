@@ -22,8 +22,11 @@ import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Connection;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
+import de.bnder.taskmanager.utils.PermissionSystem;
+import de.bnder.taskmanager.utils.permissions.GroupPermission;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.jsoup.Jsoup;
 
@@ -100,11 +103,11 @@ public class Settings implements Command {
                     final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/user/settings/value/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getAuthor().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).data("type", "notify_channel").data("value", channel.getId()).postDataCharset("UTF-8").ignoreContentType(true).ignoreHttpErrors(true).execute();
                     if (res.statusCode() == 200) {
                         if (!de.bnder.taskmanager.utils.Settings.getUserSettings(event.getMember()).getString("direct_message", "1").equals("0")) {
-                            MessageSender.send(embedTitle, Localizations.getString("notify_channel_set_but_dms_are_enabled", langCode, new ArrayList<String>(){{
+                            MessageSender.send(embedTitle, Localizations.getString("notify_channel_set_but_dms_are_enabled", langCode, new ArrayList<String>() {{
                                 add(channel.getAsMention());
                             }}), event.getMessage(), Color.green);
                         } else {
-                            MessageSender.send(embedTitle, Localizations.getString("notify_channel_set", langCode, new ArrayList<String>(){{
+                            MessageSender.send(embedTitle, Localizations.getString("notify_channel_set", langCode, new ArrayList<String>() {{
                                 add(channel.getAsMention());
                             }}), event.getMessage(), Color.green);
                         }
@@ -116,7 +119,38 @@ public class Settings implements Command {
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("notify_mention_one_channel", langCode), event.getMessage(), Color.red);
                 }
-            }else {
+            } else {
+                MessageSender.send(embedTitle, Localizations.getString("settings_invalid_arg", langCode), event.getMessage(), Color.red);
+            }
+        } else if (args.length == 3) {
+            if (args[0].equalsIgnoreCase("notifications") || args[0].equalsIgnoreCase("notification")) {
+                if (PermissionSystem.hasPermission(event.getMember(), GroupPermission.DEFINE_NOTIFY_CHANNEL)) {
+                    if (event.getMessage().getMentionedMembers().size() > 0) {
+                        if (event.getMessage().getMentionedChannels().size() > 0) {
+                            final User user = event.getMessage().getMentionedMembers().get(0).getUser();
+                            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/user/notify-channel/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.PUT).header("authorization", "TMB " + Main.authorizationToken).header("user_id", user.getId()).data("notify_channel", event.getMessage().getMentionedChannels().get(0).getId()).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                            if (res.statusCode() == 200) {
+                                MessageSender.send(embedTitle, Localizations.getString("user_connect_channel_connected", langCode, new ArrayList<String>() {{
+                                    add(user.getAsTag());
+                                    add(event.getMessage().getMentionedChannels().get(0).getAsMention());
+                                }}), event.getMessage(), Color.green);
+                            } else {
+                                MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
+                                    {
+                                        add(String.valueOf(res.statusCode()));
+                                    }
+                                }), event.getMessage(), Color.red);
+                            }
+                        } else {
+                            MessageSender.send(embedTitle, Localizations.getString("notify_mention_one_channel", langCode), event.getMessage(), Color.red);
+                        }
+                    } else {
+                        MessageSender.send(embedTitle, Localizations.getString("user_needs_to_be_mentioned", langCode), event.getMessage(), Color.red);
+                    }
+                } else {
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);
+                }
+            } else {
                 MessageSender.send(embedTitle, Localizations.getString("settings_invalid_arg", langCode), event.getMessage(), Color.red);
             }
         } else {

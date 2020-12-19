@@ -46,6 +46,7 @@ public class Help implements Command {
             add(prefix);
             add(prefix);
             add(prefix);
+            add(prefix);
         }}), event.getMessage(), Color.cyan);
         MessageSender.send(embedTitle + " - " + Localizations.getString("permissions_title", langCode), Localizations.getString("help_message_permission_commands", langCode, new ArrayList<String>(){{
             add(prefix);
