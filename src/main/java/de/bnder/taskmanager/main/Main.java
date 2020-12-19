@@ -26,7 +26,6 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class Main {
 
@@ -48,7 +47,7 @@ public class Main {
     public static void main(String[] args) {
 
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"),
-                Collections.singletonList(GatewayIntent.GUILD_MESSAGES));
+                Arrays.asList(GatewayIntent.GUILD_MESSAGES));
 
         //Disable Caches for better memory usage
         builder.disableCache(Arrays.asList(CacheFlag.VOICE_STATE, CacheFlag.EMOTE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ROLE_TAGS, CacheFlag.MEMBER_OVERRIDES));

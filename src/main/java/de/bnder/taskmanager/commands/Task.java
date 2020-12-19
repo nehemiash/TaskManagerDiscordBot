@@ -25,6 +25,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Task implements Command {
+
+    final ArrayList<String> commandArgs = new ArrayList<String>(){{
+        add("add");
+        add("delete");
+        add("proceed");
+        add("deadline");
+        add("list");
+        add("delete");
+        add("edit");
+        add("info");
+        add("done");
+    }};
+
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
         final Guild guild = event.getGuild();
@@ -457,17 +470,18 @@ public class Task implements Command {
                     }),event.getMessage(), Color.red);
                 }
             } else {
-                MessageSender.send(embedTitle + " - " + Localizations.getString("task_message_title", langCode), Localizations.getString("help_message_task_commands", langCode, new ArrayList<String>(){{
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                }}), event.getMessage(), Color.red);
+                checkIfTypo(args, event.getMessage());
+            /*MessageSender.send(embedTitle + " - " + Localizations.getString("task_message_title", langCode), Localizations.getString("help_message_task_commands", langCode, new ArrayList<String>(){{
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+            }}), event.getMessage(), Color.red);*/
             }
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("list")) {
@@ -561,20 +575,22 @@ public class Task implements Command {
                     MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), event.getMessage(), Color.red);
                 }
             } else {
-                MessageSender.send(embedTitle + " - " + Localizations.getString("task_message_title", langCode), Localizations.getString("help_message_task_commands", langCode, new ArrayList<String>(){{
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                }}), event.getMessage(), Color.red);
+                checkIfTypo(args, event.getMessage());
+            /*MessageSender.send(embedTitle + " - " + Localizations.getString("task_message_title", langCode), Localizations.getString("help_message_task_commands", langCode, new ArrayList<String>(){{
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+            }}), event.getMessage(), Color.red);*/
             }
         } else {
-            MessageSender.send(embedTitle + " - " + Localizations.getString("task_message_title", langCode), Localizations.getString("help_message_task_commands", langCode, new ArrayList<String>(){{
+            checkIfTypo(args, event.getMessage());
+            /*MessageSender.send(embedTitle + " - " + Localizations.getString("task_message_title", langCode), Localizations.getString("help_message_task_commands", langCode, new ArrayList<String>(){{
                 add(prefix);
                 add(prefix);
                 add(prefix);
@@ -584,7 +600,7 @@ public class Task implements Command {
                 add(prefix);
                 add(prefix);
                 add(prefix);
-            }}), event.getMessage(), Color.red);
+            }}), event.getMessage(), Color.red);*/
         }
     }
 
@@ -618,6 +634,45 @@ public class Task implements Command {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    void checkIfTypo(String[] args, Message message) {
+        final String userArg1 = args[0];
+        final StringBuilder possibleCommands = new StringBuilder();
+        final String langCode = Localizations.getGuildLanguage(message.getGuild());
+        for (String commandArg : commandArgs) {
+            final int distance = LevenshteinDistance.levenshteinDistance(commandArg, userArg1);
+            if (distance <= 2 && distance != 0) {
+                final StringBuilder correctedMessage = new StringBuilder().append(message.getContentRaw().split(" ")[0]).append(" ");
+                correctedMessage.append(commandArg).append(" ");
+                for (int i = 1; i < args.length; i++) {
+                    correctedMessage.append(args[i]).append(" ");
+                }
+
+                final String correctedMessageString = correctedMessage.substring(0, correctedMessage.length() -1);
+                possibleCommands.append(correctedMessageString).append("\n");
+            }
+        }
+        if (possibleCommands.length() > 0) {
+            EmbedBuilder builder = new EmbedBuilder().setColor(Color.orange);
+            builder.setTitle("Vorschlag");
+            builder.setDescription("Ich habe einen Fehler in der Nachricht entdeckt. Meintest du \n**" + possibleCommands.substring(0, possibleCommands.length() - 1) + "**");
+            message.getChannel().sendMessage(builder.build()).queue();
+        } else {
+            final String embedTitle = Localizations.getString("task_message_title", langCode);
+            final String prefix = String.valueOf(message.getContentRaw().charAt(0));
+            MessageSender.send(embedTitle + " - " + Localizations.getString("task_message_title", langCode), Localizations.getString("help_message_task_commands", langCode, new ArrayList<String>(){{
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+                add(prefix);
+            }}), message, Color.red);
         }
     }
 
