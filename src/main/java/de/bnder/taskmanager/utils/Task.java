@@ -174,7 +174,8 @@ public class Task {
 
     void setResponseMessage(String jsoupResponse) {
         final JsonObject object = Json.parse(jsoupResponse).asObject();
-        if (!object.get("message").isNull()) {
+        System.out.println(jsoupResponse);
+        if (object.get("message") != null && !object.get("message").isNull()) {
             this.responseMessage = object.getString("message", null);
         }
     }

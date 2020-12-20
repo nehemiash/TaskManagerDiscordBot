@@ -18,6 +18,7 @@ package de.bnder.taskmanager.utils;
 import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
 import org.jsoup.Jsoup;
 
 import java.awt.*;
@@ -40,6 +41,20 @@ public class MessageSender {
             buildMessageBuilder(title, msg, red, s);
         }
     }
+    public static void send(String title, String s, TextChannel textChannel, Color red) {
+        if (s.length() > 1990) {
+            while (s.length() > 1990) {
+                String textNow = s.substring(0, 1990);
+                buildMessageBuilder(title, textChannel, red, textNow);
+                s = s.substring(1990);
+            }
+            if (s.length() > 0) {
+                buildMessageBuilder(title, textChannel, red, s);
+            }
+        } else {
+            buildMessageBuilder(title, textChannel, red, s);
+        }
+    }
 
     private static void buildMessageBuilder(String title, Message msg, Color red, String textNow) {
         EmbedBuilder builder = new EmbedBuilder();
@@ -52,6 +67,24 @@ public class MessageSender {
             builder.setFooter(Localizations.getString("donate_alert", langCode));
         }
         msg.getChannel().sendMessage(builder.build()).queue();
+        try {
+            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/stats/messages-sent").method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void buildMessageBuilder(String title, TextChannel textChannel, Color red, String textNow) {
+        EmbedBuilder builder = new EmbedBuilder();
+        builder.setTitle(title);
+        builder.setDescription(textNow);
+        builder.setColor(red);
+        builder.setTimestamp(Calendar.getInstance().toInstant());
+        if (new Random().nextInt(100) + 1 <= 5) {
+            final String langCode = Localizations.getGuildLanguage(textChannel.getGuild());
+            builder.setFooter(Localizations.getString("donate_alert", langCode));
+        }
+        textChannel.sendMessage(builder.build()).queue();
         try {
             final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/stats/messages-sent").method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
         } catch (IOException e) {

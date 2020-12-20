@@ -16,6 +16,7 @@ package de.bnder.taskmanager.main;
  */
 
 import de.bnder.taskmanager.commands.*;
+import de.bnder.taskmanager.commands.task.TaskController;
 import de.bnder.taskmanager.listeners.*;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -47,7 +48,7 @@ public class Main {
     public static void main(String[] args) {
 
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"),
-                Arrays.asList(GatewayIntent.GUILD_MESSAGES));
+                Arrays.asList(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS));
 
         //Disable Caches for better memory usage
         builder.disableCache(Arrays.asList(CacheFlag.VOICE_STATE, CacheFlag.EMOTE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ROLE_TAGS, CacheFlag.MEMBER_OVERRIDES));
@@ -62,11 +63,13 @@ public class Main {
         builder.addEventListeners(new ServerNameUpdate());
         builder.addEventListeners(new GuildJoin());
         builder.addEventListeners(new GuildLeave());
+        builder.addEventListeners(new TaskTypoReactionListener());
 
         CommandHandler.commands.put("version", new Version());
         CommandHandler.commands.put("prefix", new Prefix());
         CommandHandler.commands.put("group", new Group());
-        CommandHandler.commands.put("task", new Task());
+        //CommandHandler.commands.put("task", new Task());
+        CommandHandler.commands.put("task", new TaskController());
         CommandHandler.commands.put("permission", new Permission());
         CommandHandler.commands.put("token", new Token());
         CommandHandler.commands.put("help", new Help());
