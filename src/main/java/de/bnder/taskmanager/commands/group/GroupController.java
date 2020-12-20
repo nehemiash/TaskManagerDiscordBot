@@ -1,4 +1,4 @@
-package de.bnder.taskmanager.commands.task;
+package de.bnder.taskmanager.commands.group;
 
 import de.bnder.taskmanager.main.Command;
 import de.bnder.taskmanager.utils.LevenshteinDistance;
@@ -12,51 +12,41 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TaskController implements Command {
+public class GroupController implements Command {
 
     final ArrayList<String> commandArgs = new ArrayList<String>() {{
+        add("create");
+        add("delete");
+        add("members");
         add("add");
-        add("delete");
-        add("proceed");
-        add("deadline");
+        add("remove");
+        add("rem");
+        add("notifications");
+        add("notification");
         add("list");
-        add("delete");
-        add("edit");
-        add("info");
-        add("done");
     }};
 
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
-        if (args.length >= 3) {
-            if (args[0].equalsIgnoreCase("add")) {
-                AddTask.addTask(event.getMessage().getContentRaw(), event.getMember(), event.getMessage().getMentionedMembers(), event.getChannel(), args);
-            } else if (args[0].equalsIgnoreCase("edit")) {
-                EditTask.editTask(event.getMessage().getContentRaw(), event.getMember(), event.getChannel(), args);
-            } else if (args[0].equalsIgnoreCase("deadline")) {
-                SetDeadline.setDeadline(event.getMember(), event.getChannel(), args);
-            } else {
-                checkIfTypo(args, event.getMessage());
-            }
-        } else if (args.length >= 2) {
-            if (args[0].equalsIgnoreCase("list")) {
-                ListTasksFromOthers.listTasks(event.getMember(), event.getMessage().getMentionedMembers(), event.getChannel(), args);
+        if (args.length > 1) {
+            if (args[0].equalsIgnoreCase("create")) {
+                CreateGroup.createGroup(event.getMember(), event.getChannel(), args);
             } else if (args[0].equalsIgnoreCase("delete")) {
-                DeleteTask.deleteTask(event.getMember(), event.getChannel(), args);
-            } else if (args[0].equalsIgnoreCase("done")) {
-                DeleteTask.deleteTask(event.getMember(), event.getChannel(), args);
-            } else if (args[0].equalsIgnoreCase("proceed")) {
-                ProceedTask.proceedTask(event.getMember(), event.getChannel(), args);
-            } else if (args[0].equalsIgnoreCase("undo")) {
-                UndoTask.undoTask(event.getMember(), event.getChannel(), args);
-            } else if (args[0].equalsIgnoreCase("info")) {
-                TaskInfo.taskInfo(event.getMember(), event.getChannel(), args);
+                DeleteGroup.deleteGroup(event.getMember(), event.getChannel(), args);
+            } else if (args[0].equalsIgnoreCase("members")) {
+                GroupMembers.getGroupMembers(event.getMember(), event.getChannel(), args);
+            } else if (args[0].equalsIgnoreCase("add")) {
+                AddGroupMember.addGroupMember(event.getMember(), event.getChannel(), args, event.getMessage().getMentionedMembers());
+            } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem")) {
+                RemoveGroupMember.removeGroupMember(event.getMember(), event.getChannel(), args, event.getMessage().getMentionedMembers());
+            } else if (args[0].equalsIgnoreCase("notifications") || args[0].equalsIgnoreCase("notification")) {
+                GroupNotifications.setGroupNotifications(event.getMember(), event.getChannel(), args, event.getMessage().getMentionedChannels());
             } else {
                 checkIfTypo(args, event.getMessage());
             }
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("list")) {
-                SelfTaskList.selfTaskList(event.getMember(), event.getChannel());
+                GroupList.getGroupList(event.getMember(), event.getChannel());
             } else {
                 checkIfTypo(args, event.getMessage());
             }
@@ -95,10 +85,7 @@ public class TaskController implements Command {
             } else {
                 final String embedTitle = Localizations.getString("task_message_title", langCode);
                 final String prefix = String.valueOf(message.getContentRaw().charAt(0));
-                MessageSender.send(embedTitle, Localizations.getString("help_message_task_commands", langCode, new ArrayList<String>() {{
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
+                MessageSender.send(embedTitle, Localizations.getString("help_message_group_commands", langCode, new ArrayList<String>() {{
                     add(prefix);
                     add(prefix);
                     add(prefix);
@@ -110,10 +97,7 @@ public class TaskController implements Command {
         } else {
             final String embedTitle = Localizations.getString("task_message_title", langCode);
             final String prefix = String.valueOf(message.getContentRaw().charAt(0));
-            MessageSender.send(embedTitle, Localizations.getString("help_message_task_commands", langCode, new ArrayList<String>() {{
-                add(prefix);
-                add(prefix);
-                add(prefix);
+            MessageSender.send(embedTitle, Localizations.getString("help_message_group_commands", langCode, new ArrayList<String>() {{
                 add(prefix);
                 add(prefix);
                 add(prefix);

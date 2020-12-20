@@ -1069,5 +1069,41 @@
     "fr": "Vous pouvez inviter le bot [sous ce lien](https://bnder.net/discordbot/taskmanagerbot/invite \"https://bnder.net/discordbot/taskmanagerbot/invite\").",
     "ru": "Вы можете пригласить бота [по этой ссылке](https://bnder.net/discordbot/taskmanagerbot/invite \"https://bnder.net/discordbot/taskmanagerbot/invite\").",
     "tr": "Botu [bu bağlantı altında](https://bnder.net/discordbot/taskmanagerbot/invite \"https://bnder.net/discordbot/taskmanagerbot/invite\") davet edebilirsiniz."
+  },
+  "typo_title": {
+    "de": "Vorschlag",
+    "en": "Suggestion",
+    "bg": "внушение",
+    "pl": "Sugestia",
+    "fr": "Suggestion",
+    "ru": "предложение",
+    "tr": "Öneri"
+  },
+  "typo_description": {
+    "de": "Es scheint als sei ein Fehler in der Nachricht. Falls du den unten stehenden Befehl ausführen willst, klicke auf ✅. Falls nicht, klicke auf ❌.",
+    "en": "It appears there is an error in the message. If you want to run the command below, click ✅. If not, click on ❌.",
+    "bg": "Изглежда, че в съобщението има грешка. Ако искате да стартирате командата по-долу, щракнете върху ✅. Ако не, кликнете върху ❌.",
+    "pl": "Wygląda na to, że w wiadomości jest błąd. Jeśli chcesz uruchomić poniższe polecenie, kliknij ✅. Jeśli nie, kliknij ❌.",
+    "fr": "Il semble qu'il y ait une erreur dans le message. Si vous souhaitez exécuter la commande ci-dessous, cliquez sur ✅. Sinon, cliquez sur ❌.",
+    "ru": "Похоже, в сообщении есть ошибка. Если вы хотите выполнить команду ниже, нажмите click. Если нет, нажмите ❌.",
+    "tr": "Mesajda bir hata var gibi görünüyor. Aşağıdaki komutu çalıştırmak istiyorsanız, ✅ seçeneğine tıklayın. Değilse, ❌ seçeneğine tıklayın."
+  },
+  "typo_field_command_name": {
+    "de": "Befehl",
+    "en": "Command",
+    "bg": "команда",
+    "pl": "Komenda",
+    "fr": "commander",
+    "ru": "команда",
+    "tr": "komut"
+  },
+  "typo_field_user_name": {
+    "de": "Nutzer",
+    "en": "User",
+    "bg": "Потребители",
+    "pl": "Użytkownicy",
+    "fr": "Utilisateurs",
+    "ru": "Пользователи",
+    "tr": "Kullanıcılar"
   }
 }

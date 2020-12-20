@@ -47,7 +47,7 @@ public class Task {
                 this.type = TaskType.USER;
                 final Document a = res.parse();
                 jsonObject = Json.parse(a.body().text()).asObject();
-                notifyChannelMessageID = !jsonObject.get("notify_channel_message_id").isNull() ? jsonObject.getString("notify_channel_message_id", null) : null;
+                notifyChannelMessageID = (jsonObject.get("notify_channel_message_id") != null && !jsonObject.get("notify_channel_message_id").isNull()) ? jsonObject.getString("notify_channel_message_id", null) : null;
             } else if (getStatusCode() == 404) {
                 //Try group task
                 res = Jsoup.connect(Main.requestURL + "/task/group/info/" + guild.getId() + "/" + taskID).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
@@ -57,7 +57,7 @@ public class Task {
                     this.type = TaskType.GROUP;
                     final Document a = res.parse();
                     jsonObject = Json.parse(a.body().text()).asObject();
-                    notifyChannelMessageID = !jsonObject.get("notify_channel_message_id").isNull() ? jsonObject.getString("notify_channel_message_id", null) : null;
+                    notifyChannelMessageID = (jsonObject.get("notify_channel_message_id") != null && !jsonObject.get("notify_channel_message_id").isNull())  ? jsonObject.getString("notify_channel_message_id", null) : null;
                 } else {
                     this.exists = false;
                     return;
@@ -174,7 +174,6 @@ public class Task {
 
     void setResponseMessage(String jsoupResponse) {
         final JsonObject object = Json.parse(jsoupResponse).asObject();
-        System.out.println(jsoupResponse);
         if (object.get("message") != null && !object.get("message").isNull()) {
             this.responseMessage = object.getString("message", null);
         }
@@ -194,8 +193,8 @@ public class Task {
                     this.type = TaskType.GROUP;
                     final Document a = res.parse();
                     final JsonObject jsonObject = Json.parse(a.body().text()).asObject();
-                    this.notifyChannelMessageID = !jsonObject.get("notify_channel_message_id").isNull() ? jsonObject.getString("notify_channel_message_id", null) : null;
-                    return !jsonObject.get("notify_channel_message_id").isNull()  ? jsonObject.getString("notify_channel_message_id", null) : null;
+                    this.notifyChannelMessageID = (jsonObject.get("notify_channel_message_id") != null && !jsonObject.get("notify_channel_message_id").isNull())  ? jsonObject.getString("notify_channel_message_id", null) : null;
+                    return (jsonObject.get("notify_channel_message_id") != null && !jsonObject.get("notify_channel_message_id").isNull())  ? jsonObject.getString("notify_channel_message_id", null) : null;
                 }
             } catch (Exception e) {
                 setStatusCode(-2);

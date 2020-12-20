@@ -25,7 +25,7 @@ public class ListTasksFromOthers {
         String jsonResponse;
         int statusCode;
         String text;
-        if (mentionedMembers.size() > 0) {
+        if (mentionedMembers != null && mentionedMembers.size() > 0) {
             final Member mentionedMember = mentionedMembers.get(0);
             final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/task/user/tasks/" + member.getGuild().getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", mentionedMember.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             statusCode = res.statusCode();

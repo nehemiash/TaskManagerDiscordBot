@@ -3,7 +3,7 @@ package de.bnder.taskmanager.commands.task;
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
-import de.bnder.taskmanager.commands.Group;
+import de.bnder.taskmanager.commands.group.GroupNotifications;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Connection;
 import de.bnder.taskmanager.utils.Localizations;
@@ -29,9 +29,8 @@ public class AddTask {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         if (PermissionSystem.hasPermission(member, TaskPermission.CREATE_TASK)) {
-            if (mentionedMembers.size() > 0) {
+            if (mentionedMembers != null && mentionedMembers.size() > 0) {
                 final String task = getTaskFromArgs(0, commandMessage, true, mentionedMembers);
-                System.out.println(task);
                 for (Member mentionedMember : mentionedMembers) {
                     final de.bnder.taskmanager.utils.Task taskObject = new de.bnder.taskmanager.utils.Task(member.getGuild(), task, null, member);
                     if (taskObject.getStatusCode() == 200) {
@@ -53,7 +52,7 @@ public class AddTask {
                         }), textChannel, Color.red);
                     }
                 }
-            } else if (Group.serverHasGroup(args[1], member.getGuild())) {
+            } else if (GroupNotifications.serverHasGroup(args[1], member.getGuild())) {
                 final String groupName = Connection.encodeString(args[1]);
                 final String task = getTaskFromArgs(3, commandMessage, false, null);
                 final de.bnder.taskmanager.utils.Task taskObject = new de.bnder.taskmanager.utils.Task(textChannel.getGuild(), task, null, groupName);
