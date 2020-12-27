@@ -30,7 +30,7 @@ public class AddGroupMember {
                         if (statusCode == 200) {
                             MessageSender.send(embedTitle, Localizations.getString("user_added_to_group", langCode, new ArrayList<String>() {
                                 {
-                                    add(member.getUser().getName());
+                                    add(mentionedMember.getUser().getName());
                                     add(groupName);
                                 }
                             }), textChannel, Color.green);

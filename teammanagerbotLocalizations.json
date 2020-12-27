@@ -26,7 +26,7 @@
     "ru": "Группа `$` не может быть создана. Код ошибки: $",
     "tr": "`$` Grubu oluşturulamadı. Hata Kodu: $."
   },
-  "need_to_be_serveradmin_or_habe_admin_permissions": {
+  "need_to_be_serveradmin_or_have_admin_permissions": {
     "de": "Du musst der Serverbesitzer sein, Administratorrechte besitzen oder die Rechte über den Befehl `permission` erhalten um diese Aktion auszuführen.",
     "en": "You have to be the server owner, have administrator rights or have the rights via the command `permission` to perform this action.",
     "bg": "За да извършите това действие, трябва да сте собственик на сървъра, да имате администраторски права или да имате права чрез командата `permission`.",
@@ -504,13 +504,13 @@
     "tr": "`$task add @USER <TASK>` - Kullanıcıya görev verir\n`$task add <GROUPNAME> <TASK>` - Gruba görev verir\n`$task proceed <TASK-ID>` - Yapılacak görevin durumunu değiştirir/completed\n`$task deadline <TASK-ID> <DATE (in european format)> <TIME>` - Görev için bitiş tarihi belirler\n`$task list <@USER/GROUPNAME>` - Bütün görevleri listeler\n`$task delete <TASK-ID>` - Görevi siler\n`$task edit <TASK-ID> <TASK>` - Görev metnini düzenler\n`$task info <TASK-ID>` - Görev için bireysel bilgileri görüntüler\n`$task done <TASK ID>` - Görevi bitmiş olarak işaretler\n"
   },
   "help_message_other_commands": {
-    "de": "`$token` - Gibt den Token für die Website & App\n`$token new` - Erneuert den Token\n`$help` - Listet alle Befehle auf\n`$support` - Discord Link\n`$app` - App-Informationen\n`$stats` - Statistiken\n`$prefix <PREFIX>` - Ändert den Präfix des Bots\n`$settings` - Zeigt Einstellungen an\n`$data` - Lade alle Daten herunter, die bnder von dir auf diesem Server gespeichert hat\n`$invite` - Sendet dir den Link um den Bot einzuladen\n",
-    "en": "`$token` - Gives the token for the Website & App\n`$token new` - Generates a new token\n`$help` - Lists all commands\n`$support` - Discord Link\n`$app` - Information about the App\n`$stats` - Shows some stats\n`$prefix <PREFIX>` - Changes the prefix of the bot\n`$settings` - Displays settings\n`$data` - Download all the data that bnder has saved about you on this server\n`$invite` - Sends you the link to invite the bot\n",
-    "bg": "`$token` - Връща символа за уебсайта и приложението\n`$token new` - Променя маркера\n`$help` - Изброява всички команди\n`$support` - Discord Link\n`$app` - Информация за приложението\n`$stats` - статистика\n`$prefix <PREFIX>` - Променя префикса на бота\n`$settings` - Показва настройките\n`$data` - Изтеглете всички данни, които bnder е запазил за вас на този сървър\n`$покани` - изпраща ви връзката, за да поканите бота\n",
-    "pl": "`$token` - Daje token dla strony internetowej i aplikacji\n`$token new` - Generuje nowy token\n`$help` - Wyświetlam wszystkie polecenia\n`$support` - Discord Link\n`$app` - Informacje o Aplikacji\n`$stats` - Statystyki\n`$prefix <PREFIX>` - Zmienia prefiks bota\n`$settings` - Wyświetla ustawienia\n`$data` - Pobierz wszystkie dane o Tobie zapisane przez bnder na tym serwerze\n`$invite` - Wysyła link do zaproszenia bota\n",
-    "fr": "`$token` - Renvoie le jeton du site Web et de l'application\n`$token new` - Renouveler le jeton\n`$help` - Répertorie toutes les commandes\n`$support` - Lien Discord\n`$app` - Informations sur l'application\n`$stats` - Statistiques\n`$prefix <PREFIX>` - Modifie le préfixe du bot\n`$settings` - Affiche les paramètres\n`$data` - Téléchargez toutes les données que bnder a enregistrées à votre sujet sur ce serveur\n`$invite` - Vous envoie le lien pour inviter le bot\n",
-    "ru": "`$token` - Возвращает токен для сайта и приложения\n`$token new` - Обновить токен\n`$help` - Перечисляет все команды\n`$support` - Discord Link\n`$app` - Информация о приложении\n`$stats` - статистика\n`$prefix <PREFIX>` - Меняет префикс бота\n`$settings` - Отображает настройки\n`$data` - Загрузите все данные, которые bnder сохранил о вас на этом сервере\n`$invite` - отправляет вам ссылку для приглашения бота\n",
-    "tr": "`$token` - Websitesi & Uygulama için bir token verir\n`token new` - Yeni token oluşturur\n`$help` - Komutları listeler\n`$support` - Discord Link\n`app` - Uygulama hakkında bilgi\n`$stats` - Bazı istatistikleri gösterir\n`$prefix <PREFIX>` - Botun prefixini değiştirir\n`$settings` - Ayarları gösterir\n`$data` - Bnder'ın sizinle ilgili kaydettiği tüm verileri bu sunucuya indirin\n`$invite` - Botu davet etmeniz için size bağlantı gönderir\n"
+    "de": "`$token` - Gibt den Token für die Website & App\n`$token new` - Erneuert den Token\n`$help` - Listet alle Befehle auf\n`$support` - Discord Link\n`$app` - App-Informationen\n`$stats` - Statistiken\n`$prefix <PREFIX>` - Ändert den Präfix des Bots\n`$settings` - Zeigt Einstellungen an\n`$data` - Lade alle Daten herunter, die bnder von dir auf diesem Server gespeichert hat\n`$invite` - Sendet dir den Link um den Bot einzuladen\n`$search <Suchbegriff>` - Durchsucht Aufgaben und Gruppen nach dem Begriff\n",
+    "en": "`$token` - Gives the token for the Website & App\n`$token new` - Generates a new token\n`$help` - Lists all commands\n`$support` - Discord Link\n`$app` - Information about the App\n`$stats` - Shows some stats\n`$prefix <PREFIX>` - Changes the prefix of the bot\n`$settings` - Displays settings\n`$data` - Download all the data that bnder has saved about you on this server\n`$invite` - Sends you the link to invite the bot\n`$search <search term>` - Searches tasks and groups for the term\n",
+    "bg": "`$token` - Връща символа за уебсайта и приложението\n`$token new` - Променя маркера\n`$help` - Изброява всички команди\n`$support` - Discord Link\n`$app` - Информация за приложението\n`$stats` - статистика\n`$prefix <PREFIX>` - Променя префикса на бота\n`$settings` - Показва настройките\n`$data` - Изтеглете всички данни, които bnder е запазил за вас на този сървър\n`$покани` - изпраща ви връзката, за да поканите бота\n`$search <термин за търсене>` - Търси задачи и групи за думата\n",
+    "pl": "`$token` - Daje token dla strony internetowej i aplikacji\n`$token new` - Generuje nowy token\n`$help` - Wyświetlam wszystkie polecenia\n`$support` - Discord Link\n`$app` - Informacje o Aplikacji\n`$stats` - Statystyki\n`$prefix <PREFIX>` - Zmienia prefiks bota\n`$settings` - Wyświetla ustawienia\n`$data` - Pobierz wszystkie dane o Tobie zapisane przez bnder na tym serwerze\n`$invite` - Wysyła link do zaproszenia bota\n`$search <search term>` - Przeszukuje zadania i grupy pod kątem terminu\n",
+    "fr": "`$token` - Renvoie le jeton du site Web et de l'application\n`$token new` - Renouveler le jeton\n`$help` - Répertorie toutes les commandes\n`$support` - Lien Discord\n`$app` - Informations sur l'application\n`$stats` - Statistiques\n`$prefix <PREFIX>` - Modifie le préfixe du bot\n`$settings` - Affiche les paramètres\n`$data` - Téléchargez toutes les données que bnder a enregistrées à votre sujet sur ce serveur\n`$invite` - Vous envoie le lien pour inviter le bot\n`$search <terme de recherche>` - Recherche le terme dans les tâches et les groupes\n",
+    "ru": "`$token` - Возвращает токен для сайта и приложения\n`$token new` - Обновить токен\n`$help` - Перечисляет все команды\n`$support` - Discord Link\n`$app` - Информация о приложении\n`$stats` - статистика\n`$prefix <PREFIX>` - Меняет префикс бота\n`$settings` - Отображает настройки\n`$data` - Загрузите все данные, которые bnder сохранил о вас на этом сервере\n`$invite` - отправляет вам ссылку для приглашения бота\n`$search <поисковый запрос>` - ищет задачи и группы по запросу\n",
+    "tr": "`$token` - Websitesi & Uygulama için bir token verir\n`token new` - Yeni token oluşturur\n`$help` - Komutları listeler\n`$support` - Discord Link\n`app` - Uygulama hakkında bilgi\n`$stats` - Bazı istatistikleri gösterir\n`$prefix <PREFIX>` - Botun prefixini değiştirir\n`$settings` - Ayarları gösterir\n`$data` - Bnder'ın sizinle ilgili kaydettiği tüm verileri bu sunucuya indirin\n`$invite` - Botu davet etmeniz için size bağlantı gönderir\n`$search <search term>` - Terim için görevleri ve grupları arar\n"
   },
   "help_message_permission_commands": {
     "de": "`$permission` - Gibt diese Hilfe-Nachricht\n`$permission add @NUTZER/@ROLLE <BERECHTIGUNG>` - Gibt einem Nutzer/einer Rolle eine Berechtigung\n`$permission remove @NUTZER/@ROLLE <BERECHTIGUNG>` - Entfernt eine Berechtigung von einem Nutzer/einer Rolle\n`$permission list @NUTZER/@ROLLE` - Listet alle Berechtigungen eines Nutzers/einer Rolle auf\n \nAktuelle Berechtigungen:\n`CREATE_TASK` - Aufgabe erstellen\n`DELETE_TASK` - Aufgabe löschen\n`EDIT_TASK` - Aufgabe bearbeiten\n`CREATE_GROUP` - Gruppe erstellen\n`DELETE_GROUP` - Gruppe löschen\n`ADD_MEMBERS` - Nutzer zu Gruppe hinzufügen\n`REMOVE_MEMBERS` - Nutzer aus Gruppe entfernen\n`ADD_PERMISSION` - Berechtigung hinzufügen\n`REMOVE_PERMISSION` - Berechtigung entfernen\n`SHOW_PERMISSIONS` - Berechtigungen anzeigen\n",
@@ -1105,5 +1105,95 @@
     "fr": "Utilisateurs",
     "ru": "Пользователи",
     "tr": "Kullanıcılar"
+  },
+  "search_title": {
+    "de": "Suche",
+    "en": "search",
+    "bg": "Търсене",
+    "pl": "Szukaj",
+    "fr": "Chercher",
+    "ru": "поиск",
+    "tr": "arama"
+  },
+  "search_result_task_title": {
+    "de": "Suchergebnis - Aufgabe",
+    "en": "Search result - task",
+    "bg": "Резултат от търсенето - задача",
+    "pl": "Wynik wyszukiwania - zadanie",
+    "fr": "Résultat de la recherche - tâche",
+    "ru": "Результат поиска - задача",
+    "tr": "Arama sonucu - görev"
+  },
+  "search_result_group_title": {
+    "de": "Suchergebnis - Gruppe",
+    "en": "Search result - group",
+    "bg": "Резултат от търсенето - група",
+    "pl": "Wynik wyszukiwania - grupa",
+    "fr": "Suchergebnis - Gruppe",
+    "ru": "Результат поиска - группа",
+    "tr": "Arama sonucu - grup"
+  },
+  "search_result_task_description": {
+    "de": "Bei deiner Suche habe ich folgende Aufgabe gefunden:",
+    "en": "In your search I found the following task:",
+    "bg": "При вашето търсене намерих следната задача:",
+    "pl": "При вашето търсене намерих следната задача:",
+    "fr": "Dans votre recherche, j'ai trouvé la tâche suivante:",
+    "ru": "В вашем поиске я нашел следующую задачу:",
+    "tr": "Aramanızda şu görevi buldum:"
+  },
+  "search_result_group_description": {
+    "de": "Bei deiner Suche habe ich folgende Gruppe gefunden:",
+    "en": "During your search I found the following group:",
+    "bg": "По време на вашето търсене намерих следната група:",
+    "pl": "Podczas poszukiwań znalazłem następującą grupę:",
+    "fr": "Lors de votre recherche, j'ai trouvé le groupe suivant:",
+    "ru": "При поиске я нашла следующую группу:",
+    "tr": "Aramanız sırasında aşağıdaki grubu buldum:"
+  },
+  "search_results_hidden_text": {
+    "de": "Einige Suchergebnisse wurden ausgeblendet.",
+    "en": "Some search results have been hidden.",
+    "bg": "Някои резултати от търсенето са скрити.",
+    "pl": "Niektóre wyniki wyszukiwania zostały ukryte.",
+    "fr": "Certains résultats de recherche ont été masqués.",
+    "ru": "Некоторые результаты поиска были скрыты.",
+    "tr": "Bazı arama sonuçları gizlendi."
+  },
+  "search_notify_channel_field": {
+    "de": "Kanal für Benachrichtigungen",
+    "en": "Channel for notifications",
+    "bg": "Канал за известия",
+    "pl": "Kanał powiadomień",
+    "fr": "Canal pour les notifications",
+    "ru": "Канал для уведомлений",
+    "tr": "Bildirimler için kanal"
+  },
+  "search_members_field": {
+    "de": "Mitglieder",
+    "en": "Members",
+    "bg": "Членове",
+    "pl": "Członkowie",
+    "fr": "Membres",
+    "ru": "Члены",
+    "tr": "Üyeler"
+  },
+  "search_group_name_field": {
+    "de": "Gruppenname",
+    "en": "Group name",
+    "bg": "Име на групата",
+    "pl": "Nazwa grupy",
+    "fr": "Nom de groupe",
+    "ru": "Имя группы",
+    "tr": "Grup ismi"
+  },
+  "no_search_results": {
+    "de": "Keine Ergebnisse für $",
+    "en": "No results for $",
+    "bg": "Няма резултати за $",
+    "pl": "Brak wyników dla $",
+    "fr": "Aucun résultat pour $",
+    "ru": "Нет результатов по запросу $",
+    "tr": "$ İçin sonuç yok"
   }
 }

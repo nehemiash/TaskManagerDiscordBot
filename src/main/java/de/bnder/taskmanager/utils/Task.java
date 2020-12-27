@@ -110,8 +110,9 @@ public class Task {
             //Send task into group notify channel
             final org.jsoup.Connection.Response getNotifyChannelRes = Jsoup.connect(Main.requestURL + "/user/notify-channel/" + guild.getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", holder).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             if (getNotifyChannelRes.statusCode() == 200) {
-                final JsonObject notifyChannelObject = Json.parse(getNotifyChannelRes.parse().body().text()).asObject();
-                if (notifyChannelObject.get("channel") != null) {
+                final JsonObject notifyChannelObject = Json.parse(getNotifyChannelRes.body()).asObject();
+                System.out.println(getNotifyChannelRes.body());
+                if (!notifyChannelObject.get("channel").isNull() && notifyChannelObject.get("channel") != null) {
                     final String channel = notifyChannelObject.getString("channel", null);
                     if (guild.getTextChannelById(channel) != null) {
                         final String langCode = Localizations.getGuildLanguage(guild);

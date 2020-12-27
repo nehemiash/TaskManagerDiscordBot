@@ -1,6 +1,6 @@
 package de.bnder.taskmanager.main;
 /*
- * Copyright (C) 2019 Jan Brinkmann
+ * Copyright (C) 2020 Jan Brinkmann
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,8 @@ public class Main {
     //-invite command added
     //Translators are shown when changing language if language wasn't translated by bnder
     //Task Command more detailed error messages
-    //The Bot can now correct your typos automatically on the task, group & permission command
+    //The Bot can now correct your typos automatically on the task, group, settings & permission command
+    //search command added
 
     public static final Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
@@ -90,9 +91,10 @@ public class Main {
         CommandHandler.commands.put("app", new App());
         CommandHandler.commands.put("data", new Data());
         CommandHandler.commands.put("invite", new Invite());
+        CommandHandler.commands.put("search", new Search());
 
         builder.setStatus(OnlineStatus.ONLINE);
-        builder.setActivity(Activity.playing("bnder.net"));
+        builder.setActivity(Activity.playing("http://bnder.net"));
 
         try {
             builder.build();
