@@ -18,10 +18,12 @@ package de.bnder.taskmanager.main;
 import de.bnder.taskmanager.commands.*;
 import de.bnder.taskmanager.commands.group.GroupController;
 import de.bnder.taskmanager.commands.permission.PermissionController;
+import de.bnder.taskmanager.commands.settings.SettingsController;
 import de.bnder.taskmanager.commands.task.TaskController;
 import de.bnder.taskmanager.listeners.*;
 import de.bnder.taskmanager.listeners.typoReactionListeners.GroupTypoReactionListener;
 import de.bnder.taskmanager.listeners.typoReactionListeners.PermissionTypoReactionListener;
+import de.bnder.taskmanager.listeners.typoReactionListeners.SettingsTypoReactionListener;
 import de.bnder.taskmanager.listeners.typoReactionListeners.TaskTypoReactionListener;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -72,12 +74,14 @@ public class Main {
         builder.addEventListeners(new TaskTypoReactionListener());
         builder.addEventListeners(new GroupTypoReactionListener());
         builder.addEventListeners(new PermissionTypoReactionListener());
+        builder.addEventListeners(new SettingsTypoReactionListener());
 
         CommandHandler.commands.put("version", new Version());
         CommandHandler.commands.put("prefix", new Prefix());
         CommandHandler.commands.put("group", new GroupController());
         CommandHandler.commands.put("task", new TaskController());
         CommandHandler.commands.put("permission", new PermissionController());
+        CommandHandler.commands.put("settings", new SettingsController());
         CommandHandler.commands.put("token", new Token());
         CommandHandler.commands.put("help", new Help());
         CommandHandler.commands.put("support", new Support());
@@ -85,7 +89,6 @@ public class Main {
         CommandHandler.commands.put("language", new Language());
         CommandHandler.commands.put("app", new App());
         CommandHandler.commands.put("data", new Data());
-        CommandHandler.commands.put("settings", new Settings());
         CommandHandler.commands.put("invite", new Invite());
 
         builder.setStatus(OnlineStatus.ONLINE);
