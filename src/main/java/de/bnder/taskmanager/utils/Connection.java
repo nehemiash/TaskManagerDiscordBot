@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Connection {
 
-    public static int timeout = 15000;
+    public static int timeout = 30000;
 
     public static String encodeString(String toEncode) {
         try {
