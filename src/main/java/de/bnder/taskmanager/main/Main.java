@@ -37,7 +37,7 @@ import java.util.Arrays;
 
 public class Main {
 
-    //CHANGELOG 2020.4.2:
+    //CHANGELOG 2021.1.1:
     //-invite command added
     //Translators are shown when changing language if language wasn't translated by bnder
     //Task Command more detailed error messages
