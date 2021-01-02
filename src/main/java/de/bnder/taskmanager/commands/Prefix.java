@@ -40,7 +40,7 @@ public class Prefix implements Command {
                 MessageSender.send(embedTitle, Localizations.getString("prefix_no_arg", langCode), event.getMessage(), Color.red);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_habe_admin_permissions", langCode), event.getMessage(), Color.red);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), event.getMessage(), Color.red);
         }
     }
 }
