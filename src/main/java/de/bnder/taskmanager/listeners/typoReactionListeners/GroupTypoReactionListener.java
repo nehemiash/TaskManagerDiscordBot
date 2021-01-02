@@ -20,27 +20,29 @@ public class GroupTypoReactionListener extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
-        final String langCode = Localizations.getGuildLanguage(event.getGuild());
-        if (isRightMessage(event, "group", langCode)) {
-            final Message message = event.retrieveMessage().complete();
-            if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
-                final String command = TaskTypoReactionListener.getCommand(event, "group", langCode);
+        if (!event.getGuild().getId().equalsIgnoreCase("110373943822540800")) {
+            final String langCode = Localizations.getGuildLanguage(event.getGuild());
+            if (isRightMessage(event, "group", langCode)) {
+                final Message message = event.retrieveMessage().complete();
+                if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
+                    final String command = TaskTypoReactionListener.getCommand(event, "group", langCode);
 
-                String beheaded = command.substring(1);
-                String[] splitBeheaded = beheaded.split(" ");
-                ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
-                String[] args = new String[split.size() - 1];
-                split.subList(1, split.size()).toArray(args);
+                    String beheaded = command.substring(1);
+                    String[] splitBeheaded = beheaded.split(" ");
+                    ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
+                    String[] args = new String[split.size() - 1];
+                    split.subList(1, split.size()).toArray(args);
 
-                try {
+                    try {
+                        message.delete().queue();
+                        processGroupCommand(args, event.getMember(), command, event.getChannel());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red);
+                    }
+                } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
                     message.delete().queue();
-                    processGroupCommand(args, event.getMember(), command, event.getChannel());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red);
                 }
-            } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                message.delete().queue();
             }
         }
     }

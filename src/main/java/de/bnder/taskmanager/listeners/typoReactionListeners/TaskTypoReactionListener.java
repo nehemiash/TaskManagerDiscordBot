@@ -17,27 +17,29 @@ public class TaskTypoReactionListener extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
-        final String langCode = Localizations.getGuildLanguage(event.getGuild());
-        if (isRightMessage(event, "task", langCode)) {
-            final Message message = event.retrieveMessage().complete();
-            if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
-                final String command = getCommand(event, "task", langCode);
+        if (!event.getGuild().getId().equalsIgnoreCase("110373943822540800")) {
+            final String langCode = Localizations.getGuildLanguage(event.getGuild());
+            if (isRightMessage(event, "task", langCode)) {
+                final Message message = event.retrieveMessage().complete();
+                if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
+                    final String command = getCommand(event, "task", langCode);
 
-                String beheaded = command.substring(1);
-                String[] splitBeheaded = beheaded.split(" ");
-                ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
-                String[] args = new String[split.size() - 1];
-                split.subList(1, split.size()).toArray(args);
+                    String beheaded = command.substring(1);
+                    String[] splitBeheaded = beheaded.split(" ");
+                    ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
+                    String[] args = new String[split.size() - 1];
+                    split.subList(1, split.size()).toArray(args);
 
-                try {
+                    try {
+                        message.delete().queue();
+                        processTaskCommand(args, event.getMember(), command, event.getChannel());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red);
+                    }
+                } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
                     message.delete().queue();
-                    processTaskCommand(args, event.getMember(), command, event.getChannel());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red);
                 }
-            } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                message.delete().queue();
             }
         }
     }
@@ -109,7 +111,7 @@ public class TaskTypoReactionListener extends ListenerAdapter {
             } else if (args[0].equalsIgnoreCase("delete")) {
                 DeleteTask.deleteTask(member, channel, args);
             } else if (args[0].equalsIgnoreCase("done")) {
-                DeleteTask.deleteTask(member,channel, args);
+                DeleteTask.deleteTask(member, channel, args);
             } else if (args[0].equalsIgnoreCase("proceed")) {
                 ProceedTask.proceedTask(member, channel, args);
             } else if (args[0].equalsIgnoreCase("undo")) {
@@ -117,7 +119,7 @@ public class TaskTypoReactionListener extends ListenerAdapter {
             } else if (args[0].equalsIgnoreCase("info")) {
                 TaskInfo.taskInfo(member, channel, args);
             }
-        } else if(args.length == 1) {
+        } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("list")) {
                 SelfTaskList.selfTaskList(member, channel);
             }
