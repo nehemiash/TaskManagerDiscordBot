@@ -12,8 +12,20 @@ import org.jsoup.Jsoup;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Language implements Command {
+
+    public static ArrayList<String> validLangCodes = new ArrayList<String>(){{
+        add("de");
+        add("en");
+        add("bg");
+        add("fr");
+        add("ru");
+        add("pl");
+        add("tr");
+    }};
+
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
         final Guild guild = event.getGuild();
@@ -23,9 +35,7 @@ public class Language implements Command {
             MessageSender.send(embedTitle, Localizations.getString("language_message_invalid_params", langCode), event.getMessage(), Color.red);
         } else if (args.length == 1) {
             final String language = args[0].toLowerCase();
-            if (language.equalsIgnoreCase("de") || language.equalsIgnoreCase("en") || language.equalsIgnoreCase("bg")
-                    || language.equalsIgnoreCase("fr") || language.equalsIgnoreCase("ru") || language.equalsIgnoreCase("pl")
-             || language.equalsIgnoreCase("tr")) {
+            if (validLangCodes.contains(language)) {
                 if (event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
                     final Connection.Response res = Jsoup.connect(Main.requestURL + "/server/language/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).data("language", language).postDataCharset("UTF-8").header("user_id", event.getMember().getId()).timeout(de.bnder.taskmanager.utils.Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                     final String embedTitle = Localizations.getString("language_message_title", language);

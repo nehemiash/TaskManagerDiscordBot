@@ -1,10 +1,12 @@
 package de.bnder.taskmanager.listeners.typoReactionListeners;
 
+import de.bnder.taskmanager.commands.Language;
 import de.bnder.taskmanager.commands.task.*;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
@@ -17,54 +19,59 @@ public class TaskTypoReactionListener extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
-        if (!event.getGuild().getId().equalsIgnoreCase("110373943822540800")) {
-            final String langCode = Localizations.getGuildLanguage(event.getGuild());
-            if (isRightMessage(event, "task", langCode)) {
+        if (!event.getMember().getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
+            try {
                 final Message message = event.retrieveMessage().complete();
                 if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
-                    final String command = getCommand(event, "task", langCode);
+                    if (isRightMessage(event, "task")) {
+                        final String command = getCommand(event, "task");
 
-                    String beheaded = command.substring(1);
-                    String[] splitBeheaded = beheaded.split(" ");
-                    ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
-                    String[] args = new String[split.size() - 1];
-                    split.subList(1, split.size()).toArray(args);
+                        String beheaded = command.substring(1);
+                        String[] splitBeheaded = beheaded.split(" ");
+                        ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
+                        String[] args = new String[split.size() - 1];
+                        split.subList(1, split.size()).toArray(args);
 
-                    try {
-                        message.delete().queue();
-                        processTaskCommand(args, event.getMember(), command, event.getChannel());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red);
+                        try {
+                            message.delete().queue();
+                            processTaskCommand(args, event.getMember(), command, event.getChannel());
+                        } catch (IOException e) {
+                            final String langCode = Localizations.getGuildLanguage(event.getGuild());
+                            MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red);
+                        }
                     }
                 } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
                     message.delete().queue();
                 }
+            } catch (ErrorResponseException ignored) {
             }
         }
     }
 
-    public static boolean isRightMessage(GuildMessageReactionAddEvent event, String commandKeyword, String langCode) {
+    public static boolean isRightMessage(GuildMessageReactionAddEvent event, String commandKeyword) {
         final Message message = event.retrieveMessage().complete();
         if (message.getAuthor().isBot() && message.getAuthor().getId().equals(event.getJDA().getSelfUser().getId())) {
             if (message.getEmbeds().size() == 1) {
                 final MessageEmbed embed = message.getEmbeds().get(0);
-                if (embed.getTitle().equals(Localizations.getString("typo_title", langCode)) && embed.getDescription().equals(Localizations.getString("typo_description", langCode))) {
-                    String command = null;
-                    String author = null;
-                    for (MessageEmbed.Field field : embed.getFields()) {
-                        if (field.getName().equals(Localizations.getString("typo_field_command_name", langCode))) {
-                            command = field.getValue();
-                        } else if (field.getName().equals(Localizations.getString("typo_field_user_name", langCode))) {
-                            author = field.getValue();
-                        }
-                    }
-                    if (command != null && author != null) {
-                        if (event.getMember().getUser().getAsTag().equals(author)) {
-                            if (command.substring(1).startsWith(commandKeyword)) {
-                                return true;
+                for (String langCode : Language.validLangCodes) {
+                    if (embed.getTitle().equals(Localizations.getString("typo_title", langCode)) && embed.getDescription().equals(Localizations.getString("typo_description", langCode))) {
+                        String command = null;
+                        String author = null;
+                        for (MessageEmbed.Field field : embed.getFields()) {
+                            if (field.getName().equals(Localizations.getString("typo_field_command_name", langCode))) {
+                                command = field.getValue();
+                            } else if (field.getName().equals(Localizations.getString("typo_field_user_name", langCode))) {
+                                author = field.getValue();
                             }
                         }
+                        if (command != null && author != null) {
+                            if (event.getMember().getUser().getAsTag().equals(author)) {
+                                if (command.substring(1).startsWith(commandKeyword)) {
+                                    return true;
+                                }
+                            }
+                        }
+                        break;
                     }
                 }
             }
@@ -72,23 +79,25 @@ public class TaskTypoReactionListener extends ListenerAdapter {
         return false;
     }
 
-    public static String getCommand(GuildMessageReactionAddEvent event, String commandKeyword, String langCode) {
-        if (isRightMessage(event, commandKeyword, langCode)) {
+    public static String getCommand(GuildMessageReactionAddEvent event, String commandKeyword) {
+        if (isRightMessage(event, commandKeyword)) {
             final Message message = event.retrieveMessage().complete();
             final MessageEmbed embed = message.getEmbeds().get(0);
             String command = null;
             String author = null;
-            for (MessageEmbed.Field field : embed.getFields()) {
-                if (field.getName().equals(Localizations.getString("typo_field_command_name", langCode))) {
-                    command = field.getValue();
-                } else if (field.getName().equals(Localizations.getString("typo_field_user_name", langCode))) {
-                    author = field.getValue();
+            for (String langCode : Language.validLangCodes) {
+                for (MessageEmbed.Field field : embed.getFields()) {
+                    if (field.getName().equals(Localizations.getString("typo_field_command_name", langCode))) {
+                        command = field.getValue();
+                    } else if (field.getName().equals(Localizations.getString("typo_field_user_name", langCode))) {
+                        author = field.getValue();
+                    }
                 }
-            }
-            if (command != null && author != null) {
-                if (event.getMember().getUser().getAsTag().equals(author)) {
-                    if (command.substring(1).startsWith(commandKeyword)) {
-                        return command;
+                if (command != null && author != null) {
+                    if (event.getMember().getUser().getAsTag().equals(author)) {
+                        if (command.substring(1).startsWith(commandKeyword)) {
+                            return command;
+                        }
                     }
                 }
             }
