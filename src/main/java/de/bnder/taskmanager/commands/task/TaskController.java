@@ -44,7 +44,7 @@ public class TaskController implements Command {
             } else if (args[0].equalsIgnoreCase("delete")) {
                 DeleteTask.deleteTask(event.getMember(), event.getChannel(), args);
             } else if (args[0].equalsIgnoreCase("done")) {
-                DeleteTask.deleteTask(event.getMember(), event.getChannel(), args);
+                TasksDone.tasksDone(event.getMember(), event.getChannel(), args);
             } else if (args[0].equalsIgnoreCase("proceed")) {
                 ProceedTask.proceedTask(event.getMember(), event.getChannel(), args);
             } else if (args[0].equalsIgnoreCase("undo")) {

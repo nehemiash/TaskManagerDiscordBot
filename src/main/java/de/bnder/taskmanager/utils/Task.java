@@ -114,7 +114,7 @@ public class Task {
                 if (getNotifyChannelRes.statusCode() == 200) {
                     final JsonObject notifyChannelObject = Json.parse(getNotifyChannelRes.body()).asObject();
                     System.out.println(getNotifyChannelRes.body());
-                    if (!notifyChannelObject.get("channel").isNull() && notifyChannelObject.get("channel") != null) {
+                    if (notifyChannelObject.get("channel") != null && !notifyChannelObject.get("channel").isNull()) {
                         final String channel = notifyChannelObject.getString("channel", null);
                         if (guild.getTextChannelById(channel) != null) {
                             final String langCode = Localizations.getGuildLanguage(guild);
@@ -160,7 +160,7 @@ public class Task {
             final org.jsoup.Connection.Response getNotifyChannelRes = Jsoup.connect(Main.requestURL + "/group/notify-channel/" + guild.getId() + "/" + holder).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             if (getNotifyChannelRes.statusCode() == 200) {
                 final JsonObject notifyChannelObject = Json.parse(getNotifyChannelRes.parse().body().text()).asObject();
-                if (notifyChannelObject.get("channel") != null) {
+                if (notifyChannelObject.get("channel") != null && !notifyChannelObject.get("channel").isNull()) {
                     final String channel = notifyChannelObject.getString("channel", null);
                     if (guild.getTextChannelById(channel) != null) {
                         final String langCode = Localizations.getGuildLanguage(guild);
