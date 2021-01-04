@@ -25,6 +25,7 @@ import de.bnder.taskmanager.listeners.typoReactionListeners.GroupTypoReactionLis
 import de.bnder.taskmanager.listeners.typoReactionListeners.PermissionTypoReactionListener;
 import de.bnder.taskmanager.listeners.typoReactionListeners.SettingsTypoReactionListener;
 import de.bnder.taskmanager.listeners.typoReactionListeners.TaskTypoReactionListener;
+import de.bnder.taskmanager.lists.UpdateLists;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -37,25 +38,18 @@ import java.util.Arrays;
 
 public class Main {
 
-    //CHANGELOG 2021.1.1:
-    //-invite command added
-    //Translators are shown when changing language if language wasn't translated by bnder
-    //Task Command more detailed error messages
-    //The Bot can now correct your typos automatically on the task, group, settings & permission command
-    //search command added
-
     public static final Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
-    public static String requestURL = dotenv.get("REQUEST_URL") != null ? dotenv.get("REQUEST_URL") : System.getenv("REQUEST_URL");
-    public static String authorizationToken = dotenv.get("AUTHORIZATION_TOKEN") != null ? dotenv.get("AUTHORIZATION_TOKEN") : System.getenv("AUTHORIZATION_TOKEN");
+    public static final String requestURL = dotenv.get("REQUEST_URL") != null ? dotenv.get("REQUEST_URL") : System.getenv("REQUEST_URL");
+    public static final String authorizationToken = dotenv.get("AUTHORIZATION_TOKEN") != null ? dotenv.get("AUTHORIZATION_TOKEN") : System.getenv("AUTHORIZATION_TOKEN");
     public static final String userAgent = "TaskmanagerBot/1.0 (Windows; U; WindowsNT 5.1; de-DE; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
-    public static int shard = Integer.parseInt(dotenv.get("SHARD") != null ? dotenv.get("SHARD") : System.getenv("SHARD"));
-    public static int totalShard = Integer.parseInt(dotenv.get("TOTAL_SHARDS") != null ? dotenv.get("TOTAL_SHARDS") : System.getenv(("TOTAL_SHARDS")));
+    public static final int shard = Integer.parseInt(dotenv.get("SHARD") != null ? dotenv.get("SHARD") : System.getenv("SHARD"));
+    public static final int totalShard = Integer.parseInt(dotenv.get("TOTAL_SHARDS") != null ? dotenv.get("TOTAL_SHARDS") : System.getenv(("TOTAL_SHARDS")));
 
     public static final String prefix = "-";
 
     public static void main(String[] args) {
-
+        UpdateLists.updateBotLists();
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"),
                 Arrays.asList(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS));
 
