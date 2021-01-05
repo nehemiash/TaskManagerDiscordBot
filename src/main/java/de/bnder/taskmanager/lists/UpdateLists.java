@@ -1,22 +1,64 @@
 package de.bnder.taskmanager.lists;
 
+import com.eclipsesource.json.Json;
+import com.eclipsesource.json.JsonObject;
+import de.bnder.taskmanager.main.Main;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+
 import java.io.IOException;
 
 public class UpdateLists {
 
-    public static void updateBotLists(){
-        //TODO: GET SERVER COUNT FROM API
-        final int serverCount = 505;
+    public static void updateBotLists(int servers, String botID) {
         try {
-            TopGG.sendServerCount(serverCount);
-            DiscordbotlistCOM.sendServerCount(serverCount);
-            DiscordBotsGG.sendServerCount(serverCount);
-            TopcordXYZ.sendServerCount(serverCount);
-            ArcaneCenterXYZ.sendServerCount(serverCount);
-            BlistXYZ.sendServerCount(serverCount);
+            final int ownAPIStatusCode = updateOwnStats(servers);
+            if (ownAPIStatusCode == 200) {
+                final int serverCount = getTotalServers();
+                TopGG.sendServerCount(serverCount, botID);
+                DiscordbotlistCOM.sendServerCount(serverCount, botID);
+                DiscordBotsGG.sendServerCount(serverCount, botID);
+                TopcordXYZ.sendServerCount(serverCount, botID);
+                //ArcaneCenterXYZ.sendServerCount(serverCount, botID);
+                BlistXYZ.sendServerCount(serverCount, botID);
+                BotlistsCOM.sendServerCount(serverCount);
+                //BotsdatabaseCOM.sendServerCount(serverCount, botID);
+                BotsfordiscordCOM.sendServerCount(serverCount, botID);
+                //DiscordBOATS.sendServerCount(serverCount, botID);
+                VoidbotsNET.sendServerCount(serverCount, botID);
+                InfinitybotlistCOM.sendServerCount(serverCount, botID);
+                SpacebotlistORG.sendServerCount(serverCount, botID);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static int updateOwnStats(final int servers) throws IOException {
+        final Connection.Response response = Jsoup.connect(Main.requestURL + "/stats/shard/" + Main.shard + "/servers")
+                .method(Connection.Method.POST)
+                .header("authorization", "TMB " + Main.authorizationToken)
+                .header("user_id", "---")
+                .data("servers", String.valueOf(servers))
+                .timeout(de.bnder.taskmanager.utils.Connection.timeout)
+                .userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+        return response.statusCode();
+    }
+
+    public static int getTotalServers() throws IOException {
+        final Connection.Response response = Jsoup.connect(Main.requestURL + "/stats")
+                .method(Connection.Method.GET)
+                .header("authorization", "TMB " + Main.authorizationToken)
+                .header("user_id", "---")
+                .timeout(de.bnder.taskmanager.utils.Connection.timeout)
+                .userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+        if (response.statusCode() == 200) {
+            final JsonObject jsonObject = Json.parse(response.body()).asObject();
+            final int shard0Servers = jsonObject.getInt("servers_shard_0", 0);
+            final int shard1Servers = jsonObject.getInt("servers_shard_1", 0);
+            return shard0Servers + shard1Servers;
+        }
+        return 0;
     }
 
 }

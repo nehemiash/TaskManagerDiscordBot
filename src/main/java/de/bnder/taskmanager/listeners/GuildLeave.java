@@ -15,6 +15,7 @@ package de.bnder.taskmanager.listeners;
  * limitations under the License.
  */
 
+import de.bnder.taskmanager.lists.UpdateLists;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Connection;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
@@ -29,6 +30,7 @@ public class GuildLeave extends ListenerAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        UpdateLists.updateBotLists(event.getJDA().getGuilds().size(), event.getJDA().getSelfUser().getId());
     }
 
 }

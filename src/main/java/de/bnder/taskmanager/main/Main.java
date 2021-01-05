@@ -25,7 +25,6 @@ import de.bnder.taskmanager.listeners.typoReactionListeners.GroupTypoReactionLis
 import de.bnder.taskmanager.listeners.typoReactionListeners.PermissionTypoReactionListener;
 import de.bnder.taskmanager.listeners.typoReactionListeners.SettingsTypoReactionListener;
 import de.bnder.taskmanager.listeners.typoReactionListeners.TaskTypoReactionListener;
-import de.bnder.taskmanager.lists.UpdateLists;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -49,7 +48,6 @@ public class Main {
     public static final String prefix = "-";
 
     public static void main(String[] args) {
-        UpdateLists.updateBotLists();
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"),
                 Arrays.asList(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS));
 
@@ -87,7 +85,7 @@ public class Main {
         CommandHandler.commands.put("invite", new Invite());
         CommandHandler.commands.put("search", new Search());
 
-        builder.setStatus(OnlineStatus.ONLINE);
+        builder.setStatus(OnlineStatus.OFFLINE);
         builder.setActivity(Activity.playing("http://bnder.net"));
 
         try {
