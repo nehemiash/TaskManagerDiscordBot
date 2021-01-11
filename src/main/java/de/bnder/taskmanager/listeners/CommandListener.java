@@ -31,23 +31,25 @@ import java.awt.*;
 public class CommandListener extends ListenerAdapter {
 
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-        if (event.getMessage().getContentRaw().length() > 3) {
-            if (CommandHandler.commands.containsKey(event.getMessage().getContentRaw().split(" ")[0].substring(1))) {
-                try {
-                    final org.jsoup.Connection.Response getPrefixRes = Jsoup.connect(Main.requestURL + "/server/prefix/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getMember().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
-                    JsonObject jsonObject = Json.parse(getPrefixRes.parse().body().text()).asObject();
-                    if (getPrefixRes.statusCode() == 200) {
-                        String prefix = jsonObject.getString("prefix", "-");
-                        if (event.getMessage().getContentRaw().startsWith(prefix)) {
+        if (!event.getAuthor().isBot()) {
+            if (event.getMessage().getContentRaw().length() > 3) {
+                if (CommandHandler.commands.containsKey(event.getMessage().getContentRaw().split(" ")[0].substring(1))) {
+                    try {
+                        final org.jsoup.Connection.Response getPrefixRes = Jsoup.connect(Main.requestURL + "/server/prefix/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getMember().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                        JsonObject jsonObject = Json.parse(getPrefixRes.parse().body().text()).asObject();
+                        if (getPrefixRes.statusCode() == 200) {
+                            String prefix = jsonObject.getString("prefix", "-");
+                            if (event.getMessage().getContentRaw().startsWith(prefix)) {
+                                processCommand(event);
+                            }
+                        } else if (event.getMessage().getContentRaw().startsWith("-")) {
                             processCommand(event);
                         }
-                    } else if (event.getMessage().getContentRaw().startsWith("-")) {
-                        processCommand(event);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        final String langCode = Localizations.getGuildLanguage(event.getGuild());
+                        MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getMessage(), Color.red);
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    final String langCode = Localizations.getGuildLanguage(event.getGuild());
-                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getMessage(), Color.red);
                 }
             }
         }
