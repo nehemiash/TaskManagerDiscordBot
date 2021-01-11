@@ -41,7 +41,7 @@ public class AddTask {
                         sendTaskMessage(mentionedMember, member, taskObject.getId(), langCode, task);
                         MessageSender.send(embedTitle + " - " + taskObject.getId(), Localizations.getString("aufgabe_erstellt", langCode, new ArrayList<String>() {
                             {
-                                add(member.getUser().getName());
+                                add(mentionedMember.getUser().getName());
                             }
                         }) + newLanguageSuggestionAppend, textChannel, Color.green);
                     } else {
