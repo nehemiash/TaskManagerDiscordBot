@@ -30,17 +30,22 @@ public class Localizations {
             toParse = Json.parse(localizationsJSONSource()).asObject();
         }
         if (toParse.get(path) != null) {
-            String toReturn = toParse.get(path).asObject().getString(languageCode, "null");
+            String localizationsText = toParse.get(path).asObject().getString(languageCode, "null");
             int argCount = 0;
-            while (toReturn.contains("$")) {
-                if (args.size() >= argCount + 1) {
-                    toReturn = toReturn.replaceFirst("\\$", args.get(argCount));
-                    argCount++;
+            StringBuilder messageBuilder = new StringBuilder();
+            for (String word : localizationsText.split(" ")){
+                if (word.contains("$")){
+                    if (args.size() >= argCount + 1) {
+                        messageBuilder.append(word.replace("$", args.get(argCount))).append(" ");
+                        argCount++;
+                    } else {
+                        messageBuilder.append(word.replace("$", " ")).append(" ");
+                    }
                 } else {
-                    toReturn = toReturn.replaceFirst("\\$", " ");
+                    messageBuilder.append(word).append(" ");
                 }
             }
-            return toReturn;
+            return messageBuilder.substring(0, messageBuilder.length() - 1);
         }
         return path;
     }

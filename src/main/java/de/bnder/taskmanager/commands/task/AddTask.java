@@ -30,7 +30,7 @@ public class AddTask {
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         if (PermissionSystem.hasPermission(member, TaskPermission.CREATE_TASK)) {
             if (mentionedMembers != null && mentionedMembers.size() > 0) {
-                final String task = getTaskFromArgs(0, commandMessage, true, mentionedMembers);
+                final String task = getTaskFromArgs(1 + mentionedMembers.size(), commandMessage, true, mentionedMembers);
                 for (Member mentionedMember : mentionedMembers) {
                     final de.bnder.taskmanager.utils.Task taskObject = new de.bnder.taskmanager.utils.Task(member.getGuild(), task, null, member);
                     if (taskObject.getStatusCode() == 200) {
