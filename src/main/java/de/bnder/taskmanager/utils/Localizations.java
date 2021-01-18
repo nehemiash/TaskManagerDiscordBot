@@ -30,20 +30,27 @@ public class Localizations {
             toParse = Json.parse(localizationsJSONSource()).asObject();
         }
         if (toParse.get(path) != null) {
-            String localizationsText = toParse.get(path).asObject().getString(languageCode, "null");
+            final String localizationsText = toParse.get(path).asObject().getString(languageCode, "null");
             int argCount = 0;
             StringBuilder messageBuilder = new StringBuilder();
-            for (String word : localizationsText.split(" ")){
-                if (word.contains("$")){
-                    if (args.size() >= argCount + 1) {
-                        messageBuilder.append(word.replace("$", args.get(argCount))).append(" ");
-                        argCount++;
+
+            for (String paragraph : localizationsText.split("\n")) {
+                for (String word : paragraph.split(" ")) {
+                    if (word.contains("$")) {
+                        if (args.size() >= argCount + 1) {
+                            messageBuilder.append(word.replaceFirst("\\$", args.get(argCount))).append(" ");
+                            argCount++;
+                        } else {
+                            messageBuilder.append(word.replaceFirst("\\$", " ")).append(" ");
+                        }
                     } else {
-                        messageBuilder.append(word.replace("$", " ")).append(" ");
+                        messageBuilder.append(word).append(" ");
                     }
-                } else {
-                    messageBuilder.append(word).append(" ");
                 }
+                if (paragraph.contains(" ")){
+                    messageBuilder = new StringBuilder().append(messageBuilder.substring(0, messageBuilder.length() - 1));
+                }
+                messageBuilder.append("\n");
             }
             return messageBuilder.substring(0, messageBuilder.length() - 1);
         }

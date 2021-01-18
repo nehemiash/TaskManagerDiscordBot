@@ -32,7 +32,7 @@ public class AddTask {
             if (mentionedMembers != null && mentionedMembers.size() > 0) {
                 final String task = getTaskFromArgs(1 + mentionedMembers.size(), commandMessage, true, mentionedMembers);
                 for (Member mentionedMember : mentionedMembers) {
-                    final de.bnder.taskmanager.utils.Task taskObject = new de.bnder.taskmanager.utils.Task(member.getGuild(), task, null, member);
+                    final de.bnder.taskmanager.utils.Task taskObject = new de.bnder.taskmanager.utils.Task(member.getGuild(), task, null, mentionedMember);
                     if (taskObject.getStatusCode() == 200) {
                         String newLanguageSuggestionAppend = taskObject.newLanguageSuggestion() != null ? Localizations.getString("task_new_language_suggestion_text", taskObject.newLanguageSuggestion(), new ArrayList<String>(){{
                             add(String.valueOf(commandMessage.charAt(0)));

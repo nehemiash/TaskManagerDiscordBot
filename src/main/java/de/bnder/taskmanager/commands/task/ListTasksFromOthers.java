@@ -57,7 +57,7 @@ public class ListTasksFromOthers {
             if (builder.length() > 0) {
                 if (mentionedMembers.size() > 0) {
                     final Member mentionedMember = mentionedMembers.get(0);
-                    text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
+                    text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<>() {
                         {
                             add(mentionedMember.getAsMention());
                             add(builder.toString());
@@ -65,7 +65,7 @@ public class ListTasksFromOthers {
                     });
                 } else {
                     final String groupName = args[1];
-                    text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<String>() {
+                    text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<>() {
                         {
                             add(groupName);
                             add(builder.toString());
@@ -93,7 +93,7 @@ public class ListTasksFromOthers {
             if (builder.length() > 0) {
                 if (mentionedMembers.size() > 0) {
                     final Member mentionedMember = mentionedMembers.get(0);
-                    text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
+                    text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<>() {
                         {
                             add(mentionedMember.getAsMention());
                             add(builder.toString());
@@ -101,7 +101,7 @@ public class ListTasksFromOthers {
                     });
                 } else {
                     final String groupName = args[1];
-                    text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<String>() {
+                    text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<>() {
                         {
                             add(groupName);
                             add(builder.toString());

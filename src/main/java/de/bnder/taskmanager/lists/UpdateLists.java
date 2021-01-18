@@ -22,9 +22,8 @@ public class UpdateLists {
                 //ArcaneCenterXYZ.sendServerCount(serverCount, botID);
                 BlistXYZ.sendServerCount(serverCount, botID);
                 BotlistsCOM.sendServerCount(serverCount);
-                //BotsdatabaseCOM.sendServerCount(serverCount, botID);
-                BotsfordiscordCOM.sendServerCount(serverCount, botID);
-                //DiscordBOATS.sendServerCount(serverCount, botID);
+                BotsdatabaseCOM.sendServerCount(serverCount, botID);
+                DiscordBOATS.sendServerCount(serverCount, botID);
                 VoidbotsNET.sendServerCount(serverCount, botID);
                 InfinitybotlistCOM.sendServerCount(serverCount, botID);
                 SpacebotlistORG.sendServerCount(serverCount, botID);
