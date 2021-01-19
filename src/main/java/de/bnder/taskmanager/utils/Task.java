@@ -196,9 +196,7 @@ public class Task {
         if (this.notifyChannelMessageID == null) {
             try {
                 final Response res = Jsoup.connect(Main.requestURL + "/task/" + ((this.type == TaskType.GROUP) ? "group" : "user") + "/info/" + this.guild.getId() + "/" + this.id).method(Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
-                setStatusCode(res.statusCode());
-                setResponseMessage(res.body());
-                if (getStatusCode() == 200) {
+                if (res.statusCode() == 200) {
                     this.type = TaskType.GROUP;
                     final Document a = res.parse();
                     final JsonObject jsonObject = Json.parse(a.body().text()).asObject();
@@ -290,9 +288,9 @@ public class Task {
         }
     }
 
-    public void delete() {
+    public Task delete() {
         try {
-            Response res = Jsoup.connect(Main.requestURL + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/" + this.guild.getId() + "/" + this.id).method(Method.DELETE).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            final Response res = Jsoup.connect(Main.requestURL + "/task/" + (this.type == TaskType.USER ? "user" : "group") + "/" + this.guild.getId() + "/" + this.id).method(Method.DELETE).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             setStatusCode(res.statusCode());
             setResponseMessage(res.body());
             this.exists = false;
@@ -306,9 +304,11 @@ public class Task {
                     message.delete().queue();
                 }
             }
+            return this;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return this;
     }
 
     public Task setStatus(TaskStatus status, Member member) {

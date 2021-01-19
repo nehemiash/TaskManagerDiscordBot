@@ -18,17 +18,16 @@ public class DeleteTask {
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         if (PermissionSystem.hasPermission(member, TaskPermission.DELETE_TASK)) {
             final String taskID = Connection.encodeString(args[1]);
-            final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
-            task.delete();
+            final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild()).delete();
             final int statusCode = task.getStatusCode();
             if (statusCode == 200) {
-                MessageSender.send(embedTitle, Localizations.getString("aufgabe_geloescht", langCode, new ArrayList<String>() {
+                MessageSender.send(embedTitle, Localizations.getString("aufgabe_geloescht", langCode, new ArrayList<>() {
                     {
                         add(taskID);
                     }
                 }), textChannel, Color.green);
             } else if (statusCode == 404) {
-                MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
+                MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<>() {
                     {
                         add(taskID);
                     }

@@ -38,10 +38,10 @@ public class Localizations {
                 for (String word : paragraph.split(" ")) {
                     if (word.contains("$")) {
                         if (args.size() >= argCount + 1) {
-                            messageBuilder.append(word.replaceFirst("\\$", args.get(argCount))).append(" ");
+                            messageBuilder.append(word.replace("$", args.get(argCount))).append(" ");
                             argCount++;
                         } else {
-                            messageBuilder.append(word.replaceFirst("\\$", " ")).append(" ");
+                            messageBuilder.append(word.replace("$", " ")).append(" ");
                         }
                     } else {
                         messageBuilder.append(word).append(" ");
