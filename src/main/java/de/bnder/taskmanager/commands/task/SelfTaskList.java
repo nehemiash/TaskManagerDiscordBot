@@ -50,7 +50,7 @@ public class SelfTaskList {
                         add(member.getAsMention());
                         add(finalBuilder2.toString());
                     }
-                }), textChannel, Color.orange);
+                }), textChannel, Color.orange, langCode);
             }
             builder = new StringBuilder();
             array = jsonObject.get("doing").asArray();
@@ -75,7 +75,7 @@ public class SelfTaskList {
                         add(member.getAsMention());
                         add(finalBuilder.toString());
                     }
-                }), textChannel, Color.yellow);
+                }), textChannel, Color.yellow, langCode);
             }
             builder = new StringBuilder();
 
@@ -105,10 +105,10 @@ public class SelfTaskList {
                         add(member.getAsMention());
                         add(finalBuilder1.toString());
                     }
-                }), textChannel, Color.green);
+                }), textChannel, Color.green, langCode);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), textChannel, Color.red);
+            MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), textChannel, Color.red, langCode);
         }
     }
 

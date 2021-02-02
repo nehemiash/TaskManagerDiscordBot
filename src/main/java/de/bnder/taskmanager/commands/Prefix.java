@@ -27,20 +27,20 @@ public class Prefix implements Command {
                     if (res.statusCode() == 200) {
                         MessageSender.send(embedTitle, Localizations.getString("prefix_changed", langCode, new ArrayList<String>(){{
                             add(prefix);
-                        }}), event.getMessage(), Color.green);
+                        }}), event.getMessage(), Color.green, langCode);
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>(){{
                             add("PREFIX-${res.statusCode()}");
-                        }}), event.getMessage(), Color.red);
+                        }}), event.getMessage(), Color.red, langCode);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("prefix_only_one_char", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("prefix_only_one_char", langCode), event.getMessage(), Color.red, langCode);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("prefix_no_arg", langCode), event.getMessage(), Color.red);
+                MessageSender.send(embedTitle, Localizations.getString("prefix_no_arg", langCode), event.getMessage(), Color.red, langCode);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), event.getMessage(), Color.red);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), event.getMessage(), Color.red, langCode);
         }
     }
 }

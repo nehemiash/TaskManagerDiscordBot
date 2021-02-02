@@ -33,33 +33,33 @@ public class AddGroupMember {
                                     add(mentionedMember.getUser().getName());
                                     add(groupName);
                                 }
-                            }), textChannel, Color.green);
+                            }), textChannel, Color.green, langCode);
                         } else if (statusCode == 404) {
                             MessageSender.send(embedTitle, Localizations.getString("group_with_name_doesnt_exist", langCode, new ArrayList<String>() {
                                 {
                                     add(groupName);
                                 }
-                            }), textChannel, Color.red);
+                            }), textChannel, Color.red, langCode);
                             return;
                         } else if (statusCode == 400) {
-                            MessageSender.send(embedTitle, Localizations.getString("user_already_in_group", langCode), textChannel, Color.red);
+                            MessageSender.send(embedTitle, Localizations.getString("user_already_in_group", langCode), textChannel, Color.red, langCode);
                         } else {
                             MessageSender.send(embedTitle, Localizations.getString("user_added_to_group_unknown_error", langCode, new ArrayList<String>() {
                                 {
                                     add(String.valueOf(statusCode));
                                 }
-                            }), textChannel, Color.red);
+                            }), textChannel, Color.red, langCode);
                             return;
                         }
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("user_needs_to_be_mentioned", langCode), textChannel, Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("user_needs_to_be_mentioned", langCode), textChannel, Color.red, langCode);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("group_name_needs_to_be_given", langCode), textChannel, Color.red);
+                MessageSender.send(embedTitle, Localizations.getString("group_name_needs_to_be_given", langCode), textChannel, Color.red, langCode);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode);
         }
     }
 

@@ -85,7 +85,7 @@ public class SettingsController implements Command {
                     add(prefix);
                     add(prefix);
                     add(prefix);
-                }}), message.getTextChannel(), Color.red);
+                }}), message.getTextChannel(), Color.red, langCode);
             }
         } else {
             final String embedTitle = Localizations.getString("permissions_title", langCode);
@@ -95,7 +95,7 @@ public class SettingsController implements Command {
                 add(prefix);
                 add(prefix);
                 add(prefix);
-            }}), message.getTextChannel(), Color.red);
+            }}), message.getTextChannel(), Color.red, langCode);
         }
     }
 

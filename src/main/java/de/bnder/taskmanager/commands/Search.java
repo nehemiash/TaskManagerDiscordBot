@@ -82,7 +82,7 @@ public class Search implements Command {
                             event.getChannel().sendMessage(builder.build()).queue();
                             tasksResultArrayIterations++;
                         } else {
-                            MessageSender.send(embedTitle, Localizations.getString("search_results_hidden_text", langCode), event.getChannel(), Color.red);
+                            MessageSender.send(embedTitle, Localizations.getString("search_results_hidden_text", langCode), event.getChannel(), Color.red, langCode);
                             break;
                         }
                     }
@@ -122,14 +122,14 @@ public class Search implements Command {
                             event.getChannel().sendMessage(builder.build()).queue();
                             groupsResultArrayIterations++;
                         } else {
-                            MessageSender.send(embedTitle, Localizations.getString("search_results_hidden_text", langCode), event.getChannel(), Color.red);
+                            MessageSender.send(embedTitle, Localizations.getString("search_results_hidden_text", langCode), event.getChannel(), Color.red, langCode);
                             break;
                         }
                     }
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("no_search_results", langCode, new ArrayList<String>(){{
                         add(searchTermRaw);
-                    }}), event.getMessage(), Color.red);
+                    }}), event.getMessage(), Color.red, langCode);
                 }
             }
         }

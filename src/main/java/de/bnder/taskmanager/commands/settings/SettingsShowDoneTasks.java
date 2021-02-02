@@ -22,16 +22,16 @@ public class SettingsShowDoneTasks {
         final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/user/settings/" + member.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).data("type", "show_done_tasks").postDataCharset("UTF-8").ignoreContentType(true).ignoreHttpErrors(true).execute();
         final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
         if (res.statusCode() == 200) {
-            final boolean newValue = jsonObject.getBoolean("newValue", false);
+            final boolean newValue = Boolean.parseBoolean(jsonObject.getString("newValue", "0"));
             if (newValue) {
-                MessageSender.send(embedTitle, Localizations.getString("settings_show_done_tasks_enabled", langCode), textChannel, Color.green);
+                MessageSender.send(embedTitle, Localizations.getString("settings_show_done_tasks_enabled", langCode), textChannel, Color.green, langCode);
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("settings_show_done_tasks_disabled", langCode), textChannel, Color.green);
+                MessageSender.send(embedTitle, Localizations.getString("settings_show_done_tasks_disabled", langCode), textChannel, Color.green, langCode);
             }
         } else {
             MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {{
                 add("SETTINGS-2.1-" + res.statusCode());
-            }}), textChannel, Color.red);
+            }}), textChannel, Color.red, langCode);
         }
     }
 

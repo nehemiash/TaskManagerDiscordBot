@@ -72,7 +72,7 @@ public class ListTasksFromOthers {
                         }
                     });
                 }
-                MessageSender.send(embedTitle, text, textChannel, Color.orange);
+                MessageSender.send(embedTitle, text, textChannel, Color.orange, langCode);
             }
             builder.delete(0, builder.length());
             array = jsonObject.get("doing").asArray();
@@ -108,7 +108,7 @@ public class ListTasksFromOthers {
                         }
                     });
                 }
-                MessageSender.send(embedTitle, text, textChannel, Color.yellow);
+                MessageSender.send(embedTitle, text, textChannel, Color.yellow, langCode);
             }
             builder.delete(0, builder.length());
             array = jsonObject.get("done").asArray();
@@ -147,10 +147,10 @@ public class ListTasksFromOthers {
                         }
                     });
                 }
-                MessageSender.send(embedTitle, text, textChannel, Color.green);
+                MessageSender.send(embedTitle, text, textChannel, Color.green, langCode);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), textChannel, Color.red);
+            MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), textChannel, Color.red, langCode);
         }
     }
 

@@ -28,6 +28,6 @@ public class App implements Command {
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
         final String langCode = Localizations.getGuildLanguage(event.getGuild());
-        MessageSender.send(Localizations.getString("app_message_title", langCode), Localizations.getString("app_befehl_nachricht", langCode), event.getMessage(), Color.green);
+        MessageSender.send(Localizations.getString("app_message_title", langCode), Localizations.getString("app_befehl_nachricht", langCode), event.getMessage(), Color.green, langCode);
     }
 }

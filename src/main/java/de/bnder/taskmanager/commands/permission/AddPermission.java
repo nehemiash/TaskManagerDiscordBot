@@ -29,7 +29,7 @@ public class AddPermission {
                 } else if (permissionPermissionContains(args[2].toUpperCase())) {
                     statusCode = PermissionSystem.addPermissionStatusCode(mentionedMembers.get(0), PermissionPermission.valueOf(args[2].toUpperCase()));
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), textChannel, Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), textChannel, Color.red, langCode);
                     return;
                 }
             } else if (mentionedRoles != null && mentionedRoles.size() > 0) {
@@ -40,20 +40,20 @@ public class AddPermission {
                 } else if (permissionPermissionContains(args[2].toUpperCase())) {
                     statusCode = PermissionSystem.addPermissionStatusCode(mentionedRoles.get(0), PermissionPermission.valueOf(args[2].toUpperCase()));
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), textChannel, Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), textChannel, Color.red, langCode);
                     return;
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("need_to_mention_user_or_role", langCode), textChannel, Color.red);
+                MessageSender.send(embedTitle, Localizations.getString("need_to_mention_user_or_role", langCode), textChannel, Color.red, langCode);
                 return;
             }
             if (statusCode == 200) {
-                MessageSender.send(embedTitle, Localizations.getString("permission_added", langCode), textChannel, Color.green);
+                MessageSender.send(embedTitle, Localizations.getString("permission_added", langCode), textChannel, Color.green, langCode);
             } else if (statusCode == 903) {
-                MessageSender.send(embedTitle, Localizations.getString("already_has_permission", langCode), textChannel, Color.red);
+                MessageSender.send(embedTitle, Localizations.getString("already_has_permission", langCode), textChannel, Color.red, langCode);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode);
         }
     }
 

@@ -19,19 +19,19 @@ public class TasksDone {
         final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, member.getGuild());
         final int statusCode = task.setStatus(TaskStatus.DONE, member).getStatusCode();
         if (statusCode == 200) {
-            MessageSender.send(embedTitle, Localizations.getString("aufgabe_erledigt", langCode), textChannel, Color.green);
+            MessageSender.send(embedTitle, Localizations.getString("aufgabe_erledigt", langCode), textChannel, Color.green, langCode);
         } else if (statusCode == 404) {
             MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
                 {
                     add(taskID);
                 }
-            }), textChannel, Color.red);
+            }), textChannel, Color.red, langCode);
         } else {
             MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
                 {
                     add(statusCode + " " + task.getResponseMessage());
                 }
-            }), textChannel, Color.red);
+            }), textChannel, Color.red, langCode);
         }
     }
 

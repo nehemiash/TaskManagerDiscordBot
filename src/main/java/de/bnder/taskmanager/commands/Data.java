@@ -26,7 +26,7 @@ public class Data implements Command {
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
         final Guild guild = event.getGuild();
         final String langCode = Localizations.getGuildLanguage(guild);
-        MessageSender.send(Localizations.getString("data_title", langCode), Localizations.getString("data_will_be_sent", langCode), event.getMessage(), Color.cyan);
+        MessageSender.send(Localizations.getString("data_title", langCode), Localizations.getString("data_will_be_sent", langCode), event.getMessage(), Color.cyan, langCode);
 
         //Get every user data
         final File file = new File("userData-" + guild.getId() + "-" + event.getAuthor().getId() + ".yml");

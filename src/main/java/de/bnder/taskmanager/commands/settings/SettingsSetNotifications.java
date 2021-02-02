@@ -30,22 +30,22 @@ public class SettingsSetNotifications {
                         MessageSender.send(embedTitle, Localizations.getString("user_connect_channel_connected", langCode, new ArrayList<String>() {{
                             add(user.getAsTag());
                             add(mentionedChannels.get(0).getAsMention());
-                        }}), textChannel, Color.green);
+                        }}), textChannel, Color.green, langCode);
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
                             {
                                 add(String.valueOf(res.statusCode()));
                             }
-                        }), textChannel, Color.red);
+                        }), textChannel, Color.red, langCode);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("notify_mention_one_channel", langCode), textChannel, Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("notify_mention_one_channel", langCode), textChannel, Color.red, langCode);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("user_needs_to_be_mentioned", langCode), textChannel, Color.red);
+                MessageSender.send(embedTitle, Localizations.getString("user_needs_to_be_mentioned", langCode), textChannel, Color.red, langCode);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode);
         }
     }
 

@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.exceptions.ContextException;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -39,11 +40,13 @@ public class GroupTypoReactionListener extends ListenerAdapter {
                             processGroupCommand(args, event.getMember(), command, event.getChannel());
                         } catch (IOException e) {
                             final String langCode = Localizations.getGuildLanguage(event.getGuild());
-                            MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red);
+                            MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode);
                         }
                     }
                 } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                    message.delete().queue();
+                    try {
+                        message.delete().queue();
+                    } catch (Exception ignored) {}
                 }
             } catch (ErrorResponseException ignored) {
             }

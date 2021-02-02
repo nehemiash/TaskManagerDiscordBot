@@ -28,19 +28,19 @@ public class Token implements Command {
             final PrivateChannel channel = event.getAuthor().openPrivateChannel().complete();
             if (args.length == 1 && args[0].equalsIgnoreCase("new")) {
                 final String token = getNewToken(event.getAuthor());
-                MessageSender.send(embedTitle, Localizations.getString("token_erhalten", langCode), event.getMessage(), Color.green);
+                MessageSender.send(embedTitle, Localizations.getString("token_erhalten", langCode), event.getMessage(), Color.green, langCode);
                 channel.sendMessage(token).queue();
                 channel.sendMessage(new EmbedBuilder().setImage("http://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data=" + Base64.getEncoder().encodeToString(("tmb_" + token).getBytes()) + "&qzone=1&margin=0&size=400x400&ecc=L").build()).queue();
                 channel.sendMessage(Localizations.getString("token_info", langCode)).queue();
             } else {
                 final String token = getToken(event.getAuthor());
-                MessageSender.send(embedTitle, Localizations.getString("token_erhalten", langCode), event.getMessage(), Color.green);
+                MessageSender.send(embedTitle, Localizations.getString("token_erhalten", langCode), event.getMessage(), Color.green, langCode);
                 channel.sendMessage(token).queue();
                 channel.sendMessage(new EmbedBuilder().setImage("http://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data=" + Base64.getEncoder().encodeToString(("tmb_" + token).getBytes()) + "&qzone=1&margin=0&size=400x400&ecc=L").build()).queue();
                 channel.sendMessage(Localizations.getString("token_info", langCode)).queue();
             }
         } catch (Exception e){
-            MessageSender.send(embedTitle, Localizations.getString("token_konnte_nicht_gesendet_werden", langCode), event.getMessage(), Color.red);
+            MessageSender.send(embedTitle, Localizations.getString("token_konnte_nicht_gesendet_werden", langCode), event.getMessage(), Color.red, langCode);
         }
     }
 

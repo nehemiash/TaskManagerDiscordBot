@@ -105,7 +105,7 @@ public class TaskController implements Command {
                     add(prefix);
                     add(prefix);
                     add(prefix);
-                }}), message, Color.red);
+                }}), message, Color.red, langCode);
             }
         } else {
             final String embedTitle = Localizations.getString("task_message_title", langCode);
@@ -120,7 +120,7 @@ public class TaskController implements Command {
                 add(prefix);
                 add(prefix);
                 add(prefix);
-            }}), message, Color.red);
+            }}), message, Color.red, langCode);
         }
     }
 }

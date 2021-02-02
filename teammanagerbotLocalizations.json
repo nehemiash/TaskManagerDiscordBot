@@ -486,13 +486,13 @@
     "tr": "\nBu token uygulama için kullanılabilir. \n**Token kişiye özeldir paylaşmayınız!**"
   },
   "help_message_group_commands": {
-    "de": "`$group create <GRUPPENNAME>` - Gruppe erstellen\n`$group add @NUTZER <GRUPPENNAME>` - Nutzer zu Gruppe hinzufügen\n`$group remove @NUTZER <GRUPPENNAME>` - Nutzer aus Gruppe entfernen\n`$group delete <GRUPPENNAME>` - Gruppe löschen\n`$group list` - Alle Gruppen auflisten\n`$group members <GRUPPENNAME>` - Alle Gruppenmitglieder auflisten",
-    "en": "`$group create <GROUPNAME>` - Create a group\n`$group add @USER <GROUPNAME>` - Add an user to a group\n`$group remove @USER <GROUPNAME>` - Remove an user from a group\n`$group delete <GROUPNAME>` - Delete a group\n`$group list` - List all groups\n`$group members <GROUPNAME>` - Lists all group members",
-    "bg": "`$group create <GROUPNAME>` - Създава група\n`$group add @USER <GROUPNAME>` - Добавете потребители в групата\n`$group remove @USER <GROUPNAME>` - Премахване на потребителите от групата\n`$group delete <GROUPNAME>` - Изтриване на групата\n`group list` - Списък с групи\n`$group members <GROUPNAME>` - Списък на всички членове на групата",
-    "pl": "`$group create <NAZWA GRUPY>` - Utwórz grupę\n`$group add @UŻYTKOWNIK <NAZWA GRUPY>` - Dodaj użytkownika do grupy\n`$group remove @UŻYTKOWNIK <NAZWA GRUPY>` - Usuń użytkownika z grupy\n`$group delete <NAZWA GRUPY>` - Usuń grupę\n`$group list` - Wyświetl wszystkie grupy\n`$group members <NAZWA GRUPY>` - Lista wszystkich członków grupy",
-    "fr": "`$group create <NOM DU GROUPE>` - Créer un groupe\n `$group add @UTILISATEUR <NOM DU GROUPE>` - Ajouter des utilisateurs au groupe\n`$group remove @UTILISATEUR <NOM DU GROUPE>` - Supprimer des utilisateurs du groupe\n`$group delete <NOM DU GROUPE>` - Supprimer le groupe\n`$group list` - Lister tous les groupes\n`$group members <NOM DU GROUPE>` - Lister tous les membres du groupe",
-    "ru": "`$group create <ИМЯ ГРУППЫ>` - Создать группу\n`$group add @ПОЛЬЗОВАТЕЛИ <ИМЯ ГРУППЫ>` - Добавить пользователей в группу\n`$group remove @ПОЛЬЗОВАТЕЛИ <ИМЯ ГРУППЫ>` - Удалить пользователей из группы\n`$group delete <ИМЯ ГРУППЫ>` - Удалить группу\n`$group list` - Список всех групп\n`$group members <GRUPPENNAME>` - Список всех членов группы",
-    "tr": "`$group create <GROUPNAME>` - Grup oluşturur\n`$group add @USER <GROUPNAME>` - Gruba üye ekler\n`$group remove @USER <GROUPNAME>` - Gruptan üye çıkarır\n`$group delete <GROUPNAME>` - Grubu siler\n`$group list` - Grupları listeler\n`$group members <GROUPNAME>` - Grup üyelerini listeler"
+    "de": "`$group create <GRUPPENNAME>` - Gruppe erstellen\n`$group add @NUTZER <GRUPPENNAME>` - Nutzer zu Gruppe hinzufügen\n`$group remove @NUTZER <GRUPPENNAME>` - Nutzer aus Gruppe entfernen\n`$group delete <GRUPPENNAME>` - Gruppe löschen\n`$group list` - Alle Gruppen auflisten\n`$group members <GRUPPENNAME>` - Alle Gruppenmitglieder auflisten\n`$group notifications <GRUPPENNAME> #KANAL` - Protokolliere alle Aufgaben einer Gruppe in einem Kanal",
+    "en": "`$group create <GROUPNAME>` - Create a group\n`$group add @USER <GROUPNAME>` - Add an user to a group\n`$group remove @USER <GROUPNAME>` - Remove an user from a group\n`$group delete <GROUPNAME>` - Delete a group\n`$group list` - List all groups\n`$group members <GROUPNAME>` - Lists all group members\n`$group notifications <GROUP NAME> #CHANNEL` - Log all tasks of a group in a channel",
+    "bg": "`$group create <GROUPNAME>` - Създава група\n`$group add @USER <GROUPNAME>` - Добавете потребители в групата\n`$group remove @USER <GROUPNAME>` - Премахване на потребителите от групата\n`$group delete <GROUPNAME>` - Изтриване на групата\n`group list` - Списък с групи\n`$group members <GROUPNAME>` - Списък на всички членове на групата\n`$group notifications <GROUP NAME> #CHANNEL` - регистрирайте всички задачи на група в канал",
+    "pl": "`$group create <NAZWA GRUPY>` - Utwórz grupę\n`$group add @UŻYTKOWNIK <NAZWA GRUPY>` - Dodaj użytkownika do grupy\n`$group remove @UŻYTKOWNIK <NAZWA GRUPY>` - Usuń użytkownika z grupy\n`$group delete <NAZWA GRUPY>` - Usuń grupę\n`$group list` - Wyświetl wszystkie grupy\n`$group members <NAZWA GRUPY>` - Lista wszystkich członków grupy\n`$powiadomienia grupy <NAZWA GRUPY> #KANAŁ` - Loguj wszystkie zadania grupy w kanale",
+    "fr": "`$group create <NOM DU GROUPE>` - Créer un groupe\n `$group add @UTILISATEUR <NOM DU GROUPE>` - Ajouter des utilisateurs au groupe\n`$group remove @UTILISATEUR <NOM DU GROUPE>` - Supprimer des utilisateurs du groupe\n`$group delete <NOM DU GROUPE>` - Supprimer le groupe\n`$group list` - Lister tous les groupes\n`$group members <NOM DU GROUPE>` - Lister tous les membres du groupe\n`$group notifications <NOM DU GROUPE> #CHANNEL` - Enregistre toutes les tâches d'un groupe dans un canal",
+    "ru": "`$group create <ИМЯ ГРУППЫ>` - Создать группу\n`$group add @ПОЛЬЗОВАТЕЛИ <ИМЯ ГРУППЫ>` - Добавить пользователей в группу\n`$group remove @ПОЛЬЗОВАТЕЛИ <ИМЯ ГРУППЫ>` - Удалить пользователей из группы\n`$group delete <ИМЯ ГРУППЫ>` - Удалить группу\n`$group list` - Список всех групп\n`$group members <GRUPPENNAME>` - Список всех членов группы\n`$group notifications <ИМЯ ГРУППЫ> #КАНАЛ` - записывать все задачи группы в канал",
+    "tr": "`$group create <GROUPNAME>` - Grup oluşturur\n`$group add @USER <GROUPNAME>` - Gruba üye ekler\n`$group remove @USER <GROUPNAME>` - Gruptan üye çıkarır\n`$group delete <GROUPNAME>` - Grubu siler\n`$group list` - Grupları listeler\n`$group members <GROUPNAME>` - Grup üyelerini listeler\n`$group notifications <GRUP ADI> #KANAL` - Kanaldaki bir grubun tüm görevlerini günlüğe kaydet"
   },
   "help_message_task_commands": {
     "de": "`$task add @NUTZER <AUFGABE>` - Aufgabe an Nutzer geben\n`$task add <GRUPPENNAME> <AUFGABE>` - Aufgabe an Gruppe geben\n`$task proceed <AUFGABEN-ID>` - Ändert Status der Aufgabe zu bearbeitet/erledigt\n`$task deadline <AUFGABEN-ID> <DATUM> <UHRZEIT>` - Deadline für Aufgabe setzen\n`$task list <@NUTZER/GRUPPENNAME>` - Listet alle Aufgaben auf\n`$task delete <AUFGABEN-ID>` - Aufgabe löschen\n`$task edit <AUFGABEN-ID> <AUFGABE>` - Überarbeite den Aufgaben Text\n`$task info <AUFGABEN-ID>` - Zeigt einzelne Informationen für die Aufgabe an\n`$task done <AUFGABEN-ID` - Setzt eine Aufgabe direkt auf erledigt\n",
@@ -907,6 +907,33 @@
     "fr": "Soutenez-nous sur bnder.net/donate",
     "ru": "Поддержите нас на bnder.net/donate",
     "tr": "Bize destek olmak için bnder.net/donate"
+  },
+  "donate_alert_paypal": {
+    "de": "Unterstütze uns durch eine Spende auf Paypal: paypal.me/EnderLPs",
+    "en": "Support us by donating on Paypal: paypal.me/EnderLPs",
+    "bg": "Подкрепете ни с дарение в Paypal: paypal.me/EnderLPs",
+    "pl": "Wesprzyj nas darowizną na Paypal: paypal.me/EnderLPs",
+    "fr": "Soutenez-nous avec un don sur Paypal: paypal.me/EnderLPs",
+    "ru": "Поддержите нас пожертвованием на Paypal: paypal.me/EnderLPs",
+    "tr": "Paypal üzerinden bir bağışla bizi destekleyin: paypal.me/EnderLPs"
+  },
+  "donate_alert_buymeacoffe": {
+    "de": "Kauf uns einen Kaffee: https://buymeacoff.ee/bnder",
+    "en": "Buy us a coffee: https://buymeacoff.ee/bnder",
+    "bg": "Купете ни кафе: https://buymeacoff.ee/bnder",
+    "pl": "Kup nam kawę: https://buymeacoff.ee/bnder",
+    "fr": "Achetez-nous un café: https://buymeacoff.ee/bnder",
+    "ru": "Купите нам кофе: https://buymeacoff.ee/bnder",
+    "tr": "Bize bir kahve ısmarlayın: https://buymeacoff.ee/bnder"
+  },
+  "donate_alert_brave": {
+    "de": "Lade dir den kostenlosen Browser Brave herunter und unterstütze uns: https://brave.com/bnd186",
+    "en": "Download the free Brave browser and support us: https://brave.com/bnd186",
+    "bg": "Изтеглете безплатния браузър Brave и ни подкрепете: https://brave.com/bnd186",
+    "pl": "Pobierz bezpłatną przeglądarkę Brave i wesprzyj nas: https://brave.com/bnd186",
+    "fr": "Téléchargez le navigateur Brave gratuit et soutenez-nous: https://brave.com/bnd186",
+    "ru": "Загрузите бесплатный браузер Brave и поддержите нас: https://brave.com/bnd186",
+    "tr": "Ücretsiz Brave tarayıcısını indirin ve bizi destekleyin: https://brave.com/bnd186"
   },
   "notify_channel_set_but_dms_are_enabled": {
     "de": "Neue Aufgaben für dich werden in $ gesendet, sobald die Direktnachrichten (direct-message) deaktiviert wurde.",

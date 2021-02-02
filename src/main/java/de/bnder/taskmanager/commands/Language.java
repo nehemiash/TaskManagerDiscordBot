@@ -32,7 +32,7 @@ public class Language implements Command {
         if (args.length == 0) {
             final String langCode = Localizations.getGuildLanguage(guild);
             final String embedTitle = Localizations.getString("language_message_title", langCode);
-            MessageSender.send(embedTitle, Localizations.getString("language_message_invalid_params", langCode), event.getMessage(), Color.red);
+            MessageSender.send(embedTitle, Localizations.getString("language_message_invalid_params", langCode), event.getMessage(), Color.red, langCode);
         } else if (args.length == 1) {
             final String language = args[0].toLowerCase();
             if (validLangCodes.contains(language)) {
@@ -40,19 +40,19 @@ public class Language implements Command {
                     final Connection.Response res = Jsoup.connect(Main.requestURL + "/server/language/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).data("language", language).postDataCharset("UTF-8").header("user_id", event.getMember().getId()).timeout(de.bnder.taskmanager.utils.Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                     final String embedTitle = Localizations.getString("language_message_title", language);
                     if (res.statusCode() == 200) {
-                        MessageSender.send(embedTitle, Localizations.getString("sprache_geaendert", language), event.getMessage(), Color.green);
+                        MessageSender.send(embedTitle, Localizations.getString("sprache_geaendert", language), event.getMessage(), Color.green, language);
                     } else {
-                        MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", language), event.getMessage(), Color.red);
+                        MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", language), event.getMessage(), Color.red, language);
                     }
                 } else {
                     final String langCode = Localizations.getGuildLanguage(event.getGuild());
                     final String embedTitle = Localizations.getString("language_message_title", langCode);
-                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), event.getMessage(), Color.red);
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), event.getMessage(), Color.red, langCode);
                 }
             } else {
                 final String langCode = Localizations.getGuildLanguage(event.getGuild());
                 final String embedTitle = Localizations.getString("language_message_title", langCode);
-                MessageSender.send(embedTitle, Localizations.getString("language_message_invalid_params", langCode), event.getMessage(), Color.red);
+                MessageSender.send(embedTitle, Localizations.getString("language_message_invalid_params", langCode), event.getMessage(), Color.red, langCode);
             }
         }
     }

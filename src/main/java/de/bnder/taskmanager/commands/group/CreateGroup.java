@@ -28,23 +28,23 @@ public class CreateGroup {
                     {
                         add(groupName);
                     }
-                }), textChannel, Color.green);
+                }), textChannel, Color.green, langCode);
             } else if (statusCode == 400) {
                 MessageSender.send(embedTitle, Localizations.getString("group_not_created_name_already_exists", langCode, new ArrayList<String>() {
                     {
                         add(groupName);
                     }
-                }), textChannel, Color.red);
+                }), textChannel, Color.red, langCode);
             } else {
                 MessageSender.send(embedTitle, Localizations.getString("group_not_created_unknown_error", langCode, new ArrayList<String>() {
                     {
                         add(groupName);
                         add(String.valueOf(statusCode));
                     }
-                }), textChannel, Color.red);
+                }), textChannel, Color.red, langCode);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode);
         }
     }
 

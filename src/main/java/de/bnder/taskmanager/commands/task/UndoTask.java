@@ -21,26 +21,26 @@ public class UndoTask {
         if (statusCode == 200) {
             final TaskStatus taskStatus = task.getStatus();
             if (taskStatus == TaskStatus.TODO) {
-                MessageSender.send(embedTitle, Localizations.getString("aufgabe_wird_nicht_bearbeitet", langCode), textChannel, Color.green);
+                MessageSender.send(embedTitle, Localizations.getString("aufgabe_wird_nicht_bearbeitet", langCode), textChannel, Color.green, langCode);
             } else if (taskStatus == TaskStatus.IN_PROGRESS) {
-                MessageSender.send(embedTitle, Localizations.getString("aufgabe_wird_nun_bearbeitet", langCode), textChannel, Color.green);
+                MessageSender.send(embedTitle, Localizations.getString("aufgabe_wird_nun_bearbeitet", langCode), textChannel, Color.green, langCode);
             } else if (taskStatus == TaskStatus.DONE) {
-                MessageSender.send(embedTitle, Localizations.getString("aufgabe_erledigt", langCode), textChannel, Color.green);
+                MessageSender.send(embedTitle, Localizations.getString("aufgabe_erledigt", langCode), textChannel, Color.green, langCode);
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("task_abfrage_unbekannter_fehler", langCode) + " " + task.getResponseMessage(), textChannel, Color.red);
+                MessageSender.send(embedTitle, Localizations.getString("task_abfrage_unbekannter_fehler", langCode) + " " + task.getResponseMessage(), textChannel, Color.red, langCode);
             }
         } else if (statusCode == 404) {
             MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
                 {
                     add(taskID);
                 }
-            }), textChannel, Color.red);
+            }), textChannel, Color.red, langCode);
         } else {
             MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
                 {
                     add(statusCode + " " + task.getResponseMessage());
                 }
-            }), textChannel, Color.red);
+            }), textChannel, Color.red, langCode);
         }
     }
 

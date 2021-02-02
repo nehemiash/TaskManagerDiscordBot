@@ -24,14 +24,14 @@ public class SettingsDirectmessage {
         if (res.statusCode() == 200) {
             final boolean newValue = jsonObject.getBoolean("newValue", false);
             if (newValue) {
-                MessageSender.send(embedTitle, Localizations.getString("settings_dm_enabled", langCode), textChannel, Color.green);
+                MessageSender.send(embedTitle, Localizations.getString("settings_dm_enabled", langCode), textChannel, Color.green, langCode);
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("settings_dm_disabled", langCode), textChannel, Color.green);
+                MessageSender.send(embedTitle, Localizations.getString("settings_dm_disabled", langCode), textChannel, Color.green, langCode);
             }
         } else {
             MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {{
                 add("SETTINGS-1.1-" + res.statusCode());
-            }}), textChannel, Color.red);
+            }}), textChannel, Color.red, langCode);
         }
     }
 

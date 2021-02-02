@@ -27,22 +27,22 @@ public class SettingsNotifyChannel {
                     if (!de.bnder.taskmanager.utils.Settings.getUserSettings(member).getString("direct_message", "1").equals("0")) {
                         MessageSender.send(embedTitle, Localizations.getString("notify_channel_set_but_dms_are_enabled", langCode, new ArrayList<String>() {{
                             add(channel.getAsMention());
-                        }}), textChannel, Color.green);
+                        }}), textChannel, Color.green, langCode);
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("notify_channel_set", langCode, new ArrayList<String>() {{
                             add(channel.getAsMention());
-                        }}), textChannel, Color.green);
+                        }}), textChannel, Color.green, langCode);
                     }
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {{
                         add("SETTINGS-3-" + res.statusCode());
-                    }}), textChannel, Color.red);
+                    }}), textChannel, Color.red, langCode);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("notify_mention_one_channel", langCode), textChannel, Color.red);
+                MessageSender.send(embedTitle, Localizations.getString("notify_mention_one_channel", langCode), textChannel, Color.red, langCode);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("settings_invalid_arg", langCode), textChannel, Color.red);
+            MessageSender.send(embedTitle, Localizations.getString("settings_invalid_arg", langCode), textChannel, Color.red, langCode);
         }
     }
 

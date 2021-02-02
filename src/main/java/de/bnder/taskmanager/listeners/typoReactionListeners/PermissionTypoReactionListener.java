@@ -41,11 +41,13 @@ public class PermissionTypoReactionListener extends ListenerAdapter {
                             processPermissionCommand(args, event.getMember(), command, event.getChannel());
                         } catch (IOException e) {
                             final String langCode = Localizations.getGuildLanguage(event.getGuild());
-                            MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red);
+                            MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode);
                         }
                     }
                 } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                    message.delete().queue();
+                    try {
+                        message.delete().queue();
+                    } catch (Exception ignored) {}
                 }
             } catch (ErrorResponseException ignored) {
             }

@@ -28,22 +28,22 @@ public class DeleteGroup {
                     {
                         add(groupName);
                     }
-                }), textChannel, Color.green);
+                }), textChannel, Color.green, langCode);
             } else if (statusCode == 404) {
                 MessageSender.send(embedTitle, Localizations.getString("group_with_name_doesnt_exist", langCode, new ArrayList<String>() {
                     {
                         add(groupName);
                     }
-                }), textChannel, Color.red);
+                }), textChannel, Color.red, langCode);
             } else {
                 MessageSender.send(embedTitle, Localizations.getString("group_delete_unknown_error", langCode, new ArrayList<String>() {
                     {
                         add(groupName);
                     }
-                }), textChannel, Color.red);
+                }), textChannel, Color.red, langCode);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode);
         }
     }
 

@@ -13,6 +13,6 @@ public class Invite implements Command {
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
         final String langCode = Localizations.getGuildLanguage(event.getGuild());
         final String embedTitle = Localizations.getString("invite_title", langCode);
-        MessageSender.send(embedTitle, Localizations.getString("invite_text", langCode), event.getMessage(), Color.cyan);
+        MessageSender.send(embedTitle, Localizations.getString("invite_text", langCode), event.getMessage(), Color.cyan, langCode);
     }
 }

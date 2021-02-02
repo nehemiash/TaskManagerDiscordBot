@@ -45,7 +45,7 @@ public class TaskInfo {
                 {
                     add(taskID);
                 }
-            }), textChannel, Color.red);
+            }), textChannel, Color.red, langCode);
         }
     }
 

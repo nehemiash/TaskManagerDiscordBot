@@ -43,13 +43,13 @@ public class AddTask {
                             {
                                 add(mentionedMember.getUser().getName());
                             }
-                        }) + newLanguageSuggestionAppend, textChannel, Color.green);
+                        }) + newLanguageSuggestionAppend, textChannel, Color.green, langCode);
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, new ArrayList<String>() {
                             {
                                 add(taskObject.getStatusCode() + " " + taskObject.getResponseMessage());
                             }
-                        }), textChannel, Color.red);
+                        }), textChannel, Color.red, langCode);
                     }
                 }
             } else if (GroupNotifications.serverHasGroup(args[1], member.getGuild())) {
@@ -78,32 +78,32 @@ public class AddTask {
                             {
                                 add(String.valueOf(finalUsersWhoReceivedTheTaskAmount));
                             }
-                        }), textChannel, Color.green);
+                        }), textChannel, Color.green, langCode);
                     } else if (getGroupMembersStatusCode == 404) {
                         MessageSender.send(embedTitle + " - " + taskObject.getId(), Localizations.getString("aufgabe_an_x_mitglieder_gesendet", langCode, new ArrayList<String>() {
                             {
                                 add("0");
                             }
-                        }), textChannel, Color.green);
+                        }), textChannel, Color.green, langCode);
                     }
                 } else if (statusCode == 404) {
                     MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode, new ArrayList<String>() {
                         {
                             add(groupName);
                         }
-                    }), textChannel, Color.red);
+                    }), textChannel, Color.red, langCode);
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, new ArrayList<String>() {
                         {
                             add(taskObject.getStatusCode()  + " " + taskObject.getResponseMessage());
                         }
-                    }), textChannel, Color.red);
+                    }), textChannel, Color.red, langCode);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellen_fehlende_argumente", langCode), textChannel, Color.red);
+                MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellen_fehlende_argumente", langCode), textChannel, Color.red, langCode);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode);
         }
     }
 

@@ -22,7 +22,8 @@ public class Help implements Command {
             add(prefix);
             add(prefix);
             add(prefix);
-        }}), event.getMessage(), Color.cyan);
+            add(prefix);
+        }}), event.getMessage(), Color.cyan, langCode);
         MessageSender.send(embedTitle + " - " + Localizations.getString("task_message_title", langCode), Localizations.getString("help_message_task_commands", langCode, new ArrayList<String>(){{
             add(prefix);
             add(prefix);
@@ -33,7 +34,7 @@ public class Help implements Command {
             add(prefix);
             add(prefix);
             add(prefix);
-        }}), event.getMessage(), Color.cyan);
+        }}), event.getMessage(), Color.cyan, langCode);
         MessageSender.send(embedTitle, Localizations.getString("help_message_other_commands", langCode, new ArrayList<String>(){{
             add(prefix);
             add(prefix);
@@ -47,12 +48,12 @@ public class Help implements Command {
             add(prefix);
             add(prefix);
             add(prefix);
-        }}), event.getMessage(), Color.cyan);
+        }}), event.getMessage(), Color.cyan, langCode);
         MessageSender.send(embedTitle + " - " + Localizations.getString("permissions_title", langCode), Localizations.getString("help_message_permission_commands", langCode, new ArrayList<String>(){{
             add(prefix);
             add(prefix);
             add(prefix);
             add(prefix);
-        }}), event.getMessage(), Color.cyan);
+        }}), event.getMessage(), Color.cyan, langCode);
     }
 }

@@ -24,66 +24,78 @@ import org.jsoup.Jsoup;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Random;
 
 public class MessageSender {
-    public static void send(String title, String s, Message msg, Color red) {
+    public static void send(String title, String s, Message msg, Color red, final String langCode) {
         if (s.length() > 1990) {
             while (s.length() > 1990) {
                 String textNow = s.substring(0, 1990);
-                buildMessageBuilder(title, msg, red, textNow);
+                buildMessageBuilder(title, msg, red, textNow, langCode);
                 s = s.substring(1990);
             }
             if (s.length() > 0) {
-                buildMessageBuilder(title, msg, red, s);
+                buildMessageBuilder(title, msg, red, s, langCode);
             }
         } else {
-            buildMessageBuilder(title, msg, red, s);
-        }
-    }
-    public static void send(String title, String s, TextChannel textChannel, Color red) {
-        if (s.length() > 1990) {
-            while (s.length() > 1990) {
-                String textNow = s.substring(0, 1990);
-                buildMessageBuilder(title, textChannel, red, textNow);
-                s = s.substring(1990);
-            }
-            if (s.length() > 0) {
-                buildMessageBuilder(title, textChannel, red, s);
-            }
-        } else {
-            buildMessageBuilder(title, textChannel, red, s);
+            buildMessageBuilder(title, msg, red, s, langCode);
         }
     }
 
-    private static void buildMessageBuilder(String title, Message msg, Color red, String textNow) {
+    public static void send(String title, String s, TextChannel textChannel, Color red, final String langCode) {
+        if (s.length() > 1990) {
+            while (s.length() > 1990) {
+                String textNow = s.substring(0, 1990);
+                buildMessageBuilder(title, textChannel, red, textNow, langCode);
+                s = s.substring(1990);
+            }
+            if (s.length() > 0) {
+                buildMessageBuilder(title, textChannel, red, s, langCode);
+            }
+        } else {
+            buildMessageBuilder(title, textChannel, red, s, langCode);
+        }
+    }
+
+    private static void buildMessageBuilder(String title, Message msg, Color red, String textNow, final String langCode) {
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle(title);
         builder.setDescription(textNow);
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
-        if (new Random().nextInt(100) + 1 <= 5) {
-            final String langCode = Localizations.getGuildLanguage(msg.getGuild());
-            builder.setFooter(Localizations.getString("donate_alert", langCode));
-        }
+        setAdFooter(builder, langCode);
         msg.getChannel().sendMessage(builder.build()).queue();
         try {
-            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/stats/messages-sent").method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
+            Jsoup.connect(Main.requestURL + "/stats/messages-sent").method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+        } catch (Exception ignored) {}
+    }
+
+    private static void setAdFooter(EmbedBuilder builder, String langCode) {
+        final int randomNumber = getRandomInteger(4, 0);
+        if (randomNumber == 1) {
+            builder.setFooter(Localizations.getString("donate_alert_paypal", langCode));
+        } else if (randomNumber == 2) {
+            builder.setFooter(Localizations.getString("donate_alert_buymeacoffe", langCode));
+        } else if (randomNumber == 3) {
+            builder.setFooter(Localizations.getString("donate_alert_brave", langCode));
+        } else {
+            builder.setFooter(Localizations.getString("donate_alert", langCode));
         }
     }
 
-    private static void buildMessageBuilder(String title, TextChannel textChannel, Color red, String textNow) {
+    /**
+     * returns random integer between minimum and maximum range
+     */
+    private static int getRandomInteger(int maximum, int minimum) {
+        return ((int) (Math.random() * (maximum - minimum))) + minimum;
+    }
+
+    private static void buildMessageBuilder(String title, TextChannel textChannel, Color red, String textNow, final String langCode) {
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle(title);
         builder.setDescription(textNow);
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
-        if (new Random().nextInt(100) + 1 <= 5) {
-            final String langCode = Localizations.getGuildLanguage(textChannel.getGuild());
-            builder.setFooter(Localizations.getString("donate_alert", langCode));
-        }
+        setAdFooter(builder, langCode);
         textChannel.sendMessage(builder.build()).queue();
         try {
             final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/stats/messages-sent").method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();

@@ -33,7 +33,7 @@ public class ListUsersOrRolesPermissions {
             for (PermissionPermission permission : PermissionPermission.values()) {
                 stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(mentionedMember, permission))).append("\n");
             }
-            MessageSender.send(embedTitle + " - " + member.getUser().getAsTag(), stringBuilder.toString(), textChannel, Color.green);
+            MessageSender.send(embedTitle + " - " + member.getUser().getAsTag(), stringBuilder.toString(), textChannel, Color.green, langCode);
         } else if (mentionedRoles != null && mentionedRoles.size() > 0) {
             final Role role = mentionedRoles.get(0);
             final StringBuilder stringBuilder = new StringBuilder();
@@ -46,9 +46,9 @@ public class ListUsersOrRolesPermissions {
             for (PermissionPermission permission : PermissionPermission.values()) {
                 stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(role, permission))).append("\n");
             }
-            MessageSender.send(embedTitle + " - " + role.getName(), stringBuilder.toString(), textChannel, Color.green);
+            MessageSender.send(embedTitle + " - " + role.getName(), stringBuilder.toString(), textChannel, Color.green, langCode);
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_mention_user_or_role", langCode), textChannel, Color.red);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_mention_user_or_role", langCode), textChannel, Color.red, langCode);
         }
     }
 

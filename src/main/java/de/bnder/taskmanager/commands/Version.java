@@ -26,13 +26,13 @@ import java.util.ArrayList;
 
 public class Version implements Command {
 
-    public static String version = "2021.1.1";
+    public static String version = "2021.1.2";
 
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
         final String langCode = Localizations.getGuildLanguage(event.getGuild());
         MessageSender.send(Localizations.getString("version_title", langCode), Localizations.getString("version_text", langCode, new ArrayList<String>(){{
             add(version);
-        }}), event.getMessage(), Color.cyan);
+        }}), event.getMessage(), Color.cyan, langCode);
     }
 }

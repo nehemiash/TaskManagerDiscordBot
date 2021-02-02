@@ -31,16 +31,16 @@ public class GroupList {
                     final String serverName = servers.get(i).asString();
                     builder.append(serverName).append("\n");
                 }
-                MessageSender.send(embedTitle, builder.toString(), textChannel, Color.green);
+                MessageSender.send(embedTitle, builder.toString(), textChannel, Color.green, langCode);
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode), textChannel, Color.red);
+                MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode), textChannel, Color.red, langCode);
             }
         } else {
             MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
                 {
                     add(String.valueOf(statusCode));
                 }
-            }), textChannel, Color.red);
+            }), textChannel, Color.red, langCode);
         }
     }
 

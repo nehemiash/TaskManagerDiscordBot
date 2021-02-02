@@ -92,7 +92,8 @@ public class GroupController implements Command {
                     add(prefix);
                     add(prefix);
                     add(prefix);
-                }}), message, Color.red);
+                    add(prefix);
+                }}), message, Color.red, langCode);
             }
         } else {
             final String embedTitle = Localizations.getString("task_message_title", langCode);
@@ -104,7 +105,8 @@ public class GroupController implements Command {
                 add(prefix);
                 add(prefix);
                 add(prefix);
-            }}), message, Color.red);
+                add(prefix);
+            }}), message, Color.red, langCode);
         }
     }
 }
