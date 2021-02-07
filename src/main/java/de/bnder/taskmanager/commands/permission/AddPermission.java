@@ -3,6 +3,7 @@ package de.bnder.taskmanager.commands.permission;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.PermissionSystem;
+import de.bnder.taskmanager.utils.permissions.BoardPermission;
 import de.bnder.taskmanager.utils.permissions.GroupPermission;
 import de.bnder.taskmanager.utils.permissions.PermissionPermission;
 import de.bnder.taskmanager.utils.permissions.TaskPermission;
@@ -28,6 +29,8 @@ public class AddPermission {
                     statusCode = PermissionSystem.addPermissionStatusCode(mentionedMembers.get(0), GroupPermission.valueOf(args[2].toUpperCase()));
                 } else if (permissionPermissionContains(args[2].toUpperCase())) {
                     statusCode = PermissionSystem.addPermissionStatusCode(mentionedMembers.get(0), PermissionPermission.valueOf(args[2].toUpperCase()));
+                }  else if (boardPermissionContains(args[2].toUpperCase())) {
+                    statusCode = PermissionSystem.addPermissionStatusCode(mentionedMembers.get(0), BoardPermission.valueOf(args[2].toUpperCase()));
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), textChannel, Color.red, langCode);
                     return;
@@ -39,6 +42,8 @@ public class AddPermission {
                     statusCode = PermissionSystem.addPermissionStatusCode(mentionedRoles.get(0), GroupPermission.valueOf(args[2].toUpperCase()));
                 } else if (permissionPermissionContains(args[2].toUpperCase())) {
                     statusCode = PermissionSystem.addPermissionStatusCode(mentionedRoles.get(0), PermissionPermission.valueOf(args[2].toUpperCase()));
+                }  else if (boardPermissionContains(args[2].toUpperCase())) {
+                    statusCode = PermissionSystem.addPermissionStatusCode(mentionedRoles.get(0), BoardPermission.valueOf(args[2].toUpperCase()));
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), textChannel, Color.red, langCode);
                     return;
@@ -82,6 +87,15 @@ public class AddPermission {
     public static boolean permissionPermissionContains(String test) {
         for (PermissionPermission groupPermission : PermissionPermission.values()) {
             if (groupPermission.name().equals(test)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean boardPermissionContains(String test) {
+        for (BoardPermission boardPermission : BoardPermission.values()) {
+            if (boardPermission.name().equals(test)) {
                 return true;
             }
         }

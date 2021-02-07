@@ -62,7 +62,7 @@ public class MessageSender {
         builder.setDescription(textNow);
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
-        setAdFooter(builder, langCode);
+        if (red != Color.red) setAdFooter(builder, langCode);
         msg.getChannel().sendMessage(builder.build()).queue();
         try {
             Jsoup.connect(Main.requestURL + "/stats/messages-sent").method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
@@ -95,7 +95,7 @@ public class MessageSender {
         builder.setDescription(textNow);
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
-        setAdFooter(builder, langCode);
+        if (red != Color.red) setAdFooter(builder, langCode);
         textChannel.sendMessage(builder.build()).queue();
         try {
             final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/stats/messages-sent").method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();

@@ -27,17 +27,18 @@ public class ListTasksFromOthers {
         String text;
         if (mentionedMembers != null && mentionedMembers.size() > 0) {
             final Member mentionedMember = mentionedMembers.get(0);
-            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/task/user/tasks/" + member.getGuild().getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", mentionedMember.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/task/user/tasks/" + member.getGuild().getId() + "/" + mentionedMember.getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             statusCode = res.statusCode();
             jsonResponse = res.parse().body().text();
         } else {
             final String groupName = args[1];
-            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/task/group/tasks/" + member.getGuild().getId() + "/" + Connection.encodeString(groupName)).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/task/group/tasks/" + member.getGuild().getId() + "/" + Connection.encodeString(groupName)).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
             statusCode = res.statusCode();
             jsonResponse = res.parse().body().text();
         }
         final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
         if (statusCode == 200) {
+            final String boardName = jsonObject.getString("board", null);
             JsonArray array = jsonObject.get("todo").asArray();
             final StringBuilder builder = new StringBuilder();
             for (int i = 0; i < array.size(); i++){
@@ -60,6 +61,7 @@ public class ListTasksFromOthers {
                     text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<>() {
                         {
                             add(mentionedMember.getAsMention());
+                            add(boardName);
                             add(builder.toString());
                         }
                     });
@@ -68,6 +70,7 @@ public class ListTasksFromOthers {
                     text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<>() {
                         {
                             add(groupName);
+                            add(boardName);
                             add(builder.toString());
                         }
                     });
@@ -96,6 +99,7 @@ public class ListTasksFromOthers {
                     text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<>() {
                         {
                             add(mentionedMember.getAsMention());
+                            add(boardName);
                             add(builder.toString());
                         }
                     });
@@ -104,6 +108,7 @@ public class ListTasksFromOthers {
                     text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<>() {
                         {
                             add(groupName);
+                            add(boardName);
                             add(builder.toString());
                         }
                     });
@@ -135,6 +140,7 @@ public class ListTasksFromOthers {
                     text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
                         {
                             add(mentionedMember.getAsMention());
+                            add(boardName);
                             add(builder.toString());
                         }
                     });
@@ -143,6 +149,7 @@ public class ListTasksFromOthers {
                     text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<String>() {
                         {
                             add(groupName);
+                            add(boardName);
                             add(builder.toString());
                         }
                     });

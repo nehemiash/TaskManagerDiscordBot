@@ -3,6 +3,7 @@ package de.bnder.taskmanager.utils;
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonObject;
 import de.bnder.taskmanager.main.Main;
+import de.bnder.taskmanager.utils.permissions.BoardPermission;
 import de.bnder.taskmanager.utils.permissions.GroupPermission;
 import de.bnder.taskmanager.utils.permissions.PermissionPermission;
 import de.bnder.taskmanager.utils.permissions.TaskPermission;
@@ -26,6 +27,10 @@ public class PermissionSystem {
         return checkPerms(member, groupPermission.name());
     }
 
+    public static boolean hasPermission(Member member, BoardPermission boardPermission) {
+        return checkPerms(member, boardPermission.name());
+    }
+
     public static boolean hasPermission(Role role, TaskPermission taskPermission) {
         return checkPerms(role, taskPermission.name());
     }
@@ -36,6 +41,10 @@ public class PermissionSystem {
 
     public static boolean hasPermission(Role role, GroupPermission groupPermission) {
         return checkPerms(role, groupPermission.name());
+    }
+
+    public static boolean hasPermission(Role role, BoardPermission boardPermission) {
+        return checkPerms(role, boardPermission.name());
     }
 
 
@@ -64,6 +73,14 @@ public class PermissionSystem {
         return sendAddPermRequestRole(role, taskPermission.name());
     }
 
+    public static int addPermissionStatusCode(Member member, BoardPermission boardPermission) {
+        return sendAddPermRequestUser(member, boardPermission.name());
+    }
+
+    public static int addPermissionStatusCode(Role role, BoardPermission boardPermission) {
+        return sendAddPermRequestRole(role, boardPermission.name());
+    }
+
     //Permission removing
 
     public static int removePermissionStatusCode(Member member, PermissionPermission taskPermission) {
@@ -88,6 +105,14 @@ public class PermissionSystem {
 
     public static int removePermissionStatusCode(Role role, TaskPermission taskPermission) {
         return sendRemovePermRequestRole(role, taskPermission.name());
+    }
+
+    public static int removePermissionStatusCode(Member member, BoardPermission boardPermission) {
+        return sendRemovePermRequestUser(member, boardPermission.name());
+    }
+
+    public static int removePermissionStatusCode(Role role, BoardPermission boardPermission) {
+        return sendRemovePermRequestRole(role, boardPermission.name());
     }
 
     //Methods

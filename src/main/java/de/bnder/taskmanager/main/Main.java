@@ -16,15 +16,13 @@ package de.bnder.taskmanager.main;
  */
 
 import de.bnder.taskmanager.commands.*;
+import de.bnder.taskmanager.commands.board.BoardController;
 import de.bnder.taskmanager.commands.group.GroupController;
 import de.bnder.taskmanager.commands.permission.PermissionController;
 import de.bnder.taskmanager.commands.settings.SettingsController;
 import de.bnder.taskmanager.commands.task.TaskController;
 import de.bnder.taskmanager.listeners.*;
-import de.bnder.taskmanager.listeners.typoReactionListeners.GroupTypoReactionListener;
-import de.bnder.taskmanager.listeners.typoReactionListeners.PermissionTypoReactionListener;
-import de.bnder.taskmanager.listeners.typoReactionListeners.SettingsTypoReactionListener;
-import de.bnder.taskmanager.listeners.typoReactionListeners.TaskTypoReactionListener;
+import de.bnder.taskmanager.listeners.typoReactionListeners.*;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -51,7 +49,7 @@ public class Main {
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"),
                 Arrays.asList(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS));
 
-        //Disable Caches for better memory usage
+        /**Disable Caches for better memory usage*/
         builder.disableCache(Arrays.asList(CacheFlag.VOICE_STATE, CacheFlag.EMOTE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ROLE_TAGS, CacheFlag.MEMBER_OVERRIDES));
 
         builder.setShardsTotal(totalShard);
@@ -68,6 +66,7 @@ public class Main {
         builder.addEventListeners(new GroupTypoReactionListener());
         builder.addEventListeners(new PermissionTypoReactionListener());
         builder.addEventListeners(new SettingsTypoReactionListener());
+        builder.addEventListeners(new BoardTypoReactionListener());
 
         CommandHandler.commands.put("version", new Version());
         CommandHandler.commands.put("prefix", new Prefix());
@@ -75,6 +74,7 @@ public class Main {
         CommandHandler.commands.put("task", new TaskController());
         CommandHandler.commands.put("permission", new PermissionController());
         CommandHandler.commands.put("settings", new SettingsController());
+        CommandHandler.commands.put("board", new BoardController());
         CommandHandler.commands.put("token", new Token());
         CommandHandler.commands.put("help", new Help());
         CommandHandler.commands.put("support", new Support());
@@ -86,7 +86,7 @@ public class Main {
         CommandHandler.commands.put("search", new Search());
 
         builder.setStatus(OnlineStatus.OFFLINE);
-        builder.setActivity(Activity.playing("http://bnder.net"));
+        builder.setActivity(Activity.playing("bnder.net"));
 
         try {
             builder.build();

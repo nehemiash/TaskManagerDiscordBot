@@ -22,13 +22,15 @@ public class SelfTaskList {
     public static void selfTaskList(Member member, TextChannel textChannel) throws IOException {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
-        final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/task/user/tasks/" + textChannel.getGuild().getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+        final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/task/user/tasks/" + textChannel.getGuild().getId() + "/" + member.getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
         final Document document = res.parse();
         final String jsonResponse = document.body().text();
         final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
         if (res.statusCode() == 200) {
+            final String boardName = jsonObject.getString("board", null);
             JsonArray array = jsonObject.get("todo").asArray();
             StringBuilder builder = new StringBuilder();
+
             for (int i = 0; i < array.size(); i++) {
                 final String taskID = array.get(i).asString();
                 final String task = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("task").asString();
@@ -48,6 +50,7 @@ public class SelfTaskList {
                 MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
                     {
                         add(member.getAsMention());
+                        add(boardName);
                         add(finalBuilder2.toString());
                     }
                 }), textChannel, Color.orange, langCode);
@@ -73,6 +76,7 @@ public class SelfTaskList {
                 MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
                     {
                         add(member.getAsMention());
+                        add(boardName);
                         add(finalBuilder.toString());
                     }
                 }), textChannel, Color.yellow, langCode);
@@ -103,6 +107,7 @@ public class SelfTaskList {
                 MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
                     {
                         add(member.getAsMention());
+                        add(boardName);
                         add(finalBuilder1.toString());
                     }
                 }), textChannel, Color.green, langCode);

@@ -1,4 +1,19 @@
-package de.bnder.taskmanager.commands.group;
+package de.bnder.taskmanager.commands.board;
+/*
+ * Copyright (C) 2021 Jan Brinkmann
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 import de.bnder.taskmanager.main.Command;
 import de.bnder.taskmanager.utils.LevenshteinDistance;
@@ -12,41 +27,30 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class GroupController implements Command {
+public class BoardController implements Command {
 
     final ArrayList<String> commandArgs = new ArrayList<String>() {{
         add("create");
-        add("delete");
-        add("members");
-        add("add");
-        add("remove");
-        add("rem");
-        add("notifications");
-        add("notification");
         add("list");
+        add("switch");
+        add("delete");
     }};
 
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
         if (args.length > 1) {
             if (args[0].equalsIgnoreCase("create")) {
-                CreateGroup.createGroup(event.getMember(), event.getChannel(), args);
+                CreateBoard.createBoard(args[1], event.getChannel(), event.getMember());
+            } else if (args[0].equalsIgnoreCase("switch")) {
+                SwitchBoard.switchBoard(args[1], event.getMember(), event.getChannel());
             } else if (args[0].equalsIgnoreCase("delete")) {
-                DeleteGroup.deleteGroup(event.getMember(), event.getChannel(), args);
-            } else if (args[0].equalsIgnoreCase("members")) {
-                GroupMembers.getGroupMembers(event.getMember(), event.getChannel(), args);
-            } else if (args[0].equalsIgnoreCase("add")) {
-                AddGroupMember.addGroupMember(event.getMember(), event.getChannel(), args, event.getMessage().getMentionedMembers());
-            } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem")) {
-                RemoveGroupMember.removeGroupMember(event.getMember(), event.getChannel(), args, event.getMessage().getMentionedMembers());
-            } else if (args[0].equalsIgnoreCase("notifications") || args[0].equalsIgnoreCase("notification")) {
-                GroupNotifications.setGroupNotifications(event.getMember(), event.getChannel(), args, event.getMessage().getMentionedChannels());
+                DeleteBoard.deleteBoard(event.getMember(), event.getChannel(), args[1]);
             } else {
                 checkIfTypo(args, event.getMessage());
             }
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("list")) {
-                GroupList.getGroupList(event.getMember(), event.getChannel());
+                BoardList.getBoardList(event.getMember(), event.getChannel(), String.valueOf(event.getMessage().getContentRaw().charAt(0)));
             } else {
                 checkIfTypo(args, event.getMessage());
             }
@@ -83,30 +87,20 @@ public class GroupController implements Command {
                 final Message message1 = message.getChannel().sendMessage(builder.build()).complete();
                 message1.addReaction("✅").and(message1.addReaction("❌")).queue();
             } else {
-                final String embedTitle = Localizations.getString("group_title", langCode);
+                //TODO CHANGE
+                final String embedTitle = Localizations.getString("board_title", langCode);
                 final String prefix = String.valueOf(message.getContentRaw().charAt(0));
-                MessageSender.send(embedTitle, Localizations.getString("help_message_group_commands", langCode, new ArrayList<String>() {{
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
-                    add(prefix);
+                MessageSender.send(embedTitle, Localizations.getString("help_message_board_commands", langCode, new ArrayList<String>() {{
                     add(prefix);
                 }}), message, Color.red, langCode);
             }
         } else {
-            final String embedTitle = Localizations.getString("group_title", langCode);
+            final String embedTitle = Localizations.getString("board_title", langCode);
             final String prefix = String.valueOf(message.getContentRaw().charAt(0));
-            MessageSender.send(embedTitle, Localizations.getString("help_message_group_commands", langCode, new ArrayList<String>() {{
-                add(prefix);
-                add(prefix);
-                add(prefix);
-                add(prefix);
-                add(prefix);
-                add(prefix);
+            MessageSender.send(embedTitle, Localizations.getString("help_message_board_commands", langCode, new ArrayList<String>() {{
                 add(prefix);
             }}), message, Color.red, langCode);
         }
     }
 }
+

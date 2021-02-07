@@ -34,14 +34,15 @@ public class AddTask {
                 for (Member mentionedMember : mentionedMembers) {
                     final de.bnder.taskmanager.utils.Task taskObject = new de.bnder.taskmanager.utils.Task(member.getGuild(), task, null, mentionedMember);
                     if (taskObject.getStatusCode() == 200) {
-                        String newLanguageSuggestionAppend = taskObject.newLanguageSuggestion() != null ? Localizations.getString("task_new_language_suggestion_text", taskObject.newLanguageSuggestion(), new ArrayList<String>(){{
+                        String newLanguageSuggestionAppend = taskObject.newLanguageSuggestion() != null ? Localizations.getString("task_new_language_suggestion_text", taskObject.newLanguageSuggestion(), new ArrayList<String>() {{
                             add(String.valueOf(commandMessage.charAt(0)));
                             add(taskObject.newLanguageSuggestion());
                         }}) : "";
                         sendTaskMessage(mentionedMember, member, taskObject.getId(), langCode, task);
-                        MessageSender.send(embedTitle + " - " + taskObject.getId(), Localizations.getString("aufgabe_erstellt", langCode, new ArrayList<String>() {
+                        MessageSender.send(embedTitle + " - " + taskObject.getId(), Localizations.getString("aufgabe_erstellt", langCode, new ArrayList<>() {
                             {
                                 add(mentionedMember.getUser().getName());
+                                add(taskObject.getActiveBoardName());
                             }
                         }) + newLanguageSuggestionAppend, textChannel, Color.green, langCode);
                     } else {
@@ -55,7 +56,7 @@ public class AddTask {
             } else if (GroupNotifications.serverHasGroup(args[1], member.getGuild())) {
                 final String groupName = Connection.encodeString(args[1]);
                 final String task = getTaskFromArgs(3, commandMessage, false, null);
-                final de.bnder.taskmanager.utils.Task taskObject = new de.bnder.taskmanager.utils.Task(textChannel.getGuild(), task, null, groupName);
+                final de.bnder.taskmanager.utils.Task taskObject = new de.bnder.taskmanager.utils.Task(textChannel.getGuild(), task, null, groupName, member);
                 final int statusCode = taskObject.getStatusCode();
                 if (statusCode == 200) {
                     final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/group/members/" + textChannel.getGuild().getId() + "/" + groupName).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", member.getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
@@ -95,7 +96,7 @@ public class AddTask {
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, new ArrayList<String>() {
                         {
-                            add(taskObject.getStatusCode()  + " " + taskObject.getResponseMessage());
+                            add(taskObject.getStatusCode() + " " + taskObject.getResponseMessage());
                         }
                     }), textChannel, Color.red, langCode);
                 }

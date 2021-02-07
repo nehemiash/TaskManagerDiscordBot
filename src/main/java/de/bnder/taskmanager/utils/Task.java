@@ -32,6 +32,7 @@ public class Task {
     String newLanguageSuggestion = null;
     String notifyChannelMessageID = null;
     String responseMessage = null;
+    String activeBoardName = null;
 
     public Task(String taskID, Guild guild) {
         this.id = taskID;
@@ -105,6 +106,7 @@ public class Task {
             setStatusCode(200);
             setResponseMessage(a.body().text());
             this.id = jsonObject.getString("id", null);
+            this.activeBoardName = jsonObject.getString("board", null);
             this.newLanguageSuggestion = jsonObject.get("new_language_suggestion").isNull() ? null : jsonObject.getString("new_language_suggestion", null);
 
 
@@ -141,14 +143,14 @@ public class Task {
         }
     }
 
-    public Task(Guild guild, String text, String deadline, String holder) {
+    public Task(Guild guild, String text, String deadline, String holder, Member commandProcessor) {
         this.guild = guild;
         this.text = text;
         this.deadline = deadline;
         this.type = TaskType.GROUP;
         this.holder = holder;
         try {
-            final Document a = Jsoup.connect(Main.requestURL + "/task/group/" + guild.getId() + "/" + holder).method(Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("task_text", text).data("deadline", deadline != null ? deadline : "").postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).post();
+            final Document a = Jsoup.connect(Main.requestURL + "/task/group/" + guild.getId() + "/" + holder).method(Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", commandProcessor.getId()).data("task_text", text).data("deadline", deadline != null ? deadline : "").postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).post();
             final String jsonResponse = a.body().text();
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
             setStatusCode(200);
@@ -425,6 +427,10 @@ public class Task {
 
     public Guild getGuild() {
         return guild;
+    }
+
+    public String getActiveBoardName() {
+        return activeBoardName;
     }
 }
 

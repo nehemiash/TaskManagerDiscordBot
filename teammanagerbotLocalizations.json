@@ -152,15 +152,6 @@
     "ru": "Во время запроса произошла непредвиденная ошибка! Код ошибки: $",
     "tr": "Beklenmeyen bir hata meydana geldi! Hata Kodu: $"
   },
-  "aufgabe_erstellt": {
-    "de": "$ hat die Aufgabe erhalten.",
-    "en": "$ has got the task.",
-    "bg": "$ получи задачата.",
-    "pl": "$ posiada zadanie.",
-    "fr": "$ a la tâche.",
-    "ru": "$ получил задание.",
-    "tr": "$ için görev oluşturuldu."
-  },
   "aufgabe_an_x_mitglieder_gesendet": {
     "de": "Die Aufgabe wurde an $ Gruppenmitglieder gesendet.",
     "en": "The task was sent to $ group members.",
@@ -448,33 +439,6 @@
     "fr": "Vous avez obtenu la tâche suivante de $ (ID: $):",
     "ru": "Вы получили следующее задание от $ (ID: $):",
     "tr": "Yeni bir görev aldın. Görev : $ Görevi veren : (ID: $):"
-  },
-  "alle_aufgaben_von_nutzer": {
-    "de": "Alle Aufgaben von $:\n$",
-    "en": "$ tasks:\n$",
-    "bg": "$ задачи:\n$",
-    "pl": "$ zadania:\n$",
-    "fr": "Toutes les tâches de $:\n$",
-    "ru": "Все задания от $:\n$",
-    "tr": "$ Görevler:\n$"
-  },
-  "alle_aufgaben_von_nutzer_no_done_tasks": {
-    "de": "Alle Aufgaben von $:\n$\n$ Aufgaben ausgeblendet",
-    "en": "$ tasks:\n$\n$ Tasks hidden",
-    "bg": "$ задачи:\n$\n$ Задачи скрити",
-    "pl": "$ zadania:\n$\n$ Zadania ukryte",
-    "fr": "Toutes les tâches de $:\n$\n$ Tâches masquées",
-    "ru": "Все задания от $:\n$\n$ Задачи скрыты",
-    "tr": "$ Görevler:\n$\n$ Gizlenmiş görevler"
-  },
-  "alle_aufgaben_von_gruppe": {
-    "de": "Alle Aufgaben von Gruppe `$`:\n$",
-    "en": "All tasks from Group `$`:\n$",
-    "bg": "Всички задачи от група `$`:\n$",
-    "pl": "Wszystkie zadania z grupy `$`:\n$",
-    "fr": "Toutes les tâches du groupe `$`:\n$",
-    "ru": "Все задания группы `$`:\n$",
-    "tr": "$ Grubuna ait bütün görevler:\n$"
   },
   "token_info": {
     "de": "\nDieser Token kann für die App genutzt werden.\n**Teile deinen Token niemals mit einem anderen Nutzer!**",
@@ -1222,5 +1186,104 @@
     "fr": "Aucun résultat pour $",
     "ru": "Нет результатов по запросу $",
     "tr": "$ İçin sonuç yok"
+  },
+  "board_title": {
+    "de": "Boards",
+    "en": "Boards",
+    "bg": "Табла",
+    "pl": "Deski",
+    "fr": "Planches",
+    "ru": "Доски",
+    "tr": "Panolar"
+  },
+  "board_created_successfully": {
+    "de": "Das Board `$` wurde erfolgreich erstellt.",
+    "en": "The board `$` was created successfully.",
+    "bg": "Таблото `$` е създадено успешно.",
+    "pl": "Tablica `$` została pomyślnie utworzona.",
+    "fr": "Le tableau `$` a été créé avec succès.",
+    "ru": "Доска `$` была успешно создана.",
+    "tr": "`$` Panosu başarıyla oluşturuldu."
+  },
+  "board_not_created_name_already_exists": {
+    "de": "Das Board `$` konnte nicht erstellt werden, da ein gleichnamiges Board bereits exisitert.",
+    "en": "The board `$` could not be created because a board with the same name already exists.",
+    "bg": "Платката `$` не може да бъде създадена, тъй като дъска със същото име вече съществува.",
+    "pl": "Nie można utworzyć tablicy `$`, ponieważ tablica o tej samej nazwie już istnieje.",
+    "fr": "Le tableau `$` n'a pas pu être créé car un tableau portant le même nom existe déjà.",
+    "ru": "Доска `$` не может быть создана, потому что доска с таким именем уже существует.",
+    "tr": "`$` Panosu oluşturulamadı çünkü aynı ada sahip bir pano zaten mevcut."
+  },
+  "board_not_created_unknown_error": {
+    "de": "Das Board `$` konnte nicht erstellt werden. Fehlercode: $",
+    "en": "The board `$` could not be created. Error code: $",
+    "bg": "Таблото `$` не може да бъде създадено. Код на грешка: $",
+    "pl": "Nie można utworzyć tablicy `$`. Kod błędu: $",
+    "fr": "Le tableau `$` n'a pas pu être créé. Code d'erreur: $",
+    "ru": "Доска `$` не может быть создана. Код ошибки: $",
+    "tr": "`$` Panosu oluşturulamadı. Hata kodu: $"
+  },
+  "no_boards_on_server": {
+    "de": "Es sind keine Boards auf dem Server vorhanden! Benutze `$board create <NAME>` um ein Board zu erstellen.",
+    "en": "There are no boards on the server! Use `$board create <NAME>` to create a board.",
+    "bg": "На сървъра няма дъски! Използвайте `$board create <NAME>`, за да създадете дъска.",
+    "pl": "Na serwerze nie ma tablic! Użyj polecenia `$board create <NAME>`, aby utworzyć tablicę.",
+    "fr": "Il n'y a pas de cartes sur le serveur! Utilisez `$board create <NAME>` pour créer un tableau.",
+    "ru": "На сервере нет плат! Используйте `$board create <NAME>` для создания доски.",
+    "tr": "Sunucuda pano yok! Bir pano oluşturmak için `$board create <NAME>` kullanın."
+  },
+  "board_not_found": {
+    "de": "Das Board mit dem Namen `$` konnte auf dem Server nicht gefunden werden!",
+    "en": "The board with the name `$` could not be found on the server!",
+    "bg": "Таблото с името `$` не може да бъде намерено на сървъра!",
+    "pl": "Nie można znaleźć tablicy o nazwie `$` na serwerze!",
+    "fr": "La carte avec le nom `$` est introuvable sur le serveur!",
+    "ru": "Доска с именем `$` не найдена на сервере!",
+    "tr": "`$` İsimli pano sunucuda bulunamadı!"
+  },
+  "board_activated_successfully": {
+    "de": "Du hast nun das Board `$` aktiv. Aktionen wie das Erstellen von Aufgaben oder das Auflisten dieser werden sich nun auf das Board beziehen.",
+    "en": "You now have the board `$` active. Actions like creating tasks or listing them will now relate to the board.",
+    "bg": "Вече имате табло `$` активен. Действия като създаване на задачи или изброяването им вече ще бъдат свързани с дъската.",
+    "pl": "Masz teraz tablicę `$` aktywną. Działania takie jak tworzenie zadań lub ich lista będą teraz odnosić się do tablicy.",
+    "fr": "Vous avez maintenant le tableau «$» actif. Les actions telles que la création de tâches ou leur liste seront désormais liées au tableau.",
+    "ru": "Теперь у вас есть активная доска `$`. Такие действия, как создание задач или их перечисление, теперь будут относиться к доске.",
+    "tr": "Artık aktif `$` panonuz var. Görevler oluşturmak veya bunları listelemek gibi eylemler artık pano ile ilgili olacaktır."
+  },
+  "aufgabe_erstellt": {
+    "de": "Die Aufgabe wurde für $ in Board `$` erstellt.",
+    "en": "The task was created for $ in board `$`.",
+    "bg": "Задачата е създадена за $ в борда `$`.",
+    "pl": "Zadanie zostało utworzone dla $ na tablicy `$`.",
+    "fr": "La tâche a été créée pour $ dans le tableau `$`.",
+    "ru": "Задача была создана для $ в доске `$`.",
+    "tr": "Görev, $ in board `$` için oluşturuldu."
+  },
+  "alle_aufgaben_von_nutzer": {
+    "de": "Alle Aufgaben von $ in dem Board `$`:\n$",
+    "en": "All tasks of $ in the board `$`:\n$",
+    "bg": "Всички задачи на $ в дъската `$`:\n$",
+    "pl": "Wszystkie zadania $ na tablicy `$`:\n$",
+    "fr": "Toutes les tâches de $ dans le tableau `$`:\n$",
+    "ru": "Все задачи $ в доске `$`:\n$",
+    "tr": "$ 'Panosundaki tüm `$` görevleri:\n$"
+  },
+  "alle_aufgaben_von_nutzer_no_done_tasks": {
+    "de": "Alle Aufgaben von $ in Board `$`:\n$\n$ Aufgaben ausgeblendet",
+    "en": "All tasks from $ in Board `$`:\n$\n$ Tasks hidden",
+    "bg": "Всички задачи от $ в Board `$`:\n$\n$ Задачи скрити",
+    "pl": "Wszystkie zadania z $ in Board `$`:\n$\n$ Zadania ukryte",
+    "fr": "Toutes les tâches de $ in Board `$`:\n$\n$ Tâches masquées",
+    "ru": "Все задачи из $ в Board `$`:\n$\n$ Задачи скрыты",
+    "tr": "$ İn Board `$` dan tüm görevler:\n$\n$ Görevler gizlendi"
+  },
+  "alle_aufgaben_von_gruppe": {
+    "de": "Alle Aufgaben von Gruppe `$` in Board `$`:\n$",
+    "en": "All tasks of group `$` in board `$`:\n$",
+    "bg": "Всички задачи на група `$` в борда `$`:\n$",
+    "pl": "Wszystkie zadania grupy `$` na tablicy `$`:\n$",
+    "fr": "Toutes les tâches du groupe `$` dans le tableau `$`:\n$",
+    "ru": "Все задачи группы `$` в доске `$`:\n$",
+    "tr": "`$` Panosundaki `$` grubunun tüm görevleri:\n$"
   }
 }
