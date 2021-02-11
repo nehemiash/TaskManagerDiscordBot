@@ -467,23 +467,32 @@
     "ru": "`$task add @ПОЛЬЗОВАТЕЛИ <ЗАДАЧА>` - Дайте задание пользователю\n`$task add <ИМЯ ГРУППЫ> <ЗАДАЧА>` - Дайте задание группе\n`$task proceed <TASK ID>` - Изменяет статус задания на обработанное/выполненное\n`$task deadline <TASK ID> <ДАТА (dd.mm.yyyy)> <ВРЕМЯ>` - Установить срок выполнения задания\n`$task list <@ПОЛЬЗОВАТЕЛИ/ИМЯ ГРУППЫ>` - Перечисляет все задачи\n`$task delete <TASK ID>` - Удалить задачу\n`$task edit <TASK-ID> <TASK>` - Пересмотреть текст задания\n`$task info <TASK-ID>` - Отображает индивидуальную информацию для задачи\n`$task done <TASK ID>` - устанавливает задачу как выполненную\n",
     "tr": "`$task add @USER <TASK>` - Kullanıcıya görev verir\n`$task add <GROUPNAME> <TASK>` - Gruba görev verir\n`$task proceed <TASK-ID>` - Yapılacak görevin durumunu değiştirir/completed\n`$task deadline <TASK-ID> <DATE (dd.mm.yyyy)> <TIME>` - Görev için bitiş tarihi belirler\n`$task list <@USER/GROUPNAME>` - Bütün görevleri listeler\n`$task delete <TASK-ID>` - Görevi siler\n`$task edit <TASK-ID> <TASK>` - Görev metnini düzenler\n`$task info <TASK-ID>` - Görev için bireysel bilgileri görüntüler\n`$task done <TASK ID>` - Görevi bitmiş olarak işaretler\n"
   },
+  "help_message_board_commands": {
+    "de": "`$board create <NAME>` - Erstelle ein neues Board\n`$board switch <NAME>` - Wechsel das Board\n`$board delete <NAME>` - Lösche ein Board\n`$board list` - Listet alle bestehenden Boards auf\n",
+    "en": "`$board create <NAME>` - Create a new board\n`$board switch <NAME>` - Change the board\n`$board delete <NAME>` - Delete a board\n`$board list` - Lists all existing boards",
+    "bg": "`$board create <NAME>` - Създаване на нова дъска\n`$board switch <NAME>` - Сменете дъската\n`$board delete <NAME>` - Изтриване на дъска\n`$board list` - изброява всички съществуващи дъски",
+    "pl": "`$board create <NAZWA>` - Utwórz nową tablicę\n`$board switch <NAME>` - Zmień tablicę\n`$board delete <NAZWA>` - Usuń tablicę\n`$board list` - Wyświetla wszystkie istniejące tablice",
+    "fr": "`$board create <NAME>` - Créer un nouveau tableau\n`$board switch <NAME>` - Changer la carte\n`$board delete <NAME>` - Supprimer un tableau\n`$board list` - Liste tous les tableaux existants",
+    "ru": "`$board create <NAME>` - Создать новую доску\n`$board switch <NAME>` - Изменить доску\n`$board delete <NAME>` - Удалить доску\n`$board list` - выводит список всех существующих досок.",
+    "tr": "`$board create <NAME>` - Yeni bir pano oluştur\n`$board switch <NAME>` - Panoyu değiştir\n`$board delete <NAME>` - Bir panoyu sil\n`$board list` - Mevcut tüm panoları listeler"
+  },
   "help_message_other_commands": {
-    "de": "`$token` - Gibt den Token für die Website & App\n`$token new` - Erneuert den Token\n`$help` - Listet alle Befehle auf\n`$support` - Discord Link\n`$app` - App-Informationen\n`$stats` - Statistiken\n`$prefix <PREFIX>` - Ändert den Präfix des Bots\n`$settings` - Zeigt Einstellungen an\n`$data` - Lade alle Daten herunter, die bnder von dir auf diesem Server gespeichert hat\n`$invite` - Sendet dir den Link um den Bot einzuladen\n`$search <Suchbegriff>` - Durchsucht Aufgaben und Gruppen nach dem Begriff\n",
-    "en": "`$token` - Gives the token for the Website & App\n`$token new` - Generates a new token\n`$help` - Lists all commands\n`$support` - Discord Link\n`$app` - Information about the App\n`$stats` - Shows some stats\n`$prefix <PREFIX>` - Changes the prefix of the bot\n`$settings` - Displays settings\n`$data` - Download all the data that bnder has saved about you on this server\n`$invite` - Sends you the link to invite the bot\n`$search <search term>` - Searches tasks and groups for the term\n",
-    "bg": "`$token` - Връща символа за уебсайта и приложението\n`$token new` - Променя маркера\n`$help` - Изброява всички команди\n`$support` - Discord Link\n`$app` - Информация за приложението\n`$stats` - статистика\n`$prefix <PREFIX>` - Променя префикса на бота\n`$settings` - Показва настройките\n`$data` - Изтеглете всички данни, които bnder е запазил за вас на този сървър\n`$покани` - изпраща ви връзката, за да поканите бота\n`$search <термин за търсене>` - Търси задачи и групи за думата\n",
-    "pl": "`$token` - Daje token dla strony internetowej i aplikacji\n`$token new` - Generuje nowy token\n`$help` - Wyświetlam wszystkie polecenia\n`$support` - Discord Link\n`$app` - Informacje o Aplikacji\n`$stats` - Statystyki\n`$prefix <PREFIX>` - Zmienia prefiks bota\n`$settings` - Wyświetla ustawienia\n`$data` - Pobierz wszystkie dane o Tobie zapisane przez bnder na tym serwerze\n`$invite` - Wysyła link do zaproszenia bota\n`$search <search term>` - Przeszukuje zadania i grupy pod kątem terminu\n",
-    "fr": "`$token` - Renvoie le jeton du site Web et de l'application\n`$token new` - Renouveler le jeton\n`$help` - Répertorie toutes les commandes\n`$support` - Lien Discord\n`$app` - Informations sur l'application\n`$stats` - Statistiques\n`$prefix <PREFIX>` - Modifie le préfixe du bot\n`$settings` - Affiche les paramètres\n`$data` - Téléchargez toutes les données que bnder a enregistrées à votre sujet sur ce serveur\n`$invite` - Vous envoie le lien pour inviter le bot\n`$search <terme de recherche>` - Recherche le terme dans les tâches et les groupes\n",
-    "ru": "`$token` - Возвращает токен для сайта и приложения\n`$token new` - Обновить токен\n`$help` - Перечисляет все команды\n`$support` - Discord Link\n`$app` - Информация о приложении\n`$stats` - статистика\n`$prefix <PREFIX>` - Меняет префикс бота\n`$settings` - Отображает настройки\n`$data` - Загрузите все данные, которые bnder сохранил о вас на этом сервере\n`$invite` - отправляет вам ссылку для приглашения бота\n`$search <поисковый запрос>` - ищет задачи и группы по запросу\n",
-    "tr": "`$token` - Websitesi & Uygulama için bir token verir\n`token new` - Yeni token oluşturur\n`$help` - Komutları listeler\n`$support` - Discord Link\n`app` - Uygulama hakkında bilgi\n`$stats` - Bazı istatistikleri gösterir\n`$prefix <PREFIX>` - Botun prefixini değiştirir\n`$settings` - Ayarları gösterir\n`$data` - Bnder'ın sizinle ilgili kaydettiği tüm verileri bu sunucuya indirin\n`$invite` - Botu davet etmeniz için size bağlantı gönderir\n`$search <search term>` - Terim için görevleri ve grupları arar\n"
+    "de": "`$token` - Gibt den Token für die Website & App\n`$token new` - Erneuert den Token\n`$help` - Listet alle Befehle auf\n`$support` - Discord Link\n`$app` - App-Informationen\n`$stats` - Statistiken\n`$prefix <PREFIX>` - Ändert den Präfix des Bots\n`$settings` - Zeigt Einstellungen an\n`$data` - Lade alle Daten herunter, die bnder von dir auf diesem Server gespeichert hat\n`$invite` - Sendet dir den Link um den Bot einzuladen\n`$search <Suchbegriff>` - Durchsucht Aufgaben und Gruppen nach dem Begriff\n`$help <Befehl>` - Erhalte eine genauere Beschreibung eines Befehls\n",
+    "en": "`$token` - Gives the token for the Website & App\n`$token new` - Generates a new token\n`$help` - Lists all commands\n`$support` - Discord Link\n`$app` - Information about the App\n`$stats` - Shows some stats\n`$prefix <PREFIX>` - Changes the prefix of the bot\n`$settings` - Displays settings\n`$data` - Download all the data that bnder has saved about you on this server\n`$invite` - Sends you the link to invite the bot\n`$search <search term>` - Searches tasks and groups for the term\n`$help <command>` - Get a more detailed description of a command\n",
+    "bg": "`$token` - Връща символа за уебсайта и приложението\n`$token new` - Променя маркера\n`$help` - Изброява всички команди\n`$support` - Discord Link\n`$app` - Информация за приложението\n`$stats` - статистика\n`$prefix <PREFIX>` - Променя префикса на бота\n`$settings` - Показва настройките\n`$data` - Изтеглете всички данни, които bnder е запазил за вас на този сървър\n`$покани` - изпраща ви връзката, за да поканите бота\n`$search <термин за търсене>` - Търси задачи и групи за думата\n`$help <command>` - Получете по-подробно описание на команда\n",
+    "pl": "`$token` - Daje token dla strony internetowej i aplikacji\n`$token new` - Generuje nowy token\n`$help` - Wyświetlam wszystkie polecenia\n`$support` - Discord Link\n`$app` - Informacje o Aplikacji\n`$stats` - Statystyki\n`$prefix <PREFIX>` - Zmienia prefiks bota\n`$settings` - Wyświetla ustawienia\n`$data` - Pobierz wszystkie dane o Tobie zapisane przez bnder na tym serwerze\n`$invite` - Wysyła link do zaproszenia bota\n`$search <search term>` - Przeszukuje zadania i grupy pod kątem terminu\n`$help <command>` - Uzyskaj bardziej szczegółowy opis polecenia\n",
+    "fr": "`$token` - Renvoie le jeton du site Web et de l'application\n`$token new` - Renouveler le jeton\n`$help` - Répertorie toutes les commandes\n`$support` - Lien Discord\n`$app` - Informations sur l'application\n`$stats` - Statistiques\n`$prefix <PREFIX>` - Modifie le préfixe du bot\n`$settings` - Affiche les paramètres\n`$data` - Téléchargez toutes les données que bnder a enregistrées à votre sujet sur ce serveur\n`$invite` - Vous envoie le lien pour inviter le bot\n`$search <terme de recherche>` - Recherche le terme dans les tâches et les groupes\n`$help <command>` - Obtenez une description plus détaillée d'une commande\n",
+    "ru": "`$token` - Возвращает токен для сайта и приложения\n`$token new` - Обновить токен\n`$help` - Перечисляет все команды\n`$support` - Discord Link\n`$app` - Информация о приложении\n`$stats` - статистика\n`$prefix <PREFIX>` - Меняет префикс бота\n`$settings` - Отображает настройки\n`$data` - Загрузите все данные, которые bnder сохранил о вас на этом сервере\n`$invite` - отправляет вам ссылку для приглашения бота\n`$search <поисковый запрос>` - ищет задачи и группы по запросу\n`$help <command>` - Получить более подробное описание команды\n",
+    "tr": "`$token` - Websitesi & Uygulama için bir token verir\n`token new` - Yeni token oluşturur\n`$help` - Komutları listeler\n`$support` - Discord Link\n`app` - Uygulama hakkında bilgi\n`$stats` - Bazı istatistikleri gösterir\n`$prefix <PREFIX>` - Botun prefixini değiştirir\n`$settings` - Ayarları gösterir\n`$data` - Bnder'ın sizinle ilgili kaydettiği tüm verileri bu sunucuya indirin\n`$invite` - Botu davet etmeniz için size bağlantı gönderir\n`$search <search term>` - Terim için görevleri ve grupları arar\n`$help <command>` - Bir komutun daha ayrıntılı açıklamasını alır\n"
   },
   "help_message_permission_commands": {
-    "de": "`$permission` - Gibt diese Hilfe-Nachricht\n`$permission add @NUTZER/@ROLLE <BERECHTIGUNG>` - Gibt einem Nutzer/einer Rolle eine Berechtigung\n`$permission remove @NUTZER/@ROLLE <BERECHTIGUNG>` - Entfernt eine Berechtigung von einem Nutzer/einer Rolle\n`$permission list @NUTZER/@ROLLE` - Listet alle Berechtigungen eines Nutzers/einer Rolle auf\n \nAktuelle Berechtigungen:\n`CREATE_TASK` - Aufgabe erstellen\n`DELETE_TASK` - Aufgabe löschen\n`EDIT_TASK` - Aufgabe bearbeiten\n`CREATE_GROUP` - Gruppe erstellen\n`DELETE_GROUP` - Gruppe löschen\n`ADD_MEMBERS` - Nutzer zu Gruppe hinzufügen\n`REMOVE_MEMBERS` - Nutzer aus Gruppe entfernen\n`ADD_PERMISSION` - Berechtigung hinzufügen\n`REMOVE_PERMISSION` - Berechtigung entfernen\n`SHOW_PERMISSIONS` - Berechtigungen anzeigen\n",
-    "en": "`$permission` - Gives this help message\n`$permission add @USER/@ROLLE <PERMISSION>` - Gives a user / role an authorization\n`$permission remove @USER/@ROLLE <PERMISSION>` - Removes an authorization from a user / role\n`$permission list @USER/@ROLE` - Lists all permissions of a user/role\n \nCurrent permissions:\n`CREATE_TASK` - create a task\n`DELETE_TASK` - delete task\n`EDIT_TASK` - edit task\n`CREATE_GROUP` - create a group\n`DELETE_GROUP` - delete group\n`ADD_MEMBERS` - add user to group\n`REMOVE_MEMBERS` - remove user from group\n`ADD_PERMISSION` - add permission\n`REMOVE_PERMISSION` - remove permission\n`SHOW_PERMISSIONS` - show permissions\n",
-    "bg": "`$permission` - дава това съобщение за помощ\n`$permission add @ПОТРЕБИТЕЛ/@РОЛЯ <AUTHORIZATION>` - дава разрешение на потребител / роля\n`$permission remove @ПОТРЕБИТЕЛ/@РОЛЯ <AUTHORIZATION>` - Премахва оторизация от потребител / роля\n`$списък с разрешения @ПОТРЕБИТЕЛ/@РОЛЯ` - изброява всички разрешения на потребител / роля\n \nТекущи разрешения:\n`CREATE_TASK` - създайте задача\n`DELETE_TSAK` - изтриване на задача\n`EDIT_TASK` - редактиране на задача\n`CREATE_GROUP` - създаване на група\n`DELETE_GROUP` - изтриване на група\n`ADD_MEMBERS` - добавяне на потребител към групата\n`REMOVE_MEMBERS` - премахване на потребител от групата\n`ADD_PERMISSION` - добавяне на разрешение\n`REMOVE_PERMISSION` - премахване на разрешение\n`SHOW_PERMISSIONS` - показва разрешения\n",
-    "pl": "`$permission` - przekazuje ten komunikat pomocy\n`$permission add @UŻYTKOWNIK/@ROLA <AUTORYZACJA>` - Daje użytkownikowi / roli autoryzację\n`$permission remove @UŻYTKOWNIK/@ROLA <AUTORYZACJA>` - Usuwa autoryzację dla użytkownika / roli\n`$permission list @UŻYTKOWNIK/@ROLA` - Wyświetla wszystkie uprawnienia użytkownika / roli\n \nAktualne uprawnienia:\n`CREATE_TASK` - utwórz zadanie\n`DELETE_TASK` - usuń zadanie\n`EDIT_TASK` - edycja zadania\n`CREATE_GROUP` - utwórz grupę\n`DELETE_GROUP` - usuń grupę\n`ADD_MEMBERS` - dodaj użytkownika do grupy\n`REMOVE_MEMBERS` - usuń użytkownika z grupy\n`ADD_PERMISSION` - dodaj uprawnienia\n`REMOVE_PERMISSION` - usuń pozwolenie\n`SHOW_PERMISSIONS` - pokaż uprawnienia\n",
-    "fr": "`$permission` - Donne ce message d'aide\n`$permission add @USER/@ROLLE <AUTHORIZATION>` - Donne une autorisation à un utilisateur / rôle\n`$permission remove @USER/@ROLLE <AUTHORIZATION>` - Supprime une autorisation d'un utilisateur / rôle\n`$permission list @USER/@ROLE` - Liste toutes les permissions d'un utilisateur / rôle\n \nAutorisations actuelles:\n`CREATE_TASK` - créer une tâche\n`DELETE_TASK` - supprimer la tâche\n`EDIT_TASK` - tâche d'édition\n`CREATE_GROUP` - créer un groupe\n`DELETE_GROUP` - supprimer le groupe\n`ADD_MEMBERS` - ajouter un utilisateur au groupe\n`REMOVE_MEMBERS` - supprimer l'utilisateur du groupe\n`ADD_PERMISSION` - ajouter une autorisation\n`REMOVE_PERMISSION` - supprimer l'autorisation\n`SHOW_PERMISSIONS` - afficher les autorisations\n",
-    "ru": "`$permission` - выдает это справочное сообщение\n`$permission add @USER/@ROLLE <AUTHORIZATION>` - дает пользователю / роли авторизацию\n`$permission remove @USER/@ROLLE <AUTHORIZATION>` - Удаляет авторизацию от пользователя / роли\n`$permission list @ПОЛЬЗОВАТЕЛЬ/@РОЛЬ` - перечисляет все разрешения пользователя / роли\n \nТекущие разрешения:\n`CREATE_TASK` - создать задачу\n`DELETE_TASK` - удалить задачу\n`EDIT_TASK` - редактировать задачу\n`CREATE_GROUP` - создать группу\n`DELETE_GROUP` - удалить группу\n`ADD_MEMBERS` - добавить пользователя в группу\n`REMOVE_MEMBERS` - удалить пользователя из группы\n`ADD_PERMISSION` - добавить разрешение\n`REMOVE_PERMISSION` - удалить разрешение\n`SHOW_PERMISSIONS` - показать разрешения\n",
-    "tr": "`$permission` - Bu yardım mesajını verir.\n`$permission add @USER/@ROLLE <PERMISSION>` - Bir kullanıcıya / role bir yetki verir.\n`$permission remove @USER/@ROLLE <PERMISSION>` - Bir kullanıcıdan / rolden bir yetkilendirmeyi kaldırır\n`$permission list @USER/@ROLE` - Bir kullanıcının / rolün tüm izinlerini listeler\n \nGüncel izinler:\n`CREATE_TASK` - Görev oluşturma\n`DELETE_TASK` - Görev silme\n`EDIT_TASK` - Görev düzenleme\n`CREATE_GROUP` - Grup oluşturma\n`DELETE_GROUP` - Grup silme\n`ADD_MEMBERS` - Gruba üye ekleme\n`REMOVE_MEMBERS` - Gruptan üye çıkarma\n`ADD_PERMISSION` - İzin ekleme\n`REMOVE_PERMISSION` - İzin kaldırma\n`SHOW_PERMISSIONS` - İzinleri gösterme\n"
+    "de": "`$permission` - Gibt diese Hilfe-Nachricht\n`$permission add @NUTZER/@ROLLE <BERECHTIGUNG>` - Gibt einem Nutzer/einer Rolle eine Berechtigung\n`$permission remove @NUTZER/@ROLLE <BERECHTIGUNG>` - Entfernt eine Berechtigung von einem Nutzer/einer Rolle\n`$permission list @NUTZER/@ROLLE` - Listet alle Berechtigungen eines Nutzers/einer Rolle auf\n\nAlle Berechtigungen:\n`CREATE_TASK` - Aufgabe erstellen\n`DELETE_TASK` - Aufgabe löschen\n`EDIT_TASK` - Aufgabe bearbeiten\n`CREATE_GROUP` - Gruppe erstellen\n`DELETE_GROUP` - Gruppe löschen\n`ADD_MEMBERS` - Nutzer zu Gruppe hinzufügen\n`REMOVE_MEMBERS` - Nutzer aus Gruppe entfernen\n`ADD_PERMISSION` - Berechtigung hinzufügen\n`REMOVE_PERMISSION` - Berechtigung entfernen\n`SHOW_PERMISSIONS` - Berechtigungen anzeigen\n`CREATE_BOARD` - Board erstellen\n`DELETE_BOARD` - Board löschen\n",
+    "en": "`$permission` - Gives this help message\n`$permission add @USER/@ROLLE <PERMISSION>` - Gives a user / role an authorization\n`$permission remove @USER/@ROLLE <PERMISSION>` - Removes an authorization from a user / role\n`$permission list @USER/@ROLE` - Lists all permissions of a user/role\n\nAll permissions:\n`CREATE_TASK` - create a task\n`DELETE_TASK` - delete task\n`EDIT_TASK` - edit task\n`CREATE_GROUP` - create a group\n`DELETE_GROUP` - delete group\n`ADD_MEMBERS` - add user to group\n`REMOVE_MEMBERS` - remove user from group\n`ADD_PERMISSION` - add permission\n`REMOVE_PERMISSION` - remove permission\n`SHOW_PERMISSIONS` - show permissions\n`CREATE_BOARD` - create a board\n`DELETE_BOARD` - delete board\n",
+    "bg": "`$permission` - дава това съобщение за помощ\n`$permission add @ПОТРЕБИТЕЛ/@РОЛЯ <AUTHORIZATION>` - дава разрешение на потребител / роля\n`$permission remove @ПОТРЕБИТЕЛ/@РОЛЯ <AUTHORIZATION>` - Премахва оторизация от потребител / роля\n`$списък с разрешения @ПОТРЕБИТЕЛ/@РОЛЯ` - изброява всички разрешения на потребител / роля\n\nТекущи разрешения:\n`CREATE_TASK` - създайте задача\n`DELETE_TSAK` - изтриване на задача\n`EDIT_TASK` - редактиране на задача\n`CREATE_GROUP` - създаване на група\n`DELETE_GROUP` - изтриване на група\n`ADD_MEMBERS` - добавяне на потребител към групата\n`REMOVE_MEMBERS` - премахване на потребител от групата\n`ADD_PERMISSION` - добавяне на разрешение\n`REMOVE_PERMISSION` - премахване на разрешение\n`SHOW_PERMISSIONS` - показва разрешения\n`CREATE_BOARD` - създайте дъска\n`DELETE_BOARD` - изтриване на табло\n",
+    "pl": "`$permission` - przekazuje ten komunikat pomocy\n`$permission add @UŻYTKOWNIK/@ROLA <AUTORYZACJA>` - Daje użytkownikowi / roli autoryzację\n`$permission remove @UŻYTKOWNIK/@ROLA <AUTORYZACJA>` - Usuwa autoryzację dla użytkownika / roli\n`$permission list @UŻYTKOWNIK/@ROLA` - Wyświetla wszystkie uprawnienia użytkownika / roli\n\nAktualne uprawnienia:\n`CREATE_TASK` - utwórz zadanie\n`DELETE_TASK` - usuń zadanie\n`EDIT_TASK` - edycja zadania\n`CREATE_GROUP` - utwórz grupę\n`DELETE_GROUP` - usuń grupę\n`ADD_MEMBERS` - dodaj użytkownika do grupy\n`REMOVE_MEMBERS` - usuń użytkownika z grupy\n`ADD_PERMISSION` - dodaj uprawnienia\n`REMOVE_PERMISSION` - usuń pozwolenie\n`SHOW_PERMISSIONS` - pokaż uprawnienia\n`CREATE_BOARD` - utwórz tablicę\n`DELETE_BOARD` - usuń tablicę\n",
+    "fr": "`$permission` - Donne ce message d'aide\n`$permission add @USER/@ROLLE <AUTHORIZATION>` - Donne une autorisation à un utilisateur / rôle\n`$permission remove @USER/@ROLLE <AUTHORIZATION>` - Supprime une autorisation d'un utilisateur / rôle\n`$permission list @USER/@ROLE` - Liste toutes les permissions d'un utilisateur / rôle\n\nAutorisations actuelles:\n`CREATE_TASK` - créer une tâche\n`DELETE_TASK` - supprimer la tâche\n`EDIT_TASK` - tâche d'édition\n`CREATE_GROUP` - créer un groupe\n`DELETE_GROUP` - supprimer le groupe\n`ADD_MEMBERS` - ajouter un utilisateur au groupe\n`REMOVE_MEMBERS` - supprimer l'utilisateur du groupe\n`ADD_PERMISSION` - ajouter une autorisation\n`REMOVE_PERMISSION` - supprimer l'autorisation\n`SHOW_PERMISSIONS` - afficher les autorisations\n`CREATE_BOARD` - créer un tableau\n`DELETE_BOARD` - supprimer le tableau\n",
+    "ru": "`$permission` - выдает это справочное сообщение\n`$permission add @USER/@ROLLE <AUTHORIZATION>` - дает пользователю / роли авторизацию\n`$permission remove @USER/@ROLLE <AUTHORIZATION>` - Удаляет авторизацию от пользователя / роли\n`$permission list @ПОЛЬЗОВАТЕЛЬ/@РОЛЬ` - перечисляет все разрешения пользователя / роли\n\nТекущие разрешения:\n`CREATE_TASK` - создать задачу\n`DELETE_TASK` - удалить задачу\n`EDIT_TASK` - редактировать задачу\n`CREATE_GROUP` - создать группу\n`DELETE_GROUP` - удалить группу\n`ADD_MEMBERS` - добавить пользователя в группу\n`REMOVE_MEMBERS` - удалить пользователя из группы\n`ADD_PERMISSION` - добавить разрешение\n`REMOVE_PERMISSION` - удалить разрешение\n`SHOW_PERMISSIONS` - показать разрешения\nCREATE_BOARD - создать доску\nDELETE_BOARD - удалить доску\n",
+    "tr": "`$permission` - Bu yardım mesajını verir.\n`$permission add @USER/@ROLLE <PERMISSION>` - Bir kullanıcıya / role bir yetki verir.\n`$permission remove @USER/@ROLLE <PERMISSION>` - Bir kullanıcıdan / rolden bir yetkilendirmeyi kaldırır\n`$permission list @USER/@ROLE` - Bir kullanıcının / rolün tüm izinlerini listeler\n\nGüncel izinler:\n`CREATE_TASK` - Görev oluşturma\n`DELETE_TASK` - Görev silme\n`EDIT_TASK` - Görev düzenleme\n`CREATE_GROUP` - Grup oluşturma\n`DELETE_GROUP` - Grup silme\n`ADD_MEMBERS` - Gruba üye ekleme\n`REMOVE_MEMBERS` - Gruptan üye çıkarma\n`ADD_PERMISSION` - İzin ekleme\n`REMOVE_PERMISSION` - İzin kaldırma\n`SHOW_PERMISSIONS` - İzinleri gösterme\n`CREATE_BOARD` - bir pano oluştur\n`DELETE_BOARD` - panoyu sil\n"
   },
   "stats_field_server": {
     "de": "Server",
@@ -1285,5 +1294,1202 @@
     "fr": "Toutes les tâches du groupe `$` dans le tableau `$`:\n$",
     "ru": "Все задачи группы `$` в доске `$`:\n$",
     "tr": "`$` Panosundaki `$` grubunun tüm görevleri:\n$"
+  },
+  "advanced_help_embed_field_title_command": {
+    "de": "Befehl",
+    "en": "Command",
+    "bg": "",
+    "pl": "",
+    "fr": "",
+    "ru": "",
+    "tr": ""
+  },
+  "advanced_help_embed_field_title_description": {
+    "de": "Beschreibung",
+    "en": "Description",
+    "bg": "",
+    "pl": "",
+    "fr": "",
+    "ru": "",
+    "tr": ""
+  },
+  "advanced_help_embed_field_title_example": {
+    "de": "Beispiel",
+    "en": "Example",
+    "bg": "",
+    "pl": "",
+    "fr": "",
+    "ru": "",
+    "tr": ""
+  },
+  "advanced_help_command_help_usage": {
+    "de": "help",
+    "en": "help",
+    "bg": "help",
+    "pl": "help",
+    "fr": "help",
+    "ru": "help",
+    "tr": "help"
+  },
+  "advanced_help_command_help_example": {
+    "de": "help",
+    "en": "help",
+    "bg": "help",
+    "pl": "help",
+    "fr": "help",
+    "ru": "help",
+    "tr": "help"
+  },
+  "advanced_help_command_help_description": {
+    "de": "Zeigt alle für den Bot verfügbaren Befehle mit einer detaillierten Beschreibung nach Thema sortiert an.",
+    "en": "Shows all commands available for the bot with a detailed description sorted by topic.",
+    "bg": "Показва всички команди, налични за бота, с подробно описание, сортирано по теми.",
+    "pl": "Pokazuje wszystkie polecenia dostępne dla bota ze szczegółowym opisem posortowane według tematu.",
+    "fr": "Affiche toutes les commandes disponibles pour le bot avec une description détaillée triée par sujet.",
+    "ru": "Показывает все доступные для бота команды с подробным описанием, отсортированным по темам.",
+    "tr": "Bot için mevcut tüm komutları, konuya göre sıralanmış ayrıntılı bir açıklama ile gösterir."
+  },
+  "advanced_help_command_app_usage": {
+    "de": "app",
+    "en": "app",
+    "bg": "app",
+    "pl": "app",
+    "fr": "app",
+    "ru": "app",
+    "tr": "app"
+  },
+  "advanced_help_command_app_example": {
+    "de": "app",
+    "en": "app",
+    "bg": "app",
+    "pl": "app",
+    "fr": "app",
+    "ru": "app",
+    "tr": "app"
+  },
+  "advanced_help_command_app_description": {
+    "de": "Sendet sowohl einen Link zum Google Play Store Eintrag unserer App für diesen Bot, als auch einen Link zu einer identischen Progressive Web App.",
+    "en": "Sends a link to the Google Play Store entry of our app for this bot, as well as a link to an identical progressive web app.",
+    "bg": "Изпраща връзка към записа на Google Play Store на нашето приложение за този бот, както и връзка към идентично прогресивно уеб приложение.",
+    "pl": "Wysyła link do wpisu w Google Play Store naszej aplikacji dla tego bota, a także link do identycznej progresywnej aplikacji internetowej.",
+    "fr": "Envoie un lien vers l'entrée Google Play Store de notre application pour ce bot, ainsi qu'un lien vers une application Web progressive identique.",
+    "ru": "Отправляет ссылку на запись нашего приложения в Google Play Store для этого бота, а также ссылку на идентичное Progressive Web App.",
+    "tr": "Bu bot için uygulamamızın Google Play Store girişine bir bağlantı ve aynı aşamalı web uygulamasına bir bağlantı gönderir."
+  },
+  "advanced_help_command_data_usage": {
+    "de": "data",
+    "en": "data",
+    "bg": "data",
+    "pl": "data",
+    "fr": "data",
+    "ru": "data",
+    "tr": "data"
+  },
+  "advanced_help_command_data_example": {
+    "de": "data",
+    "en": "data",
+    "bg": "data",
+    "pl": "data",
+    "fr": "data",
+    "ru": "data",
+    "tr": "data"
+  },
+  "advanced_help_command_data_description": {
+    "de": "Dieser Befehl ermöglicht es, alle Daten, die bnder von dir von diesem Server gespeichert hat, herunterzuladen. Der Bot sendet anschließend eine YAML-Datei, in der alle Daten ordentlich aufgelistet sind.",
+    "en": "This command makes it possible to download all data that tander has saved from this server. The bot then sends a YAML file that neatly lists all the data.",
+    "bg": "Тази команда дава възможност за изтегляне на всички данни, които tander е запазил от този сървър. След това ботът изпраща YAML файл, който прецизно изброява всички данни.",
+    "pl": "Polecenie to umożliwia pobranie wszystkich danych zapisanych przez tandera z tego serwera. Następnie bot wysyła plik YAML, który starannie wymienia wszystkie dane.",
+    "fr": "Cette commande permet de télécharger toutes les données que tander a sauvegardées à partir de ce serveur. Le bot envoie ensuite un fichier YAML qui répertorie toutes les données.",
+    "ru": "Эта команда позволяет загрузить все данные, сохраненные tander с этого сервера. Затем бот отправляет файл YAML, в котором аккуратно перечисляются все данные.",
+    "tr": "Bu komut, tander'ın kaydettiği tüm verileri bu sunucudan indirmeyi mümkün kılar. Bot daha sonra tüm verileri düzgün bir şekilde listeleyen bir YAML dosyası gönderir."
+  },
+  "advanced_help_command_invite_usage": {
+    "de": "invite",
+    "en": "invite",
+    "bg": "invite",
+    "pl": "invite",
+    "fr": "invite",
+    "ru": "invite",
+    "tr": "invite"
+  },
+  "advanced_help_command_invite_example": {
+    "de": "invite",
+    "en": "invite",
+    "bg": "invite",
+    "pl": "invite",
+    "fr": "invite",
+    "ru": "invite",
+    "tr": "invite"
+  },
+  "advanced_help_command_invite_description": {
+    "de": "Ein einfacher Befehl welcher den Einladungslink für diesen Bot bereitstellt.",
+    "en": "A simple command that provides the invitation link for this bot.",
+    "bg": "Проста команда, която предоставя връзката за покана за този бот.",
+    "pl": "Proste polecenie, które udostępnia link z zaproszeniem do tego bota.",
+    "fr": "Une commande simple qui fournit le lien d'invitation pour ce bot.",
+    "ru": "Простая команда, которая предоставляет ссылку-приглашение для этого бота.",
+    "tr": "Bu bot için davetiye bağlantısı sağlayan basit bir komut."
+  },
+  "advanced_help_command_language_usage": {
+    "de": "language <de/en/bg/pl/fr/ru/tr>",
+    "en": "language <de/en/bg/pl/fr/ru/tr>",
+    "bg": "language <de/en/bg/pl/fr/ru/tr>",
+    "pl": "language <de/en/bg/pl/fr/ru/tr>",
+    "fr": "language <de/en/bg/pl/fr/ru/tr>",
+    "ru": "language <de/en/bg/pl/fr/ru/tr>",
+    "tr": "language <de/en/bg/pl/fr/ru/tr>"
+  },
+  "advanced_help_command_language_example": {
+    "de": "language en",
+    "en": "language bg",
+    "bg": "language pl",
+    "pl": "language fr",
+    "fr": "language ru",
+    "ru": "language tr",
+    "tr": "language de"
+  },
+  "advanced_help_command_language_description": {
+    "de": "Damit kann die Sprache des Bots geändert werden. Der Bot ist in den Sprachen Deutsch (de), Englisch (en), Bulgarisch (bg), Polnisch (pl), Französisch (fr), Russisch (ru) und Türkisch (tr) verfügbar. Zum ändern der Sprache muss ein gültiger Ländercode hinter dem Befehl angegeben werden.",
+    "en": "Това може да се използва за промяна на езика на бота. Ботът се предлага на немски (de), английски (en), български (bg), полски (pl), френски (fr), руски (ru) и турски (tr). За да промените езика, след командата трябва да се въведе валиден код на държавата.",
+    "bg": "Това може да се използва за промяна на езика на бота. Ботът се предлага на немски (de), английски (en), български (bg), полски (pl), френски (fr), руски (ru) и турски (tr). За да промените езика, след командата трябва да се въведе валиден код на държавата.",
+    "pl": "Można to wykorzystać do zmiany języka bota. Bot jest dostępny w języku niemieckim (de), angielskim (en), bułgarskim (bg), polskim (pl), francuskim (fr), rosyjskim (ru) i tureckim (tr). Aby zmienić język, po poleceniu należy wprowadzić prawidłowy kod kraju.",
+    "fr": "Cela peut être utilisé pour changer la langue du bot. Le bot est disponible en allemand (de), anglais (en), bulgare (bg), polonais (pl), français (fr), russe (ru) et turc (tr). Pour changer la langue, un code de pays valide doit être entré après la commande.",
+    "ru": "Это можно использовать для изменения языка бота. Бот доступен на немецком (de), английском (en), болгарском (bg), польском (pl), французском (fr), русском (ru) и турецком (tr) языках. Чтобы изменить язык, после команды необходимо ввести действительный код страны.",
+    "tr": "Bu, botun dilini değiştirmek için kullanılabilir. Bot Almanca (de), İngilizce (en), Bulgarca (bg), Lehçe (pl), Fransızca (fr), Rusça (ru) ve Türkçe (tr) olarak mevcuttur. Dili değiştirmek için komuttan sonra geçerli bir ülke kodu girilmelidir."
+  },
+  "advanced_help_command_prefix_usage": {
+    "de": "prefix <Zeichen>",
+    "en": "prefix <Character>",
+    "bg": "prefix <символ>",
+    "pl": "prefix <znak>",
+    "fr": "prefix <character>",
+    "ru": "prefix <символ>",
+    "tr": "prefix <karakter>"
+  },
+  "advanced_help_command_prefix_example": {
+    "de": "prefix ;",
+    "en": "prefix ;",
+    "bg": "prefix ;",
+    "pl": "prefix ;",
+    "fr": "prefix ;",
+    "ru": "prefix ;",
+    "tr": "prefix ;"
+  },
+  "advanced_help_command_prefix_description": {
+    "de": "Standardmäßig ist der Präfix des Bots `-` (Minus). Mit dem Befehl lässt sich dieser Präfix ändern. Der Präfix darf maximal ein Zeichen lang sein. Das gewünschte Zeichen muss in der Nachricht mit dem Befehl angegeben werden.",
+    "en": "By default, the bot's prefix is `-` (minus). This prefix can be changed with the command. The prefix can be a maximum of one character long. The desired character must be specified in the message with the command.",
+    "bg": "По подразбиране префиксът на бота е `-` (минус). Този префикс може да бъде променен с командата. Префиксът може да бъде с дължина максимум един символ. Желаният знак трябва да бъде посочен в съобщението с командата.",
+    "pl": "Domyślnie prefiks bota to `-` (minus). Ten przedrostek można zmienić za pomocą polecenia. Prefiks może mieć maksymalnie jeden znak. Żądany znak należy określić w wiadomości zawierającej polecenie.",
+    "fr": "Par défaut, le préfixe du bot est `-` (moins). Ce préfixe peut être modifié avec la commande. Le préfixe peut comporter au maximum un caractère. Le caractère souhaité doit être spécifié dans le message avec la commande.",
+    "ru": "По умолчанию префикс бота - `-` (минус). Этот префикс можно изменить с помощью команды. Префикс может состоять максимум из одного символа. Нужный символ необходимо указать в сообщении с командой.",
+    "tr": "Varsayılan olarak, botun öneki `-` (eksi) şeklindedir. Bu önek komut ile değiştirilebilir. Önek maksimum bir karakter uzunluğunda olabilir. Mesajda istenen karakter komut ile belirtilmelidir."
+  },
+  "advanced_help_command_search_usage": {
+    "de": "search <Suchbegriff/ID>",
+    "en": "search <Search term/ID>",
+    "bg": "search <Термин за търсене / ID>",
+    "pl": "search <Wyszukiwane hasło / ID>",
+    "fr": "search <Terme de recherche / ID>",
+    "ru": "search <Поисковый запрос / идентификатор>",
+    "tr": "search <Arama terimi / kimliği>"
+  },
+  "advanced_help_command_search_example": {
+    "de": "search 2205",
+    "en": "search 2205",
+    "bg": "search 2205",
+    "pl": "search 2205",
+    "fr": "search 2205",
+    "ru": "search 2205",
+    "tr": "search 2205"
+  },
+  "advanced_help_command_search_description": {
+    "de": "Der Search-Befehl vereinfacht die Suche nach bestimmten Aufgaben. Als Suchbegriff lassen sich ganze Sätze, einzelne Wörter oder Nummern (IDs) eingeben. Der Bot durchsucht anschließend alle Aufgaben, Gruppen, etc. nach dem eingegebene Suchbegriff oder der ID.",
+    "en": "The Search command simplifies the search for specific tasks. Entire sentences, individual words or numbers (IDs) can be entered as search terms. The bot then searches all tasks, groups, etc. for the entered search term or ID.",
+    "bg": "Командата за търсене опростява търсенето на конкретни задачи. Като думи за търсене могат да се въведат цели изречения, отделни думи или цифри (ID). След това ботът търси във всички задачи, групи и т.н. за въведената дума за търсене или ID.",
+    "pl": "Polecenie Szukaj upraszcza wyszukiwanie określonych zadań. Jako wyszukiwane hasła można wprowadzać całe zdania, pojedyncze słowa lub liczby (identyfikatory). Następnie bot przeszukuje wszystkie zadania, grupy itp. Pod kątem wprowadzonego terminu wyszukiwania lub identyfikatora.",
+    "fr": "La commande Rechercher simplifie la recherche de tâches spécifiques. Des phrases entières, des mots individuels ou des nombres (ID) peuvent être saisis comme termes de recherche. Le bot recherche ensuite toutes les tâches, groupes, etc. pour le terme de recherche ou l'ID saisi.",
+    "ru": "Команда поиска упрощает поиск конкретных задач. В качестве условий поиска можно вводить целые предложения, отдельные слова или числа (идентификаторы). Затем бот ищет все задачи, группы и т. Д. По введенному поисковому запросу или идентификатору.",
+    "tr": "Ara komutu, belirli görevlerin aranmasını basitleştirir. Tüm cümleler, tek tek kelimeler veya numaralar (ID'ler) arama terimleri olarak girilebilir. Bot daha sonra girilen arama terimi veya kimliği için tüm görevleri, grupları vb. Arar."
+  },
+  "advanced_help_command_stats_usage": {
+    "de": "stats",
+    "en": "stats",
+    "bg": "stats",
+    "pl": "stats",
+    "fr": "stats",
+    "ru": "stats",
+    "tr": "stats"
+  },
+  "advanced_help_command_stats_example": {
+    "de": "stats",
+    "en": "stats",
+    "bg": "stats",
+    "pl": "stats",
+    "fr": "stats",
+    "ru": "stats",
+    "tr": "stats"
+  },
+  "advanced_help_command_stats_description": {
+    "de": "Der Bot sammelt einige anonymisierte Daten, welche alle mit diesem Befehl angesehen werden können.",
+    "en": "The bot collects some anonymized data, all of which can be viewed with this command.",
+    "bg": "Ботът събира някои анонимизирани данни, като всички те могат да се видят с тази команда.",
+    "pl": "Bot zbiera anonimowe dane, które można wyświetlić za pomocą tego polecenia.",
+    "fr": "Le bot collecte des données anonymisées, qui peuvent toutes être visualisées avec cette commande.",
+    "ru": "Бот собирает некоторые анонимные данные, которые можно просмотреть с помощью этой команды.",
+    "tr": "Bot, tümü bu komutla görüntülenebilen bazı anonim veriler toplar."
+  },
+  "advanced_help_command_support_usage": {
+    "de": "support",
+    "en": "support",
+    "bg": "support",
+    "pl": "support",
+    "fr": "support",
+    "ru": "support",
+    "tr": "support"
+  },
+  "advanced_help_command_support_example": {
+    "de": "support",
+    "en": "support",
+    "bg": "support",
+    "pl": "support",
+    "fr": "support",
+    "ru": "support",
+    "tr": "support"
+  },
+  "advanced_help_command_support_description": {
+    "de": "Wenn du Hilfe benötigst, Fragen hast, eine neue Funktion vorschlagen willst oder nur mit einigen Nutzern kommunizieren willst, ist der Befehl der richtige. Mit ihm kriegst du den Einladungslink zu unserem Discord-Server.",
+    "en": "If you need help, have questions, want to suggest a new function or just want to communicate with a few users, this command is the right one. With it you will get the invitation link to our Discord server.",
+    "bg": "Ако имате нужда от помощ, имате въпроси, искате да предложите нова функция или просто искате да комуникирате с няколко потребители, тази команда е правилната. С него ще получите връзката за покана към нашия сървър Discord.",
+    "pl": "Jeśli potrzebujesz pomocy, masz pytania, chcesz zasugerować nową funkcję lub po prostu chcesz skomunikować się z kilkoma użytkownikami, to polecenie jest właściwe. Wraz z nim otrzymasz link z zaproszeniem do naszego serwera Discord.",
+    "fr": "Si vous avez besoin d'aide, avez des questions, souhaitez suggérer une nouvelle fonction ou souhaitez simplement communiquer avec quelques utilisateurs, cette commande est la bonne. Avec lui, vous obtiendrez le lien d'invitation vers notre serveur Discord.",
+    "ru": "Если вам нужна помощь, у вас есть вопросы, вы хотите предложить новую функцию или просто хотите пообщаться с несколькими пользователями, эта команда - правильная. С ним вы получите ссылку-приглашение на наш сервер Discord.",
+    "tr": "Yardıma ihtiyacınız varsa, sorularınız varsa, yeni bir işlev önermek istiyorsanız veya sadece birkaç kullanıcıyla iletişim kurmak istiyorsanız, bu komut doğru olanıdır. Onunla, Discord sunucumuza davet bağlantısını alacaksınız."
+  },
+  "advanced_help_command_token_usage": {
+    "de": "token",
+    "en": "token",
+    "bg": "token",
+    "pl": "token",
+    "fr": "token",
+    "ru": "token",
+    "tr": "token"
+  },
+  "advanced_help_command_token_example": {
+    "de": "token",
+    "en": "token",
+    "bg": "token",
+    "pl": "token",
+    "fr": "token",
+    "ru": "token",
+    "tr": "token"
+  },
+  "advanced_help_command_token_description": {
+    "de": "Durch den Befehl sendet der Bot dir einen Token (eine zufällig generierte Zeichenfolge) per Direktnachricht. Der Token wird benötigt um sich in der Android-App oder Web-App anzumelden.",
+    "en": "With the command, the bot sends you a token (a randomly generated string) via direct message. The token is required to log in to the Android app or web app.",
+    "bg": "С командата ботът ви изпраща токен (произволно генериран низ) чрез директно съобщение. Токенът е необходим за влизане в приложението за Android или уеб приложението.",
+    "pl": "Za pomocą polecenia bot wysyła token (losowo wygenerowany ciąg) za pośrednictwem bezpośredniej wiadomości. Token jest wymagany do zalogowania się do aplikacji na Androida lub aplikacji internetowej.",
+    "fr": "Avec la commande, le bot vous envoie un jeton (une chaîne générée aléatoirement) via un message direct. Le jeton est nécessaire pour se connecter à l'application Android ou à l'application Web.",
+    "ru": "С помощью команды бот отправляет вам токен (случайно сгенерированную строку) через прямое сообщение. Токен необходим для входа в приложение Android или веб-приложение.",
+    "tr": "Komutla, bot size doğrudan mesaj yoluyla bir belirteç (rastgele oluşturulmuş bir dize) gönderir. Jeton, Android uygulamasında veya web uygulamasında oturum açmak için gereklidir."
+  },
+  "advanced_help_command_version_usage": {
+    "de": "version",
+    "en": "version",
+    "bg": "version",
+    "pl": "version",
+    "fr": "version",
+    "ru": "version",
+    "tr": "version"
+  },
+  "advanced_help_command_version_example": {
+    "de": "version",
+    "en": "version",
+    "bg": "version",
+    "pl": "version",
+    "fr": "version",
+    "ru": "version",
+    "tr": "version"
+  },
+  "advanced_help_command_version_description": {
+    "de": "Zeigt lediglich die aktuelle Version des Bots an. Der Versionscode setzt sich zusammen aus: Jahr.Quartal.Patch-Nummer",
+    "en": "Only shows the current version of the bot. The version code consists of: year.quarter.patch number",
+    "bg": "Показва само текущата версия на бота. Кодът на версията се състои от: year.quarter.patch номер",
+    "pl": "Pokazuje tylko aktualną wersję bota. Kod wersji składa się z: roku, kwartału, numeru partii",
+    "fr": "Affiche uniquement la version actuelle du bot. Le code de version se compose de: year.quarter.patch number",
+    "ru": "Показывает только текущую версию бота. Код версии состоит из: года. Квартала. Номера патча.",
+    "tr": "Yalnızca botun mevcut sürümünü gösterir. Sürüm kodu şunlardan oluşur: year.quarter.patch numarası"
+  },
+  "advanced_help_command_board_create_usage": {
+    "de": "board create <NAME>",
+    "en": "board create <NAME>",
+    "bg": "board create <Фамилия>",
+    "pl": "board create <Przeznaczenie>",
+    "fr": "board create <désignation>",
+    "ru": "board create <обозначение>",
+    "tr": "board create <atama>"
+  },
+  "advanced_help_command_board_create_example": {
+    "de": "board create Game1",
+    "en": "board create Game1",
+    "bg": "board create Game1",
+    "pl": "board create Game1",
+    "fr": "board create Game1",
+    "ru": "board create Game1",
+    "tr": "board create Game1"
+  },
+  "advanced_help_command_board_create_description": {
+    "de": "Mit dem Befehl lässt sich ein selbst-benanntes Board erstellen. Das Board ist wie ein seperates Projekt. Aufgaben werden immer automatisch dem Board zugeordnet, dass gerade aktiv ist. Das Standard-Board heißt \"default\".",
+    "en": "With the command you can create a self-named board. The board is like a separate project. Tasks are always automatically assigned to the board that is currently active. The standard board is called \"default\".",
+    "bg": "С командата можете да създадете самоназвана дъска. Дъската е като отделен проект. Задачите винаги се присвояват автоматично на активната в момента дъска. Стандартната платка се нарича \"по подразбиране\".",
+    "pl": "Za pomocą polecenia można utworzyć tablicę o nazwie własnej. Tablica jest jak osobny projekt. Zadania są zawsze automatycznie przypisywane do aktualnie aktywnej tablicy. Karta standardowa nosi nazwę „domyślna”.",
+    "fr": "Une carte auto-nommée peut être créée avec la commande. Le conseil est comme un projet séparé. Les tâches sont toujours automatiquement attribuées au tableau actuellement actif. La carte standard est appelée \"par défaut\".",
+    "ru": "С помощью команды можно создать одноименную доску. Плата как отдельный проект. Задачи всегда автоматически назначаются активной в данный момент доске. Стандартная плата называется «дефолтной».",
+    "tr": "Komutla kendi adını taşıyan bir pano oluşturabilirsiniz. Yönetim kurulu ayrı bir proje gibidir. Görevler her zaman otomatik olarak o anda aktif olan panele atanır. Standart kart \"varsayılan\" olarak adlandırılır."
+  },
+  "advanced_help_command_board_delete_usage": {
+    "de": "board delete <NAME>",
+    "en": "board delete <NAME>",
+    "bg": "board delete <Фамилия>",
+    "pl": "board delete <Przeznaczenie>",
+    "fr": "board delete <désignation>",
+    "ru": "board delete <обозначение>",
+    "tr": "board delete <atama>"
+  },
+  "advanced_help_command_board_delete_example": {
+    "de": "board delete Game1",
+    "en": "board delete Game1",
+    "bg": "board delete Game1",
+    "pl": "board delete Game1",
+    "fr": "board delete Game1",
+    "ru": "board delete Game1",
+    "tr": "board delete Game1"
+  },
+  "advanced_help_command_board_delete_description": {
+    "de": "Wird ein Board nicht mehr benötigt, lässt es sich mit dem Befehl löschen. Dabei werden zusätzlich alle Aufgaben gelöscht, die in dem Board erstellt wurden. Für den Befehl wird die Berechtigung \"DELETE_BOARD\" benötigt.",
+    "en": "If a board is no longer required, it can be deleted with the command. All tasks that were created in the board are also deleted. The \"DELETE_BOARD\" authorization is required for the command.",
+    "bg": "Ако дъска вече не е необходима, тя може да бъде изтрита с командата. Всички задачи, създадени в дъската, също се изтриват. За командата е необходимо упълномощаване „DELETE_BOARD“.",
+    "pl": "Jeśli tablica nie jest już potrzebna, można ją usunąć za pomocą polecenia. Wszystkie zadania, które zostały utworzone na tablicy, również zostaną usunięte. Polecenie wymaga autoryzacji „DELETE_BOARD”.",
+    "fr": "Si une carte n'est plus nécessaire, elle peut être supprimée avec la commande. Toutes les tâches créées dans le tableau sont également supprimées. L'autorisation \"DELETE_BOARD\" est requise pour la commande.",
+    "ru": "Если плата больше не требуется, ее можно удалить с помощью команды. Также удаляются все задачи, которые были созданы на доске. Для команды требуется авторизация \"DELETE_BOARD\".",
+    "tr": "Bir pano artık gerekli değilse, komutla silinebilir. Panoda oluşturulan tüm görevler de silinir. Komut için \"DELETE_BOARD\" yetkisi gereklidir."
+  },
+  "advanced_help_command_board_switch_usage": {
+    "de": "board switch <NAME>",
+    "en": "board switch <NAME>",
+    "bg": "board switch <Фамилия>",
+    "pl": "board switch <Przeznaczenie>",
+    "fr": "board switch <désignation>",
+    "ru": "board switch <обозначение>",
+    "tr": "board switch <atama>"
+  },
+  "advanced_help_command_board_switch_example": {
+    "de": "board switch Game1",
+    "en": "board switch Game1",
+    "bg": "board switch Game1",
+    "pl": "board switch Game1",
+    "fr": "board switch Game1",
+    "ru": "board switch Game1",
+    "tr": "board switch Game1"
+  },
+  "advanced_help_command_board_switch_description": {
+    "de": "Damit lässt sich das aktive Board ändern. Aufgaben werden dann in dem aktiven Board erstellt und für das aktive Board aufgelistet.",
+    "en": "This allows the active board to be changed. Tasks are then created in the active board and listed for the active board.",
+    "bg": "Това позволява да се променя активната дъска. След това задачите се създават в активната дъска и се изброяват за активната дъска.",
+    "pl": "Pozwala to na zmianę aktywnej tablicy. Zadania są następnie tworzone na aktywnej tablicy i wyświetlane na tej tablicy.",
+    "fr": "Cela permet de changer la carte active. Les tâches sont ensuite créées dans le tableau actif et répertoriées pour le tableau actif.",
+    "ru": "Это позволяет заменить активную доску. Затем задачи создаются на активной доске и перечисляются для активной доски.",
+    "tr": "Bu, aktif kartın değiştirilmesine izin verir. Görevler daha sonra aktif panoda oluşturulur ve aktif pano için listelenir."
+  },
+  "advanced_help_command_board_list_usage": {
+    "de": "board list",
+    "en": "board list",
+    "bg": "board list",
+    "pl": "board list",
+    "fr": "board list",
+    "ru": "board list",
+    "tr": "board list"
+  },
+  "advanced_help_command_board_list_example": {
+    "de": "board list",
+    "en": "board list",
+    "bg": "board list",
+    "pl": "board list",
+    "fr": "board list",
+    "ru": "board list",
+    "tr": "board list"
+  },
+  "advanced_help_command_board_list_description": {
+    "de": "Hier werden alle Boards gelistet, die auf dem Server erstellt existieren. Das aktive Board ist mit einem grünen Haken gekennzeichnet.",
+    "en": "All boards that exist on the server are listed here. The active board is marked with a green tick.",
+    "bg": "Всички дъски, които съществуват на сървъра, са изброени тук. Активната дъска е маркирана със зелена отметка.",
+    "pl": "Wszystkie tablice istniejące na serwerze są wymienione tutaj. Aktywna tablica jest oznaczona zielonym haczykiem.",
+    "fr": "Toutes les cartes qui existent sur le serveur sont répertoriées ici. Le tableau actif est marqué d'une coche verte.",
+    "ru": "Здесь перечислены все платы, существующие на сервере. Активная доска отмечена зеленой галочкой.",
+    "tr": "Sunucuda bulunan tüm anakartlar burada listelenmiştir. Aktif tahta yeşil bir tik ile işaretlenmiştir."
+  },
+  "advanced_help_command_group_add_usage": {
+    "de": "group add @Mitglied <GRUPPE>",
+    "en": "group add @Member <GROUP>",
+    "bg": "group add @Member <група>",
+    "pl": "group add @Member <Grupa>",
+    "fr": "group add @Member <groupe>",
+    "ru": "group add @Member <группа>",
+    "tr": "group add @Member <grup>"
+  },
+  "advanced_help_command_group_add_example": {
+    "de": "group add @User12#1234 develop",
+    "en": "group add @User12#1234 develop",
+    "bg": "group add @User12#1234 develop",
+    "pl": "group add @User12#1234 develop",
+    "fr": "group add @User12#1234 develop",
+    "ru": "group add @User12#1234 develop",
+    "tr": "group add @User12#1234 develop"
+  },
+  "advanced_help_command_group_add_description": {
+    "de": "Um Mitglieder einer Gruppe hinzuzufügen muss der Nutzer markiert werden, der der angegebenen Gruppe hinzugefügt werden soll. Nachdem ein Nutzer einer Gruppe hinzguefügt wurde, werden ihm die Aufgaben für die Gruppe ebenfalls angezeigt.",
+    "en": "To add members to a group, the user who is to be added to the specified group must be marked. After a user has been added to a group, the tasks for the group are also displayed.",
+    "bg": "За да добавите членове към група, потребителят, който трябва да бъде добавен към посочената група, трябва да бъде маркиран. След като потребител е добавен към група, задачите за групата също се показват.",
+    "pl": "Aby dodać członków do grupy, należy zaznaczyć użytkownika, który ma zostać dodany do określonej grupy. Po dodaniu użytkownika do grupy wyświetlane są również zadania dla grupy.",
+    "fr": "Pour ajouter des membres à un groupe, l'utilisateur qui doit être ajouté au groupe spécifié doit être marqué. Une fois qu'un utilisateur a été ajouté à un groupe, les tâches du groupe sont également affichées.",
+    "ru": "Чтобы добавить участников в группу, необходимо отметить пользователя, который должен быть добавлен в указанную группу. После добавления пользователя в группу также отображаются задачи для группы.",
+    "tr": "Bir gruba üye eklemek için, belirtilen gruba eklenecek kullanıcının işaretlenmesi gerekir. Bir gruba bir kullanıcı eklendikten sonra, grubun görevleri de görüntülenir."
+  },
+  "advanced_help_command_group_create_usage": {
+    "de": "group create <GRUPPE>",
+    "en": "group create <GROUP>",
+    "bg": "group create <група>",
+    "pl": "group create <Grupa>",
+    "fr": "group create <groupe>",
+    "ru": "group create <группа>",
+    "tr": "group create <grup>"
+  },
+  "advanced_help_command_group_create_example": {
+    "de": "group create develop",
+    "en": "group create develop",
+    "bg": "group create develop",
+    "pl": "group create develop",
+    "fr": "group create develop",
+    "ru": "group create develop",
+    "tr": "group create develop"
+  },
+  "advanced_help_command_group_create_description": {
+    "de": "Damit eine Gruppe benutzt werden kann, muss sie erst erstellt werden. Das geschieht mit diesem Befehl. Nach der Erstellung kann die Gruppe in den weiteren Gruppen-Befehlen benutzt werden.",
+    "en": "In order for a group to be used, it must first be created. This is done with this command. After creation, the group can be used in the other group commands.",
+    "bg": "За да може да се използва група, първо трябва да се създаде. Това се прави с тази команда. След като е създадена, групата може да се използва в другите команди на групата.",
+    "pl": "Aby można było użyć grupy, należy ją najpierw utworzyć. Odbywa się to za pomocą tego polecenia. Po utworzeniu grupy można jej używać w innych poleceniach dotyczących grupy.",
+    "fr": "Pour qu'un groupe soit utilisé, il doit d'abord être créé. Ceci est fait avec cette commande. Une fois créé, le groupe peut être utilisé dans les autres commandes de groupe.",
+    "ru": "Чтобы группа могла использоваться, ее необходимо сначала создать. Это делается с помощью этой команды. После создания группа может использоваться в других групповых командах.",
+    "tr": "Bir grubun kullanılabilmesi için önce oluşturulması gerekir. Bu, bu komutla yapılır. Oluşturulduktan sonra, grup diğer grup komutlarında kullanılabilir."
+  },
+  "advanced_help_command_group_delete_usage": {
+    "de": "group delete <GRUPPE>",
+    "en": "group delete <GROUP>",
+    "bg": "group delete <група>",
+    "pl": "group delete <Grupa>",
+    "fr": "group delete <groupe>",
+    "ru": "group delete <группа>",
+    "tr": "group delete <grup>"
+  },
+  "advanced_help_command_group_delete_example": {
+    "de": "group delete develop",
+    "en": "group delete develop",
+    "bg": "group delete develop",
+    "pl": "group delete develop",
+    "fr": "group delete develop",
+    "ru": "group delete develop",
+    "tr": "group delete develop"
+  },
+  "advanced_help_command_group_delete_description": {
+    "de": "Wird eine Gruppe nicht mehr benutzt, kann sie mit dem Befehl gelöscht werden. Anschließend werden alle Aufgaben, die der Gruppe zugeordnet waren, gelöscht.",
+    "en": "If a group is no longer used, it can be deleted with the command. Then all tasks that were assigned to the group are deleted.",
+    "bg": "Ако дадена група вече не се използва, тя може да бъде изтрита с командата. След това всички задачи, които са били възложени на групата, се изтриват.",
+    "pl": "Jeśli grupa nie jest już używana, można ją usunąć za pomocą polecenia. Następnie wszystkie zadania przypisane do grupy są usuwane.",
+    "fr": "Si un groupe n'est plus utilisé, il peut être supprimé avec la commande. Ensuite, toutes les tâches affectées au groupe sont supprimées.",
+    "ru": "Если группа больше не используется, ее можно удалить с помощью команды. Затем удаляются все задачи, которые были назначены группе.",
+    "tr": "Bir grup artık kullanılmıyorsa, komutla silinebilir. Ardından gruba atanan tüm görevler silinir."
+  },
+  "advanced_help_command_group_list_usage": {
+    "de": "group list",
+    "en": "group list",
+    "bg": "group list",
+    "pl": "group list",
+    "fr": "group list",
+    "ru": "group list",
+    "tr": "group list"
+  },
+  "advanced_help_command_group_list_example": {
+    "de": "group list",
+    "en": "group list",
+    "bg": "group list",
+    "pl": "group list",
+    "fr": "group list",
+    "ru": "group list",
+    "tr": "group list"
+  },
+  "advanced_help_command_group_list_description": {
+    "de": "Dieser Befehl zeigt alle Gruppen an, die auf dem Server existieren.",
+    "en": "This command shows all groups that exist on the server.",
+    "bg": "Тази команда показва всички групи, които съществуват на сървъра.",
+    "pl": "To polecenie wyświetla wszystkie grupy istniejące na serwerze.",
+    "fr": "Cette commande affiche tous les groupes qui existent sur le serveur.",
+    "ru": "Эта команда показывает все группы, существующие на сервере.",
+    "tr": "Bu komut, sunucuda bulunan tüm grupları gösterir."
+  },
+  "advanced_help_command_group_members_usage": {
+    "de": "group members <GRUPPE>",
+    "en": "group members <GROUP>",
+    "bg": "group members <група>",
+    "pl": "group members <Grupa>",
+    "fr": "group members <groupe>",
+    "ru": "group members <группа>",
+    "tr": "group members <grup>"
+  },
+  "advanced_help_command_group_members_example": {
+    "de": "group members develop",
+    "en": "group members develop",
+    "bg": "group members develop",
+    "pl": "group members develop",
+    "fr": "group members develop",
+    "ru": "group members develop",
+    "tr": "group members develop"
+  },
+  "advanced_help_command_group_members_description": {
+    "de": "Der Befehl zeigt alle Mitglieder der angegebenen Gruppe an, falls die Gruppe auf dem Server existiert und Gruppenmitglieder beinhaltet.",
+    "en": "The command displays all members of the specified group if the group exists on the server and contains group members.",
+    "bg": "Командата показва всички членове на посочената група, ако групата съществува на сървъра и съдържа членове на групата.",
+    "pl": "Polecenie wyświetla wszystkich członków określonej grupy, jeśli grupa istnieje na serwerze i zawiera członków grupy.",
+    "fr": "La commande affiche tous les membres du groupe spécifié si le groupe existe sur le serveur et contient des membres du groupe.",
+    "ru": "Команда отображает всех членов указанной группы, если группа существует на сервере и содержит членов группы.",
+    "tr": "Komut, grup sunucuda varsa ve grup üyelerini içeriyorsa, belirtilen grubun tüm üyelerini görüntüler."
+  },
+  "advanced_help_command_group_notifications_usage": {
+    "de": "group notifications <GRUPPE> #Textkanal",
+    "en": "group notifications <GROUP> #Channel",
+    "bg": "group notifications <група> #канал",
+    "pl": "group notifications <Grupa> #kanał",
+    "fr": "group notifications <groupe> #canal",
+    "ru": "group notifications <группа> #канал",
+    "tr": "group notifications <grup> #kanal"
+  },
+  "advanced_help_command_group_notifications_example": {
+    "de": "group notifications develop #devlog",
+    "en": "group notifications develop #devlog",
+    "bg": "group notifications develop #devlog",
+    "pl": "group notifications develop #devlog",
+    "fr": "group notifications develop #devlog",
+    "ru": "group notifications develop #devlog",
+    "tr": "group notifications develop #devlog"
+  },
+  "advanced_help_command_group_notifications_description": {
+    "de": "Der Befehl ermöglicht die Protokollierung aller Aufgaben die einer Gruppe zugeteilt werden. Die Aufgaben werden in den festgelegten Kanal gesendet und bei einer Änderung automatisch aktualisiert, ohne eine neue Nachricht zu senden.",
+    "en": "The command enables all tasks assigned to a group to be logged. The tasks are sent to the specified channel and automatically updated if changed without sending a new message.",
+    "bg": "Командата позволява да се регистрират всички задачи, възложени на група. Задачите се изпращат до посочения канал и се актуализират автоматично, ако се променят, без да се изпраща ново съобщение.",
+    "pl": "Polecenie umożliwia rejestrowanie wszystkich zadań przypisanych do grupy. Zadania są wysyłane do określonego kanału i automatycznie aktualizowane w przypadku zmiany bez wysyłania nowej wiadomości.",
+    "fr": "La commande permet à toutes les tâches affectées à un groupe d'être enregistrées. Les tâches sont envoyées au canal spécifié et automatiquement mises à jour si elles sont modifiées sans envoyer de nouveau message.",
+    "ru": "Команда позволяет регистрировать все задачи, назначенные группе. Задачи отправляются в указанный канал и автоматически обновляются при изменении без отправки нового сообщения.",
+    "tr": "Komut, bir gruba atanan tüm görevlerin günlüğe kaydedilmesini sağlar. Görevler belirtilen kanala gönderilir ve yeni bir mesaj gönderilmeden değiştirilirse otomatik olarak güncellenir."
+  },
+  "advanced_help_command_group_remove_usage": {
+    "de": "group remove @Mitglied <GRUPPE>",
+    "en": "group remove @Member <GROUP>",
+    "bg": "group remove @Member <група>",
+    "pl": "group remove @Member <Grupa>",
+    "fr": "group remove @Member <groupe>",
+    "ru": "group remove @Member <группа>",
+    "tr": "group remove @Member <grup>"
+  },
+  "advanced_help_command_group_remove_example": {
+    "de": "group remove @User12#1234 develop",
+    "en": "group remove @User12#1234 develop",
+    "bg": "group remove @User12#1234 develop",
+    "pl": "group remove @User12#1234 develop",
+    "fr": "group remove @User12#1234 develop",
+    "ru": "group remove @User12#1234 develop",
+    "tr": "group remove @User12#1234 develop"
+  },
+  "advanced_help_command_group_remove_description": {
+    "de": "Der Befehl entfernt einen Nutzer aus einer Gruppe, sofern er ein Mitglied dieser ist. Anschließend erhält er keine Aufgaben für die Gruppe und es werden auch keine Aufgaben aus der Gruppe in seiner Aufgabenliste angezeigt.",
+    "en": "The command removes a user from a group if he is a member of it. He then does not receive any tasks for the group and no tasks from the group are displayed in his task list.",
+    "bg": "Командата премахва потребител от група, ако той е член на нея. След това той не получава никакви задачи за групата и никакви задачи от групата не се показват в списъка му със задачи.",
+    "pl": "Polecenie usuwa użytkownika z grupy, jeśli jest jej członkiem. Nie otrzymuje wtedy żadnych zadań dla grupy i żadne zadania z grupy nie są wyświetlane na jego liście zadań.",
+    "fr": "La commande supprime un utilisateur d'un groupe s'il en est membre. Il ne reçoit alors aucune tâche pour le groupe et aucune tâche du groupe n'est affichée dans sa liste de tâches.",
+    "ru": "Команда удаляет пользователя из группы, если он является ее членом. После этого он не получает никаких задач для группы, и никакие задачи из группы не отображаются в его списке задач.",
+    "tr": "Komut, grubun üyesi olan bir kullanıcıyı gruptan çıkarır. Daha sonra grup için herhangi bir görev almaz ve gruptan hiçbir görev kendi görev listesinde gösterilmez."
+  },
+  "advanced_help_command_permission_add_usage": {
+    "de": "permission add @Mitglied/@Rolle <Berechtigung>",
+    "en": "permission add @Member/@Role <Permission>",
+    "bg": "permission add @Member/@Role <упълномощаване>",
+    "pl": "permission add @Member/@Role <upoważnienie>",
+    "fr": "permission add @Member/@Role <autorisation>",
+    "ru": "permission add @Member/@Role <разрешение>",
+    "tr": "permission add @Member/@Role <yetki>"
+  },
+  "advanced_help_command_permission_add_example": {
+    "de": "permission add @User12#1234 CREATE_GROUP",
+    "en": "permission add @User12#1234 CREATE_GROUP",
+    "bg": "permission add @User12#1234 CREATE_GROUP",
+    "pl": "permission add @User12#1234 CREATE_GROUP",
+    "fr": "permission add @User12#1234 CREATE_GROUP",
+    "ru": "permission add @User12#1234 CREATE_GROUP",
+    "tr": "permission add @User12#1234 CREATE_GROUP"
+  },
+  "advanced_help_command_permission_add_description": {
+    "de": "Sie können Berechtigungen für bestimmte Aktionen erteilen, ohne dabei das Berechtigungssystem von Discord zu ändern. Je nachdem ob ein Nutzer oder eine Rolle markiert wird, erhält ein Nutzer oder eine ganze Gruppe die Berechtigung für die angegebene Aktion. Eine Liste mit allen Berechtigungen ist über den Befehl `permission list` einsehbar.",
+    "en": "You can grant permissions for certain actions without changing the Discord permissions system. Depending on whether a user or a role is marked, a user or an entire group receives authorization for the specified action. A list with all permissions can be viewed with the command `permission list`.",
+    "bg": "Можете да давате разрешения за определени действия, без да променяте системата за разрешения Discord. В зависимост от това дали даден потребител или роля е маркиран, потребител или цяла група получава разрешение за посоченото действие. Списък с всички разрешения може да се види с командата `permission list`.",
+    "pl": "Możesz przyznać uprawnienia do niektórych działań bez zmiany systemu uprawnień Discord. W zależności od tego, czy oznaczony jest użytkownik, czy rola, autoryzację do określonej akcji otrzymuje użytkownik lub cała grupa. Listę wszystkich uprawnień można wyświetlić za pomocą polecenia `permission list`.",
+    "fr": "Vous pouvez accorder des autorisations pour certaines actions sans modifier le système d'autorisations Discord. Selon qu'un utilisateur ou un rôle est marqué, un utilisateur ou un groupe entier reçoit l'autorisation pour l'action spécifiée. Une liste avec toutes les autorisations peut être visualisée avec la commande `permission list`.",
+    "ru": "Вы можете предоставлять разрешения для определенных действий, не меняя систему разрешений Discord. В зависимости от того, отмечен ли пользователь или роль, пользователь или вся группа получает авторизацию для указанного действия. Список со всеми разрешениями можно просмотреть с помощью команды `permission list`",
+    "tr": "Discord izin sistemini değiştirmeden belirli eylemler için izinler verebilirsiniz. Bir kullanıcının veya bir rolün işaretlenmesine bağlı olarak, bir kullanıcı veya tüm bir grup, belirtilen eylem için yetki alır. Tüm izinleri içeren bir liste, `permission list` komutuyla görüntülenebilir."
+  },
+  "advanced_help_command_permission_list_usage": {
+    "de": "permission list @Mitglied/@Rolle",
+    "en": "permission list @Member/@Role",
+    "bg": "permission list @Member/@Role",
+    "pl": "permission list @Member/@Role",
+    "fr": "permission list @Member/@Role",
+    "ru": "permission list @Member/@Role",
+    "tr": "permission list @Member/@Role"
+  },
+  "advanced_help_command_permission_list_example": {
+    "de": "permission list @User12#1234",
+    "en": "permission list @User12#1234",
+    "bg": "permission list @User12#1234",
+    "pl": "permission list @User12#1234",
+    "fr": "permission list @User12#1234",
+    "ru": "permission list @User12#1234",
+    "tr": "permission list @User12#1234"
+  },
+  "advanced_help_command_permission_list_description": {
+    "de": "So lassen sich alle Berechtigungen für einen markierten Nutzer oder eine markierte Rolle auflisten. Verfügt der Nutzer oder die Rolle über eine Berechtigung wird dies mit einem Haken hinter dem Namen der Berechtigung markiert.",
+    "en": "In this way, all authorizations for a marked user or a marked role can be listed. If the user or role has an authorization, this is marked with a tick behind the name of the authorization.",
+    "bg": "По този начин могат да бъдат изброени всички разрешения за маркиран потребител или маркирана роля. Ако потребителят или ролята имат разрешение, това се отбелязва с отметка зад името на разрешението.",
+    "pl": "W ten sposób można wyświetlić wszystkie uprawnienia dla oznaczonego użytkownika lub zaznaczonej roli. Jeśli użytkownik lub rola ma uprawnienia, jest to zaznaczone haczykiem za nazwą uprawnienia.",
+    "fr": "De cette manière, toutes les autorisations pour un utilisateur marqué ou un rôle marqué peuvent être répertoriées. Si l'utilisateur ou le rôle dispose d'une autorisation, celle-ci est marquée d'une coche derrière le nom de l'autorisation.",
+    "ru": "Таким образом, могут быть перечислены все права доступа для отмеченного пользователя или отмеченной роли. Если у пользователя или роли есть авторизация, это помечается галочкой после имени авторизации.",
+    "tr": "Bu şekilde, işaretli bir kullanıcı veya işaretli bir rol için tüm yetkiler listelenebilir. Kullanıcı veya rolün bir yetkisi varsa, bu, yetkilendirme adının arkasında bir onay işareti ile işaretlenir."
+  },
+  "advanced_help_command_permission_remove_usage": {
+    "de": "permission remove @Mitglied/@Rolle <Berechtigung>",
+    "en": "permission remove @Member/@Role <Permission>",
+    "bg": "permission remove @Member/@Role <упълномощаване>",
+    "pl": "permission remove @Member/@Role <upoważnienie>",
+    "fr": "permission remove @Member/@Role <autorisation>",
+    "ru": "permission remove @Member/@Role <разрешение>",
+    "tr": "permission remove @Member/@Role <yetki>"
+  },
+  "advanced_help_command_permission_remove_example": {
+    "de": "permission remove @User12#1234 CREATE_GROUP",
+    "en": "permission remove @User12#1234 CREATE_GROUP",
+    "bg": "permission remove @User12#1234 CREATE_GROUP",
+    "pl": "permission remove @User12#1234 CREATE_GROUP",
+    "fr": "permission remove @User12#1234 CREATE_GROUP",
+    "ru": "permission remove @User12#1234 CREATE_GROUP",
+    "tr": "permission remove @User12#1234 CREATE_GROUP"
+  },
+  "advanced_help_command_permission_remove_description": {
+    "de": "Dieser Befehl entzieht einem Nutzer oder einer Rolle die angegebene Berechtigung. Verfügt der Nutzer oder die Rolle allerdings über die Discord Administrator-Berechtigung, wird sich dies nicht auf den Nutzer oder die Rolle auswirken und die Aktion kann trotzdem durchgeführt werden.",
+    "en": "This command revokes the specified authorization from a user or role. However, if the user or role has Discord administrator authorization, this will not affect the user or role and the action can still be carried out.",
+    "bg": "Тази команда отменя посоченото упълномощаване от потребител или роля. Ако обаче потребителят или ролята имат права на администратор на Discord, това няма да засегне потребителя или ролята и действието все още може да бъде извършено.",
+    "pl": "Ta komenda cofa określoną autoryzację użytkownikowi lub roli. Jeśli jednak użytkownik lub rola ma uprawnienia administratora Discord, nie wpłynie to na użytkownika ani rolę, a akcję można nadal wykonać.",
+    "fr": "Cette commande révoque l'autorisation spécifiée d'un utilisateur ou d'un rôle. Cependant, si l'utilisateur ou le rôle dispose des droits d'administrateur Discord, cela n'affectera pas l'utilisateur ou le rôle et l'action peut toujours être effectuée.",
+    "ru": "Эта команда отменяет указанную авторизацию у пользователя или роли. Однако, если у пользователя или роли есть права администратора Discord, это не повлияет на пользователя или роль, и действие все равно можно будет выполнить.",
+    "tr": "Bu komut, bir kullanıcı veya rolden belirtilen yetkiyi iptal eder. Ancak, kullanıcı veya rol Discord yönetici haklarına sahipse, bu durum kullanıcıyı veya rolü etkilemeyecek ve işlem yine de gerçekleştirilebilir."
+  },
+  "advanced_help_command_settings_directmessage_usage": {
+    "de": "settings direct-message",
+    "en": "settings direct-message",
+    "bg": "settings direct-message",
+    "pl": "settings direct-message",
+    "fr": "settings direct-message",
+    "ru": "settings direct-message",
+    "tr": "settings direct-message"
+  },
+  "advanced_help_command_settings_directmessage_example": {
+    "de": "settings direct-message",
+    "en": "settings direct-message",
+    "bg": "settings direct-message",
+    "pl": "settings direct-message",
+    "fr": "settings direct-message",
+    "ru": "settings direct-message",
+    "tr": "settings direct-message"
+  },
+  "advanced_help_command_settings_directmessage_description": {
+    "de": "Der Bot sendet beim Erhalt einer neuen Aufgabe (durch Gruppen oder einer direkten Zuweisung) standardmäßig eine Direktnachricht mit dem Inhalt der Aufgabe und der Aufgaben-ID. Dies lässt sich mit dem Befehl ändern. Die Direktnachricht kann deaktiviert oder aktiviert werden.",
+    "en": "By default, when the bot receives a new task (through groups or direct assignment), it sends a direct message with the content of the task and the task ID. This can be changed with the command. The direct message can be deactivated or activated.",
+    "bg": "По подразбиране, когато ботът получи нова задача (чрез групи или директно задание), той изпраща директно съобщение със съдържанието на задачата и идентификатора на задачата. Това може да бъде променено с командата. Директното съобщение може да бъде деактивирано или активирано.",
+    "pl": "Domyślnie, gdy bot otrzyma nowe zadanie (poprzez grupy lub bezpośrednie przydział), wysyła bezpośrednią wiadomość z treścią zadania i identyfikatorem zadania. Można to zmienić za pomocą polecenia. Bezpośrednią wiadomość można wyłączyć lub włączyć.",
+    "fr": "Par défaut, lorsque le bot reçoit une nouvelle tâche (via des groupes ou une affectation directe), il envoie un message direct avec le contenu de la tâche et l'ID de la tâche. Cela peut être changé avec la commande. Le message direct peut être désactivé ou activé.",
+    "ru": "По умолчанию, когда бот получает новую задачу (через группы или прямое назначение), он отправляет прямое сообщение с содержанием задачи и идентификатором задачи. Это можно изменить с помощью команды. Прямое сообщение можно деактивировать или активировать.",
+    "tr": "Varsayılan olarak, bot yeni bir görev aldığında (gruplar veya doğrudan atama yoluyla), görevin içeriği ve görev kimliği ile doğrudan bir mesaj gönderir. Bu komut ile değiştirilebilir. Doğrudan mesaj devre dışı bırakılabilir veya etkinleştirilebilir."
+  },
+  "advanced_help_command_settings_notifychannel_usage": {
+    "de": "settings notify-channel #Textkanal",
+    "en": "settings notify-channel #Channel",
+    "bg": "settings notify-channel #канал",
+    "pl": "settings notify-channel #kanał",
+    "fr": "settings notify-channel #canal",
+    "ru": "settings notify-channel #канал",
+    "tr": "settings notify-channel #kanal"
+  },
+  "advanced_help_command_settings_notifychannel_example": {
+    "de": "settings notify-channel #mylog",
+    "en": "settings notify-channel #mylog",
+    "bg": "settings notify-channel #mylog",
+    "pl": "settings notify-channel #mylog",
+    "fr": "settings notify-channel #mylog",
+    "ru": "settings notify-channel #mylog",
+    "tr": "settings notify-channel #mylog"
+  },
+  "advanced_help_command_settings_notifychannel_description": {
+    "de": "Bei erhalt einer neuen Aufgabe wird diese Aufgabe, ähnlich wie per Direktnachricht, in den angegebenen Kanal gesendet.",
+    "en": "When a new task is received, this task is sent to the specified channel, similar to a direct message.",
+    "bg": "Когато се получи нова задача, тази задача се изпраща до посочения канал, подобно на директно съобщение.",
+    "pl": "Po otrzymaniu nowego zadania zadanie to jest wysyłane do określonego kanału, podobnie jak bezpośrednia wiadomość.",
+    "fr": "Lorsqu'une nouvelle tâche est reçue, cette tâche est envoyée au canal spécifié, semblable à un message direct.",
+    "ru": "При получении новой задачи эта задача отправляется по указанному каналу, как и прямое сообщение.",
+    "tr": "Yeni bir görev alındığında, bu görev doğrudan mesaja benzer şekilde belirtilen kanala gönderilir."
+  },
+  "advanced_help_command_settings_notifications_usage": {
+    "de": "settings notifications @Nutzer #Textkanal",
+    "en": "settings notifications @User #Channel",
+    "bg": "settings notifications @User #канал",
+    "pl": "settings notifications @User #kanał",
+    "fr": "settings notifications @User #canal",
+    "ru": "settings notifications @User #канал",
+    "tr": "settings notifications @User #kanal"
+  },
+  "advanced_help_command_settings_notifications_example": {
+    "de": "settings notifications @User12#1234 #mylog",
+    "en": "settings notifications @User12#1234 #mylog",
+    "bg": "settings notifications @User12#1234 #mylog",
+    "pl": "settings notifications @User12#1234 #mylog",
+    "fr": "settings notifications @User12#1234 #mylog",
+    "ru": "settings notifications @User12#1234 #mylog",
+    "tr": "settings notifications @User12#1234 #mylog"
+  },
+  "advanced_help_command_settings_notifications_description": {
+    "de": "Sie können Ihre Aufgaben in einem Kanal protokollieren. Neue Aufgaben werden dann in den angegebenen Kanal gesendet und bei einer Aktualisierung automatisch aktualisiert, ohne neue Nachrichten vom Bot.",
+    "en": "You can log your tasks in a channel. New tasks are then sent to the specified channel and automatically updated when updated, without any new messages from the bot.",
+    "bg": "Можете да регистрирате задачите си в канал. След това новите задачи се изпращат до посочения канал и автоматично се актуализират, когато се актуализират, без нови съобщения от бота.",
+    "pl": "Możesz rejestrować swoje zadania w kanale. Nowe zadania są następnie wysyłane do określonego kanału i automatycznie aktualizowane po aktualizacji, bez żadnych nowych wiadomości od bota.",
+    "fr": "Vous pouvez enregistrer vos tâches dans un canal. Les nouvelles tâches sont ensuite envoyées au canal spécifié et automatiquement mises à jour lorsqu'elles sont mises à jour, sans aucun nouveau message du bot.",
+    "ru": "Вы можете записывать свои задачи в канал. Затем новые задачи отправляются в указанный канал и автоматически обновляются при обновлении без каких-либо новых сообщений от бота.",
+    "tr": "Görevlerinizi bir kanala kaydedebilirsiniz. Yeni görevler daha sonra belirtilen kanala gönderilir ve bottan yeni mesajlar olmadan güncellendiğinde otomatik olarak güncellenir."
+  },
+  "advanced_help_command_settings_showdonetasks_usage": {
+    "de": "settings show-done-tasks",
+    "en": "settings show-done-tasks",
+    "bg": "settings show-done-tasks",
+    "pl": "settings show-done-tasks",
+    "fr": "settings show-done-tasks",
+    "ru": "settings show-done-tasks",
+    "tr": "settings show-done-tasks"
+  },
+  "advanced_help_command_settings_showdonetasks_example": {
+    "de": "settings show-done-tasks",
+    "en": "settings show-done-tasks",
+    "bg": "settings show-done-tasks",
+    "pl": "settings show-done-tasks",
+    "fr": "settings show-done-tasks",
+    "ru": "settings show-done-tasks",
+    "tr": "settings show-done-tasks"
+  },
+  "advanced_help_command_settings_showdonetasks_description": {
+    "de": "Mit dieser Einstellung können erledigte Aufgaben von der Auflistung ausgeblendet oder wieder eingeblendet werden.",
+    "en": "With this setting completed tasks can be hidden from the list or shown again.",
+    "bg": "С тази настройка завършените задачи могат да бъдат скрити от списъка или показани отново.",
+    "pl": "Dzięki temu ustawieniu ukończone zadania można ukryć na liście lub ponownie wyświetlić.",
+    "fr": "Avec ce paramètre, les tâches terminées peuvent être masquées de la liste ou affichées à nouveau.",
+    "ru": "С помощью этого параметра выполненные задачи можно скрыть из списка или показать снова.",
+    "tr": "Bu ayarla, tamamlanan görevler listeden gizlenebilir veya tekrar gösterilebilir."
+  },
+  "advanced_help_command_settings_usage": {
+    "de": "settings",
+    "en": "settings",
+    "bg": "settings",
+    "pl": "settings",
+    "fr": "settings",
+    "ru": "settings",
+    "tr": "settings"
+  },
+  "advanced_help_command_settings_example": {
+    "de": "settings",
+    "en": "settings",
+    "bg": "settings",
+    "pl": "settings",
+    "fr": "settings",
+    "ru": "settings",
+    "tr": "settings"
+  },
+  "advanced_help_command_settings_description": {
+    "de": "Dieser Befehl zeigt alle Einstellungsmöglichkeiten an und dazu die aktuellen Einstellungen auf dem Server.",
+    "en": "This command shows all setting options and the current settings on the server.",
+    "bg": "Тази команда показва всички опции за настройка и текущите настройки на сървъра.",
+    "pl": "To polecenie pokazuje wszystkie opcje ustawień i bieżące ustawienia na serwerze.",
+    "fr": "Cette commande affiche toutes les options de configuration et les paramètres actuels sur le serveur.",
+    "ru": "Эта команда показывает все параметры настройки и текущие настройки на сервере.",
+    "tr": "Bu komut, tüm ayar seçeneklerini ve sunucudaki geçerli ayarları gösterir."
+  },
+  "advanced_help_command_task_add_usage": {
+    "de": "task add @Nutzer <Aufgabe>",
+    "en": "task add @User <Task>",
+    "bg": "task add @USER <TASK>",
+    "pl": "task add @UŻYTKOWNIK <TASK>",
+    "fr": "task add @UTILISATEUR <TÂCHE>",
+    "ru": "task add @ПОЛЬЗОВАТЕЛИ <ЗАДАЧА>",
+    "tr": "task add @USER <TASK>"
+  },
+  "advanced_help_command_task_add_example": {
+    "de": "task add @User12#1234 fix the bugs",
+    "en": "task add @User12#1234 fix the bugs",
+    "bg": "task add @User12#1234 fix the bugs",
+    "pl": "task add @User12#1234 fix the bugs",
+    "fr": "task add @User12#1234 fix the bugs",
+    "ru": "task add @User12#1234 fix the bugs",
+    "tr": "task add @User12#1234 fix the bugs"
+  },
+  "advanced_help_command_task_add_description": {
+    "de": "Mit diesem Befehl wird eine Aufgabe an einen Nutzer vergeben. Der markierte Nutzer erhält die Aufgabe, welche nach der Markierung angegeben wird.",
+    "en": "With this command a task is assigned to a user. The marked user receives the task which is indicated after the marking.",
+    "bg": "С тази команда на потребител се възлага задача. Маркираният потребител получава задачата, която е посочена след маркирането.",
+    "pl": "Za pomocą tej komendy zadanie jest przypisywane do użytkownika. Zaznaczony użytkownik otrzymuje zadanie, które jest wskazane po zaznaczeniu.",
+    "fr": "Avec cette commande, une tâche est assignée à un utilisateur. L'utilisateur marqué reçoit la tâche qui est indiquée après le marquage.",
+    "ru": "С помощью этой команды пользователю ставится задача. Отмеченный пользователь получает задание, которое указано после отметки.",
+    "tr": "Bu komutla bir kullanıcıya bir görev atanır. İşaretli kullanıcı, işaretlemeden sonra gösterilen görevi alır."
+  },
+  "advanced_help_command__delete_usage": {
+    "de": "task delete <ID>",
+    "en": "task delete <ID>",
+    "bg": "task delete <ID>",
+    "pl": "task delete <ID>",
+    "fr": "task delete <ID>",
+    "ru": "task delete <ID>",
+    "tr": "task delete <ID>"
+  },
+  "advanced_help_command_task_delete_example": {
+    "de": "task delete 51423",
+    "en": "task delete 51423",
+    "bg": "task delete 51423",
+    "pl": "task delete 51423",
+    "fr": "task delete 51423",
+    "ru": "task delete 51423",
+    "tr": "task delete 51423"
+  },
+  "advanced_help_command_task_delete_description": {
+    "de": "Der Befehl löscht eine Aufgabe endgültig. Die ID erhalten Sie von der Aufgaben-Auflistung oder beim Erstellen einer Aufgabe.",
+    "en": "The command permanently deletes a task. You get the ID from the list of tasks or when you create a task.",
+    "bg": "Командата изтрива за постоянно задача. Получавате идентификатора от списъка със задачи или когато създавате задача.",
+    "pl": "Polecenie trwale usuwa zadanie. Identyfikator otrzymujesz z listy zadań lub podczas tworzenia zadania.",
+    "fr": "La commande supprime définitivement une tâche. Vous obtenez l'ID à partir de la liste des tâches ou lorsque vous créez une tâche.",
+    "ru": "Команда безвозвратно удаляет задачу. Вы получаете идентификатор из списка задач или при создании задачи.",
+    "tr": "Komut, bir görevi kalıcı olarak siler. Kimliği görev listesinden veya bir görev oluşturduğunuzda alırsınız."
+  },
+  "advanced_help_command_task_edit_usage": {
+    "de": "task edit <ID> <Text>",
+    "en": "task edit <ID> <Text>",
+    "bg": "task edit <ID> <Text>",
+    "pl": "task edit <ID> <Text>",
+    "fr": "task edit <ID> <Text>",
+    "ru": "task edit <ID> <Text>",
+    "tr": "task edit <ID> <Text>"
+  },
+  "advanced_help_command_task_edit_example": {
+    "de": "task edit 51423 fix the specific bug",
+    "en": "task edit 51423 fix the specific bug",
+    "bg": "task edit 51423 fix the specific bug",
+    "pl": "task edit 51423 fix the specific bug",
+    "fr": "task edit 51423 fix the specific bug",
+    "ru": "task edit 51423 fix the specific bug",
+    "tr": "task edit 51423 fix the specific bug"
+  },
+  "advanced_help_command_task_edit_description": {
+    "de": "Der Befehl bearbeitet den Text einer bestehenden Aufgabe. Es wird nur die ID der Aufgabe benötigt, welche in der Aufgaben-Auflistung oder bei Vergabe einer Aufgabe angezeigt wird.",
+    "en": "The command edits the text of an existing task. Only the ID of the task is required, which is displayed in the task list or when a task is assigned.",
+    "bg": "Командата редактира текста на съществуваща задача. Изисква се само идентификаторът на задачата, който се показва в списъка със задачи или когато е зададена задача.",
+    "pl": "Polecenie edytuje tekst istniejącego zadania. Wymagany jest tylko identyfikator zadania, który jest wyświetlany na liście zadań lub po przypisaniu zadania.",
+    "fr": "La commande modifie le texte d'une tâche existante. Seul l'ID de la tâche est requis, qui est affiché dans la liste des tâches ou lorsqu'une tâche est affectée.",
+    "ru": "Команда редактирует текст существующей задачи. Требуется только идентификатор задачи, который отображается в списке задач или при назначении задачи.",
+    "tr": "Komut, mevcut bir görevin metnini düzenler. Yalnızca görev listesinde veya bir görev atandığında görüntülenen görevin kimliği gereklidir."
+  },
+  "advanced_help_command_task_list_usage": {
+    "de": "task list @Nutzer/<Gruppe>",
+    "en": "task list @User/<Group>",
+    "bg": "task list @User/<Group>",
+    "pl": "task list @User/<Group>",
+    "fr": "task list @User/<Group>",
+    "ru": "task list @User/<Group>",
+    "tr": "task list @User/<Group>"
+  },
+  "advanced_help_command_task_list_example": {
+    "de": "task list develop",
+    "en": "task list develop",
+    "bg": "task list develop",
+    "pl": "task list develop",
+    "fr": "task list develop",
+    "ru": "task list develop",
+    "tr": "task list develop"
+  },
+  "advanced_help_command_task_list_description": {
+    "de": "So lassen sich alle Aufgaben eines markierten Nutzers oder einer angegebenen Gruppe ansehen. Wird kein Nutzer markiert und keine Gruppe angegeben, werden die Aufgaben für den Nutzer, der den Befehl ausführt, angezeigt.",
+    "en": "All tasks of a selected user or a specified group can be viewed. If no user is selected and no group is specified, the tasks for the user executing the command are displayed.",
+    "bg": "По този начин могат да се преглеждат всички задачи на избран потребител или определена група. Ако не е избран потребител и не е посочена група, се показват задачите за потребителя, изпълняващ командата.",
+    "pl": "W ten sposób można przeglądać wszystkie zadania wybranego użytkownika lub określonej grupy. Jeśli nie wybrano żadnego użytkownika i nie określono żadnej grupy, zostaną wyświetlone zadania dla użytkownika wykonującego polecenie.",
+    "fr": "Toutes les tâches d'un utilisateur sélectionné ou d'un groupe spécifié peuvent être visualisées. Si aucun utilisateur n'est sélectionné et qu'aucun groupe n'est spécifié, les tâches de l'utilisateur exécutant la commande sont affichées.",
+    "ru": "Можно просмотреть все задачи выбранного пользователя или указанной группы. Если ни один пользователь не выбран и группа не указана, отображаются задачи для пользователя, выполняющего команду.",
+    "tr": "Seçilen bir kullanıcının veya belirli bir grubun tüm görevleri görüntülenebilir. Hiçbir kullanıcı seçilmezse ve bir grup belirtilmezse, komutu yürüten kullanıcının görevleri görüntülenir."
+  },
+  "advanced_help_command_task_proceed_usage": {
+    "de": "task proceed <ID>",
+    "en": "task proceed <ID>",
+    "bg": "task proceed <ID>",
+    "pl": "task proceed <ID>",
+    "fr": "task proceed <ID>",
+    "ru": "task proceed <ID>",
+    "tr": "task proceed <ID>"
+  },
+  "advanced_help_command_task_proceed_example": {
+    "de": "task proceed 51423",
+    "en": "task proceed 51423",
+    "bg": "task proceed 51423",
+    "pl": "task proceed 51423",
+    "fr": "task proceed 51423",
+    "ru": "task proceed 51423",
+    "tr": "task proceed 51423"
+  },
+  "advanced_help_command_task_proceed_description": {
+    "de": "Der Befehl ändert den Status der Aufgabe von nicht bearbeitet zu wird bearbeitet zu erledigt. Die Aufgaben-ID wird bei der Aufgaben-Auflistung und beim vergeben der Aufgabe angezeigt.",
+    "en": "The command changes the status of the task from not being processed to being processed to completed. The task ID is displayed in the task list and when the task is assigned.",
+    "bg": "Командата променя състоянието на задачата от необработена към обработена до завършена. Идентификаторът на задачата се показва в списъка със задачи и когато задачата е назначена.",
+    "pl": "Polecenie zmienia status zadania z nie przetwarzanego na przetwarzane na ukończone. Identyfikator zadania jest wyświetlany na liście zadań i kiedy zadanie jest przypisane.",
+    "fr": "La commande change le statut de la tâche de non traité à en cours de traitement à terminé. L'ID de tâche s'affiche dans la liste des tâches et lorsque la tâche est affectée.",
+    "ru": "Команда изменяет статус задачи с не обрабатывается на обрабатывается на завершенную. Идентификатор задачи отображается в списке задач и при назначении задачи.",
+    "tr": "Komut, görevin işlenmedi durumundan işlenmeye durumunu değiştirir. Görev kimliği, görev listesinde ve görev atandığında görüntülenir."
+  },
+  "advanced_help_command_task_deadline_usage": {
+    "de": "task deadline <ID> <date (dd.MM.yyyy)> <time (HH:mm)>",
+    "en": "task deadline <ID> <date (dd.MM.yyyy)> <time (HH:mm)>",
+    "bg": "task deadline <ID> <date (dd.MM.yyyy)> <time (HH:mm)>",
+    "pl": "task deadline <ID> <date (dd.MM.yyyy)> <time (HH:mm)>",
+    "fr": "task deadline <ID> <date (dd.MM.yyyy)> <time (HH:mm)>",
+    "ru": "task deadline <ID> <date (dd.MM.yyyy)> <time (HH:mm)>",
+    "tr": "task deadline <ID> <date (dd.MM.yyyy)> <time (HH:mm)>"
+  },
+  "advanced_help_command_task_deadline_example": {
+    "de": "task deadline 51423 22.01.2021 13:41",
+    "en": "task deadline 51423 22.01.2021 13:41",
+    "bg": "task deadline 51423 22.01.2021 13:41",
+    "pl": "task deadline 51423 22.01.2021 13:41",
+    "fr": "task deadline 51423 22.01.2021 13:41",
+    "ru": "task deadline 51423 22.01.2021 13:41",
+    "tr": "task deadline 51423 22.01.2021 13:41"
+  },
+  "advanced_help_command_task_deadline_description": {
+    "de": "Die Aufgabe wird mit einer Deadline verknüpft. Der Bot benachrichtigt alle Nutzer, die für die Aufgabe zuständig sind, wenn die Deadline fast erreicht ist.",
+    "en": "The task is linked to a deadline. The bot notifies all users who are responsible for the task when the deadline is almost reached.",
+    "bg": "Задачата е свързана с краен срок. Ботът уведомява всички потребители, които отговарят за задачата, когато крайният срок е почти достигнат.",
+    "pl": "Zadanie jest powiązane z terminem. Bot powiadamia wszystkich użytkowników odpowiedzialnych za zadanie, gdy termin zbliża się do końca.",
+    "fr": "La tâche est liée à une échéance. Le bot avertit tous les utilisateurs responsables de la tâche lorsque la date limite est presque atteinte.",
+    "ru": "Задача привязана к сроку. Бот уведомляет всех пользователей, ответственных за задачу, когда срок почти наступает.",
+    "tr": "Görev bir son tarihe bağlıdır. Bot, görevden sorumlu olan tüm kullanıcıları son teslim tarihine neredeyse ulaşıldığında bilgilendirir."
+  },
+  "advanced_help_command_task_info_usage": {
+    "de": "task info <ID>",
+    "en": "task info <ID>",
+    "bg": "task info <ID>",
+    "pl": "task info <ID>",
+    "fr": "task info <ID>",
+    "ru": "task info <ID>",
+    "tr": "task info <ID>"
+  },
+  "advanced_help_command_task_info_example": {
+    "de": "task info 51423",
+    "en": "task info 51423",
+    "bg": "task info 51423",
+    "pl": "task info 51423",
+    "fr": "task info 51423",
+    "ru": "task info 51423",
+    "tr": "task info 51423"
+  },
+  "advanced_help_command_task_info_description": {
+    "de": "Der Befehl zeigt alle Informationen zu einer Aufgabe an. Die Aufgaben-ID erhalten Sie bei der Vergabe der Aufgabe oder bei der Aufgaben-Auflistung.",
+    "en": "The command shows all information about a task. You will receive the task ID when assigning the task or when listing the tasks.",
+    "bg": "Командата показва цялата информация за задача. Ще получите идентификатора на задачата, когато задавате задачата или когато изброявате задачите.",
+    "pl": "Polecenie pokazuje wszystkie informacje o zadaniu. Identyfikator zadania otrzymasz podczas przydzielania zadania lub na liście zadań.",
+    "fr": "La commande affiche toutes les informations sur une tâche. Vous recevrez l'ID de tâche lors de l'attribution de la tâche ou dans la liste des tâches.",
+    "ru": "Команда показывает всю информацию о задаче. Вы получите идентификатор задачи при назначении задачи или в списке задач.",
+    "tr": "Komut, bir görevle ilgili tüm bilgileri gösterir. Görevi atarken veya görevler listesinde görev kimliğini alacaksınız."
+  },
+  "advanced_help_command_task_done_usage": {
+    "de": "task done <ID>",
+    "en": "task done <ID>",
+    "bg": "task done <ID>",
+    "pl": "task done <ID>",
+    "fr": "task done <ID>",
+    "ru": "task done <ID>",
+    "tr": "task done <ID>"
+  },
+  "advanced_help_command_task_done_example": {
+    "de": "task done 51423",
+    "en": "task done 51423",
+    "bg": "task done 51423",
+    "pl": "task done 51423",
+    "fr": "task done 51423",
+    "ru": "task done 51423",
+    "tr": "task done 51423"
+  },
+  "advanced_help_command_task_done_description": {
+    "de": "Die Aufgabe mit der angegebenen ID wird direkt in den Erledigt-Status versetzt. Die Aufgaben-ID erhalten Sie bei der Vergabe der Aufgabe oder bei der Aufgaben-Auflistung.",
+    "en": "The task with the specified ID is set directly to the completed status. You will receive the task ID when assigning the task or when listing the tasks.",
+    "bg": "Задачата с посочения идентификатор се задава директно на завършен статус. Ще получите идентификатора на задачата, когато задавате задачата или когато изброявате задачите.",
+    "pl": "Zadanie o określonym identyfikatorze jest ustawiane bezpośrednio na stan ukończony. Identyfikator zadania otrzymasz podczas przydzielania zadania lub podczas wyświetlania listy zadań.",
+    "fr": "La tâche avec l'ID spécifié est définie directement sur l'état terminé. Vous recevrez l'ID de tâche lors de l'attribution de la tâche ou lors de la liste des tâches.",
+    "ru": "Задача с указанным идентификатором сразу переходит в завершенный статус. Вы получите идентификатор задачи при назначении задачи или в списке задач.",
+    "tr": "Belirtilen kimliğe sahip görev, doğrudan tamamlandı durumuna ayarlanır. Görevi atarken veya görevleri listelerken görev kimliğini alacaksınız."
+  },
+  "advanced_help_command_task_undo_usage": {
+    "de": "task undo <ID>",
+    "en": "task undo <ID>",
+    "bg": "task undo <ID>",
+    "pl": "task undo <ID>",
+    "fr": "task undo <ID>",
+    "ru": "task undo <ID>",
+    "tr": "task undo <ID>"
+  },
+  "advanced_help_command_task_undo_example": {
+    "de": "task undo 51423",
+    "en": "task undo 51423",
+    "bg": "task undo 51423",
+    "pl": "task undo 51423",
+    "fr": "task undo 51423",
+    "ru": "task undo 51423",
+    "tr": "task undo 51423"
+  },
+  "advanced_help_command_task_undo_description": {
+    "de": "Der Befehl macht den Status einer Aufgabe rückgängig. Von Erledigt zu wird bearbeitet zu nicht bearbeitet. Die Aufgaben-ID erhalten Sie bei der Vergabe der Aufgabe oder bei der Aufgaben-Auflistung.",
+    "en": "The command reverses the status of a task. From done to processed to not processed. You will receive the task ID when assigning the task or when listing the tasks.",
+    "bg": "Командата обръща състоянието на задачата. От готово към обработено към необработено. Ще получите идентификатора на задачата, когато задавате задачата или в списъка със задачи.",
+    "pl": "Polecenie odwraca stan zadania. Od gotowego do przetworzonego do nieprzetworzonego. Identyfikator zadania otrzymasz podczas przydzielania zadania lub podczas wyświetlania listy zadań.",
+    "fr": "La commande inverse l'état d'une tâche. De terminé à traité à non traité. Vous recevrez l'ID de tâche lors de l'attribution de la tâche ou lors de la liste des tâches.",
+    "ru": "Команда меняет статус задачи. От готового к обработанному до необработанного. Вы получите идентификатор задачи при назначении задачи или в списке задач.",
+    "tr": "Komut, bir görevin durumunu tersine çevirir. Tamamlanandan işlenene kadar işlenmedi. Görevi atarken veya görevleri listelerken görev kimliğini alacaksınız."
+  },
+  "advanced_help_command_not_supported": {
+    "de": "Für den Befehl gibt es keine detaillierte Beschreibung!",
+    "en": "There is no detailed description of the command!",
+    "bg": "Няма подробно описание на командата!",
+    "pl": "Brak szczegółowego opisu polecenia!",
+    "fr": "Il n'y a pas de description détaillée de la commande!",
+    "ru": "Подробного описания команды нет!",
+    "tr": "Komutun ayrıntılı bir açıklaması yok!"
+  },
+  "advanced_help_command_group_usage": {
+    "de": "group",
+    "en": "group",
+    "bg": "group",
+    "pl": "group",
+    "fr": "group",
+    "ru": "group",
+    "tr": "group"
+  },
+  "advanced_help_command_group_example": {
+    "de": "group",
+    "en": "group",
+    "bg": "group",
+    "pl": "group",
+    "fr": "group",
+    "ru": "group",
+    "tr": "group"
+  },
+  "advanced_help_command_group_description": {
+    "de": "Verwende den Befehl um zu sehen welche Argumente es für den Befehl gibt.",
+    "en": "Use the command to see what arguments there are for the command.",
+    "bg": "Използвайте командата, за да видите какви аргументи има за нея.",
+    "pl": "Użyj polecenia, aby zobaczyć, jakie argumenty są dla polecenia.",
+    "fr": "Utilisez la commande pour voir quels arguments il y a pour la commande.",
+    "ru": "Используйте команду, чтобы узнать, какие аргументы существуют для команды.",
+    "tr": "Komut için hangi bağımsız değişkenlerin olduğunu görmek için komutu kullanın."
+  },
+  "advanced_help_command_task_usage": {
+    "de": "task",
+    "en": "task",
+    "bg": "task",
+    "pl": "task",
+    "fr": "task",
+    "ru": "task",
+    "tr": "task"
+  },
+  "advanced_help_command_task_example": {
+    "de": "task",
+    "en": "task",
+    "bg": "task",
+    "pl": "task",
+    "fr": "task",
+    "ru": "task",
+    "tr": "task"
+  },
+  "advanced_help_command_task_description": {
+    "de": "Verwende den Befehl um zu sehen welche Argumente es für den Befehl gibt.",
+    "en": "Use the command to see what arguments there are for the command.",
+    "bg": "Използвайте командата, за да видите какви аргументи има за нея.",
+    "pl": "Użyj polecenia, aby zobaczyć, jakie argumenty są dla polecenia.",
+    "fr": "Utilisez la commande pour voir quels arguments il y a pour la commande.",
+    "ru": "Используйте команду, чтобы узнать, какие аргументы существуют для команды.",
+    "tr": "Komut için hangi bağımsız değişkenlerin olduğunu görmek için komutu kullanın."
+  },
+  "advanced_help_command_permission_usage": {
+    "de": "permission",
+    "en": "permission",
+    "bg": "permission",
+    "pl": "permission",
+    "fr": "permission",
+    "ru": "permission",
+    "tr": "permission"
+  },
+  "advanced_help_command_permission_example": {
+    "de": "permission",
+    "en": "permission",
+    "bg": "permission",
+    "pl": "permission",
+    "fr": "permission",
+    "ru": "permission",
+    "tr": "permission"
+  },
+  "advanced_help_command_permission_description": {
+    "de": "Verwende den Befehl um zu sehen welche Argumente es für den Befehl gibt.",
+    "en": "Use the command to see what arguments there are for the command.",
+    "bg": "Използвайте командата, за да видите какви аргументи има за нея.",
+    "pl": "Użyj polecenia, aby zobaczyć, jakie argumenty są dla polecenia.",
+    "fr": "Utilisez la commande pour voir quels arguments il y a pour la commande.",
+    "ru": "Используйте команду, чтобы узнать, какие аргументы существуют для команды.",
+    "tr": "Komut için hangi bağımsız değişkenlerin olduğunu görmek için komutu kullanın."
+  },
+  "advanced_help_command_board_usage": {
+    "de": "board",
+    "en": "board",
+    "bg": "board",
+    "pl": "board",
+    "fr": "board",
+    "ru": "board",
+    "tr": "board"
+  },
+  "advanced_help_command_board_example": {
+    "de": "board",
+    "en": "board",
+    "bg": "board",
+    "pl": "board",
+    "fr": "board",
+    "ru": "board",
+    "tr": "board"
+  },
+  "advanced_help_command_board_description": {
+    "de": "Verwende den Befehl um zu sehen welche Argumente es für den Befehl gibt.",
+    "en": "Use the command to see what arguments there are for the command.",
+    "bg": "Използвайте командата, за да видите какви аргументи има за нея.",
+    "pl": "Użyj polecenia, aby zobaczyć, jakie argumenty są dla polecenia.",
+    "fr": "Utilisez la commande pour voir quels arguments il y a pour la commande.",
+    "ru": "Используйте команду, чтобы узнать, какие аргументы существуют для команды.",
+    "tr": "Komut için hangi bağımsız değişkenlerin olduğunu görmek için komutu kullanın."
   }
 }

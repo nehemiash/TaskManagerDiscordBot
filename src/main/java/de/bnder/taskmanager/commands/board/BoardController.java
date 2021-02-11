@@ -29,11 +29,11 @@ import java.util.ArrayList;
 
 public class BoardController implements Command {
 
-    final ArrayList<String> commandArgs = new ArrayList<String>() {{
+    final ArrayList<String> commandArgs = new ArrayList<>() {{
         add("create");
-        add("list");
         add("switch");
         add("delete");
+        add("list");
     }};
 
     @Override
@@ -87,10 +87,12 @@ public class BoardController implements Command {
                 final Message message1 = message.getChannel().sendMessage(builder.build()).complete();
                 message1.addReaction("✅").and(message1.addReaction("❌")).queue();
             } else {
-                //TODO CHANGE
                 final String embedTitle = Localizations.getString("board_title", langCode);
                 final String prefix = String.valueOf(message.getContentRaw().charAt(0));
                 MessageSender.send(embedTitle, Localizations.getString("help_message_board_commands", langCode, new ArrayList<String>() {{
+                    add(prefix);
+                    add(prefix);
+                    add(prefix);
                     add(prefix);
                 }}), message, Color.red, langCode);
             }
@@ -98,6 +100,9 @@ public class BoardController implements Command {
             final String embedTitle = Localizations.getString("board_title", langCode);
             final String prefix = String.valueOf(message.getContentRaw().charAt(0));
             MessageSender.send(embedTitle, Localizations.getString("help_message_board_commands", langCode, new ArrayList<String>() {{
+                add(prefix);
+                add(prefix);
+                add(prefix);
                 add(prefix);
             }}), message, Color.red, langCode);
         }

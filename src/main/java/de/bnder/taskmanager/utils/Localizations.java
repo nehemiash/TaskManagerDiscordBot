@@ -20,7 +20,7 @@ public class Localizations {
             toParse = Json.parse(localizationsJSONSource()).asObject();
         }
         if (toParse.get(path) != null) {
-            return toParse.get(path).asObject().getString(languageCode, "null");
+            return toParse.get(path).asObject().getString(languageCode, path);
         }
         return path;
     }

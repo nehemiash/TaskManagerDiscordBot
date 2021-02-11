@@ -22,7 +22,6 @@ public class GroupController implements Command {
         add("remove");
         add("rem");
         add("notifications");
-        add("notification");
         add("list");
     }};
 
@@ -39,7 +38,7 @@ public class GroupController implements Command {
                 AddGroupMember.addGroupMember(event.getMember(), event.getChannel(), args, event.getMessage().getMentionedMembers());
             } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem")) {
                 RemoveGroupMember.removeGroupMember(event.getMember(), event.getChannel(), args, event.getMessage().getMentionedMembers());
-            } else if (args[0].equalsIgnoreCase("notifications") || args[0].equalsIgnoreCase("notification")) {
+            } else if (args[0].equalsIgnoreCase("notifications")) {
                 GroupNotifications.setGroupNotifications(event.getMember(), event.getChannel(), args, event.getMessage().getMentionedChannels());
             } else {
                 checkIfTypo(args, event.getMessage());

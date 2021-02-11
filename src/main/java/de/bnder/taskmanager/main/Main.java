@@ -18,6 +18,7 @@ package de.bnder.taskmanager.main;
 import de.bnder.taskmanager.commands.*;
 import de.bnder.taskmanager.commands.board.BoardController;
 import de.bnder.taskmanager.commands.group.GroupController;
+import de.bnder.taskmanager.commands.help.HelpController;
 import de.bnder.taskmanager.commands.permission.PermissionController;
 import de.bnder.taskmanager.commands.settings.SettingsController;
 import de.bnder.taskmanager.commands.task.TaskController;
@@ -45,11 +46,23 @@ public class Main {
 
     public static final String prefix = "-";
 
+    /** Changelog 2021.1.2
+     * New "board create" command added
+     * New "board switch" command added
+     * New "board delete" command added
+     * New "board list" command added
+     * New "group notifications" command added
+     * New Permissions: "CREATE_BOARD" & "DELETE_BOARD"
+     * New advanced help command: Use "help <command>" to get detailled descriptions (e.g. "help task list")
+     * "help" command sends less messages
+     * */
+
+
     public static void main(String[] args) {
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"),
                 Arrays.asList(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS));
 
-        /**Disable Caches for better memory usage*/
+        /** Disable Caches for better memory usage */
         builder.disableCache(Arrays.asList(CacheFlag.VOICE_STATE, CacheFlag.EMOTE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ROLE_TAGS, CacheFlag.MEMBER_OVERRIDES));
 
         builder.setShardsTotal(totalShard);
@@ -76,7 +89,7 @@ public class Main {
         CommandHandler.commands.put("settings", new SettingsController());
         CommandHandler.commands.put("board", new BoardController());
         CommandHandler.commands.put("token", new Token());
-        CommandHandler.commands.put("help", new Help());
+        CommandHandler.commands.put("help", new HelpController());
         CommandHandler.commands.put("support", new Support());
         CommandHandler.commands.put("stats", new Stats());
         CommandHandler.commands.put("language", new Language());
