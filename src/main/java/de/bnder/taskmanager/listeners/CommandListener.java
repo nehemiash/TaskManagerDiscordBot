@@ -32,7 +32,7 @@ public class CommandListener extends ListenerAdapter {
 
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         if (!event.getAuthor().isBot()) {
-            if (event.getMessage().getContentRaw().length() > 3) {
+            if (event.getMessage().getContentRaw().length() > 0) {
                 if (CommandHandler.commands.containsKey(event.getMessage().getContentRaw().split(" ")[0].substring(1))) {
                     try {
                         final org.jsoup.Connection.Response getPrefixRes = Jsoup.connect(Main.requestURL + "/server/prefix/" + event.getGuild().getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", event.getMember().getId()).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();

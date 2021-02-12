@@ -46,7 +46,8 @@ public class Main {
 
     public static final String prefix = "-";
 
-    /** Changelog 2021.1.2
+    /**
+     * Changelog 2021.1.2
      * New "board create" command added
      * New "board switch" command added
      * New "board delete" command added
@@ -54,9 +55,13 @@ public class Main {
      * New "group notifications" command added
      * New Permissions: "CREATE_BOARD" & "DELETE_BOARD"
      * New advanced help command: Use "help <command>" to get detailled descriptions (e.g. "help task list")
+     * New shortcuts: "task a" = "task add", "task e" = "task edit", "task l" = "task list"
+     * New short forms: "task" = "t", "group" = "g", "permission" = "p", "settings" = "s", "board" = "b", "help" = "h", "language" = "l" (example: "-t a @User do that minor thing")
      * "help" command sends less messages
-     * */
-
+     * Deadline reminders fixed
+     * Performance improvements
+     * Tasks with the status "done" can be deleted with "task delete done"
+     */
 
     public static void main(String[] args) {
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"),
@@ -84,15 +89,22 @@ public class Main {
         CommandHandler.commands.put("version", new Version());
         CommandHandler.commands.put("prefix", new Prefix());
         CommandHandler.commands.put("group", new GroupController());
+        CommandHandler.commands.put("g", new GroupController()); //group
         CommandHandler.commands.put("task", new TaskController());
+        CommandHandler.commands.put("t", new TaskController()); //task
         CommandHandler.commands.put("permission", new PermissionController());
+        CommandHandler.commands.put("p", new PermissionController()); //permission
         CommandHandler.commands.put("settings", new SettingsController());
+        CommandHandler.commands.put("s", new SettingsController()); //settings
         CommandHandler.commands.put("board", new BoardController());
+        CommandHandler.commands.put("b", new BoardController()); //board
         CommandHandler.commands.put("token", new Token());
         CommandHandler.commands.put("help", new HelpController());
+        CommandHandler.commands.put("h", new HelpController()); //help
         CommandHandler.commands.put("support", new Support());
         CommandHandler.commands.put("stats", new Stats());
         CommandHandler.commands.put("language", new Language());
+        CommandHandler.commands.put("l", new Language()); //language
         CommandHandler.commands.put("app", new App());
         CommandHandler.commands.put("data", new Data());
         CommandHandler.commands.put("invite", new Invite());

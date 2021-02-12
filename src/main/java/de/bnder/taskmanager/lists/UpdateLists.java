@@ -27,6 +27,7 @@ public class UpdateLists {
                 VoidbotsNET.sendServerCount(serverCount, botID);
                 InfinitybotlistCOM.sendServerCount(serverCount, botID);
                 SpacebotlistORG.sendServerCount(serverCount, botID);
+                System.out.println("Updating lists finished");
             }
         } catch (IOException e) {
             e.printStackTrace();

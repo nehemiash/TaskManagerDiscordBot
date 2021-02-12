@@ -24,7 +24,6 @@ import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import org.jsoup.Jsoup;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -70,7 +69,6 @@ public class DeadlineReminders {
                                         add(deadline);
                                     }})).queue();
                                 }
-                                setReminded(serverID, taskID);
                             }
                         }
                     }
@@ -78,10 +76,6 @@ public class DeadlineReminders {
                     e.printStackTrace();
                 }
             }
-        }, 15 * 1000, 10 * 60 * 1000);
-    }
-
-    private static void setReminded(final String serverID, final String taskID) throws IOException {
-        Jsoup.connect(Main.requestURL + "/global/deadline-reminders/" + serverID).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("task_id", taskID).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+        }, 15 * 1000, 20 * 60 * 1000);
     }
 }

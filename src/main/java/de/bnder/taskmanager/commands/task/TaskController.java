@@ -24,14 +24,18 @@ public class TaskController implements Command {
         add("edit");
         add("info");
         add("done");
+        add("a"); //add
+        add("l"); //list
+        add("e"); //edit
+        add("p"); //proceed
     }};
 
     @Override
     public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
         if (args.length >= 3) {
-            if (args[0].equalsIgnoreCase("add")) {
+            if (args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("a")) {
                 AddTask.addTask(event.getMessage().getContentRaw(), event.getMember(), event.getMessage().getMentionedMembers(), event.getChannel(), args);
-            } else if (args[0].equalsIgnoreCase("edit")) {
+            } else if (args[0].equalsIgnoreCase("edit") || args[0].equalsIgnoreCase("e")) {
                 EditTask.editTask(event.getMessage().getContentRaw(), event.getMember(), event.getChannel(), args);
             } else if (args[0].equalsIgnoreCase("deadline")) {
                 SetDeadline.setDeadline(event.getMember(), event.getChannel(), args);
@@ -39,13 +43,13 @@ public class TaskController implements Command {
                 checkIfTypo(args, event.getMessage());
             }
         } else if (args.length >= 2) {
-            if (args[0].equalsIgnoreCase("list")) {
+            if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("l")) {
                 ListTasksFromOthers.listTasks(event.getMember(), event.getMessage().getMentionedMembers(), event.getChannel(), args);
             } else if (args[0].equalsIgnoreCase("delete")) {
                 DeleteTask.deleteTask(event.getMember(), event.getChannel(), args);
             } else if (args[0].equalsIgnoreCase("done")) {
                 TasksDone.tasksDone(event.getMember(), event.getChannel(), args);
-            } else if (args[0].equalsIgnoreCase("proceed")) {
+            } else if (args[0].equalsIgnoreCase("proceed") || args[0].equalsIgnoreCase("p")) {
                 ProceedTask.proceedTask(event.getMember(), event.getChannel(), args);
             } else if (args[0].equalsIgnoreCase("undo")) {
                 UndoTask.undoTask(event.getMember(), event.getChannel(), args);
@@ -55,7 +59,7 @@ public class TaskController implements Command {
                 checkIfTypo(args, event.getMessage());
             }
         } else if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("list")) {
+            if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("l")) {
                 SelfTaskList.selfTaskList(event.getMember(), event.getChannel());
             } else {
                 checkIfTypo(args, event.getMessage());

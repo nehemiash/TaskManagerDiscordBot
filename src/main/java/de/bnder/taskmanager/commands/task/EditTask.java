@@ -18,7 +18,7 @@ public class EditTask {
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         if (PermissionSystem.hasPermission(member, TaskPermission.EDIT_TASK)) {
             final String taskID = Connection.encodeString(args[1]);
-            final String newTask = AddTask.getTaskFromArgs(3, commandMessage, false, null);
+            final String newTask = AddTask.getTaskFromArgs(3, commandMessage, false);
             final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
             task.setText(newTask);
             final int statusCode = task.getStatusCode();
