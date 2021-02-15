@@ -16,13 +16,14 @@ package de.bnder.taskmanager.listeners;
  */
 
 import de.bnder.taskmanager.lists.UpdateLists;
-import de.bnder.taskmanager.main.Main;
+import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.UpdateServerName;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class GuildJoin extends ListenerAdapter {
@@ -33,19 +34,16 @@ public class GuildJoin extends ListenerAdapter {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        String intro = "Thanks for using this bot. The default language is german. You can change the language to english by typing \"-language\".";
-        String msg = "Danke für die Nutzung dieses Bots. Um zu erfahren was der Bot kann, benutze den Befehl `" + Main.prefix + "help`. Weitere Infors sind unter https://bnder.de zu finden.\n" +
-                "\n " +
-                "Wichtig! Für die optimale Nutzung aktiviere in deinen Einstellungen die Linkvorschau unter \"Text & Bilder\".";
+        final String intro = "Thanks for using this bot. The default language is english but you can change the language with the command `-language`.";
+        final String msg = "By using this bot, you agree to our Terms of Use (https://bnder.net/termsofuse), Privacy Policy (https://bnder.net/privacy) & Community Guidelines (https://bnder.net/guidelines). " +
+                "\nType `-help` for a complete list of all commands.";
         try {
-                e.getGuild().getDefaultChannel().sendMessage(intro).queue();
-                e.getGuild().getDefaultChannel().sendMessage(msg).queue();
+            MessageSender.send("Hello!", intro + "\n" + msg, e.getGuild().getDefaultChannel(), Color.green, "en", false);
         } catch (InsufficientPermissionException | NullPointerException ex) {
             for (TextChannel tc : e.getGuild().getTextChannels()) {
                 try {
                     if (tc.canTalk()) {
-                        tc.sendMessage(intro).queue();
-                        tc.sendMessage(msg).queue();
+                        MessageSender.send("Hello!", intro + "\n" + msg, tc, Color.green, "en", false);
                         break;
                     }
                 } catch (Exception ignored) {

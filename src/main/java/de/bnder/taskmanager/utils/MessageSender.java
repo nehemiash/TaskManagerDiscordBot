@@ -30,14 +30,14 @@ public class MessageSender {
         if (s.length() > 1990) {
             while (s.length() > 1990) {
                 String textNow = s.substring(0, 1990);
-                buildMessageBuilder(title, msg, red, textNow, langCode);
+                buildMessageBuilder(title, msg, red, textNow, langCode, false);
                 s = s.substring(1990);
             }
             if (s.length() > 0) {
-                buildMessageBuilder(title, msg, red, s, langCode);
+                buildMessageBuilder(title, msg, red, s, langCode, false);
             }
         } else {
-            buildMessageBuilder(title, msg, red, s, langCode);
+            buildMessageBuilder(title, msg, red, s, langCode, false);
         }
     }
 
@@ -45,24 +45,39 @@ public class MessageSender {
         if (s.length() > 1990) {
             while (s.length() > 1990) {
                 String textNow = s.substring(0, 1990);
-                buildMessageBuilder(title, textChannel, red, textNow, langCode);
+                buildMessageBuilder(title, textChannel, red, textNow, langCode, false);
                 s = s.substring(1990);
             }
             if (s.length() > 0) {
-                buildMessageBuilder(title, textChannel, red, s, langCode);
+                buildMessageBuilder(title, textChannel, red, s, langCode, false);
             }
         } else {
-            buildMessageBuilder(title, textChannel, red, s, langCode);
+            buildMessageBuilder(title, textChannel, red, s, langCode, false);
         }
     }
 
-    private static void buildMessageBuilder(String title, Message msg, Color red, String textNow, final String langCode) {
+    public static void send(String title, String s, TextChannel textChannel, Color red, final String langCode, boolean showAd) {
+        if (s.length() > 1990) {
+            while (s.length() > 1990) {
+                String textNow = s.substring(0, 1990);
+                buildMessageBuilder(title, textChannel, red, textNow, langCode, showAd);
+                s = s.substring(1990);
+            }
+            if (s.length() > 0) {
+                buildMessageBuilder(title, textChannel, red, s, langCode, showAd);
+            }
+        } else {
+            buildMessageBuilder(title, textChannel, red, s, langCode, showAd);
+        }
+    }
+
+    private static void buildMessageBuilder(String title, Message msg, Color red, String textNow, final String langCode, boolean showAd) {
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle(title);
         builder.setDescription(textNow);
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
-        if (red != Color.red) setAdFooter(builder, langCode);
+        if (red != Color.red && showAd) setAdFooter(builder, langCode);
         msg.getChannel().sendMessage(builder.build()).queue();
         try {
             Jsoup.connect(Main.requestURL + "/stats/messages-sent").method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
@@ -89,16 +104,16 @@ public class MessageSender {
         return ((int) (Math.random() * (maximum - minimum))) + minimum;
     }
 
-    private static void buildMessageBuilder(String title, TextChannel textChannel, Color red, String textNow, final String langCode) {
+    private static void buildMessageBuilder(String title, TextChannel textChannel, Color red, String textNow, final String langCode, boolean showAd) {
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle(title);
         builder.setDescription(textNow);
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
-        if (red != Color.red) setAdFooter(builder, langCode);
+        if (red != Color.red && showAd) setAdFooter(builder, langCode);
         textChannel.sendMessage(builder.build()).queue();
         try {
-            final org.jsoup.Connection.Response res = Jsoup.connect(Main.requestURL + "/stats/messages-sent").method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+            Jsoup.connect(Main.requestURL + "/stats/messages-sent").method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }

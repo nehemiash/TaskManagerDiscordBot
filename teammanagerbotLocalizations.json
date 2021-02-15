@@ -288,13 +288,13 @@
     "tr": "Görev tamamlandı."
   },
   "support_nachricht": {
-    "de": "Bei jeglichen Problemen:\nhttps://bnder.de/discord",
-    "en": "Contact us at\nhttps://bnder.de/discord",
-    "bg": "За контакти с подръжка\nhttps://bnder.de/discord",
-    "pl": "Proszę się skontaktować z nami na\nhttps://bnder.de/discord",
-    "fr": "En cas de problème:\nhttps://bnder.de/discord",
-    "ru": "С любыми проблемами:\nhttps://bnder.de/discord",
-    "tr": "https://bnder.de/discord \nadresinden iletişime geçebilirsiniz."
+    "de": "Bei jeglichen Problemen:\nhttps://bnder.net/discord",
+    "en": "Contact us at\nhttps://bnder.net/discord",
+    "bg": "За контакти с подръжка\nhttps://bnder.net/discord",
+    "pl": "Proszę się skontaktować z nami na\nhttps://bnder.net/discord",
+    "fr": "En cas de problème:\nhttps://bnder.net/discord",
+    "ru": "С любыми проблемами:\nhttps://bnder.net/discord",
+    "tr": "https://bnder.net/discord \nadresinden iletişime geçebilirsiniz."
   },
   "keine_aufgaben": {
     "de": "Es sind keine Aufgaben für den Nutzer verfügbar.",
@@ -873,7 +873,7 @@
     "tr": "Geçerli Ayarlar:n`settings direct-message` - yeni görevler için direkt mesajları etkinleştir/devredışı bırak\n`settings show-done-tasks` - görev listesinde tamamlanan görevlerin görüntülenmesini etkinleştir/devredışı bırak\n`settings notify-channel #channel` - yeni görevler için bildirim kanalını değiştir\n`settings notifications @USER #CHANNEL` - Görev günlüğü kanalında değişiklikler"
   },
   "donate_alert": {
-    "de": "Unterstütze uns auf bnder.de/donate",
+    "de": "Unterstütze uns auf bnder.net/donate",
     "en": "Support us on bnder.net/donate",
     "bg": "Поддержите нас на bnder.net/donate",
     "pl": "Wesprzyj nas na bnder.net/donate",
@@ -1062,13 +1062,13 @@
     "tr": "Davet et"
   },
   "invite_text": {
-    "de": "Du kannst den Bot [unter diesem Link](https://bnder.de/discordbot/taskmanagerbot/invite \"https://bnder.de/discordbot/taskmanagerbot/invite\") einladen.",
-    "en": "You can invite the bot [via this Link](https://bnder.net/discordbot/taskmanagerbot/invite \"https://bnder.net/discordbot/taskmanagerbot/invite\").",
-    "bg": "Можете да поканите бота [под тази връзка](https://bnder.net/discordbot/taskmanagerbot/invite \"https://bnder.net/discordbot/taskmanagerbot/invite\").",
-    "pl": "Możesz zaprosić bota [pod tym linkiem](https://bnder.net/discordbot/taskmanagerbot/invite \"https://bnder.net/discordbot/taskmanagerbot/invite\").",
-    "fr": "Vous pouvez inviter le bot [sous ce lien](https://bnder.net/discordbot/taskmanagerbot/invite \"https://bnder.net/discordbot/taskmanagerbot/invite\").",
-    "ru": "Вы можете пригласить бота [по этой ссылке](https://bnder.net/discordbot/taskmanagerbot/invite \"https://bnder.net/discordbot/taskmanagerbot/invite\").",
-    "tr": "Botu [bu bağlantı altında](https://bnder.net/discordbot/taskmanagerbot/invite \"https://bnder.net/discordbot/taskmanagerbot/invite\") davet edebilirsiniz."
+    "de": "Du kannst den Bot [unter diesem Link](https://bnder.net/@tmb \"https://bnder.net/@tmb\") einladen.",
+    "en": "You can invite the bot [via this Link](https://bnder.net/@tmb \"https://bnder.net/@tmb\").",
+    "bg": "Можете да поканите бота [под тази връзка](https://bnder.net/@tmb \"https://bnder.net/@tmb\").",
+    "pl": "Możesz zaprosić bota [pod tym linkiem](https://bnder.net/@tmb \"https://bnder.net/@tmb\").",
+    "fr": "Vous pouvez inviter le bot [sous ce lien](https://bnder.net/@tmb \"https://bnder.net/@tmb\").",
+    "ru": "Вы можете пригласить бота [по этой ссылке](https://bnder.net/@tmb \"https://bnder.net/@tmb\").",
+    "tr": "Botu [bu bağlantı altında](https://bnder.net/@tmb \"https://bnder.net/@tmb\") davet edebilirsiniz."
   },
   "typo_title": {
     "de": "Vorschlag",

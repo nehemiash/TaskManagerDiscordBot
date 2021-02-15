@@ -46,23 +46,6 @@ public class Main {
 
     public static final String prefix = "-";
 
-    /**
-     * Changelog 2021.1.2
-     * New "board create" command added
-     * New "board switch" command added
-     * New "board delete" command added
-     * New "board list" command added
-     * New "group notifications" command added
-     * New Permissions: "CREATE_BOARD" & "DELETE_BOARD"
-     * New advanced help command: Use "help <command>" to get detailled descriptions (e.g. "help task list")
-     * New shortcuts: "task a" = "task add", "task e" = "task edit", "task l" = "task list"
-     * New short forms: "task" = "t", "group" = "g", "permission" = "p", "settings" = "s", "board" = "b", "help" = "h", "language" = "l" (example: "-t a @User do that minor thing")
-     * "help" command sends less messages
-     * Deadline reminders fixed
-     * Performance improvements
-     * Tasks with the status "done" can be deleted with "task delete done"
-     */
-
     public static void main(String[] args) {
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"),
                 Arrays.asList(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS));
