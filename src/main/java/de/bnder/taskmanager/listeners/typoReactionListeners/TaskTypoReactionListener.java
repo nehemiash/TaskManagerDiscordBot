@@ -54,33 +54,35 @@ public class TaskTypoReactionListener extends ListenerAdapter {
     }
 
     public static boolean isRightMessage(GuildMessageReactionAddEvent event, String commandKeyword) {
-        final Message message = event.retrieveMessage().complete();
-        if (message.getAuthor().isBot() && message.getAuthor().getId().equals(event.getJDA().getSelfUser().getId())) {
-            if (message.getEmbeds().size() == 1) {
-                final MessageEmbed embed = message.getEmbeds().get(0);
-                for (String langCode : Language.validLangCodes) {
-                    if (embed.getTitle().equals(Localizations.getString("typo_title", langCode)) && embed.getDescription().equals(Localizations.getString("typo_description", langCode))) {
-                        String command = null;
-                        String author = null;
-                        for (MessageEmbed.Field field : embed.getFields()) {
-                            if (field.getName().equals(Localizations.getString("typo_field_command_name", langCode))) {
-                                command = field.getValue();
-                            } else if (field.getName().equals(Localizations.getString("typo_field_user_name", langCode))) {
-                                author = field.getValue();
-                            }
-                        }
-                        if (command != null && author != null) {
-                            if (event.getMember().getUser().getAsTag().equals(author)) {
-                                if (command.substring(1).startsWith(commandKeyword)) {
-                                    return true;
+        try {
+            final Message message = event.retrieveMessage().complete();
+            if (message.getAuthor().isBot() && message.getAuthor().getId().equals(event.getJDA().getSelfUser().getId())) {
+                if (message.getEmbeds().size() == 1) {
+                    final MessageEmbed embed = message.getEmbeds().get(0);
+                    for (String langCode : Language.validLangCodes) {
+                        if (embed.getTitle().equals(Localizations.getString("typo_title", langCode)) && embed.getDescription().equals(Localizations.getString("typo_description", langCode))) {
+                            String command = null;
+                            String author = null;
+                            for (MessageEmbed.Field field : embed.getFields()) {
+                                if (field.getName().equals(Localizations.getString("typo_field_command_name", langCode))) {
+                                    command = field.getValue();
+                                } else if (field.getName().equals(Localizations.getString("typo_field_user_name", langCode))) {
+                                    author = field.getValue();
                                 }
                             }
+                            if (command != null && author != null) {
+                                if (event.getMember().getUser().getAsTag().equals(author)) {
+                                    if (command.substring(1).startsWith(commandKeyword)) {
+                                        return true;
+                                    }
+                                }
+                            }
+                            break;
                         }
-                        break;
                     }
                 }
             }
-        }
+        } catch (Exception ignored) {}
         return false;
     }
 

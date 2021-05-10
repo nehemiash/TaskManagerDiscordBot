@@ -115,7 +115,6 @@ public class Task {
                 final org.jsoup.Connection.Response getNotifyChannelRes = Jsoup.connect(Main.requestURL + "/user/notify-channel/" + guild.getId()).method(org.jsoup.Connection.Method.GET).header("authorization", "TMB " + Main.authorizationToken).header("user_id", holder).timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
                 if (getNotifyChannelRes.statusCode() == 200) {
                     final JsonObject notifyChannelObject = Json.parse(getNotifyChannelRes.body()).asObject();
-                    System.out.println(getNotifyChannelRes.body());
                     if (notifyChannelObject.get("channel") != null && !notifyChannelObject.get("channel").isNull()) {
                         final String channel = notifyChannelObject.getString("channel", null);
                         if (guild.getTextChannelById(channel) != null) {
@@ -128,6 +127,8 @@ public class Task {
                             builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
                             final Message message = guild.getTextChannelById(channel).sendMessage(builder.build()).complete();
                             Jsoup.connect(Main.requestURL + "/task/user/set-notify-channel-message-id/" + guild.getId() + "/" + this.id).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", holder).data("notify_channel_message_id", message.getId()).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                            message.addReaction("↩️").queue();
+                            message.addReaction("⏭️").queue();
                         }
                     }
                 }
@@ -174,6 +175,8 @@ public class Task {
                         builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
                         final Message message = guild.getTextChannelById(channel).sendMessage(builder.build()).complete();
                         Jsoup.connect(Main.requestURL + "/task/group/set-notify-channel-message-id/" + guild.getId() + "/" + this.id).method(org.jsoup.Connection.Method.POST).header("authorization", "TMB " + Main.authorizationToken).header("user_id", "---").data("notify_channel_message_id", message.getId()).postDataCharset("UTF-8").timeout(Connection.timeout).userAgent(Main.userAgent).ignoreContentType(true).ignoreHttpErrors(true).execute();
+                        message.addReaction("↩️").queue();
+                        message.addReaction("⏭️").queue();
                     }
                 }
             }

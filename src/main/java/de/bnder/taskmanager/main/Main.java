@@ -68,6 +68,7 @@ public class Main {
         builder.addEventListeners(new PermissionTypoReactionListener());
         builder.addEventListeners(new SettingsTypoReactionListener());
         builder.addEventListeners(new BoardTypoReactionListener());
+        builder.addEventListeners(new TaskLogReaction());
 
         CommandHandler.commands.put("version", new Version());
         CommandHandler.commands.put("prefix", new Prefix());
