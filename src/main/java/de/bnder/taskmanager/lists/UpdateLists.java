@@ -19,7 +19,7 @@ public class UpdateLists {
                 DiscordBotsGG.sendServerCount(serverCount, botID);
                 TopcordXYZ.sendServerCount(serverCount, botID);
                 BlistXYZ.sendServerCount(serverCount, botID);
-                //BotlistsCOM.sendServerCount(serverCount);
+                BotlistsCOM.sendServerCount(serverCount);
                 DiscordBOATS.sendServerCount(serverCount, botID);
                 VoidbotsNET.sendServerCount(serverCount, botID);
                 InfinitybotlistCOM.sendServerCount(serverCount, botID);
