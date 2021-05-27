@@ -104,9 +104,9 @@
             <version>0.9.5</version>
         </dependency>
         <dependency>
-            <groupId>net.dv8tion</groupId>
+            <groupId>com.github.DV8FromTheWorld</groupId>
             <artifactId>JDA</artifactId>
-            <version>4.2.1_262</version>
+            <version>5885efcc40d4087b93e142e84fb9aeb11d388dd1</version>
         </dependency>
         <dependency>
             <groupId>com.neovisionaries</groupId>

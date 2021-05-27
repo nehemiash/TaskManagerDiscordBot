@@ -61,7 +61,7 @@ public class Main {
     public static final String prefix = "-";
 
     public static void main(String[] args) {
-        final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"),
+        final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createLight(dotenv.get("BOT_TOKEN"),
                 Arrays.asList(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS));
 
         /** Disable Caches for better memory usage */
@@ -110,6 +110,7 @@ public class Main {
 
         builder.setStatus(OnlineStatus.OFFLINE);
         builder.setActivity(Activity.playing("bnder.net"));
+
 
         try {
             builder.build();

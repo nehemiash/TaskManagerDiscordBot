@@ -1,6 +1,7 @@
 package de.bnder.taskmanager.listeners;
 
 import de.bnder.taskmanager.lists.UpdateLists;
+import de.bnder.taskmanager.slashcommands.UpdateGuildSlashCommands;
 import de.bnder.taskmanager.utils.DeadlineReminders;
 import de.bnder.taskmanager.utils.UpdateServerName;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -16,8 +17,8 @@ public class Ready extends ListenerAdapter {
         for (Guild g : e.getJDA().getGuilds()) {
             try {
                 UpdateServerName.update(g);
-            } catch (IOException ignored) {
-            }
+                UpdateGuildSlashCommands.update(g);
+            } catch (IOException ignored) {}
         }
         DeadlineReminders.start(e.getJDA().getShardManager());
         UpdateLists.updateBotLists(e.getJDA().getGuilds().size(), e.getJDA().getSelfUser().getId());

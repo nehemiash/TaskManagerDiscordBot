@@ -2500,5 +2500,50 @@
     "fr": "Toutes les tâches terminées ont été supprimées.",
     "ru": "Все выполненные задачи удалены.",
     "tr": "Tamamlanan tüm görevler silindi."
+  },
+  "slashcommands_description_group": {
+    "de": "Verwalte Gruppen auf dem Server"
+  },
+  "slashcommands_description_group_create": {
+    "de": "Erstelle eine neue Gruppe"
+  },
+  "slashcommands_description_group_delete": {
+    "de": "Lösche eine Gruppe"
+  },
+  "slashcommands_description_group_add": {
+    "de": "Füge einen Nutzer zu einer Gruppe hinzu"
+  },
+  "slashcommands_description_group_remove": {
+    "de": "Entferne einen Nutzer aus einer Gruppe"
+  },
+  "slashcommands_description_group_list": {
+    "de": "Listet alle Gruppen auf dem Server auf"
+  },
+  "slashcommands_description_group_members": {
+    "de": "Listet alle Mitglieder einer Gruppe auf"
+  },
+  "slashcommands_description_group_notifications": {
+    "de": "Protokolliere alle Aufgaben einer Gruppe in einem Kanal"
+  },
+  "slashcommands_name_of_group_description": {
+    "de": "Name der Gruppe"
+  },
+  "slashcommands_user_to_be_added_to_group_description": {
+    "de": "Nutzer der einer Gruppe hinzugefügt werden soll"
+  },
+  "slashcommands_user_to_be_removed_from_group_description": {
+    "de": "Nutzer der aus einer Gruppe entfernt werden soll"
+  },
+  "slashcommands_textchannel_messages_are_send_to_description": {
+    "de": "Textkanal in dem die Nachrichten gesendet werden"
+  },
+  "slashcommands_description_task": {
+    "de": "Aufgaben erstellen löschen ändern etc"
+  },
+  "slashcommands_description_task_add": {
+    "de": "Aufgaben einem Nutzer hinzufügen"
+  },
+  "slashcommands_description_task_proceed": {
+    "de": "Setzt den Status der Aufgabe fort"
   }
 }
