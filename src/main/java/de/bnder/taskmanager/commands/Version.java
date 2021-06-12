@@ -18,7 +18,9 @@ package de.bnder.taskmanager.commands;
 import de.bnder.taskmanager.main.Command;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.awt.*;
 import java.io.IOException;
@@ -26,13 +28,13 @@ import java.util.ArrayList;
 
 public class Version implements Command {
 
-    public static String version = "2021.1.2";
+    public static String version = "2021.2.0";
 
     @Override
-    public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(event.getGuild());
-        MessageSender.send(Localizations.getString("version_title", langCode), Localizations.getString("version_text", langCode, new ArrayList<String>(){{
+    public void action(String[] args, Member commandExecutor, TextChannel textChannel, Guild guild) throws IOException {
+        final String langCode = Localizations.getGuildLanguage(guild);
+        MessageSender.send(Localizations.getString("version_title", langCode), Localizations.getString("version_text", langCode, new ArrayList<>() {{
             add(version);
-        }}), event.getMessage(), Color.cyan, langCode);
+        }}), textChannel, Color.cyan, langCode);
     }
 }

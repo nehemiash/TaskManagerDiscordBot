@@ -1,13 +1,18 @@
 package de.bnder.taskmanager.main;
 
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class CommandParser {
 
-    public commandContainer parse(String raw, GuildMessageReceivedEvent event) {
+    public commandContainer parse(String raw, net.dv8tion.jda.api.entities.Member commandExecutor, TextChannel textChannel, Guild guild, SlashCommandEvent slashCommandEvent) {
 
         String beheaded = raw.substring(1);
         String[] splitBeheaded = beheaded.split(" ");
@@ -16,7 +21,11 @@ public class CommandParser {
         String[] args = new String[split.size() - 1];
         split.subList(1, split.size()).toArray(args);
 
-        return new commandContainer(raw, beheaded, splitBeheaded, invoke, args, event);
+        //TODO: PARSE mentionedRoles
+        //TODO: PARSE mentionedChannels
+        //TODO: PARSE mentionedMembers
+
+        return new commandContainer(raw, beheaded, splitBeheaded, invoke, args, commandExecutor, textChannel, guild, null, null, null, slashCommandEvent);
     }
 
 
@@ -27,16 +36,28 @@ public class CommandParser {
         public final String[] splitBeheaded;
         public final String invoke;
         public final String[] args;
-        public final GuildMessageReceivedEvent event;
+        public final Member commandExecutor;
+        public final TextChannel textChannel;
+        public final Guild guild;
+        public final List<Member> mentionedMembers;
+        public final List<Role> mentionedRoles;
+        public final List<TextChannel> mentionedChannels;
+        public final SlashCommandEvent slashCommandEvent;
 
 
-        public commandContainer(String rw, String beheaded, String[] splitBeheaded, String invoke, String[] args, GuildMessageReceivedEvent event) {
+        public commandContainer(String rw, String beheaded, String[] splitBeheaded, String invoke, String[] args, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) {
             this.raw = rw;
             this.beheaded = beheaded;
             this.splitBeheaded = splitBeheaded;
             this.invoke = invoke;
             this.args = args;
-            this.event = event;
+            this.commandExecutor = commandExecutor;
+            this.textChannel = textChannel;
+            this.guild = guild;
+            this.mentionedMembers = mentionedMembers;
+            this.mentionedRoles = mentionedRoles;
+            this.mentionedChannels = mentionedChannels;
+            this.slashCommandEvent = slashCommandEvent;
         }
 
     }

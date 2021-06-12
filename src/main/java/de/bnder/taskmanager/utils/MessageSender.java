@@ -19,68 +19,74 @@ import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.Calendar;
 
 public class MessageSender {
-    public static void send(String title, String s, Message msg, Color red, final String langCode) {
+    public static void send(String title, String s, Message msg, Color red, final String langCode, SlashCommandEvent slashCommandEvent) {
         if (s.length() > 1990) {
             while (s.length() > 1990) {
                 String textNow = s.substring(0, 1990);
-                buildMessageBuilder(title, msg, red, textNow, langCode, false);
+                buildMessageBuilder(title, msg, red, textNow, langCode, false, slashCommandEvent);
                 s = s.substring(1990);
             }
             if (s.length() > 0) {
-                buildMessageBuilder(title, msg, red, s, langCode, false);
+                buildMessageBuilder(title, msg, red, s, langCode, false, slashCommandEvent);
             }
         } else {
-            buildMessageBuilder(title, msg, red, s, langCode, false);
+            buildMessageBuilder(title, msg, red, s, langCode, false, slashCommandEvent);
         }
     }
 
-    public static void send(String title, String s, TextChannel textChannel, Color red, final String langCode) {
+    public static void send(String title, String s, TextChannel textChannel, Color red, final String langCode, SlashCommandEvent slashCommandEvent) {
         if (s.length() > 1990) {
             while (s.length() > 1990) {
                 String textNow = s.substring(0, 1990);
-                buildMessageBuilder(title, textChannel, red, textNow, langCode, false);
+                buildMessageBuilder(title, textChannel, red, textNow, langCode, false, slashCommandEvent);
                 s = s.substring(1990);
             }
             if (s.length() > 0) {
-                buildMessageBuilder(title, textChannel, red, s, langCode, false);
+                buildMessageBuilder(title, textChannel, red, s, langCode, false, slashCommandEvent);
             }
         } else {
-            buildMessageBuilder(title, textChannel, red, s, langCode, false);
+            buildMessageBuilder(title, textChannel, red, s, langCode, false, slashCommandEvent);
         }
     }
 
-    public static void send(String title, String s, TextChannel textChannel, Color red, final String langCode, boolean showAd) {
+    public static void send(String title, String s, TextChannel textChannel, Color red, final String langCode, boolean showAd, SlashCommandEvent slashCommandEvent) {
         if (s.length() > 1990) {
             while (s.length() > 1990) {
                 String textNow = s.substring(0, 1990);
-                buildMessageBuilder(title, textChannel, red, textNow, langCode, showAd);
+                buildMessageBuilder(title, textChannel, red, textNow, langCode, showAd, slashCommandEvent);
                 s = s.substring(1990);
             }
             if (s.length() > 0) {
-                buildMessageBuilder(title, textChannel, red, s, langCode, showAd);
+                buildMessageBuilder(title, textChannel, red, s, langCode, showAd, slashCommandEvent);
             }
         } else {
-            buildMessageBuilder(title, textChannel, red, s, langCode, showAd);
+            buildMessageBuilder(title, textChannel, red, s, langCode, showAd, slashCommandEvent);
         }
     }
 
-    private static void buildMessageBuilder(String title, Message msg, Color red, String textNow, final String langCode, boolean showAd) {
+    private static void buildMessageBuilder(String title, Message msg, Color red, String textNow, final String langCode, boolean showAd, SlashCommandEvent slashCommandEvent) {
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle(title);
         builder.setDescription(textNow);
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
         if (red != Color.red && showAd) setAdFooter(builder, langCode);
-        msg.getChannel().sendMessage(builder.build()).queue();
+        if (slashCommandEvent == null) {
+            msg.getChannel().sendMessage(builder.build()).queue();
+        } else {
+            slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
+        }
         try {
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     private static void setAdFooter(EmbedBuilder builder, String langCode) {
@@ -103,14 +109,18 @@ public class MessageSender {
         return ((int) (Math.random() * (maximum - minimum))) + minimum;
     }
 
-    private static void buildMessageBuilder(String title, TextChannel textChannel, Color red, String textNow, final String langCode, boolean showAd) {
+    private static void buildMessageBuilder(String title, TextChannel textChannel, Color red, String textNow, final String langCode, boolean showAd, SlashCommandEvent slashCommandEvent) {
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle(title);
         builder.setDescription(textNow);
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
         if (red != Color.red && showAd) setAdFooter(builder, langCode);
-        textChannel.sendMessage(builder.build()).queue();
+        if (slashCommandEvent == null) {
+            textChannel.sendMessage(builder.build()).queue();
+        } else {
+            slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
+        }
         try {
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
         } catch (IOException e) {

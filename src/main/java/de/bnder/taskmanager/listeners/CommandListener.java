@@ -21,10 +21,14 @@ import de.bnder.taskmanager.main.CommandHandler;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 
 import java.awt.*;
+import java.io.IOException;
+import java.util.List;
 
 public class CommandListener extends ListenerAdapter {
 
@@ -46,9 +50,29 @@ public class CommandListener extends ListenerAdapter {
                     } catch (Exception e) {
                         e.printStackTrace();
                         final String langCode = Localizations.getGuildLanguage(event.getGuild());
-                        MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getMessage(), Color.red, langCode);
+                        MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getMessage(), Color.red, langCode, null);
                     }
                 }
+            }
+        }
+    }
+
+    public void onSlashCommand(SlashCommandEvent event) {
+        final String commandName = event.getName();
+        final String arg0 = event.getSubcommandName();
+        final List<OptionMapping> options = event.getOptions();
+        if (!event.getUser().isBot()) {
+            StringBuilder msg = new StringBuilder("-" + commandName + " " + arg0);
+            for (OptionMapping option : options) {
+                msg.append(" ").append(option.getAsString());
+            }
+            while (msg.toString().contains("  ")) {
+                msg = new StringBuilder(msg.toString().replace("  ", " "));
+            }
+            try {
+                CommandHandler.handleCommand(CommandHandler.parse.parse(msg.toString(), event.getMember(), event.getTextChannel(), event.getGuild(), event));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -59,11 +83,11 @@ public class CommandListener extends ListenerAdapter {
             while (msg.contains("  ")) {
                 msg = msg.replace("  ", " ");
             }
-            CommandHandler.handleCommand(CommandHandler.parse.parse(msg, event), event.getMessage());
+            CommandHandler.handleCommand(CommandHandler.parse.parse(msg, event.getMember(), event.getChannel(), event.getGuild(), null));
         } catch (Exception e) {
             e.printStackTrace();
             final String langCode = Localizations.getGuildLanguage(event.getGuild());
-            MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode), event.getMessage(), Color.red, langCode);
+            MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode), event.getMessage(), Color.red, langCode, null);
         }
     }
 }
