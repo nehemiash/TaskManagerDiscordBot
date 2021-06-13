@@ -64,11 +64,32 @@ public class CommandListener extends ListenerAdapter {
         if (!event.getUser().isBot()) {
             StringBuilder msg = new StringBuilder("-" + commandName + " " + arg0);
             for (OptionMapping option : options) {
-                msg.append(" ").append(option.getAsString());
+                msg.append(" ");
+                switch (option.getType()) {
+                    case CHANNEL:
+                        msg.append("<#" + option.getAsGuildChannel().getId() + ">");
+                        break;
+                    case STRING:
+                    case INTEGER:
+                    case BOOLEAN:
+                    case SUB_COMMAND:
+                        msg.append(option.getAsString());
+                        break;
+                    case USER:
+                        msg.append("<@!" + option.getAsUser().getId() + ">");
+                        break;
+                    case ROLE:
+                        msg.append("<@&" + option.getAsRole().getId() + ">");
+                        break;
+                    case MENTIONABLE:
+                        msg.append(option.getAsMentionable().getAsMention());
+                        break;
+                }
             }
             while (msg.toString().contains("  ")) {
                 msg = new StringBuilder(msg.toString().replace("  ", " "));
             }
+
             try {
                 CommandHandler.handleCommand(CommandHandler.parse.parse(msg.toString(), event.getMember(), event.getTextChannel(), event.getGuild(), event));
             } catch (IOException e) {

@@ -23,6 +23,7 @@ import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
 import java.io.IOException;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 
 public class BoardList {
 
-    public static void getBoardList(Member member, TextChannel textChannel, String prefix) throws IOException {
+    public static void getBoardList(Member member, TextChannel textChannel, String prefix, SlashCommandEvent slashCommandEvent) throws IOException {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("board_title", langCode);
         final org.jsoup.Connection.Response res = Main.tmbAPI("board/list/" + member.getGuild().getId(), member.getId(), org.jsoup.Connection.Method.GET).execute();
@@ -49,22 +50,22 @@ public class BoardList {
                     if (isActive) builder.append(" ✅");
                     builder.append("\n");
                 }
-                MessageSender.send(embedTitle, "- `default` " + (builder.toString().contains("✅") ? "\n" : "✅\n") + builder.toString(), textChannel, Color.green, langCode);
+                MessageSender.send(embedTitle, "- `default` " + (builder.toString().contains("✅") ? "\n" : "✅\n") + builder.toString(), textChannel, Color.green, langCode, slashCommandEvent);
             } else {
                 MessageSender.send(embedTitle, Localizations.getString("no_boards_on_server", langCode, new ArrayList<>(){{
                     add(prefix);
-                }}), textChannel, Color.red, langCode);
+                }}), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else if (statusCode == 404) {
             MessageSender.send(embedTitle, Localizations.getString("no_boards_on_server", langCode, new ArrayList<>(){{
                 add(prefix);
-            }}), textChannel, Color.red, langCode);
+            }}), textChannel, Color.red, langCode, slashCommandEvent);
         } else {
             MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
                 {
                     add(String.valueOf(statusCode));
                 }
-            }), textChannel, Color.red, langCode);
+            }), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
 

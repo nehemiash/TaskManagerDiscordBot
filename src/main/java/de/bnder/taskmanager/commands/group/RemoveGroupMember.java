@@ -8,6 +8,7 @@ import de.bnder.taskmanager.utils.PermissionSystem;
 import de.bnder.taskmanager.utils.permissions.GroupPermission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
 import java.io.IOException;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class RemoveGroupMember {
 
-    public static void removeGroupMember(Member member, TextChannel textChannel, String[] args, List<Member> mentionedMembers) throws IOException {
+    public static void removeGroupMember(Member member, TextChannel textChannel, String[] args, List<Member> mentionedMembers, SlashCommandEvent slashCommandEvent) throws IOException {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("group_title", langCode);
         if (PermissionSystem.hasPermission(member, GroupPermission.REMOVE_MEMBERS)) {
@@ -32,36 +33,36 @@ public class RemoveGroupMember {
                                     add(member.getUser().getName());
                                     add(groupName);
                                 }
-                            }), textChannel, Color.green, langCode);
+                            }), textChannel, Color.green, langCode, slashCommandEvent);
                         } else if (statusCode == 404) {
                             MessageSender.send(embedTitle, Localizations.getString("group_with_name_doesnt_exist", langCode, new ArrayList<String>() {
                                 {
                                     add(groupName);
                                 }
-                            }), textChannel, Color.red, langCode);
+                            }), textChannel, Color.red, langCode, slashCommandEvent);
                             return;
                         } else if (statusCode == 400) {
                             MessageSender.send(embedTitle, Localizations.getString("nutzer_ist_in_keiner_gruppe", langCode, new ArrayList<String>() {
                                 {
                                     add(member.getUser().getAsTag());
                                 }
-                            }), textChannel, Color.red, langCode);
+                            }), textChannel, Color.red, langCode, slashCommandEvent);
                         } else {
                             MessageSender.send(embedTitle, Localizations.getString("nutzer_aus_gruppe_entfernen_unbekannter_fehler", langCode, new ArrayList<String>() {
                                 {
                                     add(String.valueOf(statusCode));
                                 }
-                            }), textChannel, Color.red, langCode);
+                            }), textChannel, Color.red, langCode, slashCommandEvent);
                         }
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("user_needs_to_be_mentioned", langCode), textChannel, Color.red, langCode);
+                    MessageSender.send(embedTitle, Localizations.getString("user_needs_to_be_mentioned", langCode), textChannel, Color.red, langCode, slashCommandEvent);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("group_name_needs_to_be_given", langCode), textChannel, Color.red, langCode);
+                MessageSender.send(embedTitle, Localizations.getString("group_name_needs_to_be_given", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
 

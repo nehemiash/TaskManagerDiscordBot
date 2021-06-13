@@ -58,30 +58,29 @@ public class UpdateGuildSlashCommands {
                 //TASK COMMANDS
                 new CommandData("task", Localizations.getString("slashcommands_description_task", langCode))
                         .addSubcommands(new SubcommandData("add", Localizations.getString("slashcommands_description_task_add", langCode))
-                                .addOptions(new OptionData(USER, "user", "a").setRequired(true))
-                                .addOptions(new OptionData(STRING, "task", "a").setRequired(true)))
+                                .addOptions(new OptionData(USER, "user", "").setRequired(true))
+                                .addOptions(new OptionData(STRING, "task", "").setRequired(true)))
                         .addSubcommands(new SubcommandData("proceed", Localizations.getString("slashcommands_description_task_proceed", langCode))
-                                .addOptions(new OptionData(STRING, "task-id", "a").setRequired(true)))
-                        .addSubcommands(new SubcommandData("deadline", "a")
-                                .addOptions(new OptionData(STRING, "task-id", "a").setRequired(true))
-                                .addOptions(new OptionData(STRING, "date", "a").setRequired(true))
-                                .addOptions(new OptionData(STRING, "time", "a").setRequired(true)))
-                        .addSubcommands(new SubcommandData("list", "a")
-                                .addOptions(new OptionData(USER, "user", "a").setRequired(true)))
-                        .addSubcommands(new SubcommandData("delete", "a")
-                                .addOptions(new OptionData(STRING, "task-id", "a").setRequired(true)))
-                        .addSubcommands(new SubcommandData("edit", "a")
-                                .addOptions(new OptionData(STRING, "task-id", "a").setRequired(true))
-                                .addOptions(new OptionData(STRING, "task", "a").setRequired(true)))
-                        .addSubcommands(new SubcommandData("info", "a")
-                                .addOptions(new OptionData(STRING, "task-id", "a").setRequired(true)))
-                        .addSubcommands(new SubcommandData("done", "a")
-                                .addOptions(new OptionData(STRING, "task-id", "a").setRequired(true)))
+                                .addOptions(new OptionData(STRING, "task-id", "").setRequired(true)))
+                        .addSubcommands(new SubcommandData("deadline", "")
+                                .addOptions(new OptionData(STRING, "task-id", "").setRequired(true))
+                                .addOptions(new OptionData(STRING, "date", "").setRequired(true))
+                                .addOptions(new OptionData(STRING, "time", "").setRequired(true)))
+                        .addSubcommands(new SubcommandData("list", "")
+                                .addOptions(new OptionData(USER, "user", "").setRequired(true)))
+                        .addSubcommands(new SubcommandData("delete", "")
+                                .addOptions(new OptionData(STRING, "task-id", "").setRequired(true)))
+                        .addSubcommands(new SubcommandData("edit", "")
+                                .addOptions(new OptionData(STRING, "task-id", "").setRequired(true))
+                                .addOptions(new OptionData(STRING, "task", "").setRequired(true)))
+                        .addSubcommands(new SubcommandData("info", "")
+                                .addOptions(new OptionData(STRING, "task-id", "").setRequired(true)))
+                        .addSubcommands(new SubcommandData("done", "")
+                                .addOptions(new OptionData(STRING, "task-id", "").setRequired(true)))
         ));
 
-
         try {
-            cmd.queue();
+            cmd.complete();
         } catch (Exception ignored) {
         }
     }

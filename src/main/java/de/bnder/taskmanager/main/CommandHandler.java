@@ -19,13 +19,13 @@ public class CommandHandler {
         if (commands.containsKey(cmd.invoke.toLowerCase())) {
             final String[] args = cmd.args;
             final String msgContentRaw = cmd.raw;
-            final Member commandExecutor = null;
-            final TextChannel textChannel = null;
-            final Guild guild = null;
-            final List<Member> mentionedMembers = null;
-            final List<Role> mentionedRoles = null;
-            final List<TextChannel> mentionedChannels = null;
-            final SlashCommandEvent slashCommandEvent = null;
+            final Member commandExecutor = cmd.commandExecutor;
+            final TextChannel textChannel = cmd.textChannel;
+            final Guild guild = cmd.guild;
+            final List<Member> mentionedMembers = cmd.mentionedMembers;
+            final List<Role> mentionedRoles = cmd.mentionedRoles;
+            final List<TextChannel> mentionedChannels = cmd.mentionedChannels;
+            final SlashCommandEvent slashCommandEvent = cmd.slashCommandEvent;
             commands.get(cmd.invoke.toLowerCase()).action(args, msgContentRaw, commandExecutor, textChannel, guild, mentionedMembers, mentionedRoles, mentionedChannels, slashCommandEvent);
         }
     }

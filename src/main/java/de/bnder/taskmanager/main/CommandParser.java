@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CommandParser {
 
-    public commandContainer parse(String raw, net.dv8tion.jda.api.entities.Member commandExecutor, TextChannel textChannel, Guild guild, SlashCommandEvent slashCommandEvent) {
+    public commandContainer parse(String raw, Member commandExecutor, TextChannel textChannel, Guild guild, SlashCommandEvent slashCommandEvent) {
 
         String beheaded = raw.substring(1);
         String[] splitBeheaded = beheaded.split(" ");
@@ -21,11 +21,32 @@ public class CommandParser {
         String[] args = new String[split.size() - 1];
         split.subList(1, split.size()).toArray(args);
 
-        //TODO: PARSE mentionedRoles
-        //TODO: PARSE mentionedChannels
-        //TODO: PARSE mentionedMembers
+        List<Member> mentionedMembers = new ArrayList<>();
+        List<Role> mentionedRoles = new ArrayList<>();
+        List<TextChannel> mentionedChannels = new ArrayList<>();
 
-        return new commandContainer(raw, beheaded, splitBeheaded, invoke, args, commandExecutor, textChannel, guild, null, null, null, slashCommandEvent);
+        for (String a : beheaded.split("<")) {
+            for (String b : a.split(">")) {
+                if (b.startsWith("#")) {
+                    final String textChannelID = b.substring(1);
+                    if (guild.getTextChannelById(textChannelID) != null) {
+                        mentionedChannels.add(guild.getTextChannelById(textChannelID));
+                    }
+                } else if (b.startsWith("@!")) {
+                    final String userID = b.substring(2);
+                    if (guild.retrieveMemberById(userID).complete() != null) {
+                        mentionedMembers.add(guild.retrieveMemberById(userID).complete());
+                    }
+                } else if (b.startsWith("@&")) {
+                    final String roleID = b.substring(2);
+                    if (guild.getRoleById(roleID) != null) {
+                        mentionedRoles.add(guild.getRoleById(roleID));
+                    }
+                }
+            }
+        }
+
+        return new commandContainer(raw, beheaded, splitBeheaded, invoke, args, commandExecutor, textChannel, guild, mentionedMembers, mentionedRoles, mentionedChannels, slashCommandEvent);
     }
 
 

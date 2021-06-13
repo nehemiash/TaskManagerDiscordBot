@@ -4,6 +4,7 @@ import de.bnder.taskmanager.utils.*;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.Calendar;
 
 public class TaskInfo {
 
-    public static void taskInfo(Member member, TextChannel textChannel, String[] args) {
+    public static void taskInfo(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         final String taskID = Connection.encodeString(args[1]);
@@ -45,7 +46,7 @@ public class TaskInfo {
                 {
                     add(taskID);
                 }
-            }), textChannel, Color.red, langCode);
+            }), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
 

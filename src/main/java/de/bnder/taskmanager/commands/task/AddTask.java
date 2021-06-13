@@ -13,6 +13,7 @@ import de.bnder.taskmanager.utils.permissions.TaskPermission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
 import java.io.IOException;
@@ -24,7 +25,7 @@ import java.util.List;
 
 public class AddTask {
 
-    public static void addTask(String commandMessage, Member member, List<Member> mentionedMembers, TextChannel textChannel, String[] args) throws IOException {
+    public static void addTask(String commandMessage, Member member, List<Member> mentionedMembers, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) throws IOException {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         if (PermissionSystem.hasPermission(member, TaskPermission.CREATE_TASK)) {
@@ -43,13 +44,13 @@ public class AddTask {
                                 add(mentionedMember.getUser().getName());
                                 add(taskObject.getActiveBoardName());
                             }
-                        }) + newLanguageSuggestionAppend, textChannel, Color.green, langCode);
+                        }) + newLanguageSuggestionAppend, textChannel, Color.green, langCode, slashCommandEvent);
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, new ArrayList<>() {
                             {
                                 add(taskObject.getStatusCode() + " " + taskObject.getResponseMessage());
                             }
-                        }), textChannel, Color.red, langCode);
+                        }), textChannel, Color.red, langCode, slashCommandEvent);
                     }
                 }
             } else if (GroupNotifications.serverHasGroup(args[1], member.getGuild())) {
@@ -78,32 +79,32 @@ public class AddTask {
                             {
                                 add(String.valueOf(finalUsersWhoReceivedTheTaskAmount));
                             }
-                        }), textChannel, Color.green, langCode);
+                        }), textChannel, Color.green, langCode, slashCommandEvent);
                     } else if (getGroupMembersStatusCode == 404) {
                         MessageSender.send(embedTitle + " - " + taskObject.getId(), Localizations.getString("aufgabe_an_x_mitglieder_gesendet", langCode, new ArrayList<>() {
                             {
                                 add("0");
                             }
-                        }), textChannel, Color.green, langCode);
+                        }), textChannel, Color.green, langCode, slashCommandEvent);
                     }
                 } else if (statusCode == 404) {
                     MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode, new ArrayList<>() {
                         {
                             add(groupName);
                         }
-                    }), textChannel, Color.red, langCode);
+                    }), textChannel, Color.red, langCode, slashCommandEvent);
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, new ArrayList<>() {
                         {
                             add(taskObject.getStatusCode() + " " + taskObject.getResponseMessage());
                         }
-                    }), textChannel, Color.red, langCode);
+                    }), textChannel, Color.red, langCode, slashCommandEvent);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellen_fehlende_argumente", langCode), textChannel, Color.red, langCode);
+                MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellen_fehlende_argumente", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
 

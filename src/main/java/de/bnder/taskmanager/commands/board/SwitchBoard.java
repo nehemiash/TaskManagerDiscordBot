@@ -21,6 +21,7 @@ import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import org.jsoup.Connection;
 
 import java.awt.*;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 
 public class SwitchBoard {
 
-    public static void switchBoard(String boardName, Member member, TextChannel textChannel) throws IOException {
+    public static void switchBoard(String boardName, Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) throws IOException {
         final Guild guild = textChannel.getGuild();
         final String langCode = Localizations.getGuildLanguage(guild);
         final String embedTitle = Localizations.getString("board_title", langCode);
@@ -40,19 +41,19 @@ public class SwitchBoard {
                 {
                     add(boardName);
                 }
-            }), textChannel, Color.green, langCode);
+            }), textChannel, Color.green, langCode, slashCommandEvent);
         } else if (statusCode == 404) {
             MessageSender.send(embedTitle, Localizations.getString("board_not_found", langCode, new ArrayList<>() {
                 {
                     add(boardName);
                 }
-            }), textChannel, Color.red, langCode);
+            }), textChannel, Color.red, langCode, slashCommandEvent);
         } else {
             MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<>() {
                 {
                     add(String.valueOf(statusCode));
                 }
-            }), textChannel, Color.red, langCode);
+            }), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
 

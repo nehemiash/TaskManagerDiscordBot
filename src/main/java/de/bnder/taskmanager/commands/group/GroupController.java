@@ -32,21 +32,21 @@ public class GroupController implements Command {
             if (args[0].equalsIgnoreCase("create")) {
                 CreateGroup.createGroup(commandExecutor, textChannel, args, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("delete")) {
-                DeleteGroup.deleteGroup(commandExecutor, textChannel, args);
+                DeleteGroup.deleteGroup(commandExecutor, textChannel, args, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("members")) {
-                GroupMembers.getGroupMembers(commandExecutor, textChannel, args);
+                GroupMembers.getGroupMembers(commandExecutor, textChannel, args, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("add")) {
-                AddGroupMember.addGroupMember(commandExecutor, textChannel, args, mentionedMembers);
+                AddGroupMember.addGroupMember(commandExecutor, textChannel, args, mentionedMembers, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem")) {
-                RemoveGroupMember.removeGroupMember(commandExecutor, textChannel, args, mentionedMembers);
+                RemoveGroupMember.removeGroupMember(commandExecutor, textChannel, args, mentionedMembers, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("notifications")) {
-                GroupNotifications.setGroupNotifications(commandExecutor, textChannel, args, mentionedChannels);
+                GroupNotifications.setGroupNotifications(commandExecutor, textChannel, args, mentionedChannels, slashCommandEvent);
             } else {
                 checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
             }
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("list")) {
-                GroupList.getGroupList(commandExecutor, textChannel);
+                GroupList.getGroupList(commandExecutor, textChannel, slashCommandEvent);
             } else {
                 checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
             }

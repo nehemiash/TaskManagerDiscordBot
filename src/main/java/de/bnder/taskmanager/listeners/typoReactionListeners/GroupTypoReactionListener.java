@@ -40,7 +40,7 @@ public class GroupTypoReactionListener extends ListenerAdapter {
                                 processGroupCommand(args, event.getMember(), command, event.getChannel());
                             } catch (IOException e) {
                                 final String langCode = Localizations.getGuildLanguage(event.getGuild());
-                                MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode);
+                                MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode, null);
                             }
                         } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
                             try {
@@ -57,21 +57,21 @@ public class GroupTypoReactionListener extends ListenerAdapter {
     void processGroupCommand(String[] args, Member member, String commandRaw, TextChannel channel) throws IOException {
         if (args.length > 1) {
             if (args[0].equalsIgnoreCase("create")) {
-                CreateGroup.createGroup(member, channel, args);
+                CreateGroup.createGroup(member, channel, args, null);
             } else if (args[0].equalsIgnoreCase("delete")) {
-                DeleteGroup.deleteGroup(member, channel, args);
+                DeleteGroup.deleteGroup(member, channel, args, null);
             } else if (args[0].equalsIgnoreCase("members")) {
-                GroupMembers.getGroupMembers(member, channel, args);
+                GroupMembers.getGroupMembers(member, channel, args, null);
             } else if (args[0].equalsIgnoreCase("add")) {
-                AddGroupMember.addGroupMember(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()));
+                AddGroupMember.addGroupMember(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()), null);
             } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem")) {
-                RemoveGroupMember.removeGroupMember(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()));
+                RemoveGroupMember.removeGroupMember(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()), null);
             } else if (args[0].equalsIgnoreCase("notifications") || args[0].equalsIgnoreCase("notification")) {
-                GroupNotifications.setGroupNotifications(member, channel, args, getMentionedChannels(commandRaw, member.getGuild()));
+                GroupNotifications.setGroupNotifications(member, channel, args, getMentionedChannels(commandRaw, member.getGuild()), null);
             }
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("list")) {
-                GroupList.getGroupList(member, channel);
+                GroupList.getGroupList(member, channel, null);
             }
         }
     }

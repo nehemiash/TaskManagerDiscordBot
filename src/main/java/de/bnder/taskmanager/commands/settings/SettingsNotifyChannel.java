@@ -5,6 +5,7 @@ import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class SettingsNotifyChannel {
 
-    public static void set(Member member, TextChannel textChannel, String[] args, List<TextChannel> mentionedChannels) throws IOException {
+    public static void set(Member member, TextChannel textChannel, String[] args, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("settings_title", langCode);
         final String arg0 = args[0].replaceAll("-", "").replaceAll("_", "");
@@ -25,22 +26,22 @@ public class SettingsNotifyChannel {
                     if (!de.bnder.taskmanager.utils.Settings.getUserSettings(member).getString("direct_message", "1").equals("0")) {
                         MessageSender.send(embedTitle, Localizations.getString("notify_channel_set_but_dms_are_enabled", langCode, new ArrayList<String>() {{
                             add(channel.getAsMention());
-                        }}), textChannel, Color.green, langCode);
+                        }}), textChannel, Color.green, langCode, slashCommandEvent);
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("notify_channel_set", langCode, new ArrayList<String>() {{
                             add(channel.getAsMention());
-                        }}), textChannel, Color.green, langCode);
+                        }}), textChannel, Color.green, langCode, slashCommandEvent);
                     }
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {{
                         add("SETTINGS-3-" + res.statusCode());
-                    }}), textChannel, Color.red, langCode);
+                    }}), textChannel, Color.red, langCode, slashCommandEvent);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("notify_mention_one_channel", langCode), textChannel, Color.red, langCode);
+                MessageSender.send(embedTitle, Localizations.getString("notify_mention_one_channel", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("settings_invalid_arg", langCode), textChannel, Color.red, langCode);
+            MessageSender.send(embedTitle, Localizations.getString("settings_invalid_arg", langCode), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
 

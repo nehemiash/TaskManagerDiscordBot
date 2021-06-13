@@ -23,6 +23,7 @@ import de.bnder.taskmanager.utils.permissions.BoardPermission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import org.jsoup.Connection;
 
 import java.awt.*;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 
 public class CreateBoard {
 
-    public static void createBoard(String boardName, TextChannel textChannel, Member member) throws IOException {
+    public static void createBoard(String boardName, TextChannel textChannel, Member member, SlashCommandEvent slashCommandEvent) throws IOException {
         final Guild guild = textChannel.getGuild();
         final String langCode = Localizations.getGuildLanguage(guild);
         final String embedTitle = Localizations.getString("board_title", langCode);
@@ -43,23 +44,23 @@ public class CreateBoard {
                     {
                         add(boardName);
                     }
-                }), textChannel, Color.green, langCode);
+                }), textChannel, Color.green, langCode, slashCommandEvent);
             } else if (statusCode == 400) {
                 MessageSender.send(embedTitle, Localizations.getString("board_not_created_name_already_exists", langCode, new ArrayList<String>() {
                     {
                         add(boardName);
                     }
-                }), textChannel, Color.red, langCode);
+                }), textChannel, Color.red, langCode, slashCommandEvent);
             } else {
                 MessageSender.send(embedTitle, Localizations.getString("board_not_created_unknown_error", langCode, new ArrayList<String>() {
                     {
                         add(boardName);
                         add(String.valueOf(statusCode));
                     }
-                }), textChannel, Color.red, langCode);
+                }), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
 

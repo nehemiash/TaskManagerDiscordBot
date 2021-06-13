@@ -22,6 +22,7 @@ import de.bnder.taskmanager.utils.PermissionSystem;
 import de.bnder.taskmanager.utils.permissions.BoardPermission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
 import java.io.IOException;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 
 public class DeleteBoard {
 
-    public static void deleteBoard(Member member, TextChannel textChannel, String boardName) throws IOException {
+    public static void deleteBoard(Member member, TextChannel textChannel, String boardName, SlashCommandEvent slashCommandEvent) throws IOException {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("board_title", langCode);
         if (PermissionSystem.hasPermission(member, BoardPermission.DELETE_BOARD)) {
@@ -40,22 +41,22 @@ public class DeleteBoard {
                     {
                         add(boardName);
                     }
-                }), textChannel, Color.green, langCode);
+                }), textChannel, Color.green, langCode, slashCommandEvent);
             } else if (statusCode == 404) {
                 MessageSender.send(embedTitle, Localizations.getString("board_with_name_doesnt_exist", langCode, new ArrayList<String>() {
                     {
                         add(boardName);
                     }
-                }), textChannel, Color.red, langCode);
+                }), textChannel, Color.red, langCode, slashCommandEvent);
             } else {
                 MessageSender.send(embedTitle, Localizations.getString("board_delete_unknown_error", langCode, new ArrayList<String>() {
                     {
                         add(boardName);
                     }
-                }), textChannel, Color.red, langCode);
+                }), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
 

@@ -12,22 +12,24 @@ import de.bnder.taskmanager.utils.permissions.PermissionPermission;
 import de.bnder.taskmanager.utils.permissions.TaskPermission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import org.simpleyaml.configuration.file.YamlConfiguration;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class Data implements Command {
     @Override
-    public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
-        final Guild guild = event.getGuild();
+    public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
         final String langCode = Localizations.getGuildLanguage(guild);
-        MessageSender.send(Localizations.getString("data_title", langCode), Localizations.getString("data_will_be_sent", langCode), event.getMessage(), Color.cyan, langCode);
+        MessageSender.send(Localizations.getString("data_title", langCode), Localizations.getString("data_will_be_sent", langCode), textChannel, Color.cyan, langCode, slashCommandEvent);
 
         //Get every user data
-        final File file = new File("userData-" + guild.getId() + "-" + event.getAuthor().getId() + ".yml");
+        final File file = new File("userData-" + guild.getId() + "-" + commandExecutor.getId() + ".yml");
         if (!file.exists()) {
             file.createNewFile();
         } else {
@@ -37,10 +39,9 @@ public class Data implements Command {
 
         yamlConfiguration.set("language", langCode);
         final String guildId = guild.getId();
-        final Member member = guild.retrieveMember(event.getAuthor()).complete();
 
         //Get Tasks
-        final org.jsoup.Connection.Response res = Main.tmbAPI("task/user/tasks/" + guildId + "/" + member.getId(), member.getId(), org.jsoup.Connection.Method.GET).execute();
+        final org.jsoup.Connection.Response res = Main.tmbAPI("task/user/tasks/" + guildId + "/" + commandExecutor.getId(), commandExecutor.getId(), org.jsoup.Connection.Method.GET).execute();
         final String jsonResponse = res.parse().body().text();
         final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
         if (res.statusCode() == 200) {
@@ -89,27 +90,27 @@ public class Data implements Command {
         }
 
         //Get User Settings
-        final JsonObject settingsObject = Settings.getUserSettings(member);
+        final JsonObject settingsObject = Settings.getUserSettings(commandExecutor);
         yamlConfiguration.set("guild" + "." + guildId + "." + "settings" + ".direct message", Boolean.valueOf(settingsObject.get("direct_message") != null ? settingsObject.get("direct_message").toString() : "1"));
         yamlConfiguration.set("guild" + "." + guildId + "." + "settings" + ".show done tasks", Boolean.valueOf(settingsObject.get("show_done_tasks") != null ? settingsObject.get("show_done_tasks").toString() : "1"));
         yamlConfiguration.set("guild" + "." + guildId + "." + "settings" + ".notify channel", settingsObject.get("notify_channel") != null && !settingsObject.get("notify_channel").isNull() ? settingsObject.getString("notify_channel", null) : null);
 
         //Get Users Groups
-        final org.jsoup.Connection.Response getGroupsRes = Main.tmbAPI("group/list/" + guildId, member.getId(), org.jsoup.Connection.Method.GET).execute();
+        final org.jsoup.Connection.Response getGroupsRes = Main.tmbAPI("group/list/" + guildId, commandExecutor.getId(), org.jsoup.Connection.Method.GET).execute();
         final JsonObject getGroupsObject = Json.parse(getGroupsRes.parse().body().text()).asObject();
         if (getGroupsRes.statusCode() == 200) {
             JsonArray servers = getGroupsObject.get("groups").asArray();
             if (servers.size() > 0) {
                 for (int i = 0; i < servers.size(); i++) {
                     final String groupName = servers.get(i).asString();
-                    final org.jsoup.Connection.Response getMembersRes = Main.tmbAPI("group/members/" + guildId + "/" + Connection.encodeString(groupName), member.getId(), org.jsoup.Connection.Method.GET).execute();
+                    final org.jsoup.Connection.Response getMembersRes = Main.tmbAPI("group/members/" + guildId + "/" + Connection.encodeString(groupName), commandExecutor.getId(), org.jsoup.Connection.Method.GET).execute();
                     final JsonObject getMembersObject = Json.parse(getMembersRes.parse().body().text()).asObject();
                     if (getMembersObject.getInt("status_code", 900) == 200) {
                         final String groupID = getMembersObject.getString("group_id", null);
                         for (JsonValue value : getMembersObject.get("members").asArray()) {
                             final String id = value.asObject().getString("user_id", null);
                             if (id != null) {
-                                if (id.equalsIgnoreCase(event.getAuthor().getId())) {
+                                if (id.equalsIgnoreCase(commandExecutor.getId())) {
                                     yamlConfiguration.set("guild" + "." + guildId + "." + "group" + "." + groupID + ".name", groupName);
                                 }
                             }
@@ -121,20 +122,20 @@ public class Data implements Command {
 
         //Get User Permissions
         for (TaskPermission permission : TaskPermission.values()) {
-            final boolean hasPermission = PermissionSystem.hasPermission(member, permission);
+            final boolean hasPermission = PermissionSystem.hasPermission(commandExecutor, permission);
             yamlConfiguration.set("guild" + "." + guildId + "." + "permission" + "." + permission.name(), hasPermission);
         }
         for (GroupPermission permission : GroupPermission.values()) {
-            final boolean hasPermission = PermissionSystem.hasPermission(member, permission);
+            final boolean hasPermission = PermissionSystem.hasPermission(commandExecutor, permission);
             yamlConfiguration.set("guild" + "." + guildId + "." + "permission" + "." + permission.name(), hasPermission);
         }
         for (PermissionPermission permission : PermissionPermission.values()) {
-            final boolean hasPermission = PermissionSystem.hasPermission(member, permission);
+            final boolean hasPermission = PermissionSystem.hasPermission(commandExecutor, permission);
             yamlConfiguration.set("guild" + "." + guildId + "." + "permission" + "." + permission.name(), hasPermission);
         }
 
         yamlConfiguration.save(file);
-        event.getAuthor().openPrivateChannel().complete().sendFile(file).queue();
+        commandExecutor.getUser().openPrivateChannel().complete().sendFile(file).queue();
         file.delete();
     }
 }

@@ -40,7 +40,7 @@ public class SettingsTypoReactionListener extends ListenerAdapter {
                                 processSettingsCommand(args, event.getMember(), command, event.getChannel());
                             } catch (IOException e) {
                                 final String langCode = Localizations.getGuildLanguage(event.getGuild());
-                                MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode);
+                                MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode, null);
                             }
                         } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
                             try {
@@ -59,19 +59,19 @@ public class SettingsTypoReactionListener extends ListenerAdapter {
         final String args0 = args.length > 0 ? args[0].replaceAll("-", "") : null;
         if (args.length == 1) {
             if (args0.equalsIgnoreCase("directmessage")) {
-                SettingsDirectmessage.set(member, channel);
+                SettingsDirectmessage.set(member, channel, null);
             } else if (args0.equalsIgnoreCase("showdonetasks")) {
-                SettingsShowDoneTasks.set(member, channel);
+                SettingsShowDoneTasks.set(member, channel, null);
             }
         } else if (args.length == 0) {
             SettingsShowSettings.set(member, channel);
         } else if (args.length == 2) {
             if (args0.equalsIgnoreCase("notifychannel")) {
-                SettingsNotifyChannel.set(member, channel, args, getMentionedChannels(commandRaw, member.getGuild()));
+                SettingsNotifyChannel.set(member, channel, args, getMentionedChannels(commandRaw, member.getGuild()), null);
             }
         } else if (args.length == 3) {
             if (args0.equalsIgnoreCase("notifications") || args0.equalsIgnoreCase("notification")) {
-                SettingsSetNotifications.set(member, channel, getMentionedChannels(commandRaw, member.getGuild()), getMentionedMembers(commandRaw, member.getGuild()));
+                SettingsSetNotifications.set(member, channel, getMentionedChannels(commandRaw, member.getGuild()), getMentionedMembers(commandRaw, member.getGuild()), null);
             }
         }
     }

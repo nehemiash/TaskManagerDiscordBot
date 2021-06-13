@@ -9,6 +9,7 @@ import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.Settings;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import org.jsoup.nodes.Document;
 
 import java.awt.*;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 public class SelfTaskList {
 
-    public static void selfTaskList(Member member, TextChannel textChannel) throws IOException {
+    public static void selfTaskList(Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) throws IOException {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         final org.jsoup.Connection.Response res = Main.tmbAPI("task/user/tasks/" + textChannel.getGuild().getId() + "/" + member.getId(), member.getId(), org.jsoup.Connection.Method.GET).execute();
@@ -51,7 +52,7 @@ public class SelfTaskList {
                         add(boardName);
                         add(finalBuilder2.toString());
                     }
-                }), textChannel, Color.orange, langCode);
+                }), textChannel, Color.orange, langCode, slashCommandEvent);
             }
             builder = new StringBuilder();
             array = jsonObject.get("doing").asArray();
@@ -77,7 +78,7 @@ public class SelfTaskList {
                         add(boardName);
                         add(finalBuilder.toString());
                     }
-                }), textChannel, Color.yellow, langCode);
+                }), textChannel, Color.yellow, langCode, slashCommandEvent);
             }
             builder = new StringBuilder();
 
@@ -108,10 +109,10 @@ public class SelfTaskList {
                         add(boardName);
                         add(finalBuilder1.toString());
                     }
-                }), textChannel, Color.green, langCode);
+                }), textChannel, Color.green, langCode, slashCommandEvent);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), textChannel, Color.red, langCode);
+            MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
 
