@@ -13,10 +13,10 @@ import de.bnder.taskmanager.utils.permissions.TaskPermission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import java.awt.*;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -66,10 +66,18 @@ public class AddTask {
                         for (JsonValue value : jsonObject.get("members").asArray()) {
                             final String id = value.asObject().getString("user_id", null);
                             if (id != null) {
-                                final Member groupMember = member.getGuild().retrieveMemberById(id).complete();
-                                if (groupMember != null) {
-                                    usersWhoReceivedTheTaskAmount++;
-                                    sendTaskMessage(groupMember, member, taskObject.getId(), langCode, task);
+                                try {
+                                    final User user = member.getJDA().retrieveUserById(id).complete();
+                                    if (user != null) {
+                                        if (member.getGuild().isMember(user)) {
+                                            if (member.getGuild().retrieveMemberById(id).complete() != null) {
+                                                final Member groupMember = member.getGuild().retrieveMemberById(id).complete();
+                                                usersWhoReceivedTheTaskAmount++;
+                                                sendTaskMessage(groupMember, member, taskObject.getId(), langCode, task);
+                                            }
+                                        }
+                                    }
+                                } catch (Exception ignored) {
                                 }
                             }
                         }
@@ -118,25 +126,21 @@ public class AddTask {
                         add(task_id);
                     }
                 })).queue();
-                try {
-                    channel.sendMessage(URLDecoder.decode(task, StandardCharsets.UTF_8.toString())).queue();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-            } catch (Exception ignored) {}
+                channel.sendMessage(URLDecoder.decode(task, StandardCharsets.UTF_8.toString())).queue();
+            } catch (Exception ignored) {
+            }
         } else if (!settings.get("notify_channel").isNull()) {
             final TextChannel channel = author.getGuild().getTextChannelById(settings.getString("notify_channel", ""));
             if (channel != null) {
-                channel.sendMessage(member.getAsMention() + Localizations.getString("aufgabe_erhalten", langCode, new ArrayList<>() {
-                    {
-                        add(author.getUser().getAsTag());
-                        add(task_id);
-                    }
-                })).queue();
                 try {
+                    channel.sendMessage(member.getAsMention() + Localizations.getString("aufgabe_erhalten", langCode, new ArrayList<>() {
+                        {
+                            add(author.getUser().getAsTag());
+                            add(task_id);
+                        }
+                    })).queue();
                     channel.sendMessage(URLDecoder.decode(task, StandardCharsets.UTF_8.toString())).queue();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+                } catch (Exception ignored) {
                 }
             }
         }

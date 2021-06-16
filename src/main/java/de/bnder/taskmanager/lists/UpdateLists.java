@@ -26,9 +26,7 @@ public class UpdateLists {
                 SpacebotlistORG.sendServerCount(serverCount, botID);
                 System.out.println("Updating lists finished");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException ignored) {}
     }
 
     private static int updateOwnStats(final int servers) throws IOException {
