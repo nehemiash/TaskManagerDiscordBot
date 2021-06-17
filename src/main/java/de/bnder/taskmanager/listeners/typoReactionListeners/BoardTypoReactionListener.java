@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
@@ -53,8 +54,7 @@ public class BoardTypoReactionListener extends ListenerAdapter {
                         }
                     }
                 }
-            } catch (ErrorResponseException ignored) {
-            }
+            } catch (ErrorResponseException | InsufficientPermissionException ignored) {}
         }
     }
 

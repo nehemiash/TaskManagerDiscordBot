@@ -7,6 +7,7 @@ import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
@@ -48,8 +49,7 @@ public class TaskTypoReactionListener extends ListenerAdapter {
                         }
                     }
                 }
-            } catch (ErrorResponseException ignored) {
-            }
+            } catch (ErrorResponseException | InsufficientPermissionException ignored) {}
         }
     }
 
