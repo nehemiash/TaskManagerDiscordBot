@@ -2545,5 +2545,38 @@
   },
   "slashcommands_description_task_proceed": {
     "de": "Setzt den Status der Aufgabe fort"
+  },
+  "slashcommands_user_mention_description": {
+    "de": "Der betroffene Nutzer"
+  },
+  "slashcommands_task_text_description": {
+    "de": "Der Text der Aufgabe"
+  },
+  "slashcommands_task_id_description": {
+    "de": "ID der Aufgabe"
+  },
+  "slashcommands_task_deadline_date_description": {
+    "de": "Datum"
+  },
+  "slashcommands_task_deadline_time_description": {
+    "de": "Uhrzeit"
+  },
+  "slashcommands_description_task_deadline": {
+    "de": "Zeitpunkt bei dem die Aufgabe erledigt sein muss"
+  },
+  "slashcommands_description_task_list": {
+    "de": "Alle Aufgaben des Nutzers auflisten"
+  },
+  "slashcommands_description_task_delete": {
+    "de": "Eine Aufgabe unwiderruflich löschen"
+  },
+  "slashcommands_description_task_edit": {
+    "de": "Aufgabentext bearbeiten"
+  },
+  "slashcommands_description_task_info": {
+    "de": "Alle Informationen einer Aufgabe"
+  },
+  "slashcommands_description_task_done": {
+    "de": "Aufgabe direkt als erledigt einordnen"
   }
 }

@@ -3,6 +3,7 @@ package de.bnder.taskmanager.commands.task;
 import de.bnder.taskmanager.utils.*;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
@@ -40,9 +41,17 @@ public class TaskInfo {
                 builder.addField(Localizations.getString("task_info_field_assigned", langCode), task.getHolder(), true);
             }
             builder.addField(Localizations.getString("task_info_field_task", langCode), task.getText(), false);
-            textChannel.sendMessage(builder.build()).queue();
+            if (slashCommandEvent == null) {
+                textChannel.sendMessageEmbeds(builder.build()).queue();
+            } else {
+                StringBuilder reply = new StringBuilder();
+                for (MessageEmbed.Field field : builder.getFields()) {
+                    reply.append(field.getName()).append(": ").append(field.getValue()).append("\n");
+                }
+                slashCommandEvent.reply(reply.toString()).queue();
+            }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
+            MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<>() {
                 {
                     add(taskID);
                 }

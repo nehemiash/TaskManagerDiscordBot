@@ -117,7 +117,7 @@ public class MessageSender {
         builder.setTimestamp(Calendar.getInstance().toInstant());
         if (red != Color.red && showAd) setAdFooter(builder, langCode);
         if (slashCommandEvent == null) {
-            textChannel.sendMessage(builder.build()).queue();
+            textChannel.sendMessageEmbeds(builder.build()).queue();
         } else {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
         }

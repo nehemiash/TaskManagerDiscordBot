@@ -58,30 +58,33 @@ public class UpdateGuildSlashCommands {
                 //TASK COMMANDS
                 new CommandData("task", Localizations.getString("slashcommands_description_task", langCode))
                         .addSubcommands(new SubcommandData("add", Localizations.getString("slashcommands_description_task_add", langCode))
-                                .addOptions(new OptionData(USER, "user", "").setRequired(true))
-                                .addOptions(new OptionData(STRING, "task", "").setRequired(true)))
+                                .addOptions(new OptionData(USER, "user", Localizations.getString("slashcommands_user_mention_description", langCode)).setRequired(true))
+                                .addOptions(new OptionData(STRING, "task", Localizations.getString("slashcommands_task_text_description", langCode)).setRequired(true)))
                         .addSubcommands(new SubcommandData("proceed", Localizations.getString("slashcommands_description_task_proceed", langCode))
-                                .addOptions(new OptionData(STRING, "task-id", "").setRequired(true)))
-                        .addSubcommands(new SubcommandData("deadline", "")
-                                .addOptions(new OptionData(STRING, "task-id", "").setRequired(true))
-                                .addOptions(new OptionData(STRING, "date", "").setRequired(true))
-                                .addOptions(new OptionData(STRING, "time", "").setRequired(true)))
-                        .addSubcommands(new SubcommandData("list", "")
-                                .addOptions(new OptionData(USER, "user", "").setRequired(true)))
-                        .addSubcommands(new SubcommandData("delete", "")
-                                .addOptions(new OptionData(STRING, "task-id", "").setRequired(true)))
-                        .addSubcommands(new SubcommandData("edit", "")
-                                .addOptions(new OptionData(STRING, "task-id", "").setRequired(true))
-                                .addOptions(new OptionData(STRING, "task", "").setRequired(true)))
-                        .addSubcommands(new SubcommandData("info", "")
-                                .addOptions(new OptionData(STRING, "task-id", "").setRequired(true)))
-                        .addSubcommands(new SubcommandData("done", "")
-                                .addOptions(new OptionData(STRING, "task-id", "").setRequired(true)))
+                                .addOptions(new OptionData(STRING, "task-id", Localizations.getString("slashcommands_task_id_description", langCode)).setRequired(true)))
+                        .addSubcommands(new SubcommandData("deadline", Localizations.getString("slashcommands_description_task_deadline", langCode))
+                                .addOptions(new OptionData(STRING, "task-id", Localizations.getString("slashcommands_task_id_description", langCode)).setRequired(true))
+                                .addOptions(new OptionData(STRING, "date", Localizations.getString("slashcommands_task_deadline_date_description", langCode)).setRequired(true))
+                                .addOptions(new OptionData(STRING, "time", Localizations.getString("slashcommands_task_deadline_date_description", langCode)).setRequired(true)))
+                        .addSubcommands(new SubcommandData("list", Localizations.getString("slashcommands_description_task_list", langCode))
+                                .addOptions(new OptionData(USER, "user", Localizations.getString("slashcommands_user_mention_description", langCode)).setRequired(true)))
+                        .addSubcommands(new SubcommandData("delete", Localizations.getString("slashcommands_description_task_delete", langCode))
+                                .addOptions(new OptionData(STRING, "task-id", Localizations.getString("slashcommands_task_id_description", langCode)).setRequired(true)))
+                        .addSubcommands(new SubcommandData("edit", Localizations.getString("slashcommands_description_task_edit", langCode))
+                                .addOptions(new OptionData(STRING, "task-id", Localizations.getString("slashcommands_task_id_description", langCode)).setRequired(true))
+                                .addOptions(new OptionData(STRING, "task", Localizations.getString("slashcommands_task_text_description", langCode)).setRequired(true)))
+                        .addSubcommands(new SubcommandData("info", Localizations.getString("slashcommands_description_task_info", langCode))
+                                .addOptions(new OptionData(STRING, "task-id", Localizations.getString("slashcommands_task_id_description", langCode)).setRequired(true)))
+                        .addSubcommands(new SubcommandData("done", Localizations.getString("slashcommands_description_task_done", langCode))
+                                .addOptions(new OptionData(STRING, "task-id", Localizations.getString("slashcommands_task_id_description", langCode)).setRequired(true)))
         ));
 
         try {
+            System.out.println("Updating Slash Commands on Guild " + guild.getName() + "...");
             cmd.complete();
+            System.out.println("Updated Slash Commands on Guild " + guild.getName());
         } catch (Exception ignored) {
+            System.out.println("Updating Slash Commands failed!");
         }
     }
 
