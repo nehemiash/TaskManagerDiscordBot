@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static de.bnder.taskmanager.commands.Stats.handleEmbedsOnSlashCommand;
+
 public class Search implements Command {
 
     @Override
@@ -82,7 +84,7 @@ public class Search implements Command {
                             }
                             builder.addField(Localizations.getString("task_info_field_task", langCode), task.getText(), false);
                             builder.addField(Localizations.getString("task_info_field_id", langCode), taskID, false);
-                            textChannel.sendMessage(builder.build()).queue();
+                            handleEmbedsOnSlashCommand(textChannel, slashCommandEvent, builder);
                             tasksResultArrayIterations++;
                         } else {
                             MessageSender.send(embedTitle, Localizations.getString("search_results_hidden_text", langCode), textChannel, Color.red, langCode, slashCommandEvent);
@@ -122,7 +124,7 @@ public class Search implements Command {
                             builder.setDescription(Localizations.getString("search_result_group_description", langCode));
                             builder.addField(Localizations.getString("search_group_name_field", langCode), groupName, true);
 
-                            textChannel.sendMessage(builder.build()).queue();
+                            Stats.handleEmbedsOnSlashCommand(textChannel, slashCommandEvent, builder);
                             groupsResultArrayIterations++;
                         } else {
                             MessageSender.send(embedTitle, Localizations.getString("search_results_hidden_text", langCode), textChannel, Color.red, langCode, slashCommandEvent);

@@ -6,10 +6,7 @@ import de.bnder.taskmanager.main.Command;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Localizations;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
@@ -46,6 +43,18 @@ public class Stats implements Command {
         }
         builder.setColor(Color.green);
         builder.setTitle(Localizations.getString("stats_message_title", langCode));
-        textChannel.sendMessage(builder.build()).queue();
+        handleEmbedsOnSlashCommand(textChannel, slashCommandEvent, builder);
+    }
+
+    public static void handleEmbedsOnSlashCommand(TextChannel textChannel, SlashCommandEvent slashCommandEvent, EmbedBuilder builder) {
+        if (slashCommandEvent == null) {
+            textChannel.sendMessageEmbeds(builder.build()).queue();
+        } else {
+            StringBuilder reply = new StringBuilder();
+            for (MessageEmbed.Field field : builder.getFields()) {
+                reply.append(field.getName()).append(": ").append(field.getValue()).append("\n");
+            }
+            slashCommandEvent.reply(reply.toString()).queue();
+        }
     }
 }

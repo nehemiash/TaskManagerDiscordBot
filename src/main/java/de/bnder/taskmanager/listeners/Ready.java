@@ -23,6 +23,7 @@ public class Ready extends ListenerAdapter {
         DeadlineReminders.start(e.getJDA().getShardManager());
         UpdateLists.updateBotLists(e.getJDA().getGuilds().size(), e.getJDA().getSelfUser().getId());
         e.getJDA().getPresence().setStatus(OnlineStatus.ONLINE);
+        System.out.println("\n \n##############################\n \nBot started!\n \n##############################");
     }
 
 }

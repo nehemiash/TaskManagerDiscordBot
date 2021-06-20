@@ -2501,6 +2501,12 @@
     "ru": "Все выполненные задачи удалены.",
     "tr": "Tamamlanan tüm görevler silindi."
   },
+  "board_was_deleted": {
+    "de": "Das Board `$` wurde gelöscht."
+  },
+  "board_with_name_doesnt_exist": {
+    "de": "Ein Board mit dem Namen `$` existiert nicht!"
+  },
   "slashcommands_description_group": {
     "de": "Verwalte Gruppen auf dem Server"
   },
@@ -2578,5 +2584,95 @@
   },
   "slashcommands_description_task_done": {
     "de": "Aufgabe direkt als erledigt einordnen"
+  },
+  "slashcommands_description_board": {
+    "de": "Boards erstellen, löschen und wechseln"
+  },
+  "slashcommands_description_board_switch": {
+    "de": "Board wechseln"
+  },
+  "slashcommands_description_board_create": {
+    "de": "Neues Board erstellen"
+  },
+  "slashcommands_description_board_name": {
+    "de": "Name des Boards"
+  },
+  "slashcommands_description_board_delete": {
+    "de": "Board löschen"
+  },
+  "slashcommands_description_board_list": {
+    "de": "Alle Boards anzeigen"
+  },
+  "slashcommands_description_permission": {
+    "de": "Vergebe oder entferne Nutzern oder Rollen Berechtigungen"
+  },
+  "slashcommands_description_permission_add": {
+    "de": "Gewähre einem Nutzer oder eine Rolle eine Berechtigung"
+  },
+  "slashcommands_description_permission_remove": {
+    "de": "Entferne einem Nutzer oder eine Rolle eine Berechtigung"
+  },
+  "slashcommands_description_permission_list": {
+    "de": "Zeigt alle Berechtigungen für einen Nutzer oder eine Rolle an"
+  },
+  "slashcommands_description_permission_mentionable_description": {
+    "de": "Betroffene Rolle oder betroffener Nutzer"
+  },
+  "slashcommands_description_permission_permission_description": {
+    "de": "Berechtigung"
+  },
+  "slashcommands_description_settings": {
+    "de": "Einstellungen vornehmen"
+  },
+  "slashcommands_description_settings_direct_message": {
+    "de": "De-/Aktiviert die Direktnachricht bei einer neuen Aufgabe"
+  },
+  "slashcommands_description_settings_notify_channel": {
+    "de": "Ändert den Kanal für Benachrichtigungen bei neuen Aufgaben"
+  },
+  "slashcommands_description_settings_channel": {
+    "de": "Channel"
+  },
+  "slashcommands_description_settings_notifications": {
+    "de": "Ändert den Kanal für die Aufgabenprotokollierung"
+  },
+  "slashcommands_description_settings_user": {
+    "de": "User"
+  },
+  "slashcommands_description_help": {
+    "de": "Listet alle Befehle auf"
+  },
+  "slashcommands_description_help_command": {
+    "de": "Ein Befehl für weitere Hilfe"
+  },
+  "slashcommands_description_app": {
+    "de": "Sendet einen Link zur Android- und Web-App"
+  },
+  "slashcommands_description_data": {
+    "de": "Sendet dir alle Daten, die der Bot von dir auf einem Server hat"
+  },
+  "slashcommands_description_invite": {
+    "de": "Sendet den Einladungslink für den Bot"
+  },
+  "slashcommands_description_language": {
+    "de": "Ändere die Sprache für den Bot"
+  },
+  "slashcommands_description_prefix": {
+    "de": "Ändere den Prefix des Bots"
+  },
+  "slashcommands_description_search": {
+    "de": "Suche nach einer Aufgabe, Gruppe oder Ähnliches"
+  },
+  "slashcommands_description_stats": {
+    "de": "Sendet Statistiken des Bots"
+  },
+  "slashcommands_description_support": {
+    "de": "Sendet den Link für den bnder Discord-Server"
+  },
+  "slashcommands_description_token": {
+    "de": "Sendet den Token für die Web- oder Android-App"
+  },
+  "slashcommands_description_version": {
+    "de": "Zeigt die aktuelle Versionsnummer des Bots an"
   }
 }

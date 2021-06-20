@@ -15,6 +15,10 @@ import java.util.List;
 public class Support implements Command {
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
-        textChannel.sendMessage(Localizations.getString("support_nachricht", Localizations.getGuildLanguage(guild))).setActionRow(Button.link("https://bnder.net/discord", "bnder.net Discord")).queue();
+        if (slashCommandEvent == null) {
+            textChannel.sendMessage(Localizations.getString("support_nachricht", Localizations.getGuildLanguage(guild))).setActionRow(Button.link("https://bnder.net/discord", "bnder.net Discord")).queue();
+        } else {
+            slashCommandEvent.reply(Localizations.getString("support_nachricht", Localizations.getGuildLanguage(guild))).queue();
+        }
     }
 }

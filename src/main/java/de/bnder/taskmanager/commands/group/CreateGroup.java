@@ -1,6 +1,7 @@
 package de.bnder.taskmanager.commands.group;
 
 import de.bnder.taskmanager.main.Main;
+import de.bnder.taskmanager.slashcommands.GroupSlashCommands;
 import de.bnder.taskmanager.utils.Connection;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
@@ -29,6 +30,7 @@ public class CreateGroup {
                         add(groupName);
                     }
                 }), textChannel, Color.green, langCode, slashCommandEvent);
+                member.getGuild().updateCommands().addCommands(GroupSlashCommands.commandData(member.getGuild(), langCode)).queue();
             } else if (statusCode == 400) {
                 MessageSender.send(embedTitle, Localizations.getString("group_not_created_name_already_exists", langCode, new ArrayList<String>() {
                     {
