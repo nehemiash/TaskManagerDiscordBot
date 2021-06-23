@@ -2502,177 +2502,525 @@
     "tr": "Tamamlanan tüm görevler silindi."
   },
   "board_was_deleted": {
-    "de": "Das Board `$` wurde gelöscht."
+    "de": "Das Board `$` wurde gelöscht.",
+    "en": "The board `$` has been deleted.",
+    "bg": "Бордът '$' е изтрит.",
+    "pl": "Tablica '$' została usunięta.",
+    "fr": "Le tableau `$` a été supprimé.",
+    "ru": "Плата '$' была удалена.",
+    "tr": "`$` panosu silindi."
   },
   "board_with_name_doesnt_exist": {
-    "de": "Ein Board mit dem Namen `$` existiert nicht!"
+    "de": "Ein Board mit dem Namen `$` existiert nicht!",
+    "en": "A board with the name `$` does not exist!",
+    "bg": "Платформа с име `$` не съществува!",
+    "pl": "Tablica o nazwie `$` nie istnieje!",
+    "fr": "Une carte portant le nom de `$` n'existe pas !",
+    "ru": "Доска с именем `$` не существует!",
+    "tr": "`$` adında bir pano mevcut değil!"
   },
   "slashcommands_description_group": {
-    "de": "Verwalte Gruppen auf dem Server"
+    "de": "Verwalte Gruppen auf dem Server",
+    "en": "Manage groups on the server",
+    "bg": "Управление на групите в сървъра",
+    "pl": "Zarządzaj grupami na serwerze",
+    "fr": "Gérer les groupes sur le serveur",
+    "ru": "Управление группами на сервере",
+    "tr": "Sunucudaki grupları yönetin"
   },
   "slashcommands_description_group_create": {
-    "de": "Erstelle eine neue Gruppe"
+    "de": "Erstelle eine neue Gruppe",
+    "en": "Create a new group",
+    "bg": "Създаване на нова група",
+    "pl": "Utwórz nową grupę",
+    "fr": "Créer un nouveau groupe",
+    "ru": "Создайте новую группу",
+    "tr": "Yeni bir grup oluştur"
   },
   "slashcommands_description_group_delete": {
-    "de": "Lösche eine Gruppe"
+    "de": "Lösche eine Gruppe",
+    "en": "Delete a group",
+    "bg": "Изтриване на група",
+    "pl": "Usuń grupę",
+    "fr": "Supprimer un groupe",
+    "ru": "Удалить группу",
+    "tr": "Bir grubu sil"
   },
   "slashcommands_description_group_add": {
-    "de": "Füge einen Nutzer zu einer Gruppe hinzu"
+    "de": "Füge einen Nutzer zu einer Gruppe hinzu",
+    "en": "Add a user to a group",
+    "bg": "Добавяне на потребител в група",
+    "pl": "Dodaj użytkownika do grupy",
+    "fr": "Ajouter un utilisateur à un groupe",
+    "ru": "Добавить пользователя в группу",
+    "tr": "Gruba kullanıcı ekleme"
   },
   "slashcommands_description_group_remove": {
-    "de": "Entferne einen Nutzer aus einer Gruppe"
+    "de": "Entferne einen Nutzer aus einer Gruppe",
+    "en": "Remove a user from a group",
+    "bg": "Премахване на потребител от група",
+    "pl": "Usuń użytkownika z grupy",
+    "fr": "Supprimer un utilisateur d'un groupe",
+    "ru": "Удаление пользователя из группы",
+    "tr": "Gruptan bir kullanıcıyı kaldırma"
   },
   "slashcommands_description_group_list": {
-    "de": "Listet alle Gruppen auf dem Server auf"
+    "de": "Listet alle Gruppen auf dem Server auf",
+    "en": "Lists all groups on the server",
+    "bg": "Изброява всички групи на сървъра",
+    "pl": "Wyświetla listę wszystkich grup na serwerze",
+    "fr": "Liste de tous les groupes sur le serveur",
+    "ru": "Перечисляет все группы на сервере",
+    "tr": "Sunucudaki tüm grupları listeler"
   },
   "slashcommands_description_group_members": {
-    "de": "Listet alle Mitglieder einer Gruppe auf"
+    "de": "Listet alle Mitglieder einer Gruppe auf",
+    "en": "Lists all members of a group",
+    "bg": "Изброява всички членове на дадена група",
+    "pl": "Wyświetla listę wszystkich członków grupy",
+    "fr": "Liste de tous les membres d'un groupe",
+    "ru": "Перечисляет всех членов группы",
+    "tr": "Bir grubun tüm üyelerini listeler"
   },
   "slashcommands_description_group_notifications": {
-    "de": "Protokolliere alle Aufgaben einer Gruppe in einem Kanal"
+    "de": "Protokolliere alle Aufgaben einer Gruppe in einem Kanal",
+    "en": "Log all tasks of a group in one channel",
+    "bg": "Регистриране на всички задачи на група в един канал",
+    "pl": "Rejestrowanie wszystkich zadań grupy w jednym kanale",
+    "fr": "Consigner toutes les tâches d'un groupe dans un seul canal",
+    "ru": "Регистрация всех задач группы в одном канале",
+    "tr": "Bir grubun tüm görevlerini tek bir kanalda günlüğe kaydedin"
   },
   "slashcommands_name_of_group_description": {
-    "de": "Name der Gruppe"
+    "de": "Name der Gruppe",
+    "en": "Group name",
+    "bg": "Име на групата",
+    "pl": "Nazwa grupy",
+    "fr": "Nom du groupe",
+    "ru": "Название группы",
+    "tr": "Grubun adı"
   },
   "slashcommands_user_to_be_added_to_group_description": {
-    "de": "Nutzer der einer Gruppe hinzugefügt werden soll"
+    "de": "Nutzer der einer Gruppe hinzugefügt werden soll",
+    "en": "User to be added to a group",
+    "bg": "Потребител, който да бъде добавен в група",
+    "pl": "Użytkownik, który ma zostać dodany do grupy",
+    "fr": "Utilisateur à ajouter à un groupe",
+    "ru": "Пользователь, который должен быть добавлен в группу",
+    "tr": "Gruba eklenecek kullanıcı"
   },
   "slashcommands_user_to_be_removed_from_group_description": {
-    "de": "Nutzer der aus einer Gruppe entfernt werden soll"
+    "de": "Nutzer der aus einer Gruppe entfernt werden soll",
+    "en": "User to be removed from a group",
+    "bg": "Потребител, който да бъде премахнат от група",
+    "pl": "Użytkownik, który ma zostać usunięty z grupy",
+    "fr": "Utilisateur à supprimer d'un groupe",
+    "ru": "Пользователь, который должен быть удален из группы",
+    "tr": "Gruptan çıkarılacak kullanıcı"
   },
   "slashcommands_textchannel_messages_are_send_to_description": {
-    "de": "Textkanal in dem die Nachrichten gesendet werden"
+    "de": "Textkanal in dem die Nachrichten gesendet werden",
+    "en": "Text channel in which the messages are sent",
+    "bg": "Текстов канал, по който се изпращат съобщенията",
+    "pl": "Kanał tekstowy, w którym wysyłane są wiadomości",
+    "fr": "Canal de texte dans lequel les messages sont envoyés",
+    "ru": "Текстовый канал, по которому отправляются сообщения",
+    "tr": "Mesajların gönderildiği metin kanalı"
   },
   "slashcommands_description_task": {
-    "de": "Aufgaben erstellen löschen ändern etc"
+    "de": "Aufgaben erstellen, löschen, ändern, etc",
+    "en": "Create delete modify tasks etc",
+    "bg": "Създаване на задачи за изтриване, модифициране и т.н.",
+    "pl": "Tworzenie usuwanie modyfikowanie zadań itp.",
+    "fr": "Créer, supprimer, modifier des tâches, etc.",
+    "ru": "Создание, удаление, изменение задач и т.д.",
+    "tr": "Oluşturma, silme, görevleri değiştirme vb."
   },
   "slashcommands_description_task_add": {
-    "de": "Aufgaben einem Nutzer hinzufügen"
+    "de": "Aufgaben einem Nutzer hinzufügen",
+    "en": "Add tasks to a user",
+    "bg": "Добавяне на задачи към потребител",
+    "pl": "Dodaj zadania do użytkownika",
+    "fr": "Ajouter des tâches à un utilisateur",
+    "ru": "Добавление задач пользователю",
+    "tr": "Bir kullanıcıya görev ekleme"
   },
   "slashcommands_description_task_proceed": {
-    "de": "Setzt den Status der Aufgabe fort"
+    "de": "Setzt den Status der Aufgabe fort",
+    "en": "Continues the status of the task",
+    "bg": "Продължава състоянието на задачата",
+    "pl": "Kontynuuje status zlecenia",
+    "fr": "Continue le statut de la tâche",
+    "ru": "Продолжение статуса задания",
+    "tr": "Görevin durumunu devam ettirir"
   },
   "slashcommands_user_mention_description": {
-    "de": "Der betroffene Nutzer"
+    "de": "Der betroffene Nutzer",
+    "en": "The affected user",
+    "bg": "Съответният потребител",
+    "pl": "Użytkownik, którego to dotyczy",
+    "fr": "L'utilisateur concerné",
+    "ru": "Соответствующий пользователь",
+    "tr": "Etkilenen kullanıcı"
   },
   "slashcommands_task_text_description": {
-    "de": "Der Text der Aufgabe"
+    "de": "Der Text der Aufgabe",
+    "en": "The text of the task",
+    "bg": "Текстът на задачата",
+    "pl": "Tekst zadania",
+    "fr": "Le texte de la tâche",
+    "ru": "Текст задания",
+    "tr": "Görevin metni"
   },
   "slashcommands_task_id_description": {
-    "de": "ID der Aufgabe"
+    "de": "ID der Aufgabe",
+    "en": "Task ID",
+    "bg": "Идентификатор на задачата",
+    "pl": "Identyfikator zadania",
+    "fr": "ID de la tâche",
+    "ru": "Идентификатор задания",
+    "tr": "görevin kimliği"
   },
   "slashcommands_task_deadline_date_description": {
-    "de": "Datum"
+    "de": "Datum",
+    "en": "Date",
+    "bg": "Дата",
+    "pl": "Data",
+    "fr": "Date",
+    "ru": "Дата",
+    "tr": "tarih"
   },
   "slashcommands_task_deadline_time_description": {
-    "de": "Uhrzeit"
+    "de": "Uhrzeit",
+    "en": "Time",
+    "bg": "Време",
+    "pl": "Czas",
+    "fr": "Temps",
+    "ru": "Время",
+    "tr": "Zaman"
   },
   "slashcommands_description_task_deadline": {
-    "de": "Zeitpunkt bei dem die Aufgabe erledigt sein muss"
+    "de": "Zeitpunkt bei dem die Aufgabe erledigt sein muss",
+    "en": "Time at which the task must be completed",
+    "bg": "Време, в което задачата трябва да бъде изпълнена",
+    "pl": "Czas, w którym zadanie musi zostać wykonane",
+    "fr": "Heure à laquelle la tâche doit être achevée",
+    "ru": "Время, в течение которого задание должно быть выполнено",
+    "tr": "Görevin tamamlanması gereken zaman"
   },
   "slashcommands_description_task_list": {
-    "de": "Alle Aufgaben des Nutzers auflisten"
+    "de": "Alle Aufgaben des Nutzers auflisten",
+    "en": "List all tasks of the user",
+    "bg": "Списък на всички задачи на потребителя",
+    "pl": "Lista wszystkich zadań użytkownika",
+    "fr": "Liste de toutes les tâches de l'utilisateur",
+    "ru": "Список всех задач пользователя",
+    "tr": "Kullanıcının tüm görevlerini listeleyin"
   },
   "slashcommands_description_task_delete": {
-    "de": "Eine Aufgabe unwiderruflich löschen"
+    "de": "Eine Aufgabe unwiderruflich löschen",
+    "en": "Delete a task irrevocably",
+    "bg": "Изтриване на задача безвъзвратно",
+    "pl": "Usuń nieodwracalnie zadanie",
+    "fr": "Supprimer une tâche de manière irrévocable",
+    "ru": "Удалить задачу безвозвратно",
+    "tr": "Bir görevi kalıcı olarak silme"
   },
   "slashcommands_description_task_edit": {
-    "de": "Aufgabentext bearbeiten"
+    "de": "Aufgabentext bearbeiten",
+    "en": "Edit task text",
+    "bg": "Редактиране на текста на задачата",
+    "pl": "Edytuj tekst zadania",
+    "fr": "Modifier le texte de la tâche",
+    "ru": "Редактирование текста задания",
+    "tr": "Ödev metnini düzenleyin"
   },
   "slashcommands_description_task_info": {
-    "de": "Alle Informationen einer Aufgabe"
+    "de": "Alle Informationen einer Aufgabe",
+    "en": "All information of a task",
+    "bg": "Цялата информация за дадена задача",
+    "pl": "Wszystkie informacje o zadaniu",
+    "fr": "Toutes les informations d'une tâche",
+    "ru": "Вся информация о задании",
+    "tr": "Bir görevle ilgili tüm bilgiler"
   },
   "slashcommands_description_task_done": {
-    "de": "Aufgabe direkt als erledigt einordnen"
+    "de": "Aufgabe direkt als erledigt einordnen",
+    "en": "File task directly as done",
+    "bg": "Възлагане на задачата директно като завършена",
+    "pl": "Przypisuj zadania bezpośrednio po ich wykonaniu",
+    "fr": "Attribuer directement la tâche une fois terminée",
+    "ru": "Назначайте задание непосредственно по мере его выполнения",
+    "tr": "Görevi hemen tamamlandı olarak sınıflandırın"
   },
   "slashcommands_description_board": {
-    "de": "Boards erstellen, löschen und wechseln"
+    "de": "Boards erstellen, löschen und wechseln",
+    "en": "Create, delete and change boards",
+    "bg": "Създаване, изтриване и промяна на табла",
+    "pl": "Tworzenie, usuwanie i zmiana tablic",
+    "fr": "Créer, supprimer et modifier des tableaux",
+    "ru": "Создание, удаление и изменение досок",
+    "tr": "Panolar oluşturun, silin ve değiştirin"
   },
   "slashcommands_description_board_switch": {
-    "de": "Board wechseln"
+    "de": "Board wechseln",
+    "en": "Change board",
+    "bg": "Промяна на борда",
+    "pl": "Tablica zmian",
+    "fr": "Panneau de changement",
+    "ru": "Доска объявлений",
+    "tr": "Panoyu değiştir"
   },
   "slashcommands_description_board_create": {
-    "de": "Neues Board erstellen"
+    "de": "Neues Board erstellen",
+    "en": "Create new board",
+    "bg": "Създаване на нов борд",
+    "pl": "Utwórz nową tablicę",
+    "fr": "Créer un nouveau tableau",
+    "ru": "Создать новую доску",
+    "tr": "Yeni bir pano oluştur"
   },
   "slashcommands_description_board_name": {
-    "de": "Name des Boards"
+    "de": "Name des Boards",
+    "en": "Board name",
+    "bg": "Име на съвета",
+    "pl": "Nazwa zarządu",
+    "fr": "Nom de la commission",
+    "ru": "Название правления",
+    "tr": "kurulun adı"
   },
   "slashcommands_description_board_delete": {
-    "de": "Board löschen"
+    "de": "Board löschen",
+    "en": "Delete board",
+    "bg": "Изтриване на борда",
+    "pl": "Usunąć tablicę",
+    "fr": "Supprimer le conseil",
+    "ru": "Удаление доски",
+    "tr": "Tahtayı sil"
   },
   "slashcommands_description_board_list": {
-    "de": "Alle Boards anzeigen"
+    "de": "Alle Boards anzeigen",
+    "en": "Show all boards",
+    "bg": "Покажи всички дъски",
+    "pl": "Pokaż wszystkie tablice",
+    "fr": "Afficher tous les tableaux",
+    "ru": "Показать все доски",
+    "tr": "Tüm panoları göster"
   },
   "slashcommands_description_permission": {
-    "de": "Vergebe oder entferne Nutzern oder Rollen Berechtigungen"
+    "de": "Vergib oder entferne Nutzern oder Rollen Berechtigungen",
+    "en": "Grant or remove permissions to users or roles",
+    "bg": "Предоставяне или премахване на разрешения на потребители или роли",
+    "pl": "Nadawanie i odbieranie uprawnień użytkownikom lub rolom",
+    "fr": "Accorder ou supprimer des autorisations à des utilisateurs ou à des rôles",
+    "ru": "Предоставление или удаление разрешений пользователям или ролям",
+    "tr": "Kullanıcılar veya roller için izinler atayın veya kaldırın"
   },
   "slashcommands_description_permission_add": {
-    "de": "Gewähre einem Nutzer oder eine Rolle eine Berechtigung"
+    "de": "Gewähre einem Nutzer oder eine Rolle eine Berechtigung",
+    "en": "Grant a user or a role a permission",
+    "bg": "Предоставяне на разрешение на потребител или роля",
+    "pl": "Nadawanie uprawnień dla użytkownika lub roli",
+    "fr": "Accorder une permission à un utilisateur ou à un rôle",
+    "ru": "Предоставление разрешения пользователю или роли",
+    "tr": "Bir kullanıcıya veya role izin verme"
   },
   "slashcommands_description_permission_remove": {
-    "de": "Entferne einem Nutzer oder eine Rolle eine Berechtigung"
+    "de": "Entferne einem Nutzer oder eine Rolle eine Berechtigung",
+    "en": "Remove a permission from a user or role",
+    "bg": "Премахване на разрешение от потребител или роля",
+    "pl": "Usuń uprawnienie z użytkownika lub roli",
+    "fr": "Supprimer une autorisation d'un utilisateur ou d'un rôle",
+    "ru": "Удалить разрешение у пользователя или роли",
+    "tr": "Bir kullanıcıdan veya rolden yetkilendirmeyi kaldırma"
   },
   "slashcommands_description_permission_list": {
-    "de": "Zeigt alle Berechtigungen für einen Nutzer oder eine Rolle an"
+    "de": "Zeigt alle Berechtigungen für einen Nutzer oder eine Rolle an",
+    "en": "Displays all permissions for a user or role",
+    "bg": "Показва всички разрешения за даден потребител или роля",
+    "pl": "Wyświetla wszystkie uprawnienia dla użytkownika lub roli",
+    "fr": "Affiche toutes les permissions pour un utilisateur ou un rôle",
+    "ru": "Отображает все разрешения для пользователя или роли",
+    "tr": "Bir kullanıcı veya rol için tüm izinleri gösterir"
   },
   "slashcommands_description_permission_mentionable_description": {
-    "de": "Betroffene Rolle oder betroffener Nutzer"
+    "de": "Betroffene Rolle oder betroffener Nutzer",
+    "en": "Affected role or affected user",
+    "bg": "Засегната роля или засегнат потребител",
+    "pl": "Dotknięta rola lub dotknięty użytkownik",
+    "fr": "Rôle ou utilisateur affecté",
+    "ru": "Затронутая роль или затронутый пользователь",
+    "tr": "Etkilenen rol veya etkilenen kullanıcı"
   },
   "slashcommands_description_permission_permission_description": {
-    "de": "Berechtigung"
+    "de": "Berechtigung",
+    "en": "Permission",
+    "bg": "Оторизация",
+    "pl": "Autoryzacja",
+    "fr": "Autorisation",
+    "ru": "Авторизация",
+    "tr": "yetki"
   },
   "slashcommands_description_settings": {
-    "de": "Einstellungen vornehmen"
+    "de": "Einstellungen vornehmen",
+    "en": "Make settings",
+    "bg": "извършване на настройки",
+    "pl": "dokonywać ustawień",
+    "fr": "faire les réglages",
+    "ru": "выполнить настройки",
+    "tr": "ayarları değiştir"
   },
   "slashcommands_description_settings_direct_message": {
-    "de": "De-/Aktiviert die Direktnachricht bei einer neuen Aufgabe"
+    "de": "De-/Aktiviert die Direktnachricht bei einer neuen Aufgabe",
+    "en": "Disables/enables the direct message when a new task is created",
+    "bg": "Активиране/деактивиране на директното изпращане на съобщения за нова задача",
+    "pl": "Włącza/wyłącza bezpośrednie przesyłanie wiadomości dla nowego zadania",
+    "fr": "Active/désactive la messagerie directe pour une nouvelle tâche",
+    "ru": "Включение/отключение прямой передачи сообщений для нового задания",
+    "tr": "Yeni bir görev için doğrudan mesajı etkinleştirir / devre dışı bırakır"
   },
   "slashcommands_description_settings_notify_channel": {
-    "de": "Ändert den Kanal für Benachrichtigungen bei neuen Aufgaben"
+    "de": "Ändert den Kanal für Benachrichtigungen bei neuen Aufgaben",
+    "en": "Changes the channel for notifications for new tasks",
+    "bg": "Промяна на канала за известия за нови задачи",
+    "pl": "Zmienia kanał dla powiadomień o nowych zadaniach",
+    "fr": "Change le canal pour les notifications de nouvelles tâches",
+    "ru": "Изменение канала для уведомлений о новых задачах",
+    "tr": "Yeni görevlerin bildirimleri için kanalı değiştirir"
   },
   "slashcommands_description_settings_channel": {
-    "de": "Channel"
+    "de": "Kanal",
+    "en": "Channel",
+    "bg": "Канал",
+    "pl": "Kanał",
+    "fr": "Chaîne",
+    "ru": "Канал",
+    "tr": "kanal"
   },
   "slashcommands_description_settings_notifications": {
-    "de": "Ändert den Kanal für die Aufgabenprotokollierung"
+    "de": "Ändert den Kanal für die Aufgabenprotokollierung",
+    "en": "Changes the channel for task logging",
+    "bg": "Промяна на канала за регистриране на задачи",
+    "pl": "Zmienia kanał dla rejestrowania zadań",
+    "fr": "Change le canal pour l'enregistrement des tâches",
+    "ru": "Изменение канала для регистрации заданий",
+    "tr": "Görev günlüğü kanalını değiştirir"
   },
   "slashcommands_description_settings_user": {
-    "de": "User"
+    "de": "Nutzer",
+    "en": "User",
+    "bg": "Потребители",
+    "pl": "Użytkownicy",
+    "fr": "Utilisateurs",
+    "ru": "Пользователи",
+    "tr": "Kullanıcılar"
   },
   "slashcommands_description_help": {
-    "de": "Listet alle Befehle auf"
+    "de": "Listet alle Befehle auf",
+    "en": "Lists all commands",
+    "bg": "Изброява всички команди",
+    "pl": "Wyświetla listę wszystkich poleceń",
+    "fr": "Liste de toutes les commandes",
+    "ru": "Перечисляет все команды",
+    "tr": "Tüm komutları listeler"
   },
   "slashcommands_description_help_command": {
-    "de": "Ein Befehl für weitere Hilfe"
+    "de": "Ein Befehl für weitere Hilfe",
+    "en": "A command for further help",
+    "bg": "Команда за допълнителна помощ",
+    "pl": "Polecenie do uzyskania dalszej pomocy",
+    "fr": "Une commande pour une aide supplémentaire",
+    "ru": "Команда для получения дополнительной помощи",
+    "tr": "Daha fazla yardım için bir komut"
   },
   "slashcommands_description_app": {
-    "de": "Sendet einen Link zur Android- und Web-App"
+    "de": "Sendet einen Link zur Android- und Web-App",
+    "en": "Sends a link to the Android and web app",
+    "bg": "Изпращане на връзка към приложението за Android и уеб приложението",
+    "pl": "Wysyła łącze do aplikacji Android i Web",
+    "fr": "Envoi d'un lien vers l'application Android et Web",
+    "ru": "Отправляет ссылку на приложение для Android и веб-приложение",
+    "tr": "Android ve web uygulamasına bir bağlantı gönderir"
   },
   "slashcommands_description_data": {
-    "de": "Sendet dir alle Daten, die der Bot von dir auf einem Server hat"
+    "de": "Sendet dir alle Daten, die der Bot von dir auf einem Server hat",
+    "en": "Sends you all the data that the bot has from you on a server",
+    "bg": "Изпраща ви всички данни, които ботът има от вас на сървъра.",
+    "pl": "Wysyła Ci wszystkie dane, które bot ma od Ciebie na serwerze",
+    "fr": "Vous envoie toutes les données que le bot possède de vous sur un serveur.",
+    "ru": "Отправляет вам все данные, которые бот получил от вас на сервере.",
+    "tr": "Botun sizden aldığı tüm verileri bir sunucuda size gönderir"
   },
   "slashcommands_description_invite": {
-    "de": "Sendet den Einladungslink für den Bot"
+    "de": "Sendet den Einladungslink für den Bot",
+    "en": "Sends the invitation link for the bot",
+    "bg": "Изпращане на връзката за покана за бота",
+    "pl": "Wysyła link do zaproszenia dla bota",
+    "fr": "Envoie le lien d'invitation pour le bot",
+    "ru": "Отправляет пригласительную ссылку для бота",
+    "tr": "Bot için davet bağlantısını gönderir"
   },
   "slashcommands_description_language": {
-    "de": "Ändere die Sprache für den Bot"
+    "de": "Ändere die Sprache für den Bot",
+    "en": "Change the language for the bot",
+    "bg": "Промяна на езика за бота",
+    "pl": "Zmiana języka dla bota",
+    "fr": "Modifier la langue du robot",
+    "ru": "Изменить язык для бота",
+    "tr": "Botun dilini değiştirin"
   },
   "slashcommands_description_prefix": {
-    "de": "Ändere den Prefix des Bots"
+    "de": "Ändere den Präfix des Bots",
+    "en": "Change the prefix of the bot",
+    "bg": "Промяна на префикса на бота",
+    "pl": "Zmiana prefiksu bota",
+    "fr": "Modifier le préfixe du bot",
+    "ru": "Изменить префикс бота",
+    "tr": "Botun önekini değiştir"
   },
   "slashcommands_description_search": {
-    "de": "Suche nach einer Aufgabe, Gruppe oder Ähnliches"
+    "de": "Suche nach einer Aufgabe, Gruppe oder Ähnlichem",
+    "en": "Search for a task, group or similar",
+    "bg": "Търсене на задача, група или подобно нещо",
+    "pl": "Wyszukiwanie zadania, grupy lub podobnego elementu",
+    "fr": "Recherche d'une tâche, d'un groupe ou d'un élément similaire",
+    "ru": "Поиск задачи, группы или аналогичного объекта",
+    "tr": "Bir görev, grup veya benzerini arayın"
   },
   "slashcommands_description_stats": {
-    "de": "Sendet Statistiken des Bots"
+    "de": "Sendet Statistiken des Bots",
+    "en": "Sends statistics of the bot",
+    "bg": "Изпраща статистически данни за бота",
+    "pl": "Wysyła statystyki bota",
+    "fr": "Envoie les statistiques du bot",
+    "ru": "Отправляет статистику бота",
+    "tr": "Botun istatistiklerini gönderir"
   },
   "slashcommands_description_support": {
-    "de": "Sendet den Link für den bnder Discord-Server"
+    "de": "Sendet den Link für den bnder Discord-Server",
+    "en": "Sends the link for the bnder Discord server",
+    "bg": "Изпраща линк за сървъра на bnder Discord",
+    "pl": "Wysyła link do serwera Discord bnder",
+    "fr": "Envoie le lien pour le serveur Discord de bnder",
+    "ru": "Отправляет ссылку для сервера bnder Discord",
+    "tr": "Bnder Discord sunucusunun bağlantısını gönderir"
   },
   "slashcommands_description_token": {
-    "de": "Sendet den Token für die Web- oder Android-App"
+    "de": "Sendet den Token für die Web- oder Android-App",
+    "en": "Sends the token for the web or Android app",
+    "bg": "Изпращане на токена за уеб приложението или приложението за Android",
+    "pl": "Wysyła token dla strony internetowej lub aplikacji na Androida",
+    "fr": "Envoi du jeton pour le web ou l'application Android",
+    "ru": "Отправляет маркер для веб-приложения или приложения Android",
+    "tr": "Web veya Android uygulaması için belirteci gönderir"
   },
   "slashcommands_description_version": {
-    "de": "Zeigt die aktuelle Versionsnummer des Bots an"
+    "de": "Zeigt die aktuelle Versionsnummer des Bots an",
+    "en": "Displays the current version number of the bot",
+    "bg": "Показва номера на текущата версия на бота",
+    "pl": "Wyświetla aktualny numer wersji bota",
+    "fr": "Affiche le numéro de la version actuelle du bot",
+    "ru": "Отображает номер текущей версии бота",
+    "tr": "Botun geçerli sürüm numarasını görüntüler"
   }
 }

@@ -59,31 +59,18 @@ public class CommandListener extends ListenerAdapter {
 
     public void onSlashCommand(SlashCommandEvent event) {
         final String commandName = event.getName();
-        final String arg0 = event.getSubcommandName();
+        final String arg0 = " " + (event.getSubcommandName() != null ? event.getSubcommandName() : "");
         final List<OptionMapping> options = event.getOptions();
         if (!event.getUser().isBot()) {
-            StringBuilder msg = new StringBuilder("-" + commandName + " " + arg0);
+            StringBuilder msg = new StringBuilder("-" + commandName + arg0);
             for (OptionMapping option : options) {
                 msg.append(" ");
                 switch (option.getType()) {
-                    case CHANNEL:
-                        msg.append("<#" + option.getAsGuildChannel().getId() + ">");
-                        break;
-                    case STRING:
-                    case INTEGER:
-                    case BOOLEAN:
-                    case SUB_COMMAND:
-                        msg.append(option.getAsString());
-                        break;
-                    case USER:
-                        msg.append("<@!" + option.getAsUser().getId() + ">");
-                        break;
-                    case ROLE:
-                        msg.append("<@&" + option.getAsRole().getId() + ">");
-                        break;
-                    case MENTIONABLE:
-                        msg.append(option.getAsMentionable().getAsMention());
-                        break;
+                    case CHANNEL -> msg.append("<#").append(option.getAsGuildChannel().getId()).append(">");
+                    case STRING, INTEGER, BOOLEAN, SUB_COMMAND -> msg.append(option.getAsString());
+                    case USER -> msg.append("<@!").append(option.getAsUser().getId()).append(">");
+                    case ROLE -> msg.append("<@&").append(option.getAsRole().getId()).append(">");
+                    case MENTIONABLE -> msg.append(option.getAsMentionable().getAsMention());
                 }
             }
             while (msg.toString().contains("  ")) {

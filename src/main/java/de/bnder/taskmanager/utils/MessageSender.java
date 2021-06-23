@@ -79,9 +79,9 @@ public class MessageSender {
         builder.setTimestamp(Calendar.getInstance().toInstant());
         if (red != Color.red && showAd) setAdFooter(builder, langCode);
         if (slashCommandEvent == null) {
-            msg.getChannel().sendMessage(builder.build()).queue();
+            msg.getChannel().sendMessageEmbeds(builder.build()).queue();
         } else {
-            slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
+            slashCommandEvent.reply("**" + title + "**\n" + textNow).complete();
         }
         try {
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
@@ -119,7 +119,7 @@ public class MessageSender {
         if (slashCommandEvent == null) {
             textChannel.sendMessageEmbeds(builder.build()).queue();
         } else {
-            slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
+            slashCommandEvent.reply("**" + title + "**\n" + textNow).complete();
         }
         try {
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
