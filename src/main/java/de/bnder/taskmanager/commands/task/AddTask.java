@@ -13,7 +13,6 @@ import de.bnder.taskmanager.utils.permissions.TaskPermission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.User;
 
 import java.awt.*;
 import java.io.IOException;
@@ -67,15 +66,10 @@ public class AddTask {
                             final String id = value.asObject().getString("user_id", null);
                             if (id != null) {
                                 try {
-                                    final User user = member.getJDA().retrieveUserById(id).complete();
-                                    if (user != null) {
-                                        if (member.getGuild().isMember(user)) {
-                                            if (member.getGuild().retrieveMemberById(id).complete() != null) {
-                                                final Member groupMember = member.getGuild().retrieveMemberById(id).complete();
-                                                usersWhoReceivedTheTaskAmount++;
-                                                sendTaskMessage(groupMember, member, taskObject.getId(), langCode, task);
-                                            }
-                                        }
+                                    if (member.getGuild().retrieveMemberById(id).complete() != null) {
+                                        final Member groupMember = member.getGuild().retrieveMemberById(id).complete();
+                                        usersWhoReceivedTheTaskAmount++;
+                                        sendTaskMessage(groupMember, member, taskObject.getId(), langCode, task);
                                     }
                                 } catch (Exception ignored) {
                                 }
