@@ -99,7 +99,7 @@ public class Task {
         this.type = TaskType.USER;
         this.holder = member.getId();
         try {
-            final Document a = Main.tmbAPI("task/user/" + guild.getId(), null, Method.POST).data("task_text", text).data("deadline", deadline != null ? deadline : "").post();
+            final Document a = Main.tmbAPI("task/user/" + guild.getId(), member.getId(), Method.POST).data("task_text", text).data("deadline", deadline != null ? deadline : "").post();
             final String jsonResponse = a.body().text();
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
             setStatusCode(200);
