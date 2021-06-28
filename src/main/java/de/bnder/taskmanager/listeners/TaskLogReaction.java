@@ -48,7 +48,7 @@ public class TaskLogReaction extends ListenerAdapter {
                         }
                     }
                 }
-            } catch (ErrorResponseException ignored) {
+            } catch (Exception ignored) {
             }
         }
     }
