@@ -39,7 +39,7 @@ public class TaskInfo {
                 builder.addField(Localizations.getString("task_info_field_assigned", langCode), task.getHolder(), true);
             }
             builder.addField(Localizations.getString("task_info_field_task", langCode), task.getText(), false);
-            textChannel.sendMessage(builder.build()).queue();
+            textChannel.sendMessageEmbeds(builder.build()).queue();
         } else {
             MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
                 {

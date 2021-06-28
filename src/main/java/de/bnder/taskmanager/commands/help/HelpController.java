@@ -51,7 +51,7 @@ public class HelpController implements Command {
             embed.addField(advancedHelpEmbedFieldTitleCommand, event.getMessage().getContentRaw().charAt(0) + Localizations.getString(localizationsSourceString + "_usage", langCode), true);
             embed.addField(advancedHelpEmbedFieldTitleExample, event.getMessage().getContentRaw().charAt(0) + Localizations.getString(localizationsSourceString + "_example", langCode), true);
             embed.addField(advancedHelpEmbedFieldTitleDescription, Localizations.getString(localizationsSourceString + "_description", langCode), false);
-            event.getChannel().sendMessage(embed.build()).queue();
+            event.getChannel().sendMessageEmbeds(embed.build()).queue();
         } else {
             MessageSender.send(Localizations.getString("help_message_title", langCode), Localizations.getString("advanced_help_command_not_supported", langCode), event.getMessage(), Color.red, langCode);
         }

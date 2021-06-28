@@ -77,7 +77,7 @@ public class MessageSender {
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
         if (red != Color.red && showAd) setAdFooter(builder, langCode);
-        msg.getChannel().sendMessage(builder.build()).queue();
+        msg.getChannel().sendMessageEmbeds(builder.build()).queue();
         try {
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
         } catch (Exception ignored) {}
@@ -110,7 +110,7 @@ public class MessageSender {
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
         if (red != Color.red && showAd) setAdFooter(builder, langCode);
-        textChannel.sendMessage(builder.build()).queue();
+        textChannel.sendMessageEmbeds(builder.build()).queue();
         try {
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
         } catch (IOException e) {

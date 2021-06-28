@@ -94,7 +94,7 @@ public class TaskController implements Command {
                 builder.setDescription(Localizations.getString("typo_description", langCode));
                 builder.addField(Localizations.getString("typo_field_command_name", langCode), possibleCommands.substring(0, possibleCommands.length() - 1), true);
                 builder.addField(Localizations.getString("typo_field_user_name", langCode), message.getAuthor().getAsTag(), true);
-                final Message message1 = message.getChannel().sendMessage(builder.build()).complete();
+                final Message message1 = message.getChannel().sendMessageEmbeds(builder.build()).complete();
                 message1.addReaction("✅").and(message1.addReaction("❌")).queue();
             } else {
                 final String embedTitle = Localizations.getString("task_message_title", langCode);

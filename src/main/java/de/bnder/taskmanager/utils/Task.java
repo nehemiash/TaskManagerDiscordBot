@@ -14,7 +14,6 @@ import org.jsoup.nodes.Document;
 
 import java.awt.*;
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.util.Objects;
 
 public class Task {
@@ -99,11 +98,11 @@ public class Task {
         this.type = TaskType.USER;
         this.holder = member.getId();
         try {
-            final Document a = Main.tmbAPI("task/user/" + guild.getId(), member.getId(), Method.POST).data("task_text", text).data("deadline", deadline != null ? deadline : "").post();
-            final String jsonResponse = a.body().text();
+            final Response response = Main.tmbAPI("task/user/" + guild.getId(), member.getId(), Method.POST).data("task_text", text).data("deadline", deadline != null ? deadline : "").execute();
+            final String jsonResponse = response.body();
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
             setStatusCode(200);
-            setResponseMessage(a.body().text());
+            setResponseMessage(response.body());
             this.id = jsonObject.getString("id", null);
             this.activeBoardName = jsonObject.getString("board", null);
             this.newLanguageSuggestion = jsonObject.get("new_language_suggestion").isNull() ? null : jsonObject.getString("new_language_suggestion", null);
@@ -124,7 +123,7 @@ public class Task {
                             builder.addField(Localizations.getString("task_info_field_deadline", langCode), (deadline != null) ? deadline : "---", true);
                             builder.addField(Localizations.getString("task_info_field_id", langCode), id, true);
                             builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
-                            final Message message = guild.getTextChannelById(channel).sendMessage(builder.build()).complete();
+                            final Message message = guild.getTextChannelById(channel).sendMessageEmbeds(builder.build()).complete();
                             Main.tmbAPI("task/user/set-notify-channel-message-id/" + guild.getId() + "/" + this.id, holder, Method.POST).data("notify_channel_message_id", message.getId()).execute();
                             message.addReaction("↩️").queue();
                             message.addReaction("⏭️").queue();
@@ -134,9 +133,6 @@ public class Task {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } catch (SocketTimeoutException e) {
-            setStatusCode(504);
-            e.printStackTrace();
         } catch (Exception e) {
             setStatusCode(-1);
             e.printStackTrace();
@@ -150,11 +146,11 @@ public class Task {
         this.type = TaskType.GROUP;
         this.holder = holder;
         try {
-            final Document a = Main.tmbAPI("task/group/" + guild.getId() + "/" + holder, commandProcessor.getId(), Method.POST).data("task_text", text).data("deadline", deadline != null ? deadline : "").post();
-            final String jsonResponse = a.body().text();
+            final Response a = Main.tmbAPI("task/group/" + guild.getId() + "/" + holder, commandProcessor.getId(), Method.POST).data("task_text", text).data("deadline", deadline != null ? deadline : "").execute();
+            final String jsonResponse = a.body();
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
             setStatusCode(200);
-            setResponseMessage(a.body().text());
+            setResponseMessage(a.body());
             this.id = jsonObject.getString("id", null);
 
 
@@ -172,7 +168,7 @@ public class Task {
                         builder.addField(Localizations.getString("task_info_field_deadline", langCode), (deadline != null) ? deadline : "---", true);
                         builder.addField(Localizations.getString("task_info_field_id", langCode), id, true);
                         builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
-                        final Message message = guild.getTextChannelById(channel).sendMessage(builder.build()).complete();
+                        final Message message = guild.getTextChannelById(channel).sendMessageEmbeds(builder.build()).complete();
                         Main.tmbAPI("task/group/set-notify-channel-message-id/" + guild.getId() + "/" + this.id, null, Method.POST).data("notify_channel_message_id", message.getId()).execute();
                         message.addReaction("↩️").queue();
                         message.addReaction("⏭️").queue();
@@ -282,7 +278,7 @@ public class Task {
                             }
                         }
                     }
-                    message.editMessage(newEmbed.build()).queue();
+                    message.editMessageEmbeds(newEmbed.build()).queue();
                 }
             }
         }

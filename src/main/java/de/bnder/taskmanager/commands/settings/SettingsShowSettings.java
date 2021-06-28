@@ -32,7 +32,7 @@ public class SettingsShowSettings {
             embedBuilder.addField(Localizations.getString("settings_list_notify_channel", langCode), "---", false);
         }
         embedBuilder.setDescription(Localizations.getString("settings_invalid_arg", langCode));
-        textChannel.sendMessage(embedBuilder.build()).queue();
+        textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
     }
 
 }

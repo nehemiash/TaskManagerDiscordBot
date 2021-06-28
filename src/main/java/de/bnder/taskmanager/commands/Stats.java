@@ -41,6 +41,6 @@ public class Stats implements Command {
         }
         builder.setColor(Color.green);
         builder.setTitle(Localizations.getString("stats_message_title", langCode));
-        event.getChannel().sendMessage(builder.build()).queue();
+        event.getChannel().sendMessageEmbeds(builder.build()).queue();
     }
 }

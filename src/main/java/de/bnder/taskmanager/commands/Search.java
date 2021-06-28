@@ -78,7 +78,7 @@ public class Search implements Command {
                             }
                             builder.addField(Localizations.getString("task_info_field_task", langCode), task.getText(), false);
                             builder.addField(Localizations.getString("task_info_field_id", langCode), taskID, false);
-                            event.getChannel().sendMessage(builder.build()).queue();
+                            event.getChannel().sendMessageEmbeds(builder.build()).queue();
                             tasksResultArrayIterations++;
                         } else {
                             MessageSender.send(embedTitle, Localizations.getString("search_results_hidden_text", langCode), event.getChannel(), Color.red, langCode);
@@ -118,7 +118,7 @@ public class Search implements Command {
                             builder.setDescription(Localizations.getString("search_result_group_description", langCode));
                             builder.addField(Localizations.getString("search_group_name_field", langCode), groupName, true);
 
-                            event.getChannel().sendMessage(builder.build()).queue();
+                            event.getChannel().sendMessageEmbeds(builder.build()).queue();
                             groupsResultArrayIterations++;
                         } else {
                             MessageSender.send(embedTitle, Localizations.getString("search_results_hidden_text", langCode), event.getChannel(), Color.red, langCode);
