@@ -21,7 +21,6 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.Calendar;
 
 public class MessageSender {
@@ -77,10 +76,11 @@ public class MessageSender {
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
         if (red != Color.red && showAd) setAdFooter(builder, langCode);
-        msg.getChannel().sendMessageEmbeds(builder.build()).queue();
         try {
+            msg.getChannel().sendMessageEmbeds(builder.build()).queue();
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     private static void setAdFooter(EmbedBuilder builder, String langCode) {
@@ -110,11 +110,10 @@ public class MessageSender {
         builder.setColor(red);
         builder.setTimestamp(Calendar.getInstance().toInstant());
         if (red != Color.red && showAd) setAdFooter(builder, langCode);
-        textChannel.sendMessageEmbeds(builder.build()).queue();
         try {
+            textChannel.sendMessageEmbeds(builder.build()).queue();
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
         }
     }
 }

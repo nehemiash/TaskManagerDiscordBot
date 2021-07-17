@@ -11,7 +11,7 @@ public class CommandParser {
 
         String beheaded = raw.substring(1);
         String[] splitBeheaded = beheaded.split(" ");
-        String invoke = splitBeheaded[0];
+        String invoke = splitBeheaded[0].toLowerCase();
         ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
         String[] args = new String[split.size() - 1];
         split.subList(1, split.size()).toArray(args);

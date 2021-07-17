@@ -121,8 +121,7 @@ public class AddTask {
                     }
                 })).queue();
                 channel.sendMessage(URLDecoder.decode(task, StandardCharsets.UTF_8.toString())).queue();
-            } catch (Exception ignored) {
-            }
+            } catch (Exception ignored) {}
         } else if (!settings.get("notify_channel").isNull()) {
             final TextChannel channel = author.getGuild().getTextChannelById(settings.getString("notify_channel", ""));
             if (channel != null) {
