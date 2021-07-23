@@ -1,17 +1,19 @@
 package de.bnder.taskmanager.commands.settings;
 
 import com.eclipsesource.json.JsonObject;
+import de.bnder.taskmanager.commands.Stats;
 import de.bnder.taskmanager.utils.Localizations;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
 import java.util.Calendar;
 
 public class SettingsShowSettings {
 
-    public static void set(Member member, TextChannel textChannel) {
+    public static void set(Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("settings_title", langCode);
         final JsonObject userSettings = de.bnder.taskmanager.utils.Settings.getUserSettings(member);
@@ -32,7 +34,7 @@ public class SettingsShowSettings {
             embedBuilder.addField(Localizations.getString("settings_list_notify_channel", langCode), "---", false);
         }
         embedBuilder.setDescription(Localizations.getString("settings_invalid_arg", langCode));
-        textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
+        Stats.handleEmbedsOnSlashCommand(textChannel, slashCommandEvent, embedBuilder);
     }
 
 }

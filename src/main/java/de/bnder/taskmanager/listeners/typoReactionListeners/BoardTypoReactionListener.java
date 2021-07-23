@@ -44,7 +44,7 @@ public class BoardTypoReactionListener extends ListenerAdapter {
                                     processGroupCommand(args, event.getMember(), command, event.getChannel());
                                 } catch (IOException e) {
                                     final String langCode = Localizations.getGuildLanguage(event.getGuild());
-                                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode);
+                                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode, null);
                                 }
                             } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
                                 try {
@@ -63,15 +63,15 @@ public class BoardTypoReactionListener extends ListenerAdapter {
     void processGroupCommand(String[] args, Member member, String commandRaw, TextChannel channel) throws IOException {
         if (args.length > 1) {
             if (args[0].equalsIgnoreCase("create")) {
-                CreateBoard.createBoard(args[1], channel, member);
+                CreateBoard.createBoard(args[1], channel, member, null);
             } else if (args[0].equalsIgnoreCase("switch")) {
-                SwitchBoard.switchBoard(args[1], member, channel);
+                SwitchBoard.switchBoard(args[1], member, channel, null);
             } else if (args[0].equalsIgnoreCase("delete")) {
-                DeleteBoard.deleteBoard(member, channel, args[1]);
+                DeleteBoard.deleteBoard(member, channel, args[1], null);
             }
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("list")) {
-                BoardList.getBoardList(member, channel, String.valueOf(commandRaw.charAt(0)));
+                BoardList.getBoardList(member, channel, String.valueOf(commandRaw.charAt(0)), null);
             }
         }
     }

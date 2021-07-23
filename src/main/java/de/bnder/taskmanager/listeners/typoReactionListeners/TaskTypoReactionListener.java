@@ -39,7 +39,7 @@ public class TaskTypoReactionListener extends ListenerAdapter {
                                     processTaskCommand(args, event.getMember(), command, event.getChannel());
                                 } catch (IOException e) {
                                     final String langCode = Localizations.getGuildLanguage(event.getGuild());
-                                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode);
+                                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode, null);
                                 }
                             } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
                                 try {
@@ -118,29 +118,29 @@ public class TaskTypoReactionListener extends ListenerAdapter {
     void processTaskCommand(String[] args, Member member, String commandRaw, TextChannel channel) throws IOException {
         if (args.length >= 3) {
             if (args[0].equalsIgnoreCase("add")) {
-                AddTask.addTask(commandRaw, member, getMentionedMembers(commandRaw, member.getGuild()), channel, args);
+                AddTask.addTask(commandRaw, member, getMentionedMembers(commandRaw, member.getGuild()), channel, args, null);
             } else if (args[0].equalsIgnoreCase("edit")) {
-                EditTask.editTask(commandRaw, member, channel, args);
+                EditTask.editTask(commandRaw, member, channel, args, null);
             } else if (args[0].equalsIgnoreCase("deadline")) {
-                SetDeadline.setDeadline(member, channel, args);
+                SetDeadline.setDeadline(member, channel, args, null);
             }
         } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("list")) {
-                ListTasksFromOthers.listTasks(member, getMentionedMembers(commandRaw, member.getGuild()), channel, args);
+                ListTasksFromOthers.listTasks(member, getMentionedMembers(commandRaw, member.getGuild()), channel, args, null);
             } else if (args[0].equalsIgnoreCase("delete")) {
-                DeleteTask.deleteTask(member, channel, args);
+                DeleteTask.deleteTask(member, channel, args, null);
             } else if (args[0].equalsIgnoreCase("done")) {
-                DeleteTask.deleteTask(member, channel, args);
+                DeleteTask.deleteTask(member, channel, args, null);
             } else if (args[0].equalsIgnoreCase("proceed")) {
-                ProceedTask.proceedTask(member, channel, args);
+                ProceedTask.proceedTask(member, channel, args, null);
             } else if (args[0].equalsIgnoreCase("undo")) {
-                UndoTask.undoTask(member, channel, args);
+                UndoTask.undoTask(member, channel, args, null);
             } else if (args[0].equalsIgnoreCase("info")) {
-                TaskInfo.taskInfo(member, channel, args);
+                TaskInfo.taskInfo(member, channel, args, null);
             }
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("list")) {
-                SelfTaskList.selfTaskList(member, channel);
+                SelfTaskList.selfTaskList(member, channel, null);
             }
         }
     }

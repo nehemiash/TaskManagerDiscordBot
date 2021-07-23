@@ -42,7 +42,7 @@ public class PermissionTypoReactionListener extends ListenerAdapter {
                                     processPermissionCommand(args, event.getMember(), command, event.getChannel());
                                 } catch (IOException e) {
                                     final String langCode = Localizations.getGuildLanguage(event.getGuild());
-                                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode);
+                                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode, null);
                                 }
                             } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
                                 try {
@@ -61,13 +61,13 @@ public class PermissionTypoReactionListener extends ListenerAdapter {
     void processPermissionCommand(String[] args, Member member, String commandRaw, TextChannel channel) throws IOException {
         if (args.length == 3) {
             if (args[0].equalsIgnoreCase("add")) {
-                AddPermission.addPermission(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()), getMentionedRoles(commandRaw, member.getGuild()));
+                AddPermission.addPermission(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()), getMentionedRoles(commandRaw, member.getGuild()), null);
             } else if (args[0].equalsIgnoreCase("remove")) {
-                RemovePermission.removePermission(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()), getMentionedRoles(commandRaw, member.getGuild()));
+                RemovePermission.removePermission(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()), getMentionedRoles(commandRaw, member.getGuild()), null);
             }
         } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("list")) {
-                ListUsersOrRolesPermissions.listUsersOrRolesPermissions(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()), getMentionedRoles(commandRaw, member.getGuild()));
+                ListUsersOrRolesPermissions.listUsersOrRolesPermissions(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()), getMentionedRoles(commandRaw, member.getGuild()), null);
             }
         }
     }

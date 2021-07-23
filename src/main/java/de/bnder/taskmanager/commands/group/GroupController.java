@@ -5,16 +5,20 @@ import de.bnder.taskmanager.utils.LevenshteinDistance;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GroupController implements Command {
 
-    final ArrayList<String> commandArgs = new ArrayList<String>() {{
+    final ArrayList<String> commandArgs = new ArrayList<>() {{
         add("create");
         add("delete");
         add("members");
@@ -26,43 +30,43 @@ public class GroupController implements Command {
     }};
 
     @Override
-    public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
+    public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
         if (args.length > 1) {
             if (args[0].equalsIgnoreCase("create")) {
-                CreateGroup.createGroup(event.getMember(), event.getChannel(), args);
+                CreateGroup.createGroup(commandExecutor, textChannel, args, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("delete")) {
-                DeleteGroup.deleteGroup(event.getMember(), event.getChannel(), args);
+                DeleteGroup.deleteGroup(commandExecutor, textChannel, args, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("members")) {
-                GroupMembers.getGroupMembers(event.getMember(), event.getChannel(), args);
+                GroupMembers.getGroupMembers(commandExecutor, textChannel, args, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("add")) {
-                AddGroupMember.addGroupMember(event.getMember(), event.getChannel(), args, event.getMessage().getMentionedMembers());
+                AddGroupMember.addGroupMember(commandExecutor, textChannel, args, mentionedMembers, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem")) {
-                RemoveGroupMember.removeGroupMember(event.getMember(), event.getChannel(), args, event.getMessage().getMentionedMembers());
+                RemoveGroupMember.removeGroupMember(commandExecutor, textChannel, args, mentionedMembers, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("notifications")) {
-                GroupNotifications.setGroupNotifications(event.getMember(), event.getChannel(), args, event.getMessage().getMentionedChannels());
+                GroupNotifications.setGroupNotifications(commandExecutor, textChannel, args, mentionedChannels, slashCommandEvent);
             } else {
-                checkIfTypo(args, event.getMessage());
+                checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
             }
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("list")) {
-                GroupList.getGroupList(event.getMember(), event.getChannel());
+                GroupList.getGroupList(commandExecutor, textChannel, slashCommandEvent);
             } else {
-                checkIfTypo(args, event.getMessage());
+                checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
             }
         } else {
-            checkIfTypo(args, event.getMessage());
+            checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
         }
     }
 
-    void checkIfTypo(String[] args, Message message) {
-        final String langCode = Localizations.getGuildLanguage(message.getGuild());
+    void checkIfTypo(String[] args, String messageContentRaw, Guild guild, TextChannel textChannel, Member commandExecutor, SlashCommandEvent slashCommandEvent) {
+        final String langCode = Localizations.getGuildLanguage(guild);
         if (args.length > 0) {
             final String userArg1 = args[0];
             final StringBuilder possibleCommands = new StringBuilder();
             for (String commandArg : commandArgs) {
                 final int distance = LevenshteinDistance.levenshteinDistance(commandArg, userArg1);
                 if (distance <= 2 && distance != 0) {
-                    final StringBuilder correctedMessage = new StringBuilder().append(message.getContentRaw().split(" ")[0]).append(" ");
+                    final StringBuilder correctedMessage = new StringBuilder().append(messageContentRaw.split(" ")[0]).append(" ");
                     correctedMessage.append(commandArg).append(" ");
                     for (int i = 1; i < args.length; i++) {
                         correctedMessage.append(args[i]).append(" ");
@@ -78,13 +82,13 @@ public class GroupController implements Command {
                 builder.setTitle(Localizations.getString("typo_title", langCode));
                 builder.setDescription(Localizations.getString("typo_description", langCode));
                 builder.addField(Localizations.getString("typo_field_command_name", langCode), possibleCommands.substring(0, possibleCommands.length() - 1), true);
-                builder.addField(Localizations.getString("typo_field_user_name", langCode), message.getAuthor().getAsTag(), true);
-                message.getChannel().sendMessageEmbeds(builder.build()).queue(message1 -> {
+                builder.addField(Localizations.getString("typo_field_user_name", langCode), commandExecutor.getUser().getAsTag(), true);
+                textChannel.sendMessageEmbeds(builder.build()).queue(message1 -> {
                     message1.addReaction("✅").and(message1.addReaction("❌")).queue();
                 });
             } else {
                 final String embedTitle = Localizations.getString("group_title", langCode);
-                final String prefix = String.valueOf(message.getContentRaw().charAt(0));
+                final String prefix = String.valueOf(messageContentRaw.charAt(0));
                 MessageSender.send(embedTitle, Localizations.getString("help_message_group_commands", langCode, new ArrayList<String>() {{
                     add(prefix);
                     add(prefix);
@@ -93,11 +97,11 @@ public class GroupController implements Command {
                     add(prefix);
                     add(prefix);
                     add(prefix);
-                }}), message, Color.red, langCode);
+                }}), textChannel, Color.red, langCode, null);
             }
         } else {
             final String embedTitle = Localizations.getString("group_title", langCode);
-            final String prefix = String.valueOf(message.getContentRaw().charAt(0));
+            final String prefix = String.valueOf(messageContentRaw.charAt(0));
             MessageSender.send(embedTitle, Localizations.getString("help_message_group_commands", langCode, new ArrayList<String>() {{
                 add(prefix);
                 add(prefix);
@@ -106,7 +110,7 @@ public class GroupController implements Command {
                 add(prefix);
                 add(prefix);
                 add(prefix);
-            }}), message, Color.red, langCode);
+            }}), textChannel, Color.red, langCode, null);
         }
     }
 }

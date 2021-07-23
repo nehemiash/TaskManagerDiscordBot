@@ -80,10 +80,9 @@ public class MessageSender {
         if (slashCommandEvent == null) {
             msg.getChannel().sendMessageEmbeds(builder.build()).queue();
         } else {
-            slashCommandEvent.reply("**" + title + "**\n" + textNow).complete();
+            slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
         }
         try {
-            msg.getChannel().sendMessageEmbeds(builder.build()).queue();
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
         } catch (Exception ignored) {
         }
@@ -119,10 +118,9 @@ public class MessageSender {
         if (slashCommandEvent == null) {
             textChannel.sendMessageEmbeds(builder.build()).queue();
         } else {
-            slashCommandEvent.reply("**" + title + "**\n" + textNow).complete();
+            slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
         }
         try {
-            textChannel.sendMessageEmbeds(builder.build()).queue();
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
         } catch (Exception ignored) {
         }
