@@ -29,7 +29,6 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
-import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
@@ -64,8 +63,10 @@ public class Main {
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createLight(dotenv.get("BOT_TOKEN"),
                 Arrays.asList(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS));
 
+        builder.setEnabledIntents(Arrays.asList(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS));
+
         /** Disable Caches for better memory usage */
-        builder.disableCache(Arrays.asList(CacheFlag.VOICE_STATE, CacheFlag.EMOTE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ROLE_TAGS, CacheFlag.MEMBER_OVERRIDES));
+        //builder.disableCache(Arrays.asList(CacheFlag.VOICE_STATE, CacheFlag.EMOTE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ROLE_TAGS, CacheFlag.MEMBER_OVERRIDES));
 
         builder.setShardsTotal(totalShards);
         builder.setShards(shard);

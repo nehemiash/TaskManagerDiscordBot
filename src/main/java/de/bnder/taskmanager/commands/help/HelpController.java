@@ -19,21 +19,16 @@ import de.bnder.taskmanager.main.Command;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.List;
 
 public class HelpController implements Command {
 
     @Override
-    public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(guild);
+    public void action(String[] args, GuildMessageReceivedEvent event) throws IOException {
+        final String langCode = Localizations.getGuildLanguage(event.getGuild());
         String baseCommand;
         String arg0;
         String localizationsSourceString;
@@ -41,7 +36,7 @@ public class HelpController implements Command {
         final String advancedHelpEmbedFieldTitleExample = Localizations.getString("advanced_help_embed_field_title_example", langCode);
         final String advancedHelpEmbedFieldTitleDescription = Localizations.getString("advanced_help_embed_field_title_description", langCode);
         if (args.length == 0) {
-            GeneralCommandOverview.sendGeneralCommandOverview(textChannel, messageContentRaw, langCode, slashCommandEvent);
+            GeneralCommandOverview.sendGeneralCommandOverview(event.getChannel(), event.getMessage().getContentRaw(), langCode);
             return;
         } else if (args.length == 1) {
             baseCommand = args[0];
@@ -53,12 +48,12 @@ public class HelpController implements Command {
         }
         if (!Localizations.getString(localizationsSourceString + "_usage", langCode).equals(localizationsSourceString + "_usage")) {
             final EmbedBuilder embed = new EmbedBuilder().setColor(Color.cyan).setTitle(Localizations.getString("help_message_title", langCode));
-            embed.addField(advancedHelpEmbedFieldTitleCommand, messageContentRaw.charAt(0) + Localizations.getString(localizationsSourceString + "_usage", langCode), true);
-            embed.addField(advancedHelpEmbedFieldTitleExample, messageContentRaw.charAt(0) + Localizations.getString(localizationsSourceString + "_example", langCode), true);
+            embed.addField(advancedHelpEmbedFieldTitleCommand, event.getMessage().getContentRaw().charAt(0) + Localizations.getString(localizationsSourceString + "_usage", langCode), true);
+            embed.addField(advancedHelpEmbedFieldTitleExample, event.getMessage().getContentRaw().charAt(0) + Localizations.getString(localizationsSourceString + "_example", langCode), true);
             embed.addField(advancedHelpEmbedFieldTitleDescription, Localizations.getString(localizationsSourceString + "_description", langCode), false);
-            textChannel.sendMessage(embed.build()).queue();
+            event.getChannel().sendMessageEmbeds(embed.build()).queue();
         } else {
-            MessageSender.send(Localizations.getString("help_message_title", langCode), Localizations.getString("advanced_help_command_not_supported", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(Localizations.getString("help_message_title", langCode), Localizations.getString("advanced_help_command_not_supported", langCode), event.getMessage(), Color.red, langCode);
         }
     }
 }

@@ -6,7 +6,6 @@ import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import org.jsoup.Connection.Method;
 import org.jsoup.Connection.Response;
@@ -14,7 +13,6 @@ import org.jsoup.nodes.Document;
 
 import java.awt.*;
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.util.Objects;
 
 public class Task {
@@ -99,44 +97,42 @@ public class Task {
         this.type = TaskType.USER;
         this.holder = member.getId();
         try {
-            final Document a = Main.tmbAPI("task/user/" + guild.getId(), null, Method.POST).data("task_text", text).data("deadline", deadline != null ? deadline : "").post();
-            final String jsonResponse = a.body().text();
+            final Response response = Main.tmbAPI("task/user/" + guild.getId(), member.getId(), Method.POST).data("task_text", text).data("deadline", deadline != null ? deadline : "").execute();
+            final String jsonResponse = response.body();
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
             setStatusCode(200);
-            setResponseMessage(a.body().text());
+            setResponseMessage(response.body());
             this.id = jsonObject.getString("id", null);
             this.activeBoardName = jsonObject.getString("board", null);
             this.newLanguageSuggestion = jsonObject.get("new_language_suggestion").isNull() ? null : jsonObject.getString("new_language_suggestion", null);
 
 
-            try {
-                //Send task into group notify channel
-                final org.jsoup.Connection.Response getNotifyChannelRes = Main.tmbAPI("user/notify-channel/" + guild.getId(), holder, Method.GET).execute();
-                if (getNotifyChannelRes.statusCode() == 200) {
-                    final JsonObject notifyChannelObject = Json.parse(getNotifyChannelRes.body()).asObject();
-                    if (notifyChannelObject.get("channel") != null && !notifyChannelObject.get("channel").isNull()) {
-                        final String channel = notifyChannelObject.getString("channel", null);
-                        if (guild.getTextChannelById(channel) != null) {
-                            final String langCode = Localizations.getGuildLanguage(guild);
-                            EmbedBuilder builder = new EmbedBuilder().setColor(Color.cyan);
-                            builder.addField(Localizations.getString("task_info_field_task", langCode), text, false);
-                            builder.addField(Localizations.getString("task_info_field_type_user", langCode), member.getUser().getAsTag(), true);
-                            builder.addField(Localizations.getString("task_info_field_deadline", langCode), (deadline != null) ? deadline : "---", true);
-                            builder.addField(Localizations.getString("task_info_field_id", langCode), id, true);
-                            builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
-                            final Message message = guild.getTextChannelById(channel).sendMessage(builder.build()).complete();
-                            Main.tmbAPI("task/user/set-notify-channel-message-id/" + guild.getId() + "/" + this.id, holder, Method.POST).data("notify_channel_message_id", message.getId()).execute();
-                            message.addReaction("↩️").queue();
-                            message.addReaction("⏭️").queue();
-                        }
+            //Send task into group notify channel
+            final org.jsoup.Connection.Response getNotifyChannelRes = Main.tmbAPI("user/notify-channel/" + guild.getId(), holder, Method.GET).execute();
+            if (getNotifyChannelRes.statusCode() == 200) {
+                final JsonObject notifyChannelObject = Json.parse(getNotifyChannelRes.body()).asObject();
+                if (notifyChannelObject.get("channel") != null && !notifyChannelObject.get("channel").isNull()) {
+                    final String channel = notifyChannelObject.getString("channel", null);
+                    if (guild.getTextChannelById(channel) != null) {
+                        final String langCode = Localizations.getGuildLanguage(guild);
+                        EmbedBuilder builder = new EmbedBuilder().setColor(Color.cyan);
+                        builder.addField(Localizations.getString("task_info_field_task", langCode), text, false);
+                        builder.addField(Localizations.getString("task_info_field_type_user", langCode), member.getUser().getAsTag(), true);
+                        builder.addField(Localizations.getString("task_info_field_deadline", langCode), (deadline != null) ? deadline : "---", true);
+                        builder.addField(Localizations.getString("task_info_field_id", langCode), id, true);
+                        builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
+                        guild.getTextChannelById(channel).sendMessageEmbeds(builder.build()).queue(message -> {
+                            try {
+                                Main.tmbAPI("task/user/set-notify-channel-message-id/" + guild.getId() + "/" + this.id, holder, Method.POST).data("notify_channel_message_id", message.getId()).execute();
+                                message.addReaction("↩️").queue();
+                                message.addReaction("⏭️").queue();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
                     }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-        } catch (SocketTimeoutException e) {
-            setStatusCode(504);
-            e.printStackTrace();
         } catch (Exception e) {
             setStatusCode(-1);
             e.printStackTrace();
@@ -150,11 +146,11 @@ public class Task {
         this.type = TaskType.GROUP;
         this.holder = holder;
         try {
-            final Document a = Main.tmbAPI("task/group/" + guild.getId() + "/" + holder, commandProcessor.getId(), Method.POST).data("task_text", text).data("deadline", deadline != null ? deadline : "").post();
-            final String jsonResponse = a.body().text();
+            final Response a = Main.tmbAPI("task/group/" + guild.getId() + "/" + holder, commandProcessor.getId(), Method.POST).data("task_text", text).data("deadline", deadline != null ? deadline : "").execute();
+            final String jsonResponse = a.body();
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
             setStatusCode(200);
-            setResponseMessage(a.body().text());
+            setResponseMessage(a.body());
             this.id = jsonObject.getString("id", null);
 
 
@@ -172,10 +168,15 @@ public class Task {
                         builder.addField(Localizations.getString("task_info_field_deadline", langCode), (deadline != null) ? deadline : "---", true);
                         builder.addField(Localizations.getString("task_info_field_id", langCode), id, true);
                         builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
-                        final Message message = guild.getTextChannelById(channel).sendMessage(builder.build()).complete();
-                        Main.tmbAPI("task/group/set-notify-channel-message-id/" + guild.getId() + "/" + this.id, null, Method.POST).data("notify_channel_message_id", message.getId()).execute();
-                        message.addReaction("↩️").queue();
-                        message.addReaction("⏭️").queue();
+                        guild.getTextChannelById(channel).sendMessageEmbeds(builder.build()).queue(message -> {
+                            try {
+                                Main.tmbAPI("task/group/set-notify-channel-message-id/" + guild.getId() + "/" + this.id, null, Method.POST).data("notify_channel_message_id", message.getId()).execute();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            message.addReaction("↩️").queue();
+                            message.addReaction("⏭️").queue();
+                        });
                     }
                 }
             }
@@ -268,22 +269,23 @@ public class Task {
         if (messageID != null) {
             final String channelID = getNotifyChannelID(guild);
             if (channelID != null && guild.getTextChannelById(channelID) != null) {
-                final Message message = guild.getTextChannelById(channelID).retrieveMessageById(messageID).complete();
-                if (message.getAuthor().isBot()) {
-                    EmbedBuilder newEmbed = new EmbedBuilder();
-                    for (MessageEmbed embed : message.getEmbeds()) {
-                        newEmbed.setColor(embed.getColor());
-                        newEmbed.setTitle(embed.getTitle());
-                        for (MessageEmbed.Field field : embed.getFields()) {
-                            if (!field.getName().equalsIgnoreCase(valueTitle)) {
-                                newEmbed.addField(field.getName(), field.getValue(), field.isInline());
-                            } else {
-                                newEmbed.addField(field.getName(), newValue, field.isInline());
+                guild.getTextChannelById(channelID).retrieveMessageById(messageID).queue(message -> {
+                    if (message.getAuthor().isBot()) {
+                        EmbedBuilder newEmbed = new EmbedBuilder();
+                        for (MessageEmbed embed : message.getEmbeds()) {
+                            newEmbed.setColor(embed.getColor());
+                            newEmbed.setTitle(embed.getTitle());
+                            for (MessageEmbed.Field field : embed.getFields()) {
+                                if (!field.getName().equalsIgnoreCase(valueTitle)) {
+                                    newEmbed.addField(field.getName(), field.getValue(), field.isInline());
+                                } else {
+                                    newEmbed.addField(field.getName(), newValue, field.isInline());
+                                }
                             }
                         }
+                        message.editMessageEmbeds(newEmbed.build()).queue();
                     }
-                    message.editMessage(newEmbed.build()).queue();
-                }
+                });
             }
         }
     }
@@ -300,8 +302,7 @@ public class Task {
             if (messageID != null) {
                 final String channelID = getNotifyChannelID(guild);
                 if (channelID != null && guild.getTextChannelById(channelID) != null) {
-                    final Message message = guild.getTextChannelById(channelID).retrieveMessageById(messageID).complete();
-                    message.delete().queue();
+                    guild.getTextChannelById(channelID).retrieveMessageById(messageID).queue(message -> message.delete().queue());
                 }
             }
             return this;

@@ -34,6 +34,8 @@ public class GroupList {
             } else {
                 MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
+        } else if (statusCode == 404) {
+            MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode), textChannel, Color.red, langCode);
         } else {
             MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
                 {

@@ -11,13 +11,11 @@ import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.PermissionSystem;
 import de.bnder.taskmanager.utils.permissions.TaskPermission;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.entities.User;
 
 import java.awt.*;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -25,7 +23,7 @@ import java.util.List;
 
 public class AddTask {
 
-    public static void addTask(String commandMessage, Member member, List<Member> mentionedMembers, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) throws IOException {
+    public static void addTask(String commandMessage, Member member, List<Member> mentionedMembers, TextChannel textChannel, String[] args) throws IOException {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         if (PermissionSystem.hasPermission(member, TaskPermission.CREATE_TASK)) {
@@ -44,13 +42,13 @@ public class AddTask {
                                 add(mentionedMember.getUser().getName());
                                 add(taskObject.getActiveBoardName());
                             }
-                        }) + newLanguageSuggestionAppend, textChannel, Color.green, langCode, slashCommandEvent);
+                        }) + newLanguageSuggestionAppend, textChannel, Color.green, langCode);
                     } else {
                         MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, new ArrayList<>() {
                             {
                                 add(taskObject.getStatusCode() + " " + taskObject.getResponseMessage());
                             }
-                        }), textChannel, Color.red, langCode, slashCommandEvent);
+                        }), textChannel, Color.red, langCode);
                     }
                 }
             } else if (GroupNotifications.serverHasGroup(args[1], member.getGuild())) {
@@ -68,15 +66,10 @@ public class AddTask {
                             final String id = value.asObject().getString("user_id", null);
                             if (id != null) {
                                 try {
-                                    final User user = member.getJDA().retrieveUserById(id).complete();
-                                    if (user != null) {
-                                        if (member.getGuild().isMember(user)) {
-                                            if (member.getGuild().retrieveMemberById(id).complete() != null) {
-                                                final Member groupMember = member.getGuild().retrieveMemberById(id).complete();
-                                                usersWhoReceivedTheTaskAmount++;
-                                                sendTaskMessage(groupMember, member, taskObject.getId(), langCode, task);
-                                            }
-                                        }
+                                    if (member.getGuild().retrieveMemberById(id).complete() != null) {
+                                        final Member groupMember = member.getGuild().retrieveMemberById(id).complete();
+                                        usersWhoReceivedTheTaskAmount++;
+                                        sendTaskMessage(groupMember, member, taskObject.getId(), langCode, task);
                                     }
                                 } catch (Exception ignored) {
                                 }
@@ -87,32 +80,32 @@ public class AddTask {
                             {
                                 add(String.valueOf(finalUsersWhoReceivedTheTaskAmount));
                             }
-                        }), textChannel, Color.green, langCode, slashCommandEvent);
+                        }), textChannel, Color.green, langCode);
                     } else if (getGroupMembersStatusCode == 404) {
                         MessageSender.send(embedTitle + " - " + taskObject.getId(), Localizations.getString("aufgabe_an_x_mitglieder_gesendet", langCode, new ArrayList<>() {
                             {
                                 add("0");
                             }
-                        }), textChannel, Color.green, langCode, slashCommandEvent);
+                        }), textChannel, Color.green, langCode);
                     }
                 } else if (statusCode == 404) {
                     MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode, new ArrayList<>() {
                         {
                             add(groupName);
                         }
-                    }), textChannel, Color.red, langCode, slashCommandEvent);
+                    }), textChannel, Color.red, langCode);
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, new ArrayList<>() {
                         {
                             add(taskObject.getStatusCode() + " " + taskObject.getResponseMessage());
                         }
-                    }), textChannel, Color.red, langCode, slashCommandEvent);
+                    }), textChannel, Color.red, langCode);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellen_fehlende_argumente", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellen_fehlende_argumente", langCode), textChannel, Color.red, langCode);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode);
         }
     }
 
@@ -120,14 +113,19 @@ public class AddTask {
         final JsonObject settings = de.bnder.taskmanager.utils.Settings.getUserSettings(member);
         if (settings.getString("direct_message", "1").equalsIgnoreCase("1")) {
             try {
-                final PrivateChannel channel = member.getUser().openPrivateChannel().complete();
-                channel.sendMessage(Localizations.getString("aufgabe_erhalten", langCode, new ArrayList<>() {
-                    {
-                        add(author.getUser().getAsTag());
-                        add(task_id);
+                member.getUser().openPrivateChannel().queue(channel -> {
+                    channel.sendMessage(Localizations.getString("aufgabe_erhalten", langCode, new ArrayList<>() {
+                        {
+                            add(author.getUser().getAsTag());
+                            add(task_id);
+                        }
+                    })).queue();
+                    try {
+                        channel.sendMessage(URLDecoder.decode(task, StandardCharsets.UTF_8.toString())).queue();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
                     }
-                })).queue();
-                channel.sendMessage(URLDecoder.decode(task, StandardCharsets.UTF_8.toString())).queue();
+                });
             } catch (Exception ignored) {
             }
         } else if (!settings.get("notify_channel").isNull()) {

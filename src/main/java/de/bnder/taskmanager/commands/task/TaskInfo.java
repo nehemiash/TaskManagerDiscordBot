@@ -1,11 +1,9 @@
 package de.bnder.taskmanager.commands.task;
 
-import de.bnder.taskmanager.commands.Stats;
 import de.bnder.taskmanager.utils.*;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,7 +11,7 @@ import java.util.Calendar;
 
 public class TaskInfo {
 
-    public static void taskInfo(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
+    public static void taskInfo(Member member, TextChannel textChannel, String[] args) {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         final String taskID = Connection.encodeString(args[1]);
@@ -41,13 +39,13 @@ public class TaskInfo {
                 builder.addField(Localizations.getString("task_info_field_assigned", langCode), task.getHolder(), true);
             }
             builder.addField(Localizations.getString("task_info_field_task", langCode), task.getText(), false);
-            Stats.handleEmbedsOnSlashCommand(textChannel, slashCommandEvent, builder);
+            textChannel.sendMessageEmbeds(builder.build()).queue();
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<>() {
+            MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
                 {
                     add(taskID);
                 }
-            }), textChannel, Color.red, langCode, slashCommandEvent);
+            }), textChannel, Color.red, langCode);
         }
     }
 

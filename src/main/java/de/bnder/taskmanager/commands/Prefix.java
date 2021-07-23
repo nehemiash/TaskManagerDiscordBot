@@ -1,7 +1,7 @@
 package de.bnder.taskmanager.commands;
 
-import de.bnder.taskmanager.main.Command;
 import de.bnder.taskmanager.main.Main;
+import de.bnder.taskmanager.main.Command;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.Permission;

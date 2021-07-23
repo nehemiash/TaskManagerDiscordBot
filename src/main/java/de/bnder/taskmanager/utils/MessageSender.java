@@ -22,7 +22,6 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.Calendar;
 
 public class MessageSender {
@@ -84,6 +83,7 @@ public class MessageSender {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).complete();
         }
         try {
+            msg.getChannel().sendMessageEmbeds(builder.build()).queue();
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
         } catch (Exception ignored) {
         }
@@ -122,9 +122,9 @@ public class MessageSender {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).complete();
         }
         try {
+            textChannel.sendMessageEmbeds(builder.build()).queue();
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
         }
     }
 }
