@@ -23,7 +23,6 @@ public class UpdateLists {
                 DiscordBOATS.sendServerCount(serverCount, botID);
                 VoidbotsNET.sendServerCount(serverCount, botID);
                 InfinitybotlistCOM.sendServerCount(serverCount, botID);
-                SpacebotlistORG.sendServerCount(serverCount, botID);
                 System.out.println("Updating lists finished");
             }
         } catch (IOException ignored) {}

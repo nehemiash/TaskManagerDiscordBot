@@ -85,6 +85,7 @@
     </repositories>
 
     <dependencies>
+        <!-- https://github.com/Carleslc/Simple-YAML -->
         <dependency>
             <groupId>me.carleslc.Simple-YAML</groupId>
             <artifactId>Simple-Yaml</artifactId>
@@ -94,7 +95,7 @@
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.13.1</version>
+            <version>1.14.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.eclipsesource.minimal-json/minimal-json -->
         <dependency>
@@ -102,10 +103,11 @@
             <artifactId>minimal-json</artifactId>
             <version>0.9.5</version>
         </dependency>
+        <!-- https://github.com/DV8FromTheWorld/JDA -->
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>4.3.0_290</version>
+            <version>4.3.0_298</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.github.cdimascio/java-dotenv -->
         <dependency>

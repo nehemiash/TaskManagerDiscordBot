@@ -20,7 +20,6 @@ import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 import java.util.ArrayList;
@@ -51,22 +50,21 @@ public class DeadlineReminders {
                                     final String groupName = taskObject.getString("group_name", null);
                                     for (final JsonValue groupMemberValue : taskObject.get("group_members").asArray()) {
                                         final String userID = groupMemberValue.asString();
-                                        final PrivateChannel channel = guild.retrieveMemberById(userID).complete().getUser().openPrivateChannel().complete();
-                                        channel.sendMessage(Localizations.getString("deadline_remind_group", langCode, new ArrayList<String>(){{
+                                        guild.retrieveMemberById(userID).queue(member -> member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(Localizations.getString("deadline_remind_group", langCode, new ArrayList<>() {{
                                             add(task);
                                             add(taskID);
                                             add(groupName);
                                             add(deadline);
-                                        }})).queue();
+                                        }})).queue()));
                                     }
                                 } else if (taskType.equalsIgnoreCase("user")) {
                                     final String userID = taskObject.getString("user_id", null);
-                                    final PrivateChannel channel = guild.retrieveMemberById(userID).complete().getUser().openPrivateChannel().complete();
-                                    channel.sendMessage(Localizations.getString("deadline_remind_user", langCode, new ArrayList<String>(){{
-                                        add(task);
-                                        add(taskID);
-                                        add(deadline);
-                                    }})).queue();
+                                    guild.retrieveMemberById(userID).queue(member -> member.getUser().openPrivateChannel().queue(privateChannel ->
+                                            privateChannel.sendMessage(Localizations.getString("deadline_remind_user", langCode, new ArrayList<>() {{
+                                                add(task);
+                                                add(taskID);
+                                                add(deadline);
+                                            }})).queue()));
                                 }
                             }
                         }

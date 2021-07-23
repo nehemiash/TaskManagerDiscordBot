@@ -11,11 +11,11 @@ import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.PermissionSystem;
 import de.bnder.taskmanager.utils.permissions.TaskPermission;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.awt.*;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -113,15 +113,21 @@ public class AddTask {
         final JsonObject settings = de.bnder.taskmanager.utils.Settings.getUserSettings(member);
         if (settings.getString("direct_message", "1").equalsIgnoreCase("1")) {
             try {
-                final PrivateChannel channel = member.getUser().openPrivateChannel().complete();
-                channel.sendMessage(Localizations.getString("aufgabe_erhalten", langCode, new ArrayList<>() {
-                    {
-                        add(author.getUser().getAsTag());
-                        add(task_id);
+                member.getUser().openPrivateChannel().queue(channel -> {
+                    channel.sendMessage(Localizations.getString("aufgabe_erhalten", langCode, new ArrayList<>() {
+                        {
+                            add(author.getUser().getAsTag());
+                            add(task_id);
+                        }
+                    })).queue();
+                    try {
+                        channel.sendMessage(URLDecoder.decode(task, StandardCharsets.UTF_8.toString())).queue();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
                     }
-                })).queue();
-                channel.sendMessage(URLDecoder.decode(task, StandardCharsets.UTF_8.toString())).queue();
-            } catch (Exception ignored) {}
+                });
+            } catch (Exception ignored) {
+            }
         } else if (!settings.get("notify_channel").isNull()) {
             final TextChannel channel = author.getGuild().getTextChannelById(settings.getString("notify_channel", ""));
             if (channel != null) {

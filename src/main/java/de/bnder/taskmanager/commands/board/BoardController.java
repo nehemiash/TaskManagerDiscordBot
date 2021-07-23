@@ -84,8 +84,7 @@ public class BoardController implements Command {
                 builder.setDescription(Localizations.getString("typo_description", langCode));
                 builder.addField(Localizations.getString("typo_field_command_name", langCode), possibleCommands.substring(0, possibleCommands.length() - 1), true);
                 builder.addField(Localizations.getString("typo_field_user_name", langCode), message.getAuthor().getAsTag(), true);
-                final Message message1 = message.getChannel().sendMessageEmbeds(builder.build()).complete();
-                message1.addReaction("✅").and(message1.addReaction("❌")).queue();
+                message.getChannel().sendMessageEmbeds(builder.build()).queue(message1 -> message1.addReaction("✅").and(message1.addReaction("❌")).queue());
             } else {
                 final String embedTitle = Localizations.getString("board_title", langCode);
                 final String prefix = String.valueOf(message.getContentRaw().charAt(0));

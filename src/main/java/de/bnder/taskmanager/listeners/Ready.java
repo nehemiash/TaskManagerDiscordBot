@@ -17,8 +17,7 @@ public class Ready extends ListenerAdapter {
         for (Guild g : e.getJDA().getGuilds()) {
             try {
                 UpdateServerName.update(g);
-            } catch (IOException ignored) {
-            }
+            } catch (IOException ignored) {}
         }
         DeadlineReminders.start(e.getJDA().getShardManager());
         UpdateLists.updateBotLists(e.getJDA().getGuilds().size(), e.getJDA().getSelfUser().getId());
@@ -29,7 +28,7 @@ public class Ready extends ListenerAdapter {
         final String msg = """
                 ```Hello!
 
-                Some changes are pending! The changes to the terms of use and data protection declaration for bnder's bots will come into force on July 14, 2021.
+                Some changes are pending! The changes to the terms of use and data protection declaration for bnder's bots will come into force on XXXX XX, XXXX.
 
                 The updated terms of use will replace the old terms of use. In addition, our data protection declaration will be updated.
 
