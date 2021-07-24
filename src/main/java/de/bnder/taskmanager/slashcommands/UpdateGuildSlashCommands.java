@@ -54,8 +54,12 @@ public class UpdateGuildSlashCommands {
                     new CommandData("version", Localizations.getString("slashcommands_description_version", langCode))
             ));
 
-            cmd.complete();
-            System.out.println("Updated Slash Commands on Guild " + guild.getName());
+            try {
+                cmd.queue();
+                System.out.println("Updated Slash Commands on Guild " + guild.getName());
+            } catch (Exception ingored1) {
+
+            }
         } catch (Exception ignored) {
             System.out.println("Updating Slash Commands on " + guild.getName() + " failed!");
         }

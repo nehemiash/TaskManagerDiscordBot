@@ -27,6 +27,7 @@ public class CommandHandler {
             final List<TextChannel> mentionedChannels = cmd.mentionedChannels;
             final SlashCommandEvent slashCommandEvent = cmd.slashCommandEvent;
             commands.get(cmd.invoke.toLowerCase()).action(args, msgContentRaw, commandExecutor, textChannel, guild, mentionedMembers, mentionedRoles, mentionedChannels, slashCommandEvent);
+            System.out.println("Received command \"" + msgContentRaw + "\"");
         }
     }
 }
