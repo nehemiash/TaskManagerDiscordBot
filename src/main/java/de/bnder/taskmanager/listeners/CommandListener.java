@@ -21,6 +21,10 @@ import de.bnder.taskmanager.main.CommandHandler;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
+import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -28,7 +32,9 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CommandListener extends ListenerAdapter {
 
@@ -42,10 +48,10 @@ public class CommandListener extends ListenerAdapter {
                             final JsonObject jsonObject = Json.parse(getPrefixRes.parse().body().text()).asObject();
                             final String prefix = jsonObject.getString("prefix", Main.prefix);
                             if (event.getMessage().getContentRaw().startsWith(prefix)) {
-                                processCommand(event);
+                                processNormalCommand(event);
                             }
                         } else if (event.getMessage().getContentRaw().startsWith(Main.prefix)) {
-                            processCommand(event);
+                            processNormalCommand(event);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -63,13 +69,27 @@ public class CommandListener extends ListenerAdapter {
         final List<OptionMapping> options = event.getOptions();
         if (!event.getUser().isBot()) {
             StringBuilder msg = new StringBuilder("-" + commandName + arg0);
+            final List<Member> mentionedMembers = new ArrayList<>();
+            final List<Role> mentionedRoles = new ArrayList<>();
+            final List<TextChannel> mentionedChannels = new ArrayList<>();
             for (OptionMapping option : options) {
                 msg.append(" ");
                 switch (option.getType()) {
-                    case CHANNEL -> msg.append("<#").append(option.getAsGuildChannel().getId()).append(">");
+                    case CHANNEL -> {
+                        msg.append("<#").append(option.getAsGuildChannel().getId()).append(">");
+                        if (option.getAsGuildChannel().getType() == ChannelType.TEXT) {
+                            mentionedChannels.add(Objects.requireNonNull(event.getGuild()).getTextChannelById(option.getAsGuildChannel().getId()));
+                        }
+                    }
                     case STRING, INTEGER, BOOLEAN, SUB_COMMAND -> msg.append(option.getAsString());
-                    case USER -> msg.append("<@!").append(option.getAsUser().getId()).append(">");
-                    case ROLE -> msg.append("<@&").append(option.getAsRole().getId()).append(">");
+                    case USER -> {
+                        msg.append("<@!").append(option.getAsUser().getId()).append(">");
+                        mentionedMembers.add(option.getAsMember());
+                    }
+                    case ROLE -> {
+                        msg.append("<@&").append(option.getAsRole().getId()).append(">");
+                        mentionedRoles.add(option.getAsRole());
+                    }
                     case MENTIONABLE -> msg.append(option.getAsMentionable().getAsMention());
                 }
             }
@@ -78,20 +98,20 @@ public class CommandListener extends ListenerAdapter {
             }
 
             try {
-                CommandHandler.handleCommand(CommandHandler.parse.parse(msg.toString(), event.getMember(), event.getTextChannel(), event.getGuild(), event));
+                CommandHandler.handleCommand(CommandHandler.parse.parseSlashCommand(msg.toString(), event.getMember(), event.getTextChannel(), event.getGuild(), mentionedMembers, mentionedRoles, mentionedChannels, event));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void processCommand(GuildMessageReceivedEvent event) {
+    private void processNormalCommand(GuildMessageReceivedEvent event) {
         try {
             String msg = event.getMessage().getContentRaw();
             while (msg.contains("  ")) {
                 msg = msg.replace("  ", " ");
             }
-            CommandHandler.handleCommand(CommandHandler.parse.parse(msg, event.getMember(), event.getChannel(), event.getGuild(), null));
+            CommandHandler.handleCommand(CommandHandler.parse.parseNormalCommand(msg, event.getMember(), event.getChannel(), event.getGuild(), event.getMessage().getMentionedMembers(), event.getMessage().getMentionedRoles(), event.getMessage().getMentionedChannels()));
         } catch (Exception e) {
             e.printStackTrace();
             final String langCode = Localizations.getGuildLanguage(event.getGuild());

@@ -33,7 +33,7 @@ public class ListUsersOrRolesPermissions {
             for (PermissionPermission permission : PermissionPermission.values()) {
                 stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(mentionedMember, permission))).append("\n");
             }
-            MessageSender.send(embedTitle + " - " + member.getUser().getAsTag(), stringBuilder.toString(), textChannel, Color.green, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle + " - " + mentionedMember.getUser().getAsTag(), stringBuilder.toString(), textChannel, Color.green, langCode, slashCommandEvent);
         } else if (mentionedRoles != null && mentionedRoles.size() > 0) {
             final Role role = mentionedRoles.get(0);
             final StringBuilder stringBuilder = new StringBuilder();

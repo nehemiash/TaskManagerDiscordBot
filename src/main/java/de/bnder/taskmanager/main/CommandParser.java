@@ -13,7 +13,6 @@ import java.util.List;
 public class CommandParser {
 
     public commandContainer parse(String raw, Member commandExecutor, TextChannel textChannel, Guild guild, SlashCommandEvent slashCommandEvent) {
-
         String beheaded = raw.substring(1);
         String[] splitBeheaded = beheaded.split(" ");
         String invoke = splitBeheaded[0].toLowerCase();
@@ -34,8 +33,14 @@ public class CommandParser {
                     }
                 } else if (b.startsWith("@!")) {
                     final String userID = b.substring(2);
-                    if (guild.retrieveMemberById(userID).complete() != null) {
-                        mentionedMembers.add(guild.retrieveMemberById(userID).complete());
+                    Member member = null;
+                    if (guild.getMemberById(userID) != null) {
+                        member = guild.getMemberById(userID);
+                    } else if (guild.retrieveMemberById(userID).complete() != null) {
+                        member = guild.retrieveMemberById(userID).complete();
+                    }
+                    if (member != null) {
+                        mentionedMembers.add(member);
                     }
                 } else if (b.startsWith("@&")) {
                     final String roleID = b.substring(2);
@@ -45,6 +50,30 @@ public class CommandParser {
                 }
             }
         }
+
+        return new commandContainer(raw, beheaded, splitBeheaded, invoke, args, commandExecutor, textChannel, guild, mentionedMembers, mentionedRoles, mentionedChannels, slashCommandEvent);
+    }
+
+    public commandContainer parseNormalCommand(String raw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels) {
+
+        String beheaded = raw.substring(1);
+        String[] splitBeheaded = beheaded.split(" ");
+        String invoke = splitBeheaded[0].toLowerCase();
+        ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
+        String[] args = new String[split.size() - 1];
+        split.subList(1, split.size()).toArray(args);
+
+        return new commandContainer(raw, beheaded, splitBeheaded, invoke, args, commandExecutor, textChannel, guild, mentionedMembers, mentionedRoles, mentionedChannels, null);
+    }
+
+    public commandContainer parseSlashCommand(String raw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) {
+
+        String beheaded = raw.substring(1);
+        String[] splitBeheaded = beheaded.split(" ");
+        String invoke = splitBeheaded[0].toLowerCase();
+        ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
+        String[] args = new String[split.size() - 1];
+        split.subList(1, split.size()).toArray(args);
 
         return new commandContainer(raw, beheaded, splitBeheaded, invoke, args, commandExecutor, textChannel, guild, mentionedMembers, mentionedRoles, mentionedChannels, slashCommandEvent);
     }

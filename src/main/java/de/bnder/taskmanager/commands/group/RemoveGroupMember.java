@@ -30,7 +30,7 @@ public class RemoveGroupMember {
                         if (statusCode == 200) {
                             MessageSender.send(embedTitle, Localizations.getString("nutzer_aus_gruppe_entfernt", langCode, new ArrayList<String>() {
                                 {
-                                    add(member.getUser().getName());
+                                    add(mentionedMember.getUser().getName());
                                     add(groupName);
                                 }
                             }), textChannel, Color.green, langCode, slashCommandEvent);
@@ -44,7 +44,7 @@ public class RemoveGroupMember {
                         } else if (statusCode == 400) {
                             MessageSender.send(embedTitle, Localizations.getString("nutzer_ist_in_keiner_gruppe", langCode, new ArrayList<String>() {
                                 {
-                                    add(member.getUser().getAsTag());
+                                    add(mentionedMember.getUser().getAsTag());
                                 }
                             }), textChannel, Color.red, langCode, slashCommandEvent);
                         } else {
