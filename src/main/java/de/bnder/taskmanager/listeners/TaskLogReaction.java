@@ -30,28 +30,31 @@ public class TaskLogReaction extends ListenerAdapter {
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
         if (!event.getMember().getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
-            event.retrieveMessage().queue(message -> {
-                try {
-                    if (event.getReaction().getReactionEmote().getAsReactionCode().equals("⏭️") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                        if (isRightMessage(message)) {
-                            final String userName = message.getEmbeds().get(0).getFields().get(1).getValue();
-                            if (userName.equals(event.getMember().getUser().getAsTag())) {
-                                event.retrieveUser().queue(user -> {
-                                    event.getReaction().removeReaction(user).queue();
-                                    final String taskID = message.getEmbeds().get(0).getFields().get(3).getValue();
-                                    final Task task = new Task(taskID, event.getGuild());
-                                    if (event.getReaction().getReactionEmote().getAsReactionCode().equals("⏭️")) {
-                                        task.proceed(event.getMember());
-                                    } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("↩️")) {
-                                        task.undo(event.getMember());
-                                    }
-                                });
+            try {
+                event.retrieveMessage().queue(message -> {
+                    try {
+                        if (event.getReaction().getReactionEmote().getAsReactionCode().equals("⏭️") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
+                            if (isRightMessage(message)) {
+                                final String userName = message.getEmbeds().get(0).getFields().get(1).getValue();
+                                if (userName.equals(event.getMember().getUser().getAsTag())) {
+                                    event.retrieveUser().queue(user -> {
+                                        event.getReaction().removeReaction(user).queue();
+                                        final String taskID = message.getEmbeds().get(0).getFields().get(3).getValue();
+                                        final Task task = new Task(taskID, event.getGuild());
+                                        if (event.getReaction().getReactionEmote().getAsReactionCode().equals("⏭️")) {
+                                            task.proceed(event.getMember());
+                                        } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("↩️")) {
+                                            task.undo(event.getMember());
+                                        }
+                                    });
+                                }
                             }
                         }
+                    } catch (Exception ignored) {
                     }
-                } catch (Exception ignored) {
-                }
-            });
+                });
+            } catch (Exception ignored) {
+            }
         }
     }
 

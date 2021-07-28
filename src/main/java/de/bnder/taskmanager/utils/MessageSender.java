@@ -20,6 +20,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.interactions.components.Component;
 
 import java.awt.*;
 import java.util.Calendar;
@@ -52,6 +53,21 @@ public class MessageSender {
             }
         } else {
             buildMessageBuilder(title, textChannel, red, s, langCode, false, slashCommandEvent);
+        }
+    }
+
+    public static void send(String title, String s, TextChannel textChannel, Color red, final String langCode, SlashCommandEvent slashCommandEvent, Component... components) {
+        if (s.length() > 1990) {
+            while (s.length() > 1990) {
+                String textNow = s.substring(0, 1990);
+                buildMessageBuilder(title, textChannel, red, textNow, langCode, false, slashCommandEvent, components);
+                s = s.substring(1990);
+            }
+            if (s.length() > 0) {
+                buildMessageBuilder(title, textChannel, red, s, langCode, false, slashCommandEvent, components);
+            }
+        } else {
+            buildMessageBuilder(title, textChannel, red, s, langCode, false, slashCommandEvent, components);
         }
     }
 
@@ -119,6 +135,24 @@ public class MessageSender {
             textChannel.sendMessageEmbeds(builder.build()).queue();
         } else {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
+        }
+        try {
+            Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
+        } catch (Exception ignored) {
+        }
+    }
+
+    private static void buildMessageBuilder(String title, TextChannel textChannel, Color red, String textNow, final String langCode, boolean showAd, SlashCommandEvent slashCommandEvent, Component... actionRows) {
+        EmbedBuilder builder = new EmbedBuilder();
+        builder.setTitle(title);
+        builder.setDescription(textNow);
+        builder.setColor(red);
+        builder.setTimestamp(Calendar.getInstance().toInstant());
+        if (red != Color.red && showAd) setAdFooter(builder, langCode);
+        if (slashCommandEvent == null) {
+            textChannel.sendMessageEmbeds(builder.build()).queue();
+        } else {
+            slashCommandEvent.reply("**" + title + "**\n" + textNow).addActionRow(actionRows).queue();
         }
         try {
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();

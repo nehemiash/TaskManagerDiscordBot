@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.interactions.components.Button;
 
 import java.awt.*;
 import java.io.IOException;
@@ -18,6 +19,6 @@ public class Invite implements Command {
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
         final String langCode = Localizations.getGuildLanguage(guild);
         final String embedTitle = Localizations.getString("invite_title", langCode);
-        MessageSender.send(embedTitle, Localizations.getString("invite_text", langCode), textChannel, Color.cyan, langCode, slashCommandEvent);
+        MessageSender.send(embedTitle, Localizations.getString("invite_text", langCode), textChannel, Color.cyan, langCode, slashCommandEvent, Button.link("https://bnder.net/@tmb", "Einladen"));
     }
 }

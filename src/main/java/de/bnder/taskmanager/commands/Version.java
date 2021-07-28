@@ -31,7 +31,7 @@ import java.util.List;
 
 public class Version implements Command {
 
-    public static String version = "2021.2.0";
+    public static String version = "2021.2.1";
 
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {

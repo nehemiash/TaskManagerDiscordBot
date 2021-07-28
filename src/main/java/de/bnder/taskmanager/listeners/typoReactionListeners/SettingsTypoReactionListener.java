@@ -22,6 +22,7 @@ public class SettingsTypoReactionListener extends ListenerAdapter {
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
         if (!event.getMember().getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
+            try {
             event.retrieveMessage().queue(message -> {
                 try {
                     if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
@@ -53,6 +54,8 @@ public class SettingsTypoReactionListener extends ListenerAdapter {
                 } catch (ErrorResponseException | InsufficientPermissionException ignored) {
                 }
             });
+            } catch (Exception ignored) {
+            }
         }
     }
 

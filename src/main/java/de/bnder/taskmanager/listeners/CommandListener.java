@@ -41,7 +41,7 @@ public class CommandListener extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         if (!event.getAuthor().isBot()) {
             if (event.getMessage().getContentRaw().length() > 0) {
-                if (CommandHandler.commands.containsKey(event.getMessage().getContentRaw().split(" ")[0].substring(1))) {
+                if (CommandHandler.commands.containsKey(event.getMessage().getContentRaw().split(" ")[0].substring(1).toLowerCase())) {
                     try {
                         final org.jsoup.Connection.Response getPrefixRes = Main.tmbAPI("server/prefix/" + event.getGuild().getId(), event.getAuthor().getId(), org.jsoup.Connection.Method.GET).execute();
                         if (getPrefixRes.statusCode() == 200) {
