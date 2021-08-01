@@ -57,6 +57,8 @@ public class AddPermission {
                 MessageSender.send(embedTitle, Localizations.getString("permission_added", langCode), textChannel, Color.green, langCode, slashCommandEvent);
             } else if (statusCode == 903) {
                 MessageSender.send(embedTitle, Localizations.getString("already_has_permission", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            } else {
+                MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else {
             MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
