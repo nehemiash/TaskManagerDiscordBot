@@ -104,14 +104,14 @@ public class Task {
             setResponseMessage(response.body());
             this.id = jsonObject.getString("id", null);
             this.activeBoardName = jsonObject.getString("board", null);
-            this.newLanguageSuggestion = jsonObject.get("new_language_suggestion").isNull() ? null : jsonObject.getString("new_language_suggestion", null);
+            this.newLanguageSuggestion = jsonObject.get("new_language_suggestion") == null ? null : jsonObject.getString("new_language_suggestion", null);
 
 
             //Send task into group notify channel
             final org.jsoup.Connection.Response getNotifyChannelRes = Main.tmbAPI("user/notify-channel/" + guild.getId(), holder, Method.GET).execute();
             if (getNotifyChannelRes.statusCode() == 200) {
                 final JsonObject notifyChannelObject = Json.parse(getNotifyChannelRes.body()).asObject();
-                if (notifyChannelObject.get("channel") != null && !notifyChannelObject.get("channel").isNull()) {
+                if (notifyChannelObject.get("channel") != null) {
                     final String channel = notifyChannelObject.getString("channel", null);
                     if (guild.getTextChannelById(channel) != null) {
                         final String langCode = Localizations.getGuildLanguage(guild);
@@ -158,7 +158,7 @@ public class Task {
             final org.jsoup.Connection.Response getNotifyChannelRes = Main.tmbAPI("group/notify-channel/" + guild.getId() + "/" + holder, null, Method.GET).execute();
             if (getNotifyChannelRes.statusCode() == 200) {
                 final JsonObject notifyChannelObject = Json.parse(getNotifyChannelRes.parse().body().text()).asObject();
-                if (notifyChannelObject.get("channel") != null && !notifyChannelObject.get("channel").isNull()) {
+                if (notifyChannelObject.get("channel") != null) {
                     final String channel = notifyChannelObject.getString("channel", null);
                     if (guild.getTextChannelById(channel) != null) {
                         final String langCode = Localizations.getGuildLanguage(guild);
@@ -188,7 +188,7 @@ public class Task {
 
     void setResponseMessage(String jsoupResponse) {
         final JsonObject object = Json.parse(jsoupResponse).asObject();
-        if (object.get("message") != null && !object.get("message").isNull()) {
+        if (object.get("message") != null) {
             this.responseMessage = object.getString("message", null);
         }
     }

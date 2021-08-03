@@ -16,7 +16,7 @@ package de.bnder.taskmanager.commands.board;
  */
 
 import de.bnder.taskmanager.main.Main;
-import de.bnder.taskmanager.slashcommands.BoardSlashCommands;
+import de.bnder.taskmanager.slashcommands.UpdateGuildSlashCommands;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.PermissionSystem;
@@ -43,7 +43,7 @@ public class DeleteBoard {
                         add(boardName);
                     }
                 }), textChannel, Color.green, langCode, slashCommandEvent);
-                member.getGuild().updateCommands().addCommands(BoardSlashCommands.commandData(member.getGuild(), langCode)).queue();
+                UpdateGuildSlashCommands.update(member.getGuild());
             } else if (statusCode == 404) {
                 MessageSender.send(embedTitle, Localizations.getString("board_with_name_doesnt_exist", langCode, new ArrayList<String>() {
                     {

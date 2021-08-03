@@ -3,6 +3,7 @@ package de.bnder.taskmanager.commands.permission;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.PermissionSystem;
+import de.bnder.taskmanager.utils.permissions.BoardPermission;
 import de.bnder.taskmanager.utils.permissions.GroupPermission;
 import de.bnder.taskmanager.utils.permissions.PermissionPermission;
 import de.bnder.taskmanager.utils.permissions.TaskPermission;
@@ -33,6 +34,9 @@ public class ListUsersOrRolesPermissions {
             for (PermissionPermission permission : PermissionPermission.values()) {
                 stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(mentionedMember, permission))).append("\n");
             }
+            for (BoardPermission permission : BoardPermission.values()) {
+                stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(mentionedMember, permission))).append("\n");
+            }
             MessageSender.send(embedTitle + " - " + mentionedMember.getUser().getAsTag(), stringBuilder.toString(), textChannel, Color.green, langCode, slashCommandEvent);
         } else if (mentionedRoles != null && mentionedRoles.size() > 0) {
             final Role role = mentionedRoles.get(0);
@@ -44,6 +48,9 @@ public class ListUsersOrRolesPermissions {
                 stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(role, permission))).append("\n");
             }
             for (PermissionPermission permission : PermissionPermission.values()) {
+                stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(role, permission))).append("\n");
+            }
+            for (BoardPermission permission : BoardPermission.values()) {
                 stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(role, permission))).append("\n");
             }
             MessageSender.send(embedTitle + " - " + role.getName(), stringBuilder.toString(), textChannel, Color.green, langCode, slashCommandEvent);

@@ -16,7 +16,7 @@ package de.bnder.taskmanager.commands.board;
  */
 
 import de.bnder.taskmanager.main.Main;
-import de.bnder.taskmanager.slashcommands.BoardSlashCommands;
+import de.bnder.taskmanager.slashcommands.UpdateGuildSlashCommands;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.PermissionSystem;
@@ -46,7 +46,7 @@ public class CreateBoard {
                         add(boardName);
                     }
                 }), textChannel, Color.green, langCode, slashCommandEvent);
-                guild.updateCommands().addCommands(BoardSlashCommands.commandData(guild, langCode)).queue();
+                UpdateGuildSlashCommands.update(member.getGuild());
             } else if (statusCode == 400) {
                 MessageSender.send(embedTitle, Localizations.getString("board_not_created_name_already_exists", langCode, new ArrayList<String>() {
                     {
