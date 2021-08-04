@@ -103,8 +103,8 @@ public class Task {
             setStatusCode(200);
             setResponseMessage(response.body());
             this.id = jsonObject.getString("id", null);
-            this.activeBoardName = jsonObject.getString("board", null);
-            this.newLanguageSuggestion = jsonObject.get("new_language_suggestion") == null ? null : jsonObject.getString("new_language_suggestion", null);
+            this.activeBoardName = jsonObject.get("board").isNull() ? null : jsonObject.getString("board", null);
+            this.newLanguageSuggestion = jsonObject.get("new_language_suggestion").isNull() ? null : jsonObject.getString("new_language_suggestion", null);
 
 
             //Send task into group notify channel
@@ -112,8 +112,8 @@ public class Task {
             if (getNotifyChannelRes.statusCode() == 200) {
                 final JsonObject notifyChannelObject = Json.parse(getNotifyChannelRes.body()).asObject();
                 if (notifyChannelObject.get("channel") != null) {
-                    final String channel = notifyChannelObject.getString("channel", null);
-                    if (guild.getTextChannelById(channel) != null) {
+                    final String channel = notifyChannelObject.get("channel").isNull() ? null : notifyChannelObject.getString("channel", null);
+                    if (channel != null && guild.getTextChannelById(channel) != null) {
                         final String langCode = Localizations.getGuildLanguage(guild);
                         EmbedBuilder builder = new EmbedBuilder().setColor(Color.cyan);
                         builder.addField(Localizations.getString("task_info_field_task", langCode), text, false);
@@ -188,7 +188,7 @@ public class Task {
 
     void setResponseMessage(String jsoupResponse) {
         final JsonObject object = Json.parse(jsoupResponse).asObject();
-        if (object.get("message") != null) {
+        if (object.get("message") != null && !object.get("message").isNull()) {
             this.responseMessage = object.getString("message", null);
         }
     }
