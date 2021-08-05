@@ -111,9 +111,8 @@ public class Search implements Command {
                                 final StringBuilder membersStringBuilder = new StringBuilder();
                                 for (JsonValue membersValue : membersList) {
                                     final String userID = membersValue.asObject().get("user_id").asString();
-                                    if (guild.retrieveMemberById(userID).complete() != null) {
-                                        guild.retrieveMemberById(userID).queue(user -> membersStringBuilder.append(user.getUser().getAsTag()).append(", "));
-                                    }
+                                    guild.retrieveMemberById(userID).queue(user -> membersStringBuilder.append(user.getUser().getAsTag()).append(", "), (error) -> {
+                                    });
                                 }
                                 builder.addField(Localizations.getString("search_members_field", langCode), membersStringBuilder.substring(0, membersStringBuilder.length() - 2), false);
                             }
@@ -130,7 +129,7 @@ public class Search implements Command {
                         }
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("no_search_results", langCode, new ArrayList<String>(){{
+                    MessageSender.send(embedTitle, Localizations.getString("no_search_results", langCode, new ArrayList<String>() {{
                         add(searchTermRaw);
                     }}), textChannel, Color.red, langCode, slashCommandEvent);
                 }

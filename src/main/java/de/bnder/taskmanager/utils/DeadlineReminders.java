@@ -55,7 +55,7 @@ public class DeadlineReminders {
                                             add(taskID);
                                             add(groupName);
                                             add(deadline);
-                                        }})).queue()));
+                                        }})).queue()), (error) -> {});
                                     }
                                 } else if (taskType.equalsIgnoreCase("user")) {
                                     final String userID = taskObject.getString("user_id", null);
@@ -64,7 +64,7 @@ public class DeadlineReminders {
                                                 add(task);
                                                 add(taskID);
                                                 add(deadline);
-                                            }})).queue()));
+                                            }})).queue()), (error) -> {});
                                 }
                             }
                         }

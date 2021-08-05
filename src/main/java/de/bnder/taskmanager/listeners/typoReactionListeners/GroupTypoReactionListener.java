@@ -51,9 +51,10 @@ public class GroupTypoReactionListener extends ListenerAdapter {
                             }
                         }
                     }
+                    //TODO: CAN THIS BE REMOVED?
                 } catch (ErrorResponseException | InsufficientPermissionException ignored) {
                 }
-            });
+            }, (error) -> {});
             } catch (Exception ignored) {
             }
         }

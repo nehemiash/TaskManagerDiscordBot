@@ -37,7 +37,7 @@ public class Token implements Command {
             } catch (Exception e) {
                 MessageSender.send(embedTitle, Localizations.getString("token_konnte_nicht_gesendet_werden", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
-        });
+        }, (error) -> {});
     }
 
     private String getNewToken(User user) {

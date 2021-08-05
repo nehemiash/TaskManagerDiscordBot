@@ -158,7 +158,7 @@ public class Task {
             final org.jsoup.Connection.Response getNotifyChannelRes = Main.tmbAPI("group/notify-channel/" + guild.getId() + "/" + holder, null, Method.GET).execute();
             if (getNotifyChannelRes.statusCode() == 200) {
                 final JsonObject notifyChannelObject = Json.parse(getNotifyChannelRes.parse().body().text()).asObject();
-                if (notifyChannelObject.get("channel") != null) {
+                if (notifyChannelObject.get("channel") != null && !notifyChannelObject.get("channel").isNull()) {
                     final String channel = notifyChannelObject.getString("channel", null);
                     if (guild.getTextChannelById(channel) != null) {
                         final String langCode = Localizations.getGuildLanguage(guild);
@@ -285,7 +285,7 @@ public class Task {
                         }
                         message.editMessageEmbeds(newEmbed.build()).queue();
                     }
-                });
+                }, (error) -> {});
             }
         }
     }
@@ -302,7 +302,7 @@ public class Task {
             if (messageID != null) {
                 final String channelID = getNotifyChannelID(guild);
                 if (channelID != null && guild.getTextChannelById(channelID) != null) {
-                    guild.getTextChannelById(channelID).retrieveMessageById(messageID).queue(message -> message.delete().queue());
+                    guild.getTextChannelById(channelID).retrieveMessageById(messageID).queue(message -> message.delete().queue(), (error) -> {});
                 }
             }
             return this;

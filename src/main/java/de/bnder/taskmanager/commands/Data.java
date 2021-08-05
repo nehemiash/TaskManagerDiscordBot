@@ -135,7 +135,7 @@ public class Data implements Command {
                 }
 
                 yamlConfiguration.save(file);
-                commandExecutor.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendFile(file).queue());
+                commandExecutor.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendFile(file).queue(), (error) -> {});
                 file.delete();
             } catch (Exception ignored) {
             }
