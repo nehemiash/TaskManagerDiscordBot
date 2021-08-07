@@ -6,8 +6,6 @@ import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
-import net.dv8tion.jda.api.exceptions.ErrorResponseException;
-import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
@@ -22,9 +20,7 @@ public class GroupTypoReactionListener extends ListenerAdapter {
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
         if (!event.getMember().getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
-            try {
             event.retrieveMessage().queue(message -> {
-                try {
                     if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
                         if (isRightMessage(event, "group")) {
                             if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
@@ -52,11 +48,7 @@ public class GroupTypoReactionListener extends ListenerAdapter {
                         }
                     }
                     //TODO: CAN THIS BE REMOVED?
-                } catch (ErrorResponseException | InsufficientPermissionException ignored) {
-                }
             }, (error) -> {});
-            } catch (Exception ignored) {
-            }
         }
     }
 

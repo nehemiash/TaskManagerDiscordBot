@@ -17,6 +17,7 @@ package de.bnder.taskmanager.utils;
 
 import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -94,7 +95,11 @@ public class MessageSender {
         builder.setTimestamp(Calendar.getInstance().toInstant());
         if (red != Color.red && showAd) setAdFooter(builder, langCode);
         if (slashCommandEvent == null) {
-            msg.getChannel().sendMessageEmbeds(builder.build()).queue();
+            if (msg.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
+                msg.getChannel().sendMessageEmbeds(builder.build()).queue();
+            } else {
+                //TODO: SEND MESSAGE WITH MISSING PERMISSION
+            }
         } else {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
         }
@@ -132,7 +137,11 @@ public class MessageSender {
         builder.setTimestamp(Calendar.getInstance().toInstant());
         if (red != Color.red && showAd) setAdFooter(builder, langCode);
         if (slashCommandEvent == null) {
-            textChannel.sendMessageEmbeds(builder.build()).queue();
+            if (textChannel.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
+                textChannel.sendMessageEmbeds(builder.build()).queue();
+            } else {
+                //TODO: SEND MESSAGE WITH MISSING PERMISSION
+            }
         } else {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
         }
@@ -150,7 +159,11 @@ public class MessageSender {
         builder.setTimestamp(Calendar.getInstance().toInstant());
         if (red != Color.red && showAd) setAdFooter(builder, langCode);
         if (slashCommandEvent == null) {
-            textChannel.sendMessageEmbeds(builder.build()).queue();
+            if (textChannel.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
+                textChannel.sendMessageEmbeds(builder.build()).queue();
+            } else {
+                //TODO: SEND MESSAGE WITH MISSING PERMISSION
+            }
         } else {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).addActionRow(actionRows).queue();
         }
