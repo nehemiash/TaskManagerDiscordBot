@@ -90,14 +90,14 @@ public class Task {
         this.statusCode = 200;
     }
 
-    public Task(Guild guild, String text, String deadline, Member member) {
+    public Task(Guild guild, String text, String deadline, Member member, Member commandProcessor) {
         this.guild = guild;
         this.text = text;
         this.deadline = deadline;
         this.type = TaskType.USER;
         this.holder = member.getId();
         try {
-            final Response response = Main.tmbAPI("task/user/" + guild.getId(), member.getId(), Method.POST).data("task_text", text).data("deadline", deadline != null ? deadline : "").execute();
+            final Response response = Main.tmbAPI("task/user/" + guild.getId(), member.getId(), Method.POST).data("task_text", text).data("command_processor", commandProcessor.getId()).data("deadline", deadline != null ? deadline : "").execute();
             final String jsonResponse = response.body();
             final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
             setStatusCode(200);

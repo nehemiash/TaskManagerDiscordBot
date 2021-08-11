@@ -18,43 +18,44 @@ public class TaskTypoReactionListener extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
-        if (!event.getMember().getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
-            event.retrieveMessage().queue(message -> {
-                if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                    if (isRightMessage(event, "task")) {
-                        if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
-                            final String command = getCommand(event, "task");
+        event.retrieveMember().queue(member -> {
+            if (!member.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
+                event.retrieveMessage().queue(message -> {
+                    if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
+                        if (isRightMessage(message, "task", member)) {
+                            if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
+                                final String command = getCommand(message, "task", member);
 
-                            String beheaded = command.substring(1);
-                            String[] splitBeheaded = beheaded.split(" ");
-                            ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
-                            String[] args = new String[split.size() - 1];
-                            split.subList(1, split.size()).toArray(args);
+                                String beheaded = command.substring(1);
+                                String[] splitBeheaded = beheaded.split(" ");
+                                ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
+                                String[] args = new String[split.size() - 1];
+                                split.subList(1, split.size()).toArray(args);
 
-                            try {
-                                message.delete().queue();
-                                processTaskCommand(args, event.getMember(), command, event.getChannel());
-                            } catch (IOException e) {
-                                final String langCode = Localizations.getGuildLanguage(event.getGuild());
-                                MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode, null);
-                            }
-                        } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                            try {
-                                message.delete().queue();
-                            } catch (Exception ignored) {
+                                try {
+                                    message.delete().queue();
+                                    processTaskCommand(args, member, command, event.getChannel());
+                                } catch (IOException e) {
+                                    final String langCode = Localizations.getGuildLanguage(event.getGuild());
+                                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode, null);
+                                }
+                            } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
+                                try {
+                                    message.delete().queue();
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
                     }
-                }
-            }, (error) -> {
-            });
-        }
+                }, (error) -> {
+                });
+            }
+        });
     }
 
-    public static boolean isRightMessage(GuildMessageReactionAddEvent event, String commandKeyword) {
+    public static boolean isRightMessage(Message message, String commandKeyword, Member member) {
         try {
-            final Message message = event.retrieveMessage().complete();
-            if (message.getAuthor().isBot() && message.getAuthor().getId().equals(event.getJDA().getSelfUser().getId())) {
+            if (message.getAuthor().isBot() && message.getAuthor().getId().equals(message.getJDA().getSelfUser().getId())) {
                 if (message.getEmbeds().size() == 1) {
                     final MessageEmbed embed = message.getEmbeds().get(0);
                     for (String langCode : Language.validLangCodes) {
@@ -69,7 +70,7 @@ public class TaskTypoReactionListener extends ListenerAdapter {
                                 }
                             }
                             if (command != null && author != null) {
-                                if (event.getMember().getUser().getAsTag().equals(author)) {
+                                if (member.getUser().getAsTag().equals(author)) {
                                     if (command.substring(1).startsWith(commandKeyword)) {
                                         return true;
                                     }
@@ -85,9 +86,8 @@ public class TaskTypoReactionListener extends ListenerAdapter {
         return false;
     }
 
-    public static String getCommand(GuildMessageReactionAddEvent event, String commandKeyword) {
-        if (isRightMessage(event, commandKeyword)) {
-            final Message message = event.retrieveMessage().complete();
+    public static String getCommand(Message message, String commandKeyword, Member member) {
+        if (isRightMessage(message, commandKeyword, member)) {
             final MessageEmbed embed = message.getEmbeds().get(0);
             String command = null;
             String author = null;
@@ -100,7 +100,7 @@ public class TaskTypoReactionListener extends ListenerAdapter {
                     }
                 }
                 if (command != null && author != null) {
-                    if (event.getMember().getUser().getAsTag().equals(author)) {
+                    if (member.getUser().getAsTag().equals(author)) {
                         if (command.substring(1).startsWith(commandKeyword)) {
                             return command;
                         }
@@ -149,9 +149,8 @@ public class TaskTypoReactionListener extends ListenerAdapter {
                     if (userID != null) {
                         userID = userID.replace("!", "");
                         if (userID.length() == 18) {
-                            if (guild.getMemberById(userID) != null) {
-                                mentionedMembers.add(guild.getMemberById(userID));
-                            }
+                            guild.retrieveMemberById(userID).queue(member -> mentionedMembers.add(member), (error) -> {
+                            });
                         }
                     }
                 }

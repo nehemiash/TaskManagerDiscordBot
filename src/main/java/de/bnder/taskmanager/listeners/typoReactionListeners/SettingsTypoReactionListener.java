@@ -19,37 +19,39 @@ public class SettingsTypoReactionListener extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
-        if (!event.getMember().getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
-            event.retrieveMessage().queue(message -> {
-                if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                    if (isRightMessage(event, "settings")) {
-                        if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
-                            final String command = getCommand(event, "settings");
+        event.retrieveMember().queue(member -> {
+            if (!member.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
+                event.retrieveMessage().queue(message -> {
+                    if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
+                        if (isRightMessage(message, "settings", member)) {
+                            if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
+                                final String command = getCommand(message, "settings", member);
 
-                            String beheaded = command.substring(1);
-                            String[] splitBeheaded = beheaded.split(" ");
-                            ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
-                            String[] args = new String[split.size() - 1];
-                            split.subList(1, split.size()).toArray(args);
+                                String beheaded = command.substring(1);
+                                String[] splitBeheaded = beheaded.split(" ");
+                                ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
+                                String[] args = new String[split.size() - 1];
+                                split.subList(1, split.size()).toArray(args);
 
-                            try {
-                                message.delete().queue();
-                                processSettingsCommand(args, event.getMember(), command, event.getChannel());
-                            } catch (IOException e) {
-                                final String langCode = Localizations.getGuildLanguage(event.getGuild());
-                                MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode, null);
-                            }
-                        } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                            try {
-                                message.delete().queue();
-                            } catch (Exception ignored) {
+                                try {
+                                    message.delete().queue();
+                                    processSettingsCommand(args, member, command, event.getChannel());
+                                } catch (IOException e) {
+                                    final String langCode = Localizations.getGuildLanguage(event.getGuild());
+                                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode, null);
+                                }
+                            } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
+                                try {
+                                    message.delete().queue();
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
                     }
-                }
-            }, (error) -> {
-            });
-        }
+                }, (error) -> {
+                });
+            }
+        });
     }
 
     void processSettingsCommand(String[] args, Member member, String commandRaw, TextChannel channel) throws IOException {

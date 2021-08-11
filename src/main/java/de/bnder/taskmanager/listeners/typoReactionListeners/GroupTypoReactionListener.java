@@ -19,12 +19,13 @@ public class GroupTypoReactionListener extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
-        if (!event.getMember().getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
-            event.retrieveMessage().queue(message -> {
+        event.retrieveMember().queue(member -> {
+            if (!member.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
+                event.retrieveMessage().queue(message -> {
                     if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                        if (isRightMessage(event, "group")) {
+                        if (isRightMessage(message, "group", member)) {
                             if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
-                                final String command = getCommand(event, "group");
+                                final String command = getCommand(message, "group", member);
 
                                 String beheaded = command.substring(1);
                                 String[] splitBeheaded = beheaded.split(" ");
@@ -34,7 +35,7 @@ public class GroupTypoReactionListener extends ListenerAdapter {
 
                                 try {
                                     message.delete().queue();
-                                    processGroupCommand(args, event.getMember(), command, event.getChannel());
+                                    processGroupCommand(args, member, command, event.getChannel());
                                 } catch (IOException e) {
                                     final String langCode = Localizations.getGuildLanguage(event.getGuild());
                                     MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode, null);
@@ -47,9 +48,10 @@ public class GroupTypoReactionListener extends ListenerAdapter {
                             }
                         }
                     }
-                    //TODO: CAN THIS BE REMOVED?
-            }, (error) -> {});
-        }
+                }, (error) -> {
+                });
+            }
+        });
     }
 
     void processGroupCommand(String[] args, Member member, String commandRaw, TextChannel channel) throws IOException {
