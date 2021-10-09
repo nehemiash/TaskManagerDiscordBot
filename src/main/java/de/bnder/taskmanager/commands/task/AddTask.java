@@ -1,9 +1,9 @@
 package de.bnder.taskmanager.commands.task;
 
-import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonValue;
-import de.bnder.taskmanager.commands.group.GroupNotifications;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
+import de.bnder.taskmanager.commands.group.CreateGroup;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Connection;
 import de.bnder.taskmanager.utils.Localizations;
@@ -13,6 +13,7 @@ import de.bnder.taskmanager.utils.permissions.TaskPermission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 
 import java.awt.*;
 import java.io.IOException;
@@ -21,13 +22,17 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class AddTask {
 
     public static void addTask(String commandMessage, Member member, List<Member> mentionedMembers, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) throws IOException {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
-        if (PermissionSystem.hasPermission(member, TaskPermission.CREATE_TASK)) {
+        if (!PermissionSystem.hasPermission(member, TaskPermission.CREATE_TASK)) {
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            return;
+        }
             if (mentionedMembers != null && mentionedMembers.size() > 0) {
                 final String task = getTaskFromArgs(1 + mentionedMembers.size(), commandMessage, true);
                 for (Member mentionedMember : mentionedMembers) {
@@ -52,29 +57,26 @@ public class AddTask {
                         }), textChannel, Color.red, langCode, slashCommandEvent);
                     }
                 }
-            } else if (GroupNotifications.serverHasGroup(args[1], member.getGuild())) {
+            } else if (CreateGroup.groupExists(args[1], member.getGuild().getId())) {
                 final String groupName = Connection.encodeString(args[1]);
                 final String task = getTaskFromArgs(3, commandMessage, false);
                 final de.bnder.taskmanager.utils.Task taskObject = new de.bnder.taskmanager.utils.Task(textChannel.getGuild(), task, null, groupName, member);
                 final int statusCode = taskObject.getStatusCode();
                 if (statusCode == 200) {
-                    final org.jsoup.Connection.Response res = Main.tmbAPI("group/members/" + textChannel.getGuild().getId() + "/" + groupName, member.getId(), org.jsoup.Connection.Method.GET).execute();
-                    final int getGroupMembersStatusCode = res.statusCode();
-                    if (getGroupMembersStatusCode == 200) {
-                        final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
+                    try {
+                        final QuerySnapshot getGroupMembers = Main.firestore.collection("server").document(member.getGuild().getId()).collection("groups").whereEqualTo("name", groupName).get().get().getDocuments().get(0).getReference().collection("group-member").get().get();
                         int usersWhoReceivedTheTaskAmount = 0;
-                        for (JsonValue value : jsonObject.get("members").asArray()) {
-                            final String id = value.asObject().getString("user_id", null);
-                            if (id != null) {
+                        for (final QueryDocumentSnapshot groupMemberDoc : getGroupMembers) {
+                            final String id = groupMemberDoc.getString("user_id");
                                 try {
                                     if (member.getGuild().retrieveMemberById(id).complete() != null) {
                                         final Member groupMember = member.getGuild().retrieveMemberById(id).complete();
                                         usersWhoReceivedTheTaskAmount++;
                                         sendTaskMessage(groupMember, member, taskObject.getId(), langCode, task);
                                     }
-                                } catch (Exception ignored) {
+                                }catch (ErrorResponseException e) {
+                                    groupMemberDoc.getReference().delete();
                                 }
-                            }
                         }
                         int finalUsersWhoReceivedTheTaskAmount = usersWhoReceivedTheTaskAmount;
                         MessageSender.send(embedTitle + " - " + taskObject.getId(), Localizations.getString("aufgabe_an_x_mitglieder_gesendet", langCode, new ArrayList<>() {
@@ -82,12 +84,8 @@ public class AddTask {
                                 add(String.valueOf(finalUsersWhoReceivedTheTaskAmount));
                             }
                         }), textChannel, Color.green, langCode, slashCommandEvent);
-                    } else if (getGroupMembersStatusCode == 404) {
-                        MessageSender.send(embedTitle + " - " + taskObject.getId(), Localizations.getString("aufgabe_an_x_mitglieder_gesendet", langCode, new ArrayList<>() {
-                            {
-                                add("0");
-                            }
-                        }), textChannel, Color.green, langCode, slashCommandEvent);
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
                     }
                 } else if (statusCode == 404) {
                     MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode, new ArrayList<>() {
@@ -105,9 +103,6 @@ public class AddTask {
             } else {
                 MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellen_fehlende_argumente", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
-        } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
-        }
     }
 
     private static void sendTaskMessage(Member member, Member author, String task_id, String langCode, String task) {

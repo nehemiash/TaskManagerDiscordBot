@@ -96,6 +96,7 @@ public class Task {
         this.deadline = deadline;
         this.type = TaskType.USER;
         this.holder = member.getId();
+
         try {
             final Response response = Main.tmbAPI("task/user/" + guild.getId(), member.getId(), Method.POST).data("task_text", text).data("command_processor", commandProcessor.getId()).data("deadline", deadline != null ? deadline : "").execute();
             final String jsonResponse = response.body();

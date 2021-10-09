@@ -15,8 +15,7 @@ package de.bnder.taskmanager.listeners;
  * limitations under the License.
  */
 
-import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonObject;
+import com.google.cloud.firestore.DocumentSnapshot;
 import de.bnder.taskmanager.main.CommandHandler;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Localizations;
@@ -43,10 +42,9 @@ public class CommandListener extends ListenerAdapter {
             if (event.getMessage().getContentRaw().length() > 0) {
                 if (CommandHandler.commands.containsKey(event.getMessage().getContentRaw().split(" ")[0].substring(1).toLowerCase())) {
                     try {
-                        final org.jsoup.Connection.Response getPrefixRes = Main.tmbAPI("server/prefix/" + event.getGuild().getId(), event.getAuthor().getId(), org.jsoup.Connection.Method.GET).execute();
-                        if (getPrefixRes.statusCode() == 200) {
-                            final JsonObject jsonObject = Json.parse(getPrefixRes.parse().body().text()).asObject();
-                            final String prefix = jsonObject.getString("prefix", Main.prefix);
+                        final DocumentSnapshot serverReference = Main.firestore.collection("server").document(event.getGuild().getId()).get().get();
+                        if (serverReference.get("prefix") != null) {
+                            final String prefix = serverReference.getString("prefix");
                             if (event.getMessage().getContentRaw().startsWith(prefix)) {
                                 processNormalCommand(event);
                             }

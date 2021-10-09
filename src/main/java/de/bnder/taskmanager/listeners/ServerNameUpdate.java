@@ -20,13 +20,14 @@ import net.dv8tion.jda.api.events.guild.update.GuildUpdateNameEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class ServerNameUpdate extends ListenerAdapter {
 
     public void onGuildUpdateName(GuildUpdateNameEvent e) {
         try {
             UpdateServerName.update(e.getGuild());
-        } catch (IOException ignored) {}
+        } catch (IOException | ExecutionException | InterruptedException ignored) {}
     }
 
 }

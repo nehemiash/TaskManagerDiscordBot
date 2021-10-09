@@ -24,42 +24,61 @@ import de.bnder.taskmanager.utils.permissions.BoardPermission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class DeleteBoard {
 
-    public static void deleteBoard(Member member, TextChannel textChannel, String boardName, SlashCommandEvent slashCommandEvent) throws IOException {
+    public static void deleteBoard(@NotNull Member member, TextChannel textChannel, String boardName, SlashCommandEvent slashCommandEvent) {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("board_title", langCode);
-        if (PermissionSystem.hasPermission(member, BoardPermission.DELETE_BOARD)) {
-            final org.jsoup.Connection.Response res = Main.tmbAPI("board/" + member.getGuild().getId() + "/" + boardName, member.getId(), org.jsoup.Connection.Method.DELETE).execute();
-            final int statusCode = res.statusCode();
-            if (statusCode == 200) {
-                MessageSender.send(embedTitle, Localizations.getString("board_was_deleted", langCode, new ArrayList<String>() {
-                    {
-                        add(boardName);
-                    }
-                }), textChannel, Color.green, langCode, slashCommandEvent);
-                UpdateGuildSlashCommands.update(member.getGuild());
-            } else if (statusCode == 404) {
-                MessageSender.send(embedTitle, Localizations.getString("board_with_name_doesnt_exist", langCode, new ArrayList<String>() {
-                    {
-                        add(boardName);
-                    }
-                }), textChannel, Color.red, langCode, slashCommandEvent);
-            } else {
-                MessageSender.send(embedTitle, Localizations.getString("board_delete_unknown_error", langCode, new ArrayList<String>() {
-                    {
-                        add(boardName);
-                    }
-                }), textChannel, Color.red, langCode, slashCommandEvent);
-            }
-        } else {
+
+        //User has permission DELETE_BOARD
+        if (!PermissionSystem.hasPermission(member, BoardPermission.DELETE_BOARD)) {
             MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            return;
         }
+
+        //Board with name "boardName" doesn't exist
+        if (!CreateBoard.boardExists(boardName, textChannel.getGuild().getId())) {
+            MessageSender.send(embedTitle, Localizations.getString("board_with_name_doesnt_exist", langCode, new ArrayList<>() {
+                {
+                    add(boardName);
+                }
+            }), textChannel, Color.red, langCode, slashCommandEvent);
+            return;
+        }
+
+        try {
+            deleteBoardFromFirestore(boardName, textChannel.getGuild().getId());
+            MessageSender.send(embedTitle, Localizations.getString("board_was_deleted", langCode, new ArrayList<>() {
+                {
+                    add(boardName);
+                }
+            }), textChannel, Color.green, langCode, slashCommandEvent);
+            UpdateGuildSlashCommands.update(member.getGuild());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            MessageSender.send(embedTitle, Localizations.getString("board_delete_unknown_error", langCode, new ArrayList<>() {
+                {
+                    add(boardName);
+                }
+            }), textChannel, Color.red, langCode, slashCommandEvent);
+        }
+    }
+
+    /** Deletes board with specific name from guild with ID.
+     *
+     * @param boardName The Name of the Board that should be deleted.
+     * @param guildID The ID of the Guild where the Board is.
+     * @throws ExecutionException If Firestore throws an error.
+     * @throws InterruptedException If Firestore throws an error.
+     */
+    static void deleteBoardFromFirestore(String boardName, String guildID) throws ExecutionException, InterruptedException {
+        Main.firestore.collection("server").document(guildID).collection("boards").whereEqualTo("name", boardName).get().get().getDocuments().get(0).getReference().delete();
     }
 
 }

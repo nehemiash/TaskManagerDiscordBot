@@ -46,7 +46,7 @@ public class Localizations {
                         messageBuilder.append(word).append(" ");
                     }
                 }
-                if (paragraph.contains(" ")){
+                if (paragraph.contains(" ")) {
                     messageBuilder = new StringBuilder().append(messageBuilder.substring(0, messageBuilder.length() - 1));
                 }
                 messageBuilder.append("\n");
@@ -58,9 +58,9 @@ public class Localizations {
 
     public static String getGuildLanguage(Guild guild) {
         try {
-            final org.jsoup.Connection.Response res = Main.tmbAPI("server/language/" + guild.getId(), null, org.jsoup.Connection.Method.GET).execute();
-            if (res.statusCode() == 200) {
-                return Json.parse(res.parse().body().text()).asObject().getString("language", "en");
+            Object a = Main.firestore.collection("server").document(guild.getId()).get().get().get("language");
+            if (a != null) {
+                return a.toString();
             }
         } catch (Exception e) {
             e.printStackTrace();

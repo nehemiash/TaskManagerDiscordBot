@@ -15,6 +15,9 @@ package de.bnder.taskmanager.commands.board;
  * limitations under the License.
  */
 
+import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
@@ -22,11 +25,12 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import org.jsoup.Connection;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 public class SwitchBoard {
 
@@ -34,24 +38,41 @@ public class SwitchBoard {
         final Guild guild = textChannel.getGuild();
         final String langCode = Localizations.getGuildLanguage(guild);
         final String embedTitle = Localizations.getString("board_title", langCode);
-        final org.jsoup.Connection.Response res = Main.tmbAPI("board/active/" + guild.getId(), member.getId(), Connection.Method.POST).data("board_name", boardName).execute();
-        final int statusCode = res.statusCode();
-        if (statusCode == 200) {
+
+        try {
+            final QuerySnapshot getBoards = Main.firestore.collection("server").document(member.getGuild().getId()).collection("boards").whereEqualTo("name", boardName).get().get();
+            if (getBoards.size() == 0) {
+                MessageSender.send(embedTitle, Localizations.getString("board_not_found", langCode, new ArrayList<>() {
+                    {
+                        add(boardName);
+                    }
+                }), textChannel, Color.red, langCode, slashCommandEvent);
+                return;
+            }
+            final QueryDocumentSnapshot boardDoc = getBoards.getDocuments().get(0);
+            final DocumentSnapshot getUserDoc = Main.firestore.collection("server").document(member.getGuild().getId())
+                    .collection("server_member")
+                    .document(member.getId())
+                    .get().get();
+            if (getUserDoc.exists()) {
+                getUserDoc.getReference().update(new HashMap<>() {{
+                    put("active_board_id", boardDoc.getId());
+                }});
+            } else {
+                getUserDoc.getReference().set(new HashMap<>() {{
+                    put("active_board_id", boardDoc.getId());
+                }});
+            }
             MessageSender.send(embedTitle, Localizations.getString("board_activated_successfully", langCode, new ArrayList<>() {
                 {
                     add(boardName);
                 }
             }), textChannel, Color.green, langCode, slashCommandEvent);
-        } else if (statusCode == 404) {
-            MessageSender.send(embedTitle, Localizations.getString("board_not_found", langCode, new ArrayList<>() {
-                {
-                    add(boardName);
-                }
-            }), textChannel, Color.red, langCode, slashCommandEvent);
-        } else {
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
             MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<>() {
                 {
-                    add(String.valueOf(statusCode));
+                    add("901");
                 }
             }), textChannel, Color.red, langCode, slashCommandEvent);
         }

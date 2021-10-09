@@ -15,16 +15,29 @@ package de.bnder.taskmanager.utils;
  * limitations under the License.
  */
 
+import com.google.cloud.firestore.DocumentSnapshot;
 import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.entities.Guild;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class UpdateServerName {
 
-    public static void update(Guild guild) throws IOException {
-        String name = guild.getName();
-        Main.tmbAPI("server/name/" + guild.getId(), null, org.jsoup.Connection.Method.POST).data("name", name).execute();
+    public static void update(Guild guild) throws IOException, ExecutionException, InterruptedException {
+        DocumentSnapshot a = Main.firestore.collection("server")
+                .document(guild.getId()).get().get();
+        if (a.exists()) {
+            a.getReference().update("name", guild.getName());
+        } else {
+            Map<String, Object> map = new java.util.HashMap<>();
+            map.put("name", guild.getName());
+            map.put("language", "en");
+            map.put("owner", guild.retrieveOwner().complete().getId());
+            a.getReference().set(map);
+        }
+
     }
 
 }

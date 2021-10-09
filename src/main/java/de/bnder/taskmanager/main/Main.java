@@ -69,12 +69,9 @@ public class Main {
     public static final String prefix = "-";
 
     public static void main(String[] args) {
-
         try {
-            // Use the application default credentials
             FileInputStream serviceAccount =
                     new FileInputStream("serviceAccountKey.json");
-
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .build();

@@ -24,7 +24,7 @@ public class GuildLeave extends ListenerAdapter {
 
     public void onGuildLeave(GuildLeaveEvent event) {
         try {
-            Main.tmbAPI("server/delete/" + event.getGuild().getId(), null, org.jsoup.Connection.Method.POST).execute();
+            Main.firestore.collection("server").document(event.getGuild().getId()).delete();
         } catch (Exception e) {
             e.printStackTrace();
         }
