@@ -15,6 +15,11 @@ package de.bnder.taskmanager.main;
  * limitations under the License.
  */
 
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.Firestore;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.cloud.FirestoreClient;
 import de.bnder.taskmanager.commands.*;
 import de.bnder.taskmanager.commands.board.BoardController;
 import de.bnder.taskmanager.commands.group.GroupController;
@@ -24,7 +29,6 @@ import de.bnder.taskmanager.commands.settings.SettingsController;
 import de.bnder.taskmanager.commands.task.TaskController;
 import de.bnder.taskmanager.listeners.*;
 import de.bnder.taskmanager.listeners.typoReactionListeners.*;
-import de.bnder.taskmanager.session.Session;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -34,6 +38,8 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
 import javax.security.auth.login.LoginException;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class Main {
@@ -45,6 +51,8 @@ public class Main {
     public static final String userAgent = "TaskmanagerBot/1.0 (Windows; U; WindowsNT 5.1; de-DE; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
     public static final int shard = Integer.parseInt(dotenv.get("SHARD") != null ? dotenv.get("SHARD") : System.getenv("SHARD"));
     public static final int totalShards = Integer.parseInt(dotenv.get("TOTAL_SHARDS") != null ? dotenv.get("TOTAL_SHARDS") : System.getenv(("TOTAL_SHARDS")));
+
+    public static Firestore firestore;
 
     public static Connection tmbAPI(String path, String userID, Connection.Method method) {
         return Jsoup.connect(tmbApiUrl + "/" + path).method(method)
@@ -59,10 +67,24 @@ public class Main {
     }
 
     public static final String prefix = "-";
-    public static Session session;
 
     public static void main(String[] args) {
-        session = new Session(String.valueOf(shard)).create();
+
+        try {
+            // Use the application default credentials
+            FileInputStream serviceAccount =
+                    new FileInputStream("serviceAccountKey.json");
+
+            FirebaseOptions options = FirebaseOptions.builder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .build();
+            FirebaseApp.initializeApp(options);
+
+            firestore = FirestoreClient.getFirestore();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
 
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createLight(dotenv.get("BOT_TOKEN"),
                 Arrays.asList(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS));
