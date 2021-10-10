@@ -18,8 +18,8 @@ public class UndoTask {
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         final String taskID = Connection.encodeString(args[1]);
         final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, member.getGuild());
-        final int statusCode = task.undo(member).getStatusCode();
-        if (statusCode == 200) {
+        task.undo();
+        if (task.exists()) {
             final TaskStatus taskStatus = task.getStatus();
             if (taskStatus == TaskStatus.TODO) {
                 MessageSender.send(embedTitle, Localizations.getString("aufgabe_wird_nicht_bearbeitet", langCode), textChannel, Color.green, langCode, slashCommandEvent);
@@ -30,16 +30,10 @@ public class UndoTask {
             } else {
                 MessageSender.send(embedTitle, Localizations.getString("task_abfrage_unbekannter_fehler", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
-        } else if (statusCode == 404) {
+        } else {
             MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
                 {
                     add(taskID);
-                }
-            }), textChannel, Color.red, langCode, slashCommandEvent);
-        } else {
-            MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
-                {
-                    add(statusCode + " " );
                 }
             }), textChannel, Color.red, langCode, slashCommandEvent);
         }

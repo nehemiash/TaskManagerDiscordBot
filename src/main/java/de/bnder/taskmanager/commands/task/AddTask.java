@@ -37,7 +37,7 @@ public class AddTask {
             final String task = getTaskFromArgs(1 + mentionedMembers.size(), commandMessage, true);
             for (Member mentionedMember : mentionedMembers) {
                 final de.bnder.taskmanager.utils.Task taskObject = new de.bnder.taskmanager.utils.Task(member.getGuild(), task, null, mentionedMember, member);
-                if (taskObject.getStatusCode() == 200) {
+                if (taskObject.exists()) {
                     String newLanguageSuggestionAppend = taskObject.newLanguageSuggestion() != null ? Localizations.getString("task_new_language_suggestion_text", taskObject.newLanguageSuggestion(), new ArrayList<>() {{
                         add(String.valueOf(commandMessage.charAt(0)));
                         add(taskObject.newLanguageSuggestion());
@@ -50,19 +50,14 @@ public class AddTask {
                         }
                     }) + newLanguageSuggestionAppend, textChannel, Color.green, langCode, slashCommandEvent);
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, new ArrayList<>() {
-                        {
-                            add(taskObject.getStatusCode() + " " + taskObject.getResponseMessage());
-                        }
-                    }), textChannel, Color.red, langCode, slashCommandEvent);
+                    MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode), textChannel, Color.red, langCode, slashCommandEvent);
                 }
             }
         } else if (CreateGroup.groupExists(args[1], member.getGuild().getId())) {
             final String groupName = args[1];
             final String task = getTaskFromArgs(3, commandMessage, false);
             final de.bnder.taskmanager.utils.Task taskObject = new de.bnder.taskmanager.utils.Task(textChannel.getGuild(), task, null, groupName, member);
-            final int statusCode = taskObject.getStatusCode();
-            if (statusCode == 200) {
+            if (taskObject.exists()) {
                 try {
                     final QuerySnapshot getGroupMembers = Main.firestore.collection("server").document(member.getGuild().getId()).collection("groups").whereEqualTo("name", groupName).get().get().getDocuments().get(0).getReference().collection("group-member").get().get();
                     int usersWhoReceivedTheTaskAmount = 0;
@@ -87,16 +82,10 @@ public class AddTask {
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
-            } else if (statusCode == 404) {
+            } else {
                 MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode, new ArrayList<>() {
                     {
                         add(groupName);
-                    }
-                }), textChannel, Color.red, langCode, slashCommandEvent);
-            } else {
-                MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, new ArrayList<>() {
-                    {
-                        add(taskObject.getStatusCode() + " " + taskObject.getResponseMessage());
                     }
                 }), textChannel, Color.red, langCode, slashCommandEvent);
             }

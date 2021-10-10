@@ -25,15 +25,15 @@ public class SetDeadline {
             if (DateUtil.convertToDate(date) != null) {
                 final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 final String newDate = dateFormat.format(DateUtil.convertToDate(date));
-                task.setDeadline(newDate);
-                if (task.getStatusCode() == 200) {
+                if (task.exists()) {
+                    task.setDeadline(newDate);
                     MessageSender.send(embedTitle, Localizations.getString("deadline_gesetzt", langCode, new ArrayList<String>() {
                         {
                             add(taskID);
                             add(newDate);
                         }
                     }), textChannel, Color.green, langCode, slashCommandEvent);
-                } else if (task.getStatusCode() == 404) {
+                } else {
                     MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
                         {
                             add(taskID);

@@ -21,24 +21,17 @@ public class EditTask {
             final String taskID = Connection.encodeString(args[1]);
             final String newTask = AddTask.getTaskFromArgs(3, commandMessage, false);
             final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
+            if (task.exists()) {
             task.setText(newTask);
-            final int statusCode = task.getStatusCode();
-            if (statusCode == 200) {
                 MessageSender.send(embedTitle, Localizations.getString("aufgabe_editiert", langCode, new ArrayList<String>() {
                     {
                         add(taskID);
                     }
                 }), textChannel, Color.green, langCode, slashCommandEvent);
-            } else if (statusCode == 404) {
+            } else {
                 MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
                     {
                         add(taskID);
-                    }
-                }), textChannel, Color.red, langCode, slashCommandEvent);
-            } else {
-                MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
-                    {
-                        add(statusCode + " ");
                     }
                 }), textChannel, Color.red, langCode, slashCommandEvent);
             }

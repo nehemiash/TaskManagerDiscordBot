@@ -40,9 +40,9 @@ public class TaskLogReaction extends ListenerAdapter {
                                 final String taskID = message.getEmbeds().get(0).getFields().get(3).getValue();
                                 final Task task = new Task(taskID, event.getGuild());
                                 if (event.getReaction().getReactionEmote().getAsReactionCode().equals("⏭️")) {
-                                    task.proceed(event.getMember());
+                                    task.proceed();
                                 } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("↩️")) {
-                                    task.undo(event.getMember());
+                                    task.undo();
                                 }
                             });
                         }

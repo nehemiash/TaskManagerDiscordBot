@@ -22,24 +22,18 @@ public class DeleteTask {
         if (PermissionSystem.hasPermission(member, TaskPermission.DELETE_TASK)) {
             final String taskID = Connection.encodeString(args[1]);
             if (!taskID.equalsIgnoreCase("done")) {
-                final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild()).delete();
-                final int statusCode = task.getStatusCode();
-                if (statusCode == 200) {
+                final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
+                if (task.exists()) {
+                    task.delete();
                     MessageSender.send(embedTitle, Localizations.getString("aufgabe_geloescht", langCode, new ArrayList<>() {
                         {
                             add(taskID);
                         }
                     }), textChannel, Color.green, langCode, slashCommandEvent);
-                } else if (statusCode == 404) {
+                } else {
                     MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<>() {
                         {
                             add(taskID);
-                        }
-                    }), textChannel, Color.red, langCode, slashCommandEvent);
-                } else {
-                    MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
-                        {
-                            add(statusCode + "");
                         }
                     }), textChannel, Color.red, langCode, slashCommandEvent);
                 }
