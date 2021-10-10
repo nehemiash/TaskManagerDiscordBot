@@ -47,7 +47,7 @@ public class CreateBoard {
         }
 
         //Board with name "boardName" already exists
-        if (boardExists(boardName, textChannel.getGuild().getId())) {
+        if (boardExists(boardName, textChannel.getGuild().getId()) || boardName.equals("default")) {
             MessageSender.send(embedTitle, Localizations.getString("board_not_created_name_already_exists", langCode, new ArrayList<>() {
                 {
                     add(boardName);

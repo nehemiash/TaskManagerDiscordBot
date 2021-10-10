@@ -43,7 +43,7 @@ public class DeleteBoard {
         }
 
         //Board with name "boardName" doesn't exist
-        if (!CreateBoard.boardExists(boardName, textChannel.getGuild().getId())) {
+        if (!CreateBoard.boardExists(boardName, textChannel.getGuild().getId()) || boardName.equals("default")) {
             MessageSender.send(embedTitle, Localizations.getString("board_with_name_doesnt_exist", langCode, new ArrayList<>() {
                 {
                     add(boardName);

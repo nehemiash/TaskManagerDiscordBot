@@ -28,7 +28,7 @@ public class UndoTask {
             } else if (taskStatus == TaskStatus.DONE) {
                 MessageSender.send(embedTitle, Localizations.getString("aufgabe_erledigt", langCode), textChannel, Color.green, langCode, slashCommandEvent);
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("task_abfrage_unbekannter_fehler", langCode) + " " + task.getResponseMessage(), textChannel, Color.red, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("task_abfrage_unbekannter_fehler", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else if (statusCode == 404) {
             MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
@@ -39,7 +39,7 @@ public class UndoTask {
         } else {
             MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
                 {
-                    add(statusCode + " " + task.getResponseMessage());
+                    add(statusCode + " " );
                 }
             }), textChannel, Color.red, langCode, slashCommandEvent);
         }

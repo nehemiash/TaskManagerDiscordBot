@@ -40,27 +40,33 @@ public class SwitchBoard {
         final String embedTitle = Localizations.getString("board_title", langCode);
 
         try {
-            final QuerySnapshot getBoards = Main.firestore.collection("server").document(member.getGuild().getId()).collection("boards").whereEqualTo("name", boardName).get().get();
-            if (getBoards.size() == 0) {
-                MessageSender.send(embedTitle, Localizations.getString("board_not_found", langCode, new ArrayList<>() {
-                    {
-                        add(boardName);
-                    }
-                }), textChannel, Color.red, langCode, slashCommandEvent);
-                return;
+            String boardID = "default";
+            if (!boardName.equals("default")) {
+                final QuerySnapshot getBoards = Main.firestore.collection("server").document(member.getGuild().getId()).collection("boards").whereEqualTo("name", boardName).get().get();
+                if (getBoards.size() == 0) {
+                    MessageSender.send(embedTitle, Localizations.getString("board_not_found", langCode, new ArrayList<>() {
+                        {
+                            add(boardName);
+                        }
+                    }), textChannel, Color.red, langCode, slashCommandEvent);
+                    return;
+                }
+                final QueryDocumentSnapshot boardDoc = getBoards.getDocuments().get(0);
+                boardID = boardDoc.getId();
             }
-            final QueryDocumentSnapshot boardDoc = getBoards.getDocuments().get(0);
             final DocumentSnapshot getUserDoc = Main.firestore.collection("server").document(member.getGuild().getId())
                     .collection("server_member")
                     .document(member.getId())
                     .get().get();
             if (getUserDoc.exists()) {
+                String finalBoardID = boardID;
                 getUserDoc.getReference().update(new HashMap<>() {{
-                    put("active_board_id", boardDoc.getId());
+                    put("active_board_id", finalBoardID);
                 }});
             } else {
+                String finalBoardID = boardID;
                 getUserDoc.getReference().set(new HashMap<>() {{
-                    put("active_board_id", boardDoc.getId());
+                    put("active_board_id", finalBoardID);
                 }});
             }
             MessageSender.send(embedTitle, Localizations.getString("board_activated_successfully", langCode, new ArrayList<>() {

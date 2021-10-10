@@ -2,6 +2,8 @@ package de.bnder.taskmanager.utils;
 
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonObject;
+import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
 import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -13,7 +15,10 @@ import org.jsoup.nodes.Document;
 
 import java.awt.*;
 import java.io.IOException;
+import java.security.SecureRandom;
+import java.util.HashMap;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 public class Task {
 
@@ -28,68 +33,73 @@ public class Task {
     final Guild guild;
     String newLanguageSuggestion = null;
     String notifyChannelMessageID = null;
-    String responseMessage = null;
-    String activeBoardName = null;
+    String boardName = "default";
+    String boardID = "default";
 
+    /** Get Task by id.
+     *
+     * @param taskID The id of the task.
+     * @param guild The guild where the task could be.
+     */
     public Task(String taskID, Guild guild) {
         this.id = taskID;
         this.guild = guild;
 
         try {
-            JsonObject jsonObject = null;
-            Response res;
             //Try user task
-            res = Main.tmbAPI("task/user/info/" + guild.getId() + "/" + taskID, null, Method.GET).execute();
-            setStatusCode(res.statusCode());
-            setResponseMessage(res.body());
-            if (getStatusCode() == 200) {
-                this.type = TaskType.USER;
-                final Document a = res.parse();
-                jsonObject = Json.parse(a.body().text()).asObject();
-                notifyChannelMessageID = (jsonObject.get("notify_channel_message_id") != null && !jsonObject.get("notify_channel_message_id").isNull()) ? jsonObject.getString("notify_channel_message_id", null) : null;
-            } else if (getStatusCode() == 404) {
-                //Try group task
-                res = Main.tmbAPI("task/group/info/" + guild.getId() + "/" + taskID, null, Method.GET).execute();
-                setStatusCode(res.statusCode());
-                setResponseMessage(res.body());
-                if (getStatusCode() == 200) {
-                    this.type = TaskType.GROUP;
-                    final Document a = res.parse();
-                    jsonObject = Json.parse(a.body().text()).asObject();
-                    notifyChannelMessageID = (jsonObject.get("notify_channel_message_id") != null && !jsonObject.get("notify_channel_message_id").isNull()) ? jsonObject.getString("notify_channel_message_id", null) : null;
-                } else {
-                    this.exists = false;
-                    return;
+            for (DocumentSnapshot boardDoc : Main.firestore.collection("server").document(guild.getId()).collection("boards").get().get().getDocuments()) {
+                final DocumentSnapshot taskDoc = boardDoc.getReference().collection("user-tasks").document(taskID).get().get();
+                if (taskDoc.exists()) {
+                    this.type = TaskType.USER;
+                    this.exists = true;
+                    this.text = taskDoc.getString("text");
+                    this.deadline = taskDoc.getString("deadline");
+                    this.status = TaskStatus.values()[Integer.parseInt(taskDoc.get("status").toString())];
+                    this.holder = taskDoc.getString("user_id");
+                    if (taskDoc.getData().containsKey("notify_channel_message_id"))
+                        this.notifyChannelMessageID = taskDoc.getString("notify_channel_message_id");
+                    this.boardName = boardDoc.getString("name");
+                    this.boardID = boardDoc.getId();
+                    break;
                 }
             }
 
-            if (getStatusCode() == 200) {
-                this.exists = true;
-                final int taskStatusInt = Objects.requireNonNull(jsonObject).getInt("status", 0);
-                if (taskStatusInt >= 0) {
-                    this.status = TaskStatus.values()[taskStatusInt];
+            if (!this.exists) {
+                //Try group task
+                for (DocumentSnapshot groupDoc : Main.firestore.collection("server").document(guild.getId()).collection("groups").get().get().getDocuments()) {
+                    final DocumentSnapshot taskDoc = groupDoc.getReference().collection("group-tasks").document(taskID).get().get();
+                    if (taskDoc.exists()) {
+                        this.type = TaskType.GROUP;
+                        this.exists = true;
+                        this.text = taskDoc.getString("text");
+                        this.deadline = taskDoc.getString("deadline");
+                        this.status = TaskStatus.values()[Integer.parseInt(taskDoc.get("status").toString())];
+                        this.holder = groupDoc.getId();
+                        if (taskDoc.getData().containsKey("notify_channel_message_id"))
+                            this.notifyChannelMessageID = taskDoc.getString("notify_channel_message_id");
+
+                        //Get board name
+                        final String boardID = taskDoc.getString("board_id");
+                        this.boardName = Main.firestore.collection("server").document(guild.getId()).collection("boards").document(boardID).get().get().getString("name");
+                        this.boardID = boardID;
+                        break;
+                    }
                 }
-                this.deadline = jsonObject.get("deadline").toString();
-                this.holder = this.type == TaskType.USER ? jsonObject.getString("user_id", null) : jsonObject.getString("group_name", null);
-                this.text = jsonObject.getString("text", null);
             }
-        } catch (IOException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
 
-    public Task(String taskID, Guild guild, String text, String deadline, TaskType type, TaskStatus status, String holder) {
-        this.id = taskID;
-        this.guild = guild;
-        this.text = text;
-        this.deadline = deadline;
-        this.type = type;
-        this.status = status;
-        this.holder = holder;
-        this.exists = true;
-        this.statusCode = 200;
-    }
-
+    /**
+     * Create a new task for a user.
+     *
+     * @param guild            The Guild where the task will be created in.
+     * @param text             The text of the task.
+     * @param deadline         Deadline for the task. Can be null!
+     * @param member           Member which will be the owner of the task.
+     * @param commandProcessor The one who created the task by performing the creation command.
+     */
     public Task(Guild guild, String text, String deadline, Member member, Member commandProcessor) {
         this.guild = guild;
         this.text = text;
@@ -98,23 +108,46 @@ public class Task {
         this.holder = member.getId();
 
         try {
-            final Response response = Main.tmbAPI("task/user/" + guild.getId(), member.getId(), Method.POST).data("task_text", text).data("command_processor", commandProcessor.getId()).data("deadline", deadline != null ? deadline : "").execute();
-            final String jsonResponse = response.body();
-            final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
+            String boardID = "default";
+            String boardName = "default";
+
+            //Get the board of the command processor
+            final DocumentSnapshot getServerMemberDoc = Main.firestore.collection("server").document(guild.getId()).collection("server_member").document(commandProcessor.getId()).get().get();
+            if (getServerMemberDoc.exists()) {
+                if (Objects.requireNonNull(getServerMemberDoc.getData()).containsKey("active_board_id")) {
+                    boardID = getServerMemberDoc.getString("active_board_id");
+                }
+            }
+            final String taskID = generateTaskID(guild, boardID);
+
+            if (taskID == null) {
+                throw new Exception("TaskID can't be null!");
+            }
+
+            final DocumentSnapshot boardDoc = Main.firestore.collection("server").document(guild.getId()).collection("boards").document(boardID).get().get();
+            //Get actice board name if it isn't default
+            if (!boardID.equals("default")) boardName = boardDoc.getString("name");
+            boardDoc.getReference().collection("user-tasks").document(taskID).set(new HashMap<>() {{
+                put("user_id", member.getId());
+                put("deadline_reminded", false);
+                put("position", -1);
+                put("status", 0);
+                put("text", text);
+                put("deadline", deadline);
+            }});
             setStatusCode(200);
-            setResponseMessage(response.body());
-            this.id = jsonObject.getString("id", null);
-            this.activeBoardName = jsonObject.get("board").isNull() ? null : jsonObject.getString("board", null);
-            this.newLanguageSuggestion = jsonObject.get("new_language_suggestion").isNull() ? null : jsonObject.getString("new_language_suggestion", null);
 
 
-            //Send task into group notify channel
-            final org.jsoup.Connection.Response getNotifyChannelRes = Main.tmbAPI("user/notify-channel/" + guild.getId(), holder, Method.GET).execute();
-            if (getNotifyChannelRes.statusCode() == 200) {
-                final JsonObject notifyChannelObject = Json.parse(getNotifyChannelRes.body()).asObject();
-                if (notifyChannelObject.get("channel") != null) {
-                    final String channel = notifyChannelObject.get("channel").isNull() ? null : notifyChannelObject.getString("channel", null);
-                    if (channel != null && guild.getTextChannelById(channel) != null) {
+            this.id = taskID;
+            this.boardName = boardName;
+            this.boardID = boardID;
+            this.newLanguageSuggestion = null;
+
+            final DocumentSnapshot getServermember = Main.firestore.collection("server").document(guild.getId()).collection("server_member").document(member.getId()).get().get();
+            if (getServermember.exists()) {
+                if (Objects.requireNonNull(getServermember.getData()).containsKey("notify_channel")) {
+                    final String channelID = getServermember.getString("notify_channel");
+                    if (guild.getTextChannelById(channelID) != null) {
                         final String langCode = Localizations.getGuildLanguage(guild);
                         EmbedBuilder builder = new EmbedBuilder().setColor(Color.cyan);
                         builder.addField(Localizations.getString("task_info_field_task", langCode), text, false);
@@ -122,59 +155,10 @@ public class Task {
                         builder.addField(Localizations.getString("task_info_field_deadline", langCode), (deadline != null) ? deadline : "---", true);
                         builder.addField(Localizations.getString("task_info_field_id", langCode), id, true);
                         builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
-                        guild.getTextChannelById(channel).sendMessageEmbeds(builder.build()).queue(message -> {
-                            try {
-                                Main.tmbAPI("task/user/set-notify-channel-message-id/" + guild.getId() + "/" + this.id, holder, Method.POST).data("notify_channel_message_id", message.getId()).execute();
-                                message.addReaction("↩️").queue();
-                                message.addReaction("⏭️").queue();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        });
-                    }
-                }
-            }
-        } catch (Exception e) {
-            setStatusCode(-1);
-            e.printStackTrace();
-        }
-    }
-
-    public Task(Guild guild, String text, String deadline, String holder, Member commandProcessor) {
-        this.guild = guild;
-        this.text = text;
-        this.deadline = deadline;
-        this.type = TaskType.GROUP;
-        this.holder = holder;
-        try {
-            final Response a = Main.tmbAPI("task/group/" + guild.getId() + "/" + holder, commandProcessor.getId(), Method.POST).data("task_text", text).data("deadline", deadline != null ? deadline : "").execute();
-            final String jsonResponse = a.body();
-            final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-            setStatusCode(200);
-            setResponseMessage(a.body());
-            this.id = jsonObject.getString("id", null);
-
-
-            //Send task into group notify channel
-            final org.jsoup.Connection.Response getNotifyChannelRes = Main.tmbAPI("group/notify-channel/" + guild.getId() + "/" + holder, null, Method.GET).execute();
-            if (getNotifyChannelRes.statusCode() == 200) {
-                final JsonObject notifyChannelObject = Json.parse(getNotifyChannelRes.parse().body().text()).asObject();
-                if (notifyChannelObject.get("channel") != null && !notifyChannelObject.get("channel").isNull()) {
-                    final String channel = notifyChannelObject.getString("channel", null);
-                    if (guild.getTextChannelById(channel) != null) {
-                        final String langCode = Localizations.getGuildLanguage(guild);
-                        EmbedBuilder builder = new EmbedBuilder().setColor(Color.cyan);
-                        builder.addField(Localizations.getString("task_info_field_task", langCode), text, false);
-                        builder.addField(Localizations.getString("task_info_field_type_group", langCode), holder, true);
-                        builder.addField(Localizations.getString("task_info_field_deadline", langCode), (deadline != null) ? deadline : "---", true);
-                        builder.addField(Localizations.getString("task_info_field_id", langCode), id, true);
-                        builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
-                        guild.getTextChannelById(channel).sendMessageEmbeds(builder.build()).queue(message -> {
-                            try {
-                                Main.tmbAPI("task/group/set-notify-channel-message-id/" + guild.getId() + "/" + this.id, null, Method.POST).data("notify_channel_message_id", message.getId()).execute();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                        guild.getTextChannelById(channelID).sendMessageEmbeds(builder.build()).queue(message -> {
+                            boardDoc.getReference().collection("user-tasks").document(taskID).update(new HashMap<>() {{
+                                put("notify_channel_message_id", message.getId());
+                            }});
                             message.addReaction("↩️").queue();
                             message.addReaction("⏭️").queue();
                         });
@@ -187,15 +171,116 @@ public class Task {
         }
     }
 
-    void setResponseMessage(String jsoupResponse) {
-        final JsonObject object = Json.parse(jsoupResponse).asObject();
-        if (object.get("message") != null && !object.get("message").isNull()) {
-            this.responseMessage = object.getString("message", null);
+    /**
+     * Generate a new unique task id.
+     *
+     * @param guild         The guild which will receive the task.
+     * @param activeBoardID The board in which the task will be created.
+     * @return The 5 numbers long id.
+     */
+    String generateTaskID(Guild guild, String activeBoardID) {
+        final int len = 5;
+        final String AB = "0123456789";
+        final SecureRandom rnd = new SecureRandom();
+        final StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++)
+            sb.append(AB.charAt(rnd.nextInt(AB.length())));
+
+        try {
+            if (Main.firestore.collection("server").document(guild.getId()).collection("boards").document(activeBoardID).collection("user-tasks").document(sb.toString()).get().get().exists()) {
+                return generateTaskID(guild, activeBoardID);
+            }
+
+            for (DocumentSnapshot groupDoc : Main.firestore.collection("server").document(guild.getId()).collection("groups").get().get().getDocuments()) {
+                if (groupDoc.getReference().collection("group-tasks").document(sb.toString()).get().get().exists()) {
+                    return generateTaskID(guild, activeBoardID);
+                }
+            }
+
+            return sb.toString();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Create a new task for a group.
+     *
+     * @param guild            The guild on which the task will be created.
+     * @param text             The text of the task.
+     * @param deadline         The deadline of the task. Can be null.
+     * @param groupName        The ID of the group owning the task.
+     * @param commandProcessor The member performing the create command.
+     */
+    public Task(Guild guild, String text, String deadline, String groupName, Member commandProcessor) {
+        this.guild = guild;
+        this.text = text;
+        this.deadline = deadline;
+        this.type = TaskType.GROUP;
+        this.holder = groupName;
+        try {
+            //Get group name
+            final QuerySnapshot getGroup = Main.firestore.collection("server").document(guild.getId()).collection("groups").whereEqualTo("name", groupName).get().get();
+            if (getGroup.size() > 0) {
+                String boardID = "default";
+                String boardName = "default";
+                //Get the board of the command processor
+                final DocumentSnapshot getServerMemberDoc = Main.firestore.collection("server").document(guild.getId()).collection("server_member").document(commandProcessor.getId()).get().get();
+                if (getServerMemberDoc.exists()) {
+                    if (Objects.requireNonNull(getServerMemberDoc.getData()).containsKey("active_board_id")) {
+                        boardID = getServerMemberDoc.getString("active_board_id");
+                        this.boardName = Main.firestore.collection("server").document(guild.getId()).collection("boards").document(boardID).get().get().getString("name");
+                    }
+                }
+                final DocumentSnapshot groupDoc = getGroup.getDocuments().get(0);
+                final String taskID = generateTaskID(guild, boardID);
+                String finalBoardID = boardID;
+                groupDoc.getReference().collection("group-tasks").document(taskID).set(new HashMap<>() {{
+                    put("board_id", finalBoardID);
+                    put("deadline", deadline);
+                    put("deadline_reminded", false);
+                    put("position", -1);
+                    put("status", 0);
+                    put("text", text);
+                }});
+                setStatusCode(200);
+                this.id = taskID;
+                this.boardID = boardID;
+
+                //Send task into group notify channel
+                if (groupDoc.getData().containsKey("notify_channel")) {
+                    final String channelID = getGroup.getDocuments().get(0).getString("notify_channel");
+                    if (guild.getTextChannelById(channelID) != null) {
+                        final String langCode = Localizations.getGuildLanguage(guild);
+                        EmbedBuilder builder = new EmbedBuilder().setColor(Color.cyan);
+                        builder.addField(Localizations.getString("task_info_field_task", langCode), text, false);
+                        builder.addField(Localizations.getString("task_info_field_type_group", langCode), groupName, true);
+                        builder.addField(Localizations.getString("task_info_field_deadline", langCode), (deadline != null) ? deadline : "---", true);
+                        builder.addField(Localizations.getString("task_info_field_id", langCode), id, true);
+                        builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
+                        guild.getTextChannelById(channelID).sendMessageEmbeds(builder.build()).queue(message -> {
+                            groupDoc.getReference().collection("group-tasks").document(taskID).update(new HashMap<>() {{
+                                put("notify_channel_message_id", message.getId());
+                            }});
+                            message.addReaction("↩️").queue();
+                            message.addReaction("⏭️").queue();
+                        });
+                    }
+                }
+            }
+        } catch (Exception e) {
+            setStatusCode(-1);
+            e.printStackTrace();
         }
     }
 
     public String getNotifyChannelMessageID() {
         if (this.notifyChannelMessageID == null) {
+            if (this.type == TaskType.USER) {
+
+            }
+
             try {
                 final Response res = Main.tmbAPI("task/" + ((this.type == TaskType.GROUP) ? "group" : "user") + "/info/" + this.guild.getId() + "/" + this.id, null, Method.GET).execute();
                 if (res.statusCode() == 200) {
@@ -218,7 +303,6 @@ public class Task {
         try {
             Response res = Main.tmbAPI("task/" + (this.type == TaskType.USER ? "user" : "group") + "/edit/" + this.guild.getId() + "/" + this.id, null, Method.POST).data("task_text", text).execute();
             setStatusCode(res.statusCode());
-            setResponseMessage(res.body());
             if (getStatusCode() == 200) {
                 this.text = text;
 
@@ -235,7 +319,6 @@ public class Task {
         try {
             final Response res = Main.tmbAPI("task/" + (this.type == TaskType.USER ? "user" : "group") + "/set-deadline/" + guild.getId() + "/" + this.id, null, Method.POST).data("deadline", deadline).execute();
             setStatusCode(res.statusCode());
-            setResponseMessage(res.body());
             if (getStatusCode() == 200) {
                 this.deadline = deadline;
 
@@ -286,7 +369,8 @@ public class Task {
                         }
                         message.editMessageEmbeds(newEmbed.build()).queue();
                     }
-                }, (error) -> {});
+                }, (error) -> {
+                });
             }
         }
     }
@@ -295,7 +379,6 @@ public class Task {
         try {
             final Response res = Main.tmbAPI("task/" + (this.type == TaskType.USER ? "user" : "group") + "/" + this.guild.getId() + "/" + this.id, null, Method.DELETE).execute();
             setStatusCode(res.statusCode());
-            setResponseMessage(res.body());
             this.exists = false;
 
             //Delete message channel
@@ -303,7 +386,8 @@ public class Task {
             if (messageID != null) {
                 final String channelID = getNotifyChannelID(guild);
                 if (channelID != null && guild.getTextChannelById(channelID) != null) {
-                    guild.getTextChannelById(channelID).retrieveMessageById(messageID).queue(message -> message.delete().queue(), (error) -> {});
+                    guild.getTextChannelById(channelID).retrieveMessageById(messageID).queue(message -> message.delete().queue(), (error) -> {
+                    });
                 }
             }
             return this;
@@ -326,7 +410,6 @@ public class Task {
             }
             final Response res = Main.tmbAPI("task/" + (this.type == TaskType.USER ? "user" : "group") + "/set-status/" + guild.getId() + "/" + this.id + "/" + number, member.getId(), Method.PUT).execute();
             setStatusCode(res.statusCode());
-            setResponseMessage(res.body());
             if (getStatusCode() == 200) {
                 this.status = status;
 
@@ -357,7 +440,6 @@ public class Task {
 
     private void processResponseProceedUndoCommand(Response res) throws IOException {
         setStatusCode(res.statusCode());
-        setResponseMessage(res.body());
         if (getStatusCode() == 200) {
             final Document document = res.parse();
             final String jsonResponse = document.body().text();
@@ -387,10 +469,6 @@ public class Task {
 
     public String newLanguageSuggestion() {
         return newLanguageSuggestion;
-    }
-
-    public String getResponseMessage() {
-        return responseMessage;
     }
 
     private void setStatusCode(int statusCode) {
@@ -433,8 +511,8 @@ public class Task {
         return guild;
     }
 
-    public String getActiveBoardName() {
-        return activeBoardName;
+    public String getBoardName() {
+        return boardName;
     }
 }
 

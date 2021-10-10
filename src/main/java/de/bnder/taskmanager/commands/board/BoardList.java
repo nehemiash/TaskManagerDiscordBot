@@ -15,6 +15,7 @@ package de.bnder.taskmanager.commands.board;
  * limitations under the License.
  */
 
+import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Localizations;
@@ -45,11 +46,21 @@ public class BoardList {
                 return;
             }
 
+            String activeBoardID = "default";
+
+            //Get the active board id of the member
+            final DocumentSnapshot serverMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server_member").document(member.getId()).get().get();
+            if (serverMemberDoc.exists()) {
+                if (serverMemberDoc.getData().containsKey("active_board_id")) {
+                    activeBoardID = serverMemberDoc.getString("active_board_id");
+                }
+            }
+
             final StringBuilder stringBuilder = new StringBuilder();
             for (QueryDocumentSnapshot boardDoc : boardDocs) {
+                final String boardID = boardDoc.getId();
                 final String boardName = boardDoc.getString("name");
-                //TODO: GET ACTICE BOARD OF THE USER
-                final boolean isActive = false;
+                final boolean isActive = boardID.equals(activeBoardID);
 
                 stringBuilder.append("- `").append(boardName).append("`");
                 if (isActive) stringBuilder.append(" ✅");

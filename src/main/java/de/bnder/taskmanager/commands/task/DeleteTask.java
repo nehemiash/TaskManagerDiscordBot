@@ -39,7 +39,7 @@ public class DeleteTask {
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
                         {
-                            add(statusCode + " " + task.getResponseMessage());
+                            add(statusCode + "");
                         }
                     }), textChannel, Color.red, langCode, slashCommandEvent);
                 }
