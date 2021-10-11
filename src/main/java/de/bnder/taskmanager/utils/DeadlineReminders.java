@@ -33,6 +33,7 @@ public class DeadlineReminders {
             @Override
             public void run() {
                 try {
+                    //TODO: CHANGE TO FIRESTORE
                     final org.jsoup.Connection.Response res = Main.tmbAPI("global/deadline-reminders", null, org.jsoup.Connection.Method.GET).execute();
                     if (res.statusCode() == 200) {
                         final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();

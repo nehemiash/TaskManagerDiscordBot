@@ -22,6 +22,8 @@ import java.util.List;
 
 public class Search implements Command {
 
+    //TODO: CHANGE TO FIRESTORE
+
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
         final String langCode = Localizations.getGuildLanguage(guild);

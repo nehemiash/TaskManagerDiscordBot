@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.util.Date;
 
 public class Stats implements Command {
+
+    //TODO: CHANGE TO FIRESTORE
+
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, java.util.List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
         guild.getJDA().getRestPing().queue(ping -> {

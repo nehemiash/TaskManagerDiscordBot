@@ -1,6 +1,5 @@
 package de.bnder.taskmanager.commands.task;
 
-import de.bnder.taskmanager.utils.Connection;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.TaskStatus;
@@ -16,7 +15,7 @@ public class UndoTask {
     public static void undoTask(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
-        final String taskID = Connection.encodeString(args[1]);
+        final String taskID = args[1];
         final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, member.getGuild());
         task.undo();
         if (task.exists()) {

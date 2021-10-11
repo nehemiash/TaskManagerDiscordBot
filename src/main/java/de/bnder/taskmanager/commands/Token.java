@@ -15,6 +15,10 @@ import java.io.IOException;
 import java.util.Base64;
 
 public class Token implements Command {
+
+    //TODO: CHANGE TO FIRESTORE
+    //TODO: REMOVE WHEN DASHBOARD IS RELEASED
+
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, java.util.List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
         final String langCode = Localizations.getGuildLanguage(guild);

@@ -1,6 +1,5 @@
 package de.bnder.taskmanager.commands.task;
 
-import com.eclipsesource.json.JsonObject;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import de.bnder.taskmanager.commands.group.CreateGroup;
@@ -8,6 +7,7 @@ import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.PermissionSystem;
+import de.bnder.taskmanager.utils.UserSettings;
 import de.bnder.taskmanager.utils.permissions.TaskPermission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -95,8 +95,8 @@ public class AddTask {
     }
 
     private static void sendTaskMessage(Member member, Member author, String task_id, String langCode, String task) {
-        final JsonObject settings = de.bnder.taskmanager.utils.Settings.getUserSettings(member);
-        if (settings.getString("direct_message", "1").equalsIgnoreCase("1")) {
+        final UserSettings userSettings = new UserSettings(member);
+        if (userSettings.getDirectMessage()) {
             try {
                 member.getUser().openPrivateChannel().queue(channel -> {
                     channel.sendMessage(Localizations.getString("aufgabe_erhalten", langCode, new ArrayList<>() {
@@ -113,8 +113,8 @@ public class AddTask {
                 });
             } catch (Exception ignored) {
             }
-        } else if (!settings.get("notify_channel").isNull()) {
-            final TextChannel channel = author.getGuild().getTextChannelById(settings.getString("notify_channel", ""));
+        } else if (userSettings.getNotifyChannelID() != null) {
+            final TextChannel channel = author.getGuild().getTextChannelById(userSettings.getNotifyChannelID());
             if (channel != null) {
                 try {
                     channel.sendMessage(member.getAsMention() + Localizations.getString("aufgabe_erhalten", langCode, new ArrayList<>() {

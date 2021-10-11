@@ -1,8 +1,8 @@
 package de.bnder.taskmanager.commands.settings;
 
-import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
+import de.bnder.taskmanager.utils.UserSettings;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -21,21 +21,16 @@ public class SettingsNotifyChannel {
         if (arg0.equalsIgnoreCase("notifychannel")) {
             if (mentionedChannels != null && mentionedChannels.size() == 1) {
                 final TextChannel channel = mentionedChannels.get(0);
-                final org.jsoup.Connection.Response res = Main.tmbAPI("user/settings/value/" + member.getGuild().getId(), member.getId(), org.jsoup.Connection.Method.POST).data("type", "notify_channel").data("value", channel.getId()).execute();
-                if (res.statusCode() == 200) {
-                    if (!de.bnder.taskmanager.utils.Settings.getUserSettings(member).getString("direct_message", "1").equals("0")) {
-                        MessageSender.send(embedTitle, Localizations.getString("notify_channel_set_but_dms_are_enabled", langCode, new ArrayList<String>() {{
-                            add(channel.getAsMention());
-                        }}), textChannel, Color.green, langCode, slashCommandEvent);
-                    } else {
-                        MessageSender.send(embedTitle, Localizations.getString("notify_channel_set", langCode, new ArrayList<String>() {{
-                            add(channel.getAsMention());
-                        }}), textChannel, Color.green, langCode, slashCommandEvent);
-                    }
+                final UserSettings userSettings = new UserSettings(member);
+                userSettings.setNotifyChannelID(channel.getId());
+                if (!userSettings.getDirectMessage()) {
+                    MessageSender.send(embedTitle, Localizations.getString("notify_channel_set_but_dms_are_enabled", langCode, new ArrayList<String>() {{
+                        add(channel.getAsMention());
+                    }}), textChannel, Color.green, langCode, slashCommandEvent);
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {{
-                        add("SETTINGS-3-" + res.statusCode());
-                    }}), textChannel, Color.red, langCode, slashCommandEvent);
+                    MessageSender.send(embedTitle, Localizations.getString("notify_channel_set", langCode, new ArrayList<String>() {{
+                        add(channel.getAsMention());
+                    }}), textChannel, Color.green, langCode, slashCommandEvent);
                 }
             } else {
                 MessageSender.send(embedTitle, Localizations.getString("notify_mention_one_channel", langCode), textChannel, Color.red, langCode, slashCommandEvent);

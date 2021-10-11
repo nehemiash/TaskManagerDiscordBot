@@ -1,7 +1,6 @@
 package de.bnder.taskmanager.commands.task;
 
 import de.bnder.taskmanager.main.Main;
-import de.bnder.taskmanager.utils.Connection;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.PermissionSystem;
@@ -20,7 +19,7 @@ public class DeleteTask {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         if (PermissionSystem.hasPermission(member, TaskPermission.DELETE_TASK)) {
-            final String taskID = Connection.encodeString(args[1]);
+            final String taskID = args[1];
             if (!taskID.equalsIgnoreCase("done")) {
                 final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
                 if (task.exists()) {

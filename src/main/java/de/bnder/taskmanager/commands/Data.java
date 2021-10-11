@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.util.List;
 
 public class Data implements Command {
+
+    //TODO: CHANGE TO FIRESTORE
+
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
         final String langCode = Localizations.getGuildLanguage(guild);
@@ -90,10 +93,10 @@ public class Data implements Command {
                 }
 
                 //Get User Settings
-                final JsonObject settingsObject = Settings.getUserSettings(commandExecutor);
-                yamlConfiguration.set("guild" + "." + guildId + "." + "settings" + ".direct message", Boolean.valueOf(settingsObject.get("direct_message") != null ? settingsObject.get("direct_message").toString() : "1"));
-                yamlConfiguration.set("guild" + "." + guildId + "." + "settings" + ".show done tasks", Boolean.valueOf(settingsObject.get("show_done_tasks") != null ? settingsObject.get("show_done_tasks").toString() : "1"));
-                yamlConfiguration.set("guild" + "." + guildId + "." + "settings" + ".notify channel", settingsObject.get("notify_channel") != null && !settingsObject.get("notify_channel").isNull() ? settingsObject.getString("notify_channel", null) : null);
+                final UserSettings userSettings = new UserSettings(commandExecutor);
+                yamlConfiguration.set("guild" + "." + guildId + "." + "settings" + ".direct message", userSettings.getDirectMessage());
+                yamlConfiguration.set("guild" + "." + guildId + "." + "settings" + ".show done tasks", userSettings.getShowDoneTasks());
+                yamlConfiguration.set("guild" + "." + guildId + "." + "settings" + ".notify channel", userSettings.getNotifyChannelID());
 
                 //Get Users Groups
                 final org.jsoup.Connection.Response getGroupsRes = Main.tmbAPI("group/list/" + guildId, commandExecutor.getId(), org.jsoup.Connection.Method.GET).execute();
@@ -103,7 +106,7 @@ public class Data implements Command {
                     if (servers.size() > 0) {
                         for (int i = 0; i < servers.size(); i++) {
                             final String groupName = servers.get(i).asString();
-                            final org.jsoup.Connection.Response getMembersRes = Main.tmbAPI("group/commandExecutors/" + guildId + "/" + Connection.encodeString(groupName), commandExecutor.getId(), org.jsoup.Connection.Method.GET).execute();
+                            final org.jsoup.Connection.Response getMembersRes = Main.tmbAPI("group/commandExecutors/" + guildId + "/" + groupName, commandExecutor.getId(), org.jsoup.Connection.Method.GET).execute();
                             final JsonObject getMembersObject = Json.parse(getMembersRes.parse().body().text()).asObject();
                             if (getMembersObject.getInt("status_code", 900) == 200) {
                                 final String groupID = getMembersObject.getString("group_id", null);

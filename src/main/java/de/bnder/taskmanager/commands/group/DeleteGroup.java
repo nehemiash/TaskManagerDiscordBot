@@ -3,7 +3,6 @@ package de.bnder.taskmanager.commands.group;
 import com.google.cloud.firestore.QuerySnapshot;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.slashcommands.UpdateGuildSlashCommands;
-import de.bnder.taskmanager.utils.Connection;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.PermissionSystem;
@@ -26,7 +25,7 @@ public class DeleteGroup {
             MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             return;
         }
-        final String groupName = Connection.encodeString(args[1]);
+        final String groupName = args[1];
 
         try {
             final QuerySnapshot getGroupsWithName = Main.firestore.collection("server").document(textChannel.getGuild().getId()).collection("groups").whereEqualTo("name", groupName).get().get();

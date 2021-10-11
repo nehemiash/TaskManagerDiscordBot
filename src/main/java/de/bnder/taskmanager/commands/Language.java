@@ -11,11 +11,11 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import org.jsoup.Connection;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Language implements Command {
@@ -40,14 +40,12 @@ public class Language implements Command {
             final String language = args[0].toLowerCase();
             if (validLangCodes.contains(language)) {
                 if (commandExecutor.hasPermission(Permission.ADMINISTRATOR)) {
-                    final Connection.Response res = Main.tmbAPI("server/language/" + guild.getId(), commandExecutor.getId(), Connection.Method.POST).data("language", language).execute();
+                    Main.firestore.collection("server").document(guild.getId()).update(new HashMap<>() {{
+                        put("language", language);
+                    }});
                     final String embedTitle = Localizations.getString("language_message_title", language);
-                    if (res.statusCode() == 200) {
-                        UpdateGuildSlashCommands.update(guild);
-                        MessageSender.send(embedTitle, Localizations.getString("sprache_geaendert", language), textChannel, Color.green, language, slashCommandEvent);
-                    } else {
-                        MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", language), textChannel, Color.red, language, slashCommandEvent);
-                    }
+                    UpdateGuildSlashCommands.update(guild);
+                    MessageSender.send(embedTitle, Localizations.getString("sprache_geaendert", language), textChannel, Color.green, language, slashCommandEvent);
                 } else {
                     final String langCode = Localizations.getGuildLanguage(guild);
                     final String embedTitle = Localizations.getString("language_message_title", langCode);

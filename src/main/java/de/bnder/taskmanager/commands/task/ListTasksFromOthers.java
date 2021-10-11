@@ -1,13 +1,12 @@
 package de.bnder.taskmanager.commands.task;
 
-import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
+import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.Query;
+import com.google.cloud.firestore.QuerySnapshot;
 import de.bnder.taskmanager.main.Main;
-import de.bnder.taskmanager.utils.Connection;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
-import de.bnder.taskmanager.utils.Settings;
+import de.bnder.taskmanager.utils.UserSettings;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -15,149 +14,156 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class ListTasksFromOthers {
 
     public static void listTasks(Member member, List<Member> mentionedMembers, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) throws IOException {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
-        String jsonResponse;
-        int statusCode;
-        String text;
+
         if (mentionedMembers != null && mentionedMembers.size() > 0) {
             final Member mentionedMember = mentionedMembers.get(0);
-            final org.jsoup.Connection.Response res = Main.tmbAPI("task/user/tasks/" + member.getGuild().getId() + "/" + mentionedMember.getId(), member.getId(), org.jsoup.Connection.Method.GET).execute();
-            statusCode = res.statusCode();
-            jsonResponse = res.parse().body().text();
+            SelfTaskList.selfTaskList(mentionedMember, textChannel, slashCommandEvent);
         } else {
             final String groupName = args[1];
-            final org.jsoup.Connection.Response res = Main.tmbAPI("task/group/tasks/" + member.getGuild().getId() + "/" + Connection.encodeString(groupName), member.getId(), org.jsoup.Connection.Method.GET).execute();
-            statusCode = res.statusCode();
-            jsonResponse = res.parse().body().text();
-        }
-        final JsonObject jsonObject = Json.parse(jsonResponse).asObject();
-        if (statusCode == 200) {
-            final String boardName = jsonObject.getString("board", null);
-            JsonArray array = jsonObject.get("todo").asArray();
-            final StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < array.size(); i++){
-                final String taskID = array.get(i).asString();
-                final String task = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("task").asString();
-                String deadline = "";
-                if (!jsonObject.get("allTasks").asObject().get(taskID).asObject().get("deadline").isNull()) {
-                    deadline = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("deadline").asString();
-                }
-                String dLine = "";
-                if (deadline.length() > 0) {
-                    dLine = deadline + " |";
-                }
-                builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
-            }
-            //TASKS NOT STARTED
-            if (builder.length() > 0) {
-                if (mentionedMembers.size() > 0) {
-                    final Member mentionedMember = mentionedMembers.get(0);
-                    text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<>() {
-                        {
-                            add(mentionedMember.getAsMention());
-                            add(boardName);
-                            add(builder.toString());
-                        }
-                    });
-                } else {
-                    final String groupName = args[1];
-                    text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<>() {
-                        {
-                            add(groupName);
-                            add(boardName);
-                            add(builder.toString());
-                        }
-                    });
-                }
-                MessageSender.send(embedTitle, text, textChannel, Color.orange, langCode, slashCommandEvent);
-            }
-            builder.delete(0, builder.length());
-            array = jsonObject.get("doing").asArray();
-            for (int i = 0; i < array.size(); i++){
-                final String taskID = array.get(i).asString();
-                final String task = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("task").asString();
-                String deadline = "";
-                if (!jsonObject.get("allTasks").asObject().get(taskID).asObject().get("deadline").isNull()) {
-                    deadline = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("deadline").asString();
-                }
-                String dLine = "";
-                if (deadline.length() > 0) {
-                    dLine = deadline + " |";
-                }
-                builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_wird_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
-            }
-            //TASKS IN PROGRESS
-            if (builder.length() > 0) {
-                if (mentionedMembers.size() > 0) {
-                    final Member mentionedMember = mentionedMembers.get(0);
-                    text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<>() {
-                        {
-                            add(mentionedMember.getAsMention());
-                            add(boardName);
-                            add(builder.toString());
-                        }
-                    });
-                } else {
-                    final String groupName = args[1];
-                    text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<>() {
-                        {
-                            add(groupName);
-                            add(boardName);
-                            add(builder.toString());
-                        }
-                    });
-                }
-                MessageSender.send(embedTitle, text, textChannel, Color.yellow, langCode, slashCommandEvent);
-            }
-            builder.delete(0, builder.length());
-            array = jsonObject.get("done").asArray();
-            final String showDoneTasks = Settings.getUserSettings(member).getString("show_done_tasks", "1");
-            for (int i = 0; i < array.size(); i++){
-                final String taskID = array.get(i).asString();
-                final String task = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("task").asString();
-                String deadline = "";
-                if (!jsonObject.get("allTasks").asObject().get(taskID).asObject().get("deadline").isNull()) {
-                    deadline = jsonObject.get("allTasks").asObject().get(taskID).asObject().get("deadline").asString();
-                }
-                String dLine = "";
-                if (deadline.length() > 0) {
-                    dLine = deadline + " |";
-                }
+            try {
 
-                if (showDoneTasks.equals("1")) {
-                    builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_erledigt", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
-                }
-            }
-            if (showDoneTasks.equals("1") && builder.length() > 0) {
-                if (mentionedMembers.size() > 0) {
-                    final Member mentionedMember = mentionedMembers.get(0);
-                    text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
-                        {
-                            add(mentionedMember.getAsMention());
-                            add(boardName);
-                            add(builder.toString());
+                final QuerySnapshot getGroupDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("groups").whereEqualTo("name", groupName).get().get();
+                if (getGroupDoc.size() > 0) {
+                    ArrayList<Map<String, Object>> todoTasks = new ArrayList<>();
+                    ArrayList<Map<String, Object>> inProgressTasks = new ArrayList<>();
+                    ArrayList<Map<String, Object>> doneTasks = new ArrayList<>();
+
+                    String boardID = "default";
+                    String boardName = "default";
+                    //Get active board id
+                    final DocumentSnapshot getServerMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server-member").document(member.getId()).get().get();
+                    if (getServerMemberDoc.exists()) {
+                        if (getServerMemberDoc.getData().containsKey("active_board_id")) {
+                            boardID = getServerMemberDoc.getString("active_board_id");
                         }
-                    });
+                    }
+                    final DocumentSnapshot groupDoc = getGroupDoc.getDocuments().get(0);
+                    for (DocumentSnapshot groupTaskDoc : groupDoc.getReference().collection("group-tasks").whereEqualTo("board_id", boardID).orderBy("position", Query.Direction.ASCENDING).get().get().getDocuments()) {
+                        String text = groupTaskDoc.getString("text");
+                        long status = (long) groupTaskDoc.get("status");
+                        String deadline = groupTaskDoc.getString("deadline");
+                        String id = groupTaskDoc.getId();
+                        HashMap<String, Object> data = new HashMap<>() {{
+                            put("text", text);
+                            put("deadline", deadline);
+                            put("status", status);
+                            put("task_id", id);
+                            put("type", "group");
+                            put("group_id", groupDoc.getId());
+                            put("group_name", groupDoc.getString("name"));
+                        }};
+                        if (status == 0) {
+                            todoTasks.add(data);
+                        } else if (status == 1) {
+                            inProgressTasks.add(data);
+                        } else if (status == 2) {
+                            doneTasks.add(data);
+                        }
+                    }
+
+                    if (todoTasks.size() > 0 || inProgressTasks.size() > 0 || doneTasks.size() > 0) {
+                        final StringBuilder todoStringBuilder = new StringBuilder();
+
+                        for (Map<String, Object> taskData : todoTasks) {
+                            final String taskID = taskData.get("task_id").toString();
+                            final String task = taskData.get("text").toString();
+                            String deadline = "";
+                            if (taskData.containsKey("deadline") && taskData.get("deadline") != null) {
+                                deadline = taskData.get("deadline").toString();
+                            }
+                            String dLine = "";
+                            if (deadline.length() > 0) {
+                                dLine = deadline + " |";
+                            }
+                            todoStringBuilder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                        }
+                        //TASKS NOT STARTED
+                        if (todoStringBuilder.length() > 0) {
+                            StringBuilder finalBuilder2 = todoStringBuilder;
+                            MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<String>() {
+                                {
+                                    add(groupName);
+                                    add(boardName);
+                                    add(finalBuilder2.toString());
+                                }
+                            }), textChannel, Color.orange, langCode, slashCommandEvent);
+                        }
+                        final StringBuilder inProgressStringBuilder = new StringBuilder();
+                        for (Map<String, Object> taskData : inProgressTasks) {
+                            final String taskID = taskData.get("task_id").toString();
+                            final String task = taskData.get("text").toString();
+                            String deadline = "";
+                            if (taskData.containsKey("deadline") && taskData.get("deadline") != null) {
+                                deadline = taskData.get("deadline").toString();
+                            }
+                            String dLine = "";
+                            if (deadline.length() > 0) {
+                                dLine = deadline + " |";
+                            }
+                            inProgressStringBuilder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_wird_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                        }
+                        //TASKS IN PROGRESS
+                        if (inProgressStringBuilder.length() > 0) {
+                            StringBuilder finalBuilder = inProgressStringBuilder;
+                            MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<String>() {
+                                {
+                                    add(groupName);
+                                    add(boardName);
+                                    add(finalBuilder.toString());
+                                }
+                            }), textChannel, Color.yellow, langCode, slashCommandEvent);
+                        }
+                        final StringBuilder doneStringBuilder = new StringBuilder();
+
+                        //TASKS DONE
+                        if (new UserSettings(member).getShowDoneTasks()) {
+                            for (Map<String, Object> taskData : doneTasks) {
+                                final String taskID = taskData.get("task_id").toString();
+                                final String task = taskData.get("text").toString();
+                                String deadline = "";
+                                if (taskData.containsKey("deadline") && taskData.get("deadline") != null) {
+                                    deadline = taskData.get("deadline").toString();
+                                }
+                                String dLine = "";
+                                if (deadline.length() > 0) {
+                                    dLine = deadline + " |";
+                                }
+
+                                doneStringBuilder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_erledigt", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                            }
+                            if (doneStringBuilder.length() > 0) {
+                                StringBuilder finalBuilder1 = doneStringBuilder;
+                                MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<String>() {
+                                    {
+                                        add(groupName);
+                                        add(boardName);
+                                        add(finalBuilder1.toString());
+                                    }
+                                }), textChannel, Color.green, langCode, slashCommandEvent);
+                            }
+                        }
+                    } else {
+                        MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+                    }
                 } else {
-                    final String groupName = args[1];
-                    text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<String>() {
-                        {
-                            add(groupName);
-                            add(boardName);
-                            add(builder.toString());
-                        }
-                    });
+                    MessageSender.send(embedTitle, Localizations.getString("group_with_name_doesnt_exist", langCode, new ArrayList<>() {{
+                        add(groupName);
+                    }}), textChannel, Color.red, langCode, slashCommandEvent);
                 }
-                MessageSender.send(embedTitle, text, textChannel, Color.green, langCode, slashCommandEvent);
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
             }
-        } else {
-            MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+
         }
     }
 

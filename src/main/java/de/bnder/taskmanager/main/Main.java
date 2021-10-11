@@ -58,7 +58,7 @@ public class Main {
         return Jsoup.connect(tmbApiUrl + "/" + path).method(method)
                 .header("authorization", "TMB " + Main.tmbApiAuthorizationToken)
                 .header("user_id", userID == null ? "---" : userID)
-                .timeout(de.bnder.taskmanager.utils.Connection.timeout)
+                .timeout(5000)
                 .userAgent(Main.userAgent)
                 .ignoreContentType(true)
                 .ignoreHttpErrors(true)

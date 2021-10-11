@@ -1,7 +1,6 @@
 package de.bnder.taskmanager.utils;
 
-import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonObject;
+import com.google.cloud.firestore.DocumentSnapshot;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.permissions.BoardPermission;
 import de.bnder.taskmanager.utils.permissions.GroupPermission;
@@ -11,123 +10,135 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
 public class PermissionSystem {
 
     //Permission checking
     public static boolean hasPermission(Member member, TaskPermission taskPermission) {
-        return checkPerms(member, taskPermission.name());
+        return checkMemberPermissions(member, taskPermission.name());
     }
 
     public static boolean hasPermission(Member member, PermissionPermission taskPermission) {
-        return checkPerms(member, taskPermission.name());
+        return checkMemberPermissions(member, taskPermission.name());
     }
 
     public static boolean hasPermission(Member member, GroupPermission groupPermission) {
-        return checkPerms(member, groupPermission.name());
+        return checkMemberPermissions(member, groupPermission.name());
     }
 
     public static boolean hasPermission(Member member, BoardPermission boardPermission) {
-        return checkPerms(member, boardPermission.name());
+        return checkMemberPermissions(member, boardPermission.name());
     }
 
     public static boolean hasPermission(Role role, TaskPermission taskPermission) {
-        return checkPerms(role, taskPermission.name());
+        return checkRolePermissions(role, taskPermission.name());
     }
 
     public static boolean hasPermission(Role role, PermissionPermission taskPermission) {
-        return checkPerms(role, taskPermission.name());
+        return checkRolePermissions(role, taskPermission.name());
     }
 
     public static boolean hasPermission(Role role, GroupPermission groupPermission) {
-        return checkPerms(role, groupPermission.name());
+        return checkRolePermissions(role, groupPermission.name());
     }
 
     public static boolean hasPermission(Role role, BoardPermission boardPermission) {
-        return checkPerms(role, boardPermission.name());
+        return checkRolePermissions(role, boardPermission.name());
     }
 
 
     //Permission adding
     public static int addPermissionStatusCode(Member member, PermissionPermission taskPermission) {
-        return sendAddPermRequestUser(member, taskPermission.name());
+        return addPermissionToUser(member, taskPermission.name());
     }
 
     public static int addPermissionStatusCode(Role role, PermissionPermission taskPermission) {
-        return sendAddPermRequestRole(role, taskPermission.name());
+        return addPermissionToRole(role, taskPermission.name());
     }
 
     public static int addPermissionStatusCode(Member member, GroupPermission groupPermission) {
-        return sendAddPermRequestUser(member, groupPermission.name());
+        return addPermissionToUser(member, groupPermission.name());
     }
 
     public static int addPermissionStatusCode(Role role, GroupPermission taskPermission) {
-        return sendAddPermRequestRole(role, taskPermission.name());
+        return addPermissionToRole(role, taskPermission.name());
     }
 
     public static int addPermissionStatusCode(Member member, TaskPermission taskPermission) {
-        return sendAddPermRequestUser(member, taskPermission.name());
+        return addPermissionToUser(member, taskPermission.name());
     }
 
     public static int addPermissionStatusCode(Role role, TaskPermission taskPermission) {
-        return sendAddPermRequestRole(role, taskPermission.name());
+        return addPermissionToRole(role, taskPermission.name());
     }
 
     public static int addPermissionStatusCode(Member member, BoardPermission boardPermission) {
-        return sendAddPermRequestUser(member, boardPermission.name());
+        return addPermissionToUser(member, boardPermission.name());
     }
 
     public static int addPermissionStatusCode(Role role, BoardPermission boardPermission) {
-        return sendAddPermRequestRole(role, boardPermission.name());
+        return addPermissionToRole(role, boardPermission.name());
     }
 
     //Permission removing
 
     public static int removePermissionStatusCode(Member member, PermissionPermission taskPermission) {
-        return sendRemovePermRequestUser(member, taskPermission.name());
+        return removePermFromUser(member, taskPermission.name());
     }
 
     public static int removePermissionStatusCode(Role role, PermissionPermission taskPermission) {
-        return sendRemovePermRequestRole(role, taskPermission.name());
+        return removePermFromRole(role, taskPermission.name());
     }
 
     public static int removePermissionStatusCode(Member member, GroupPermission groupPermission) {
-        return sendRemovePermRequestUser(member, groupPermission.name());
+        return removePermFromUser(member, groupPermission.name());
     }
 
     public static int removePermissionStatusCode(Role role, GroupPermission taskPermission) {
-        return sendRemovePermRequestRole(role, taskPermission.name());
+        return removePermFromRole(role, taskPermission.name());
     }
 
     public static int removePermissionStatusCode(Member member, TaskPermission taskPermission) {
-        return sendRemovePermRequestUser(member, taskPermission.name());
+        return removePermFromUser(member, taskPermission.name());
     }
 
     public static int removePermissionStatusCode(Role role, TaskPermission taskPermission) {
-        return sendRemovePermRequestRole(role, taskPermission.name());
+        return removePermFromRole(role, taskPermission.name());
     }
 
     public static int removePermissionStatusCode(Member member, BoardPermission boardPermission) {
-        return sendRemovePermRequestUser(member, boardPermission.name());
+        return removePermFromUser(member, boardPermission.name());
     }
 
     public static int removePermissionStatusCode(Role role, BoardPermission boardPermission) {
-        return sendRemovePermRequestRole(role, boardPermission.name());
+        return removePermFromRole(role, boardPermission.name());
     }
 
     //Methods
-    private static boolean checkPerms(Member member, String permission) {
+    private static boolean checkMemberPermissions(Member member, String permission) {
         if (member.isOwner() || member.hasPermission(Permission.ADMINISTRATOR)) {
             return true;
         } else {
             try {
-                final StringBuilder rolesBuilder = new StringBuilder();
-                for (Role role : member.getRoles()) {
-                    rolesBuilder.append(role.getId()).append(",");
+                final DocumentSnapshot serverMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server_member").document(member.getId()).get().get();
+                if (serverMemberDoc.exists()) {
+                    if (serverMemberDoc.getData().containsKey("permissions")) {
+                        Map<String, Boolean> map = (Map<String, Boolean>) serverMemberDoc.getData().get("permissions");
+                        if (map.containsKey(permission)) {
+                            if (map.get(permission).booleanValue()) {
+                                return true;
+                            }
+                        }
+                    }
                 }
-                final org.jsoup.Connection.Response res = Main.tmbAPI("user/get-perms/" + member.getGuild().getId(), member.getId(), org.jsoup.Connection.Method.POST).data("roles", rolesBuilder.toString()).execute();
-                if (res.statusCode() == 200) {
-                    final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
-                    return jsonObject.getBoolean(permission.toLowerCase(), false);
+                for (Role role : member.getRoles()) {
+                    boolean hasPerms = checkRolePermissions(role, permission);
+                    if (hasPerms) {
+                        return true;
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -136,61 +147,134 @@ public class PermissionSystem {
         return false;
     }
 
-    private static boolean checkPerms(Role role, String permission) {
+    private static boolean checkRolePermissions(Role role, String permission) {
         if (role.hasPermission(Permission.ADMINISTRATOR)) {
             return true;
         } else {
             try {
-                final org.jsoup.Connection.Response res = Main.tmbAPI("role/get-perms/" + role.getGuild().getId(), null, org.jsoup.Connection.Method.POST).data("role_id", role.getId()).execute();
-                if (res.statusCode() == 200) {
-                    final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
-                    return jsonObject.getBoolean(permission.toLowerCase(), false);
+                final DocumentSnapshot roleDoc = Main.firestore.collection("server").document(role.getGuild().getId()).collection("roles").document(role.getId()).get().get();
+                if (roleDoc.exists()) {
+                    if (roleDoc.getData().containsKey("permissions")) {
+                        Map<String, Boolean> map = (Map<String, Boolean>) roleDoc.getData().get("permissions");
+                        if (map.containsKey(permission)) {
+                            if (map.get(permission).booleanValue()) {
+                                return true;
+                            }
+                        }
+                    }
                 }
-            } catch (Exception e) {
+            } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
         return false;
     }
 
-    private static int sendAddPermRequestRole(Role role, String name) {
+    private static int addPermissionToRole(Role role, String name) {
         try {
-            final org.jsoup.Connection.Response res = Main.tmbAPI("role/add-perms/" + role.getGuild().getId(), null, org.jsoup.Connection.Method.POST).data("role_id", role.getId()).data("permission", name).execute();
-            return res.statusCode();
-        } catch (Exception e) {
+            final DocumentSnapshot roleDoc = Main.firestore.collection("server").document(role.getGuild().getId()).collection("roles").document(role.getId()).get().get();
+            if (roleDoc.exists()) {
+                Map<String, Boolean> map = new HashMap<>();
+                if (roleDoc.getData().containsKey("permissions")) {
+                    map = (Map<String, Boolean>) roleDoc.getData().get("permissions");
+                }
+                if (map.containsKey(name)) {
+                    map.remove(name);
+                }
+                map.put(name, true);
+                Map<String, Boolean> finalMap = map;
+                roleDoc.getReference().update(new HashMap<>() {{
+                    put("permissions", finalMap);
+                }});
+            } else {
+                roleDoc.getReference().set(new HashMap<>() {{
+                    put("permissions", new HashMap<>() {{
+                        put(name, true);
+                    }});
+                    put("name", role.getName());
+                }});
+            }
+            return 200;
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        return 912;
+        return 901;
     }
 
-    private static int sendAddPermRequestUser(Member member, String name) {
+    private static int addPermissionToUser(Member member, String name) {
         try {
-            final org.jsoup.Connection.Response res = Main.tmbAPI("user/add-perms/" + member.getGuild().getId(), member.getId(), org.jsoup.Connection.Method.POST).data("permission", name).execute();
-            return res.statusCode();
-        } catch (Exception e) {
+            final DocumentSnapshot serverMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server_member").document(member.getId()).get().get();
+            if (serverMemberDoc.exists()) {
+                Map<String, Boolean> map = new HashMap<>();
+                if (serverMemberDoc.getData().containsKey("permissions")) {
+                    map = (Map<String, Boolean>) serverMemberDoc.getData().get("permissions");
+                }
+                if (map.containsKey(name)) {
+                    map.remove(name);
+                }
+                map.put(name, true);
+                Map<String, Boolean> finalMap = map;
+                serverMemberDoc.getReference().update(new HashMap<>() {{
+                    put("permissions", finalMap);
+                }});
+            } else {
+                serverMemberDoc.getReference().set(new HashMap<>() {{
+                    put("permissions", new HashMap<>() {{
+                        put(name, true);
+                    }});
+                }});
+            }
+            return 200;
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return 912;
+        return 901;
     }
 
-    private static int sendRemovePermRequestUser(Member member, String name) {
+    private static int removePermFromUser(Member member, String name) {
         try {
-            final org.jsoup.Connection.Response res = Main.tmbAPI("user/rem-perms/" + member.getGuild().getId(), member.getId(), org.jsoup.Connection.Method.POST).data("permission", name).execute();
-            return res.statusCode();
-        } catch (Exception e) {
+            final DocumentSnapshot serverMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server_member").document(member.getId()).get().get();
+            if (serverMemberDoc.exists()) {
+                Map<String, Boolean> map = new HashMap<>();
+                if (serverMemberDoc.getData().containsKey("permissions")) {
+                    map = (Map<String, Boolean>) serverMemberDoc.getData().get("permissions");
+                }
+                if (map.containsKey(name)) {
+                    map.remove(name);
+                }
+                Map<String, Boolean> finalMap = map;
+                serverMemberDoc.getReference().update(new HashMap<>() {{
+                    put("permissions", finalMap);
+                }});
+            }
+            return 200;
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return 912;
+        return 901;
     }
 
-    private static int sendRemovePermRequestRole(Role role, String name) {
+    private static int removePermFromRole(Role role, String name) {
         try {
-            final org.jsoup.Connection.Response res = Main.tmbAPI("role/rem-perms/" + role.getGuild().getId(), null, org.jsoup.Connection.Method.POST).data("role_id", role.getId()).data("permission", name).execute();
-            return res.statusCode();
-        } catch (Exception e) {
+            final DocumentSnapshot roleDoc = Main.firestore.collection("server").document(role.getGuild().getId()).collection("roles").document(role.getId()).get().get();
+            if (roleDoc.exists()) {
+                Map<String, Boolean> map = new HashMap<>();
+                if (roleDoc.getData().containsKey("permissions")) {
+                    map = (Map<String, Boolean>) roleDoc.getData().get("permissions");
+                }
+                if (map.containsKey(name)) {
+                    map.remove(name);
+                }
+                Map<String, Boolean> finalMap = map;
+                roleDoc.getReference().update(new HashMap<>() {{
+                    put("permissions", finalMap);
+                }});
+            }
+            return 200;
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return 912;
+        return 901;
     }
 
 }

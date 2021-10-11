@@ -16,7 +16,7 @@ public class TaskInfo {
     public static void taskInfo(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
-        final String taskID = Connection.encodeString(args[1]);
+        final String taskID = args[1];
         final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
         if (task.exists()) {
             final EmbedBuilder builder = new EmbedBuilder().setColor(Color.cyan).setTimestamp(Calendar.getInstance().toInstant());

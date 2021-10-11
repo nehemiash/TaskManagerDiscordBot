@@ -3,7 +3,6 @@ package de.bnder.taskmanager.commands.group;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import de.bnder.taskmanager.main.Main;
-import de.bnder.taskmanager.utils.Connection;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.PermissionSystem;
@@ -36,7 +35,7 @@ public class RemoveGroupMember {
             MessageSender.send(embedTitle, Localizations.getString("user_needs_to_be_mentioned", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             return;
         }
-        final String groupName = Connection.encodeString(args[1 + mentionedMembers.size()]);
+        final String groupName = args[1 + mentionedMembers.size()];
         for (Member mentionedMember : mentionedMembers) {
             try {
                 final QuerySnapshot getGroups = Main.firestore.collection("server").document(member.getGuild().getId()).collection("groups").whereEqualTo("name", groupName).get().get();

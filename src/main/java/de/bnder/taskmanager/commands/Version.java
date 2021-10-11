@@ -31,6 +31,7 @@ import java.util.List;
 
 public class Version implements Command {
 
+    //TODO: CHANGE
     public static String version = "2021.2.3";
 
     @Override

@@ -6,7 +6,7 @@ import com.google.cloud.firestore.QuerySnapshot;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
-import de.bnder.taskmanager.utils.Settings;
+import de.bnder.taskmanager.utils.UserSettings;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -149,8 +149,7 @@ public class SelfTaskList {
                 final StringBuilder doneStringBuilder = new StringBuilder();
 
                 //TASKS DONE
-                String showDoneTasks = Settings.getUserSettings(member).getString("show_done_tasks", "1");
-                if (showDoneTasks.equals("1")) {
+                if (new UserSettings(member).getShowDoneTasks()) {
                     for (Map<String, Object> taskData : doneTasks) {
                         final String taskID = taskData.get("task_id").toString();
                         final String task = taskData.get("text").toString();

@@ -1,6 +1,5 @@
 package de.bnder.taskmanager.commands.task;
 
-import de.bnder.taskmanager.utils.Connection;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.PermissionSystem;
@@ -18,7 +17,7 @@ public class EditTask {
         final String langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         if (PermissionSystem.hasPermission(member, TaskPermission.EDIT_TASK)) {
-            final String taskID = Connection.encodeString(args[1]);
+            final String taskID = args[1];
             final String newTask = AddTask.getTaskFromArgs(3, commandMessage, false);
             final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
             if (task.exists()) {

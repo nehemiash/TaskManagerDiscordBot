@@ -1,7 +1,7 @@
 package de.bnder.taskmanager.commands;
 
-import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.main.Command;
+import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.Permission;
@@ -10,11 +10,11 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import org.jsoup.Connection;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Prefix implements Command {
@@ -27,16 +27,12 @@ public class Prefix implements Command {
             if (args.length == 1) {
                 final String prefix = args[0];
                 if (prefix.length() == 1) {
-                    final Connection.Response res = Main.tmbAPI("server/prefix/" + guild.getId(), commandExecutor.getId(), Connection.Method.POST).data("prefix", prefix).execute();
-                    if (res.statusCode() == 200) {
-                        MessageSender.send(embedTitle, Localizations.getString("prefix_changed", langCode, new ArrayList<String>(){{
-                            add(prefix);
-                        }}), textChannel, Color.green, langCode, slashCommandEvent);
-                    } else {
-                        MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>(){{
-                            add("PREFIX-" + res.statusCode());
-                        }}), textChannel, Color.red, langCode, slashCommandEvent);
-                    }
+                    Main.firestore.collection("server").document(guild.getId()).update(new HashMap<>() {{
+                        put("prefix", prefix);
+                    }});
+                    MessageSender.send(embedTitle, Localizations.getString("prefix_changed", langCode, new ArrayList<String>() {{
+                        add(prefix);
+                    }}), textChannel, Color.green, langCode, slashCommandEvent);
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("prefix_only_one_char", langCode), textChannel, Color.red, langCode, slashCommandEvent);
                 }

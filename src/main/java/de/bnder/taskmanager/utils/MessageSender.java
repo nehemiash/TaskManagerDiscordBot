@@ -104,6 +104,7 @@ public class MessageSender {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
         }
         try {
+            //TODO: CHANGE TO FIRESTORE
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
         } catch (Exception ignored) {
         }
@@ -146,6 +147,7 @@ public class MessageSender {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
         }
         try {
+            //TODO: CHANGE TO FIRESTORE
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
         } catch (Exception ignored) {
         }
@@ -168,6 +170,7 @@ public class MessageSender {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).addActionRow(actionRows).queue();
         }
         try {
+            //TODO: CHANGE TO FIRESTORE
             Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
         } catch (Exception ignored) {
         }
