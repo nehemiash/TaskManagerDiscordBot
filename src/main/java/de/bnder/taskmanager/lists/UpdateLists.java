@@ -1,47 +1,48 @@
 package de.bnder.taskmanager.lists;
 
-import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonObject;
+import com.google.cloud.firestore.DocumentSnapshot;
 import de.bnder.taskmanager.main.Main;
-import org.jsoup.Connection;
+import de.bnder.taskmanager.utils.Stats;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class UpdateLists {
 
     public static void updateBotLists(int servers, String botID) {
         try {
-            final int ownAPIStatusCode = updateOwnStats(servers);
-            if (ownAPIStatusCode == 200) {
-                final int serverCount = getTotalServers();
-                TopGG.sendServerCount(serverCount, botID);
-                DiscordbotlistCOM.sendServerCount(serverCount, botID);
-                DiscordBotsGG.sendServerCount(serverCount, botID);
-                TopcordXYZ.sendServerCount(serverCount, botID);
-                BlistXYZ.sendServerCount(serverCount, botID);
-                BotlistsCOM.sendServerCount(serverCount);
-                DiscordBOATS.sendServerCount(serverCount, botID);
-                VoidbotsNET.sendServerCount(serverCount, botID);
-                InfinitybotlistCOM.sendServerCount(serverCount, botID);
-                System.out.println("Updating lists finished");
-            }
-        } catch (IOException ignored) {}
-    }
-
-    private static int updateOwnStats(final int servers) throws IOException {
-        final Connection.Response response = Main.tmbAPI("stats/shard/" + Main.shard + "/servers", null, Connection.Method.POST).data("servers", String.valueOf(servers)).execute();
-        return response.statusCode();
-    }
-
-    public static int getTotalServers() throws IOException {
-        final Connection.Response response = Main.tmbAPI("stats", null, Connection.Method.GET).execute();
-        if (response.statusCode() == 200) {
-            final JsonObject jsonObject = Json.parse(response.body()).asObject();
-            final int shard0Servers = jsonObject.getInt("servers_shard_0", 0);
-            final int shard1Servers = jsonObject.getInt("servers_shard_1", 0);
-            return shard0Servers + shard1Servers;
+            Stats.updateServers(servers, Main.shard);
+            final long serverCount = getTotalServers();
+            TopGG.sendServerCount(serverCount, botID);
+            DiscordbotlistCOM.sendServerCount(serverCount, botID);
+            DiscordBotsGG.sendServerCount(serverCount, botID);
+            TopcordXYZ.sendServerCount(serverCount, botID);
+            BlistXYZ.sendServerCount(serverCount, botID);
+            BotlistsCOM.sendServerCount(serverCount);
+            DiscordBOATS.sendServerCount(serverCount, botID);
+            VoidbotsNET.sendServerCount(serverCount, botID);
+            InfinitybotlistCOM.sendServerCount(serverCount, botID);
+            System.out.println("Updating lists finished");
+        } catch (IOException ignored) {
         }
-        return 0;
+    }
+
+    public static long getTotalServers() throws IOException {
+        long servers = 0;
+        try {
+            DocumentSnapshot getStats = Main.firestore.collection("stats").document("alltime").get().get();
+            if (getStats.exists()) {
+                if (getStats.getData().containsKey("servers_shard_0")) {
+                    servers += (long) getStats.get("servers_shard_0");
+                }
+                if (getStats.getData().containsKey("servers_shard_1")) {
+                    servers += (long) getStats.get("servers_shard_1");
+                }
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return servers;
     }
 
 }

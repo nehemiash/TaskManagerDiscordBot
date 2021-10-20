@@ -40,7 +40,6 @@ public class UpdateGuildSlashCommands {
                     SettingsSlashCommands.commandData(langCode),
                     new CommandData("help", Localizations.getString("slashcommands_description_help", langCode)).addOptions(new OptionData(OptionType.STRING, "command", Localizations.getString("slashcommands_description_help_command", langCode)).setRequired(false)),
                     new CommandData("app", Localizations.getString("slashcommands_description_app", langCode)),
-                    new CommandData("data", Localizations.getString("slashcommands_description_data", langCode)),
                     new CommandData("invite", Localizations.getString("slashcommands_description_invite", langCode)),
                     new CommandData("language", Localizations.getString("slashcommands_description_language", langCode))
                             .addOptions(new OptionData(OptionType.STRING, "language", "language").setRequired(true)
@@ -50,7 +49,6 @@ public class UpdateGuildSlashCommands {
                     new CommandData("search", Localizations.getString("slashcommands_description_search", langCode)).addOptions(new OptionData(OptionType.STRING, "term", "search term")),
                     new CommandData("stats", Localizations.getString("slashcommands_description_stats", langCode)),
                     new CommandData("support", Localizations.getString("slashcommands_description_support", langCode)),
-                    new CommandData("token", Localizations.getString("slashcommands_description_token", langCode)),
                     new CommandData("version", Localizations.getString("slashcommands_description_version", langCode))
             ));
             cmd.queue((cmds) -> {

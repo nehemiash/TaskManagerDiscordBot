@@ -323,24 +323,6 @@
     "ru": "Язык теперь русский.",
     "tr": "Dil Türkçe olarak ayarlandı. Çeviri için `arsarys#7702` 'ye teşekkürler"
   },
-  "token_erhalten": {
-    "de": "Du erhältst den Token per Direktnachricht.",
-    "en": "You get the token via direct message.",
-    "bg": "Получихте токена чрез директно съобщение.",
-    "pl": "Otrzymasz token poprzez wiadomości prywatne.",
-    "fr": "Vous recevrez le jeton par message direct.",
-    "ru": "Вы получите токен прямым сообщением.",
-    "tr": "Token direkt mesaj olarak gönderildi."
-  },
-  "token_konnte_nicht_gesendet_werden": {
-    "de": "Der Token konnte nicht gesendet werden. Bitte überprüfe ob deine Privatnachrichten aktiviert sind.",
-    "en": "The token wasn't send. Please check if your DMs are open.",
-    "bg": "Токена не беше изпратен. Моля, проверете директните си съобщения",
-    "pl": "Token nie został wysłany. Proszę sprawdź czy twoje wiadomości prywatne są otwarte.",
-    "fr": "Le jeton n'a pas pu être envoyé. Veuillez vérifier si vos messages privés sont activés.",
-    "ru": "Токен не может быть отправлен. Пожалуйста, проверьте, активированы ли ваши личные сообщения.",
-    "tr": "Token gönderilemedi. Direkt mesaj ayarlarınızı kontrol ediniz."
-  },
   "language_message_title": {
     "de": "Sprache",
     "en": "Language",
@@ -376,15 +358,6 @@
     "fr": "Tâches",
     "ru": "задачи",
     "tr": "Görevler"
-  },
-  "token_message_title": {
-    "de": "Token",
-    "en": "Token",
-    "bg": "Токен",
-    "pl": "Token",
-    "fr": "Jeton",
-    "ru": "знак",
-    "tr": "Token"
   },
   "app_message_title": {
     "de": "App",
@@ -440,15 +413,6 @@
     "ru": "Вы получили следующее задание от $ (ID: $):",
     "tr": "Yeni bir görev aldın. Görev : $ Görevi veren : (ID: $):"
   },
-  "token_info": {
-    "de": "\nDieser Token kann für die App genutzt werden.\n**Teile deinen Token niemals mit einem anderen Nutzer!**",
-    "en": "\nThis token can be used for the App. \n**Don't share this token!**",
-    "bg": "\nТози токен може да бъде използван за приложението. \n **Не споделяйте вашия токен!**",
-    "pl": "\nTego tokena można użyć w aplikacji. \nNie udostępniaj tego tokena!",
-    "fr": "\nCe jeton peut être utilisé pour l'application.\n**Ne partagez jamais votre jeton avec un autre utilisateur!**",
-    "ru": "\nЭтот токен можно использовать для приложения.\n**Никогда не делитесь своим токеном с другим пользователем!**",
-    "tr": "\nBu token uygulama için kullanılabilir. \n**Token kişiye özeldir paylaşmayınız!**"
-  },
   "help_message_group_commands": {
     "de": "`$group create <GRUPPENNAME>` - Gruppe erstellen\n`$group add @NUTZER <GRUPPENNAME>` - Nutzer zu Gruppe hinzufügen\n`$group remove @NUTZER <GRUPPENNAME>` - Nutzer aus Gruppe entfernen\n`$group delete <GRUPPENNAME>` - Gruppe löschen\n`$group list` - Alle Gruppen auflisten\n`$group members <GRUPPENNAME>` - Alle Gruppenmitglieder auflisten\n`$group notifications <GRUPPENNAME> #KANAL` - Protokolliere alle Aufgaben einer Gruppe in einem Kanal",
     "en": "`$group create <GROUPNAME>` - Create a group\n`$group add @USER <GROUPNAME>` - Add an user to a group\n`$group remove @USER <GROUPNAME>` - Remove an user from a group\n`$group delete <GROUPNAME>` - Delete a group\n`$group list` - List all groups\n`$group members <GROUPNAME>` - Lists all group members\n`$group notifications <GROUP NAME> #CHANNEL` - Log all tasks of a group in a channel",
@@ -477,13 +441,13 @@
     "tr": "`$board create <NAME>` - Yeni bir pano oluştur\n`$board switch <NAME>` - Panoyu değiştir\n`$board delete <NAME>` - Bir panoyu sil\n`$board list` - Mevcut tüm panoları listeler"
   },
   "help_message_other_commands": {
-    "de": "`$token` - Gibt den Token für die Website & App\n`$token new` - Erneuert den Token\n`$help` - Listet alle Befehle auf\n`$support` - Discord Link\n`$app` - App-Informationen\n`$stats` - Statistiken\n`$prefix <PREFIX>` - Ändert den Präfix des Bots\n`$settings` - Zeigt Einstellungen an\n`$data` - Lade alle Daten herunter, die bnder von dir auf diesem Server gespeichert hat\n`$invite` - Sendet dir den Link um den Bot einzuladen\n`$search <Suchbegriff>` - Durchsucht Aufgaben und Gruppen nach dem Begriff\n`$help <Befehl>` - Erhalte eine genauere Beschreibung eines Befehls\n",
-    "en": "`$token` - Gives the token for the Website & App\n`$token new` - Generates a new token\n`$help` - Lists all commands\n`$support` - Discord Link\n`$app` - Information about the App\n`$stats` - Shows some stats\n`$prefix <PREFIX>` - Changes the prefix of the bot\n`$settings` - Displays settings\n`$data` - Download all the data that bnder has saved about you on this server\n`$invite` - Sends you the link to invite the bot\n`$search <search term>` - Searches tasks and groups for the term\n`$help <command>` - Get a more detailed description of a command\n",
-    "bg": "`$token` - Връща символа за уебсайта и приложението\n`$token new` - Променя маркера\n`$help` - Изброява всички команди\n`$support` - Discord Link\n`$app` - Информация за приложението\n`$stats` - статистика\n`$prefix <PREFIX>` - Променя префикса на бота\n`$settings` - Показва настройките\n`$data` - Изтеглете всички данни, които bnder е запазил за вас на този сървър\n`$покани` - изпраща ви връзката, за да поканите бота\n`$search <термин за търсене>` - Търси задачи и групи за думата\n`$help <command>` - Получете по-подробно описание на команда\n",
-    "pl": "`$token` - Daje token dla strony internetowej i aplikacji\n`$token new` - Generuje nowy token\n`$help` - Wyświetlam wszystkie polecenia\n`$support` - Discord Link\n`$app` - Informacje o Aplikacji\n`$stats` - Statystyki\n`$prefix <PREFIX>` - Zmienia prefiks bota\n`$settings` - Wyświetla ustawienia\n`$data` - Pobierz wszystkie dane o Tobie zapisane przez bnder na tym serwerze\n`$invite` - Wysyła link do zaproszenia bota\n`$search <search term>` - Przeszukuje zadania i grupy pod kątem terminu\n`$help <command>` - Uzyskaj bardziej szczegółowy opis polecenia\n",
-    "fr": "`$token` - Renvoie le jeton du site Web et de l'application\n`$token new` - Renouveler le jeton\n`$help` - Répertorie toutes les commandes\n`$support` - Lien Discord\n`$app` - Informations sur l'application\n`$stats` - Statistiques\n`$prefix <PREFIX>` - Modifie le préfixe du bot\n`$settings` - Affiche les paramètres\n`$data` - Téléchargez toutes les données que bnder a enregistrées à votre sujet sur ce serveur\n`$invite` - Vous envoie le lien pour inviter le bot\n`$search <terme de recherche>` - Recherche le terme dans les tâches et les groupes\n`$help <command>` - Obtenez une description plus détaillée d'une commande\n",
-    "ru": "`$token` - Возвращает токен для сайта и приложения\n`$token new` - Обновить токен\n`$help` - Перечисляет все команды\n`$support` - Discord Link\n`$app` - Информация о приложении\n`$stats` - статистика\n`$prefix <PREFIX>` - Меняет префикс бота\n`$settings` - Отображает настройки\n`$data` - Загрузите все данные, которые bnder сохранил о вас на этом сервере\n`$invite` - отправляет вам ссылку для приглашения бота\n`$search <поисковый запрос>` - ищет задачи и группы по запросу\n`$help <command>` - Получить более подробное описание команды\n",
-    "tr": "`$token` - Websitesi & Uygulama için bir token verir\n`token new` - Yeni token oluşturur\n`$help` - Komutları listeler\n`$support` - Discord Link\n`app` - Uygulama hakkında bilgi\n`$stats` - Bazı istatistikleri gösterir\n`$prefix <PREFIX>` - Botun prefixini değiştirir\n`$settings` - Ayarları gösterir\n`$data` - Bnder'ın sizinle ilgili kaydettiği tüm verileri bu sunucuya indirin\n`$invite` - Botu davet etmeniz için size bağlantı gönderir\n`$search <search term>` - Terim için görevleri ve grupları arar\n`$help <command>` - Bir komutun daha ayrıntılı açıklamasını alır\n"
+    "de": "`$help` - Listet alle Befehle auf\n`$support` - Discord Link\n`$app` - App-Informationen\n`$stats` - Statistiken\n`$prefix <PREFIX>` - Ändert den Präfix des Bots\n`$settings` - Zeigt Einstellungen an\n`$invite` - Sendet dir den Link um den Bot einzuladen\n`$search <Suchbegriff>` - Durchsucht Aufgaben und Gruppen nach dem Begriff\n`$help <Befehl>` - Erhalte eine genauere Beschreibung eines Befehls\n",
+    "en": "`$help` - Lists all commands\n`$support` - Discord Link\n`$app` - Information about the App\n`$stats` - Shows some stats\n`$prefix <PREFIX>` - Changes the prefix of the bot\n`$settings` - Displays settings\n`$invite` - Sends you the link to invite the bot\n`$search <search term>` - Searches tasks and groups for the term\n`$help <command>` - Get a more detailed description of a command\n",
+    "bg": "`$help` - Изброява всички команди\n`$support` - Discord Link\n`$app` - Информация за приложението\n`$stats` - статистика\n`$prefix <PREFIX>` - Променя префикса на бота\n`$settings` - Показва настройките\n`$покани` - изпраща ви връзката, за да поканите бота\n`$search <термин за търсене>` - Търси задачи и групи за думата\n`$help <command>` - Получете по-подробно описание на команда\n",
+    "pl": "`$help` - Wyświetlam wszystkie polecenia\n`$support` - Discord Link\n`$app` - Informacje o Aplikacji\n`$stats` - Statystyki\n`$prefix <PREFIX>` - Zmienia prefiks bota\n`$settings` - Wyświetla ustawienia\n`$invite` - Wysyła link do zaproszenia bota\n`$search <search term>` - Przeszukuje zadania i grupy pod kątem terminu\n`$help <command>` - Uzyskaj bardziej szczegółowy opis polecenia\n",
+    "fr": "`$help` - Répertorie toutes les commandes\n`$support` - Lien Discord\n`$app` - Informations sur l'application\n`$stats` - Statistiques\n`$prefix <PREFIX>` - Modifie le préfixe du bot\n`$settings` - Affiche les paramètres\n`$invite` - Vous envoie le lien pour inviter le bot\n`$search <terme de recherche>` - Recherche le terme dans les tâches et les groupes\n`$help <command>` - Obtenez une description plus détaillée d'une commande\n",
+    "ru": "`$support` - Discord Link\n`$app` - Информация о приложении\n`$stats` - статистика\n`$prefix <PREFIX>` - Меняет префикс бота\n`$settings` - Отображает настройки\n`$invite` - отправляет вам ссылку для приглашения бота\n`$search <поисковый запрос>` - ищет задачи и группы по запросу\n`$help <command>` - Получить более подробное описание команды\n",
+    "tr": "`$help` - Komutları listeler\n`$support` - Discord Link\n`app` - Uygulama hakkında bilgi\n`$stats` - Bazı istatistikleri gösterir\n`$prefix <PREFIX>` - Botun prefixini değiştirir\n`$settings` - Ayarları gösterir\n`$invite` - Botu davet etmeniz için size bağlantı gönderir\n`$search <search term>` - Terim için görevleri ve grupları arar\n`$help <command>` - Bir komutun daha ayrıntılı açıklamasını alır\n"
   },
   "help_message_permission_commands": {
     "de": "`$permission` - Gibt diese Hilfe-Nachricht\n`$permission add @NUTZER/@ROLLE <BERECHTIGUNG>` - Gibt einem Nutzer/einer Rolle eine Berechtigung\n`$permission remove @NUTZER/@ROLLE <BERECHTIGUNG>` - Entfernt eine Berechtigung von einem Nutzer/einer Rolle\n`$permission list @NUTZER/@ROLLE` - Listet alle Berechtigungen eines Nutzers/einer Rolle auf\n\nAlle Berechtigungen:\n`CREATE_TASK` - Aufgabe erstellen\n`DELETE_TASK` - Aufgabe löschen\n`EDIT_TASK` - Aufgabe bearbeiten\n`CREATE_GROUP` - Gruppe erstellen\n`DELETE_GROUP` - Gruppe löschen\n`ADD_MEMBERS` - Nutzer zu Gruppe hinzufügen\n`REMOVE_MEMBERS` - Nutzer aus Gruppe entfernen\n`ADD_PERMISSION` - Berechtigung hinzufügen\n`REMOVE_PERMISSION` - Berechtigung entfernen\n`SHOW_PERMISSIONS` - Berechtigungen anzeigen\n`CREATE_BOARD` - Board erstellen\n`DELETE_BOARD` - Board löschen\n",
@@ -1007,24 +971,6 @@
     "ru": "У пользователя или роли нет такой авторизации!",
     "tr": "Kullanıcı veya rol bu izine sahip değil."
   },
-  "data_title": {
-    "de": "Daten",
-    "en": "Data",
-    "bg": "Данни",
-    "pl": "Dane",
-    "fr": "Les données",
-    "ru": "Данные",
-    "tr": "Veri"
-  },
-  "data_will_be_sent": {
-    "de": "Die Daten werden gesammelt und dir dann per Direktnachricht gesendet. Es werden dir nur Daten zu diesem Server zugesendet. Um alle Daten zu erhalten führe den Befehl auch auf anderen Servern mit diesem Bot aus. Dieser Prozess kann einen Moment in Anspruch nehmen.",
-    "en": "The data is collected and then sent to you via direct message. You will only be sent data to this server. To get all the data, run the command on other servers with this bot too. This process may take a moment.",
-    "bg": "Данните се събират и след това Ви се изпращат чрез директно съобщение. На този сървър ще ви бъдат изпратени само данни. За да получите всички данни, изпълнете командата на други сървъри с този бот. Този процес може да отнеме малко време.",
-    "pl": "Dane są gromadzone, a następnie przesyłane do Ciebie za pośrednictwem wiadomości bezpośredniej. Będziesz przesyłać dane tylko na ten serwer. Aby uzyskać wszystkie dane, uruchom polecenie na innych serwerach z tym botem. Ten proces może chwilę potrwać.",
-    "fr": "Les données sont collectées puis vous sont envoyées par message direct. Vous ne recevrez que des données sur ce serveur. Pour obtenir toutes les données, exécutez la commande sur d'autres serveurs avec ce bot. Ce processus peut prendre un moment.",
-    "ru": "Данные собираются, а затем отправляются вам через личное сообщение. Вам будут отправляться данные только на этот сервер. Чтобы получить все данные, запустите команду на других серверах с этим ботом. Этот процесс может занять некоторое время.",
-    "tr": "Veriler toplandı ve direkt mesaj olarak gönderildi. Sadece bu sunucuya ait dataları aldınız. Bütün dataları almak için diğer sunucularda da komutu kullanmalısınız. Bu işlem biraz zaman alabilir."
-  },
   "task_new_language_suggestion_text": {
     "de": "\n \n:information_source: Sprache ändern: Die Sprache der Aufgabe ist nicht die konfigurierte Serversprache. Du kannst die Sprache mit dem Befehl`$language $` anpassen.",
     "en": "\n \n:information_source: Change language: The language of the task is not the configured server language. You can change the language with the command `$language $`.",
@@ -1376,33 +1322,6 @@
     "ru": "Отправляет ссылку на запись нашего приложения в Google Play Store для этого бота, а также ссылку на идентичное Progressive Web App.",
     "tr": "Bu bot için uygulamamızın Google Play Store girişine bir bağlantı ve aynı aşamalı web uygulamasına bir bağlantı gönderir."
   },
-  "advanced_help_command_data_usage": {
-    "de": "data",
-    "en": "data",
-    "bg": "data",
-    "pl": "data",
-    "fr": "data",
-    "ru": "data",
-    "tr": "data"
-  },
-  "advanced_help_command_data_example": {
-    "de": "data",
-    "en": "data",
-    "bg": "data",
-    "pl": "data",
-    "fr": "data",
-    "ru": "data",
-    "tr": "data"
-  },
-  "advanced_help_command_data_description": {
-    "de": "Dieser Befehl ermöglicht es, alle Daten, die bnder von dir von diesem Server gespeichert hat, herunterzuladen. Der Bot sendet anschließend eine YAML-Datei, in der alle Daten ordentlich aufgelistet sind.",
-    "en": "This command makes it possible to download all data that tander has saved from this server. The bot then sends a YAML file that neatly lists all the data.",
-    "bg": "Тази команда дава възможност за изтегляне на всички данни, които tander е запазил от този сървър. След това ботът изпраща YAML файл, който прецизно изброява всички данни.",
-    "pl": "Polecenie to umożliwia pobranie wszystkich danych zapisanych przez tandera z tego serwera. Następnie bot wysyła plik YAML, który starannie wymienia wszystkie dane.",
-    "fr": "Cette commande permet de télécharger toutes les données que tander a sauvegardées à partir de ce serveur. Le bot envoie ensuite un fichier YAML qui répertorie toutes les données.",
-    "ru": "Эта команда позволяет загрузить все данные, сохраненные tander с этого сервера. Затем бот отправляет файл YAML, в котором аккуратно перечисляются все данные.",
-    "tr": "Bu komut, tander'ın kaydettiği tüm verileri bu sunucudan indirmeyi mümkün kılar. Bot daha sonra tüm verileri düzgün bir şekilde listeleyen bir YAML dosyası gönderir."
-  },
   "advanced_help_command_invite_usage": {
     "de": "invite",
     "en": "invite",
@@ -1564,33 +1483,6 @@
     "fr": "Si vous avez besoin d'aide, avez des questions, souhaitez suggérer une nouvelle fonction ou souhaitez simplement communiquer avec quelques utilisateurs, cette commande est la bonne. Avec lui, vous obtiendrez le lien d'invitation vers notre serveur Discord.",
     "ru": "Если вам нужна помощь, у вас есть вопросы, вы хотите предложить новую функцию или просто хотите пообщаться с несколькими пользователями, эта команда - правильная. С ним вы получите ссылку-приглашение на наш сервер Discord.",
     "tr": "Yardıma ihtiyacınız varsa, sorularınız varsa, yeni bir işlev önermek istiyorsanız veya sadece birkaç kullanıcıyla iletişim kurmak istiyorsanız, bu komut doğru olanıdır. Onunla, Discord sunucumuza davet bağlantısını alacaksınız."
-  },
-  "advanced_help_command_token_usage": {
-    "de": "token",
-    "en": "token",
-    "bg": "token",
-    "pl": "token",
-    "fr": "token",
-    "ru": "token",
-    "tr": "token"
-  },
-  "advanced_help_command_token_example": {
-    "de": "token",
-    "en": "token",
-    "bg": "token",
-    "pl": "token",
-    "fr": "token",
-    "ru": "token",
-    "tr": "token"
-  },
-  "advanced_help_command_token_description": {
-    "de": "Durch den Befehl sendet der Bot dir einen Token (eine zufällig generierte Zeichenfolge) per Direktnachricht. Der Token wird benötigt um sich in der Android-App oder Web-App anzumelden.",
-    "en": "With the command, the bot sends you a token (a randomly generated string) via direct message. The token is required to log in to the Android app or web app.",
-    "bg": "С командата ботът ви изпраща токен (произволно генериран низ) чрез директно съобщение. Токенът е необходим за влизане в приложението за Android или уеб приложението.",
-    "pl": "Za pomocą polecenia bot wysyła token (losowo wygenerowany ciąg) za pośrednictwem bezpośredniej wiadomości. Token jest wymagany do zalogowania się do aplikacji na Androida lub aplikacji internetowej.",
-    "fr": "Avec la commande, le bot vous envoie un jeton (une chaîne générée aléatoirement) via un message direct. Le jeton est nécessaire pour se connecter à l'application Android ou à l'application Web.",
-    "ru": "С помощью команды бот отправляет вам токен (случайно сгенерированную строку) через прямое сообщение. Токен необходим для входа в приложение Android или веб-приложение.",
-    "tr": "Komutla, bot size doğrudan mesaj yoluyla bir belirteç (rastgele oluşturulmuş bir dize) gönderir. Jeton, Android uygulamasında veya web uygulamasında oturum açmak için gereklidir."
   },
   "advanced_help_command_version_usage": {
     "de": "version",
@@ -2942,15 +2834,6 @@
     "ru": "Отправляет ссылку на приложение для Android и веб-приложение",
     "tr": "Android ve web uygulamasına bir bağlantı gönderir"
   },
-  "slashcommands_description_data": {
-    "de": "Sendet dir alle Daten, die der Bot von dir auf einem Server hat",
-    "en": "Sends you all the data that the bot has from you on a server",
-    "bg": "Изпраща ви всички данни, които ботът има от вас на сървъра.",
-    "pl": "Wysyła Ci wszystkie dane, które bot ma od Ciebie na serwerze",
-    "fr": "Vous envoie toutes les données que le bot possède de vous sur un serveur.",
-    "ru": "Отправляет вам все данные, которые бот получил от вас на сервере.",
-    "tr": "Botun sizden aldığı tüm verileri bir sunucuda size gönderir"
-  },
   "slashcommands_description_invite": {
     "de": "Sendet den Einladungslink für den Bot",
     "en": "Sends the invitation link for the bot",
@@ -3004,15 +2887,6 @@
     "fr": "Envoie le lien pour le serveur Discord de bnder",
     "ru": "Отправляет ссылку для сервера bnder Discord",
     "tr": "Bnder Discord sunucusunun bağlantısını gönderir"
-  },
-  "slashcommands_description_token": {
-    "de": "Sendet den Token für die Web- oder Android-App",
-    "en": "Sends the token for the web or Android app",
-    "bg": "Изпращане на токена за уеб приложението или приложението за Android",
-    "pl": "Wysyła token dla strony internetowej lub aplikacji na Androida",
-    "fr": "Envoi du jeton pour le web ou l'application Android",
-    "ru": "Отправляет маркер для веб-приложения или приложения Android",
-    "tr": "Web veya Android uygulaması için belirteci gönderir"
   },
   "slashcommands_description_version": {
     "de": "Zeigt die aktuelle Versionsnummer des Bots an",

@@ -26,7 +26,7 @@ public class DiscordBOATS {
     private static final String baseURL = "https://discord.boats/api";
     private static final String apiKey = Main.dotenv.get("DISCORD.BOATS_API_KEY") != null ? Main.dotenv.get("DISCORD.BOATS_API_KEY") : System.getenv("DISCORD.BOATS_API_KEY");
 
-    public static void sendServerCount(int serverCount, String botID) throws IOException {
+    public static void sendServerCount(long serverCount, String botID) throws IOException {
         System.out.println("Updating Servers on " + baseURL);
         final Connection.Response response = Jsoup.connect(baseURL + "/bot/" + botID)
                 .header("Authorization", apiKey)

@@ -15,7 +15,6 @@ package de.bnder.taskmanager.utils;
  * limitations under the License.
  */
 
-import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
@@ -97,17 +96,11 @@ public class MessageSender {
         if (slashCommandEvent == null) {
             if (msg.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
                 msg.getChannel().sendMessageEmbeds(builder.build()).queue();
-            } else {
-                //TODO: SEND MESSAGE WITH MISSING PERMISSION
             }
         } else {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
         }
-        try {
-            //TODO: CHANGE TO FIRESTORE
-            Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
-        } catch (Exception ignored) {
-        }
+        Stats.updateMessagesSent();
     }
 
     private static void setAdFooter(EmbedBuilder builder, String langCode) {
@@ -140,17 +133,11 @@ public class MessageSender {
         if (slashCommandEvent == null) {
             if (textChannel.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
                 textChannel.sendMessageEmbeds(builder.build()).queue();
-            } else {
-                //TODO: SEND MESSAGE WITH MISSING PERMISSION
             }
         } else {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
         }
-        try {
-            //TODO: CHANGE TO FIRESTORE
-            Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
-        } catch (Exception ignored) {
-        }
+        Stats.updateMessagesSent();
     }
 
     private static void buildMessageBuilder(String title, TextChannel textChannel, Color red, String textNow, final String langCode, boolean showAd, SlashCommandEvent slashCommandEvent, Component... actionRows) {
@@ -163,16 +150,10 @@ public class MessageSender {
         if (slashCommandEvent == null) {
             if (textChannel.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
                 textChannel.sendMessageEmbeds(builder.build()).queue();
-            } else {
-                //TODO: SEND MESSAGE WITH MISSING PERMISSION
             }
         } else {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).addActionRow(actionRows).queue();
         }
-        try {
-            //TODO: CHANGE TO FIRESTORE
-            Main.tmbAPI("stats/messages-sent", null, org.jsoup.Connection.Method.POST).execute();
-        } catch (Exception ignored) {
-        }
+        Stats.updateMessagesSent();
     }
 }

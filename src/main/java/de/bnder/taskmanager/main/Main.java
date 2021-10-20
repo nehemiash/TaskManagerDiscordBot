@@ -120,7 +120,6 @@ public class Main {
         CommandHandler.commands.put("s", new SettingsController()); //settings
         CommandHandler.commands.put("board", new BoardController());
         CommandHandler.commands.put("b", new BoardController()); //board
-        CommandHandler.commands.put("token", new Token());
         CommandHandler.commands.put("help", new HelpController());
         CommandHandler.commands.put("h", new HelpController()); //help
         CommandHandler.commands.put("support", new Support());
@@ -128,7 +127,6 @@ public class Main {
         CommandHandler.commands.put("language", new Language());
         CommandHandler.commands.put("l", new Language()); //language
         CommandHandler.commands.put("app", new App());
-        CommandHandler.commands.put("data", new Data());
         CommandHandler.commands.put("invite", new Invite());
         CommandHandler.commands.put("search", new Search());
 

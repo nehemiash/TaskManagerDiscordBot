@@ -130,6 +130,7 @@ public class Task {
                 put("text", text);
                 put("deadline", deadline);
             }});
+            Stats.updateTasksCreated();
 
 
             this.exists = true;
@@ -246,6 +247,8 @@ public class Task {
                     put("status", 0);
                     put("text", text);
                 }});
+                Stats.updateTasksCreated();
+
                 this.exists = true;
                 this.guild = guild;
                 this.text = text;
@@ -458,6 +461,10 @@ public class Task {
 
             this.status = status;
 
+            if (this.status == TaskStatus.DONE) {
+                Stats.updateTasksDone();
+            }
+
             //Update in notify channel
             final String langCode = Localizations.getGuildLanguage(guild);
             String newStatus = Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode);
@@ -488,6 +495,10 @@ public class Task {
                         put("status", finalStatus + 1);
                     }});
                     this.status = TaskStatus.values()[Math.toIntExact(status + 1)];
+
+                    if (this.status == TaskStatus.DONE) {
+                        Stats.updateTasksDone();
+                    }
                 }
             } else if (this.type == TaskType.GROUP) {
                 final DocumentSnapshot getTaskDoc = Main.firestore.collection("server").document(guild.getId()).collection("groups").document(this.holder).collection("group-tasks").document(this.id).get().get();
@@ -501,6 +512,10 @@ public class Task {
                         put("status", finalStatus + 1);
                     }});
                     this.status = TaskStatus.values()[status + 1];
+
+                    if (this.status == TaskStatus.DONE) {
+                        Stats.updateTasksDone();
+                    }
                 }
             }
         } catch (InterruptedException | ExecutionException e) {

@@ -26,7 +26,7 @@ public class BotlistsCOM {
     private static final String baseURL = "https://botlists.com/api/bot";
     private static final String apiKey = Main.dotenv.get("BOTLISTS.COM_API_KEY") != null ? Main.dotenv.get("BOTLISTS.COM_API_KEY") : System.getenv("BOTLISTS.COM_API_KEY");
 
-    public static void sendServerCount(int serverCount) throws IOException {
+    public static void sendServerCount(long serverCount) throws IOException {
         System.out.println("Updating Servers on " + baseURL);
         final Connection.Response response = Jsoup.connect(baseURL)
                 .header("token", apiKey)

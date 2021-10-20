@@ -11,7 +11,7 @@ public class BlistXYZ {
     private static final String baseURL = "https://blist.xyz/api/v2";
     private static final String apiKey = Main.dotenv.get("BLIST.XYZ_API_KEY") != null ? Main.dotenv.get("BLIST.XYZ_API_KEY") : System.getenv("BLIST.XYZ_API_KEY");
 
-    public static void sendServerCount(int serverCount, String botID) throws IOException {
+    public static void sendServerCount(long serverCount, String botID) throws IOException {
         System.out.println("Updating Servers on " + baseURL);
         final Connection.Response response = Jsoup.connect(baseURL + "/bot/"+ botID + "/stats")
                 .header("Authorization", apiKey)

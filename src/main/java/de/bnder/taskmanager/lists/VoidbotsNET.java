@@ -26,7 +26,7 @@ public class VoidbotsNET{
     private static final String baseURL = "https://voidbots.net/api/auth";
     private static final String apiKey = Main.dotenv.get("VOIDBOTS.NET_API_KEY") != null ? Main.dotenv.get("VOIDBOTS.NET_API_KEY") : System.getenv("VOIDBOTS.NET_API_KEY");
 
-    public static void sendServerCount(int serverCount, String botID) throws IOException {
+    public static void sendServerCount(long serverCount, String botID) throws IOException {
         System.out.println("Updating Servers on " + baseURL);
         final Connection.Response response = Jsoup.connect(baseURL + "/stats/" + botID)
                 .header("Authentication", apiKey)

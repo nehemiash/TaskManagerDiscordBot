@@ -11,7 +11,7 @@ public class TopcordXYZ {
     private static final String baseURL = "https://topcord.xyz/api";
     private static final String apiKey = Main.dotenv.get("TOPCORD.XYZ_API_KEY") != null ? Main.dotenv.get("TOPCORD.XYZ_API_KEY") : System.getenv("TOPCORD.XYZ_API_KEY");
 
-    public static void sendServerCount(int serverCount, String botID) throws IOException {
+    public static void sendServerCount(long serverCount, String botID) throws IOException {
         System.out.println("Updating Servers on " + baseURL);
         final Connection.Response response = Jsoup.connect(baseURL + "/bot/stats/"+ botID)
                 .header("authorization", apiKey)
