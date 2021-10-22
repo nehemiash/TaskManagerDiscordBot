@@ -21,9 +21,11 @@ import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 
+import java.util.Locale;
+
 public class PermissionSlashCommands {
 
-    public static CommandData commandData(String langCode) {
+    public static CommandData commandData(Locale langCode) {
         return new CommandData("permission", Localizations.getString("slashcommands_description_permission", langCode))
                 .addSubcommands(new SubcommandData("add", Localizations.getString("slashcommands_description_permission_add", langCode))
                         .addOptions(new OptionData(OptionType.MENTIONABLE, "mentionable", Localizations.getString("slashcommands_description_permission_mentionable_description", langCode)).setRequired(true))
@@ -35,7 +37,7 @@ public class PermissionSlashCommands {
                         .addOptions(new OptionData(OptionType.MENTIONABLE, "mentionable", Localizations.getString("slashcommands_description_permission_mentionable_description", langCode)).setRequired(true)));
     }
 
-    public static OptionData permissionOptions(String langCode) {
+    public static OptionData permissionOptions(Locale langCode) {
         return new OptionData(OptionType.STRING, "permission", Localizations.getString("slashcommands_description_permission_permission_description", langCode)).setRequired(true)
                 .addChoice("CREATE_TASK", "CREATE_TASK")
                 .addChoice("DELETE_TASK", "DELETE_TASK")

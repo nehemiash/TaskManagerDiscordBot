@@ -7,10 +7,12 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class GeneralCommandOverview {
 
-    public static void sendGeneralCommandOverview(TextChannel channel, String messageRaw, String langCode, SlashCommandEvent slashCommandEvent) {
+    public static void sendGeneralCommandOverview(TextChannel channel, String messageRaw, Locale langCode, SlashCommandEvent slashCommandEvent) {
+        langCode = Localizations.getGuildLanguage(channel.getGuild());
         final String prefix = String.valueOf(messageRaw.charAt(0));
         final String embedTitle = Localizations.getString("help_message_title", langCode);
         final String groupHelp = Localizations.getString("help_message_group_commands", langCode, new ArrayList<String>(){{

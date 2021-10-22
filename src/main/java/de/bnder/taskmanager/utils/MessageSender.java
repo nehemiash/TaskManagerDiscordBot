@@ -25,9 +25,10 @@ import net.dv8tion.jda.api.interactions.components.Component;
 
 import java.awt.*;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class MessageSender {
-    public static void send(String title, String s, Message msg, Color red, final String langCode, SlashCommandEvent slashCommandEvent) {
+    public static void send(String title, String s, Message msg, Color red, final Locale langCode, SlashCommandEvent slashCommandEvent) {
         if (s.length() > 1990) {
             while (s.length() > 1990) {
                 String textNow = s.substring(0, 1990);
@@ -42,7 +43,7 @@ public class MessageSender {
         }
     }
 
-    public static void send(String title, String s, TextChannel textChannel, Color red, final String langCode, SlashCommandEvent slashCommandEvent) {
+    public static void send(String title, String s, TextChannel textChannel, Color red, final Locale langCode, SlashCommandEvent slashCommandEvent) {
         if (s.length() > 1990) {
             while (s.length() > 1990) {
                 String textNow = s.substring(0, 1990);
@@ -57,7 +58,7 @@ public class MessageSender {
         }
     }
 
-    public static void send(String title, String s, TextChannel textChannel, Color red, final String langCode, SlashCommandEvent slashCommandEvent, Component... components) {
+    public static void send(String title, String s, TextChannel textChannel, Color red, final Locale langCode, SlashCommandEvent slashCommandEvent, Component... components) {
         if (s.length() > 1990) {
             while (s.length() > 1990) {
                 String textNow = s.substring(0, 1990);
@@ -72,7 +73,7 @@ public class MessageSender {
         }
     }
 
-    public static void send(String title, String s, TextChannel textChannel, Color red, final String langCode, boolean showAd, SlashCommandEvent slashCommandEvent) {
+    public static void send(String title, String s, TextChannel textChannel, Color red, final Locale langCode, boolean showAd, SlashCommandEvent slashCommandEvent) {
         if (s.length() > 1990) {
             while (s.length() > 1990) {
                 String textNow = s.substring(0, 1990);
@@ -87,7 +88,7 @@ public class MessageSender {
         }
     }
 
-    private static void buildMessageBuilder(String title, Message msg, Color red, String textNow, final String langCode, boolean showAd, SlashCommandEvent slashCommandEvent) {
+    private static void buildMessageBuilder(String title, Message msg, Color red, String textNow, final Locale langCode, boolean showAd, SlashCommandEvent slashCommandEvent) {
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle(title);
         builder.setDescription(textNow);
@@ -109,7 +110,7 @@ public class MessageSender {
         }
     }
 
-    private static void setAdFooter(EmbedBuilder builder, String langCode) {
+    private static void setAdFooter(EmbedBuilder builder, Locale langCode) {
         final int randomNumber = getRandomInteger(4, 0);
         if (randomNumber == 1) {
             builder.setFooter(Localizations.getString("donate_alert_paypal", langCode));
@@ -129,7 +130,7 @@ public class MessageSender {
         return ((int) (Math.random() * (maximum - minimum))) + minimum;
     }
 
-    private static void buildMessageBuilder(String title, TextChannel textChannel, Color red, String textNow, final String langCode, boolean showAd, SlashCommandEvent slashCommandEvent) {
+    private static void buildMessageBuilder(String title, TextChannel textChannel, Color red, String textNow, final Locale langCode, boolean showAd, SlashCommandEvent slashCommandEvent) {
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle(title);
         builder.setDescription(textNow);
@@ -151,7 +152,7 @@ public class MessageSender {
         }
     }
 
-    private static void buildMessageBuilder(String title, TextChannel textChannel, Color red, String textNow, final String langCode, boolean showAd, SlashCommandEvent slashCommandEvent, Component... actionRows) {
+    private static void buildMessageBuilder(String title, TextChannel textChannel, Color red, String textNow, final Locale langCode, boolean showAd, SlashCommandEvent slashCommandEvent, Component... actionRows) {
         EmbedBuilder builder = new EmbedBuilder();
         builder.setTitle(title);
         builder.setDescription(textNow);

@@ -27,12 +27,13 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import static net.dv8tion.jda.api.interactions.commands.OptionType.*;
 
 public class GroupSlashCommands {
 
-    public static CommandData commandData(Guild guild, String langCode) throws IOException {
+    public static CommandData commandData(Guild guild, Locale langCode) throws IOException {
         return new CommandData("group", Localizations.getString("slashcommands_description_group", langCode))
                 .addSubcommands(new SubcommandData("create", Localizations.getString("slashcommands_description_group_add", langCode))
                         .addOptions(new OptionData(STRING, "name", Localizations.getString("slashcommands_name_of_group_description", langCode))
@@ -54,7 +55,7 @@ public class GroupSlashCommands {
                 );
     }
 
-    public static OptionData boardNameOptions(Guild guild, String langCode) throws IOException {
+    public static OptionData boardNameOptions(Guild guild, Locale langCode) throws IOException {
         OptionData groupNameOptionData = new OptionData(STRING, "group", Localizations.getString("slashcommands_name_of_group_description", langCode)).setRequired(true);
 
         final org.jsoup.Connection.Response res = Main.tmbAPI("group/list/" + guild.getId(), "---", org.jsoup.Connection.Method.GET).execute();

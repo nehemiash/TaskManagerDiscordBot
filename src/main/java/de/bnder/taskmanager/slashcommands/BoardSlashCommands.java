@@ -27,12 +27,13 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import static net.dv8tion.jda.api.interactions.commands.OptionType.STRING;
 
 public class BoardSlashCommands {
 
-    public static CommandData commandData(Guild guild, String langCode) throws IOException {
+    public static CommandData commandData(Guild guild, Locale langCode) throws IOException {
         return new CommandData("board", Localizations.getString("slashcommands_description_board", langCode))
                 .addSubcommands(new SubcommandData("create", Localizations.getString("slashcommands_description_board_create", langCode))
                         .addOptions(new OptionData(STRING, "name", Localizations.getString("slashcommands_description_board_name", langCode)).setRequired(true)))
@@ -43,7 +44,7 @@ public class BoardSlashCommands {
                 .addSubcommands(new SubcommandData("list", Localizations.getString("slashcommands_description_board_list", langCode)));
     }
 
-    public static OptionData boardNameOptions(Guild guild, String langCode) throws IOException {
+    public static OptionData boardNameOptions(Guild guild, Locale langCode) throws IOException {
         OptionData switchSubCommandDataOptionData = new OptionData(STRING, "name", Localizations.getString("slashcommands_description_board_name", langCode)).setRequired(true);
 
         final org.jsoup.Connection.Response res = Main.tmbAPI("board/list/" + guild.getId(), "---", org.jsoup.Connection.Method.GET).execute();

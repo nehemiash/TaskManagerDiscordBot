@@ -1,7 +1,5 @@
 {
   "group_created_successfully": {
-    "de": "Die Gruppe `$` wurde erfolgreich erstellt.",
-    "en": "The Group `$` was created successfully.",
     "bg": "Групата `$` беше създадена успешно.",
     "pl": "Grupa `$` została utowrzona pomyślnie.",
     "fr": "Le groupe `$` a été créé avec succès.",
@@ -9,8 +7,6 @@
     "tr": "`$` Grubu başarı ile oluşturuldu."
   },
   "group_not_created_name_already_exists": {
-    "de": "Die Gruppe `$` konnte nicht erstellt werden, da eine gleichnamige Gruppe bereits exisitert.",
-    "en": "The group `$` wasn't created, because that name is already taken.",
     "bg": "Групата `$` не беше създадена, защото това име вече е заето.",
     "pl": "Grupa `$` nie została utworzona, ponieważ ta nazwa została już zajęta.",
     "fr": "Le groupe `$` n'a pas pu être créé car un groupe du même nom existe déjà.",
@@ -18,8 +14,6 @@
     "tr": " `$` Grubu oluşturulamadı, bu isimde başka bir grup var."
   },
   "group_not_created_unknown_error": {
-    "de": "Die Gruppe `$` konnte nicht erstellt werden. Fehlercode: $",
-    "en": "The group `$` wasn't created. Errorcode: $.",
     "bg": "Групата `$` не беше създадена. Грешка: $.",
     "pl": "Grupa `$` nie została utworzona. Błąd kodu: $.",
     "fr": "Le groupe `$` n'a pas pu être créé. Code d'erreur: $",
@@ -27,8 +21,6 @@
     "tr": "`$` Grubu oluşturulamadı. Hata Kodu: $."
   },
   "need_to_be_serveradmin_or_have_admin_permissions": {
-    "de": "Du musst der Serverbesitzer sein, Administratorrechte besitzen oder die Rechte über den Befehl `permission` erhalten um diese Aktion auszuführen.",
-    "en": "You have to be the server owner, have administrator rights or have the rights via the command `permission` to perform this action.",
     "bg": "За да извършите това действие, трябва да сте собственик на сървъра, да имате администраторски права или да имате права чрез командата `permission`.",
     "pl": "Aby wykonać tę akcję, musisz być właścicielem serwera, mieć uprawnienia administratora lub mieć uprawnienia za pośrednictwem polecenia „permission”.",
     "fr": "Vous devez être le propriétaire du serveur, avoir des droits d'administrateur ou avoir les droits via la commande `permission` pour effectuer cette action.",
@@ -36,8 +28,6 @@
     "tr": "Bu işlemi yapabilmek için server sahibi, yönetici yetkilerine ya da `permission` komutundaki yetkilere sahip olmalısınız."
   },
   "group_was_deleted": {
-    "de": "Die Gruppe `$` wurde gelöscht.",
-    "en": "The group `$` was deleted.",
     "bg": "Групата `$` беше изтрита",
     "pl": "Grupa `$` została usunięta.",
     "fr": "Le groupe `$` a été supprimé.",
@@ -45,7 +35,6 @@
     "tr": "`$` isimli grup silindi."
   },
   "group_with_name_doesnt_exist": {
-    "de": "Es existiert keine Gruppe mit dem Namen `$` auf dem Server.",
     "en": "There is no group `$` on the server.",
     "bg": "Няма група `$` в сървъра.",
     "pl": "Nie ma grupy `$` na serwerze",
@@ -54,7 +43,6 @@
     "tr": "Sunucuda `$` isimli bir grup bulunamadı."
   },
   "group_delete_unknown_error": {
-    "de": "Die Gruppe `$` konnte nicht gelöscht werden. Fehlercode: $",
     "en": "The group `$` wasnt't deleted. Errorcode: $.",
     "bg": "Групата `$` не е изтрита. Грешка:$.",
     "pl": "Grupa `$` nie została usunięta. Błąd kodu:$.",
@@ -63,7 +51,6 @@
     "tr": "`$` isimli grup silinemedi. Hata Kodu: $."
   },
   "user_added_to_group": {
-    "de": "$ wurde zu der Gruppe `$` hinzugefügt.",
     "en": "$ was added to $.",
     "bg": "$ беше добавено към $",
     "pl": "$ dodano do `$` ",
@@ -72,7 +59,6 @@
     "tr": "$ başarı ile $ grubuna eklendi."
   },
   "user_already_in_group": {
-    "de": "Der Nutzer konnte nicht zur Gruppe hinzugefügt werden, da er bereits in der Gruppe ist!",
     "en": "The user is already in the that group!",
     "bg": "Потребителя вече е в тази група!",
     "pl": "Użytkownik jest już w tej grupie!",

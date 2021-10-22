@@ -21,11 +21,12 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AddTask {
 
     public static void addTask(String commandMessage, Member member, List<Member> mentionedMembers, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         if (PermissionSystem.hasPermission(member, TaskPermission.CREATE_TASK)) {
             if (mentionedMembers != null && mentionedMembers.size() > 0) {
@@ -33,7 +34,7 @@ public class AddTask {
                 for (Member mentionedMember : mentionedMembers) {
                     final de.bnder.taskmanager.utils.Task taskObject = new de.bnder.taskmanager.utils.Task(member.getGuild(), task, null, mentionedMember, member);
                     if (taskObject.getStatusCode() == 200) {
-                        String newLanguageSuggestionAppend = taskObject.newLanguageSuggestion() != null ? Localizations.getString("task_new_language_suggestion_text", taskObject.newLanguageSuggestion(), new ArrayList<>() {{
+                        String newLanguageSuggestionAppend = taskObject.newLanguageSuggestion() != null ? Localizations.getString("task_new_language_suggestion_text", Locale.forLanguageTag(taskObject.newLanguageSuggestion()), new ArrayList<>() {{
                             add(String.valueOf(commandMessage.charAt(0)));
                             add(taskObject.newLanguageSuggestion());
                         }}) : "";
@@ -110,7 +111,7 @@ public class AddTask {
         }
     }
 
-    private static void sendTaskMessage(Member member, Member author, String task_id, String langCode, String task) {
+    private static void sendTaskMessage(Member member, Member author, String task_id, Locale langCode, String task) {
         final JsonObject settings = de.bnder.taskmanager.utils.Settings.getUserSettings(member);
         if (settings.getString("direct_message", "1").equalsIgnoreCase("1")) {
             try {

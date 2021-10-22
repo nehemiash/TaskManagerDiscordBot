@@ -11,11 +11,12 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class EditTask {
 
     public static void editTask(String commandMessage, Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         if (PermissionSystem.hasPermission(member, TaskPermission.EDIT_TASK)) {
             final String taskID = Connection.encodeString(args[1]);

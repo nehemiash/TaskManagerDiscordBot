@@ -28,11 +28,12 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class BoardList {
 
     public static void getBoardList(Member member, TextChannel textChannel, String prefix, SlashCommandEvent slashCommandEvent) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("board_title", langCode);
         final org.jsoup.Connection.Response res = Main.tmbAPI("board/list/" + member.getGuild().getId(), member.getId(), org.jsoup.Connection.Method.GET).execute();
         final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();

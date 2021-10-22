@@ -28,11 +28,12 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class DeleteBoard {
 
     public static void deleteBoard(Member member, TextChannel textChannel, String boardName, SlashCommandEvent slashCommandEvent) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("board_title", langCode);
         if (PermissionSystem.hasPermission(member, BoardPermission.DELETE_BOARD)) {
             final org.jsoup.Connection.Response res = Main.tmbAPI("board/" + member.getGuild().getId() + "/" + boardName, member.getId(), org.jsoup.Connection.Method.DELETE).execute();

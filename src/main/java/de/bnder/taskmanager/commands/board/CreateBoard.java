@@ -30,12 +30,13 @@ import org.jsoup.Connection;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class CreateBoard {
 
     public static void createBoard(String boardName, TextChannel textChannel, Member member, SlashCommandEvent slashCommandEvent) throws IOException {
         final Guild guild = textChannel.getGuild();
-        final String langCode = Localizations.getGuildLanguage(guild);
+        final Locale langCode = Localizations.getGuildLanguage(guild);
         final String embedTitle = Localizations.getString("board_title", langCode);
         if (PermissionSystem.hasPermission(member, BoardPermission.CREATE_BOARD)) {
             final org.jsoup.Connection.Response res = Main.tmbAPI("board/create/" + member.getGuild().getId(), member.getId(), Connection.Method.POST).data("board_name", boardName).execute();

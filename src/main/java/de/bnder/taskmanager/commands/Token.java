@@ -13,11 +13,12 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Locale;
 
 public class Token implements Command {
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, java.util.List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(guild);
+        final Locale langCode = Localizations.getGuildLanguage(guild);
         final String embedTitle = Localizations.getString("token_message_title", langCode);
         commandExecutor.getUser().openPrivateChannel().queue(channel -> {
             try {

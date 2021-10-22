@@ -24,6 +24,7 @@ import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.List;
+import java.util.Locale;
 
 public class TaskLogReaction extends ListenerAdapter {
 
@@ -58,7 +59,7 @@ public class TaskLogReaction extends ListenerAdapter {
             if (message.getEmbeds().size() == 1) {
                 final MessageEmbed embed = message.getEmbeds().get(0);
                 final List<MessageEmbed.Field> fields = embed.getFields();
-                for (final String langCode : Language.validLangCodes) {
+                for (final Locale langCode : Language.validLangCodes) {
                     if (fields.get(0).getName().equals(Localizations.getString("task_info_field_task", langCode))) {
                         if (fields.get(1).getName().equals(Localizations.getString("task_info_field_type_group", langCode))) {
                             return true;

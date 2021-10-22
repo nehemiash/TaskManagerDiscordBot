@@ -13,11 +13,12 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class GroupList {
 
     public static void getGroupList(Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("group_title", langCode);
         final org.jsoup.Connection.Response res = Main.tmbAPI("group/list/" + member.getGuild().getId(), member.getId(), org.jsoup.Connection.Method.GET).execute();
         final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();

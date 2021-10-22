@@ -23,6 +23,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -45,7 +46,7 @@ public class DeadlineReminders {
                             final String deadline = taskObject.getString("deadline", null);
                             final Guild guild = shardManager.getGuildById(serverID);
                             if (guild != null) {
-                                final String langCode = Localizations.getGuildLanguage(guild);
+                                final Locale langCode = Localizations.getGuildLanguage(guild);
                                 if (taskType.equalsIgnoreCase("group")) {
                                     final String groupName = taskObject.getString("group_name", null);
                                     for (final JsonValue groupMemberValue : taskObject.get("group_members").asArray()) {

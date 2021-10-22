@@ -27,12 +27,13 @@ import org.jsoup.Connection;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class SwitchBoard {
 
     public static void switchBoard(String boardName, Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) throws IOException {
         final Guild guild = textChannel.getGuild();
-        final String langCode = Localizations.getGuildLanguage(guild);
+        final Locale langCode = Localizations.getGuildLanguage(guild);
         final String embedTitle = Localizations.getString("board_title", langCode);
         final org.jsoup.Connection.Response res = Main.tmbAPI("board/active/" + guild.getId(), member.getId(), Connection.Method.POST).data("board_name", boardName).execute();
         final int statusCode = res.statusCode();

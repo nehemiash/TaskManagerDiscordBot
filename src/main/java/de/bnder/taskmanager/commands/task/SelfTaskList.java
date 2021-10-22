@@ -15,11 +15,12 @@ import org.jsoup.nodes.Document;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class SelfTaskList {
 
     public static void selfTaskList(Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         final org.jsoup.Connection.Response res = Main.tmbAPI("task/user/tasks/" + textChannel.getGuild().getId() + "/" + member.getId(), member.getId(), org.jsoup.Connection.Method.GET).execute();
         final Document document = res.parse();

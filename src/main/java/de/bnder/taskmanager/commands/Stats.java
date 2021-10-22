@@ -12,12 +12,13 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Locale;
 
 public class Stats implements Command {
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, java.util.List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
         guild.getJDA().getRestPing().queue(ping -> {
-            final String langCode = Localizations.getGuildLanguage(guild);
+            final Locale langCode = Localizations.getGuildLanguage(guild);
             final EmbedBuilder builder = new EmbedBuilder();
             try {
                 final Date apiRequestDateStart = new Date();

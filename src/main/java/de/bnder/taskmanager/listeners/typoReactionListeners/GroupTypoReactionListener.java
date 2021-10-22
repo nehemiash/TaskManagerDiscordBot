@@ -12,6 +12,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 import static de.bnder.taskmanager.listeners.typoReactionListeners.TaskTypoReactionListener.*;
 
@@ -37,7 +38,7 @@ public class GroupTypoReactionListener extends ListenerAdapter {
                                     message.delete().queue();
                                     processGroupCommand(args, member, command, event.getChannel());
                                 } catch (IOException e) {
-                                    final String langCode = Localizations.getGuildLanguage(event.getGuild());
+                                    final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
                                     MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode, null);
                                 }
                             } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
