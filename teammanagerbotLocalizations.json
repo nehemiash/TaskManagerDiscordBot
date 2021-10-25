@@ -35,7 +35,6 @@
     "tr": "`$` isimli grup silindi."
   },
   "group_with_name_doesnt_exist": {
-    "en": "There is no group `$` on the server.",
     "bg": "Няма група `$` в сървъра.",
     "pl": "Nie ma grupy `$` na serwerze",
     "fr": "Il n'y a pas de groupe avec le nom `$` sur le serveur.",
@@ -43,7 +42,6 @@
     "tr": "Sunucuda `$` isimli bir grup bulunamadı."
   },
   "group_delete_unknown_error": {
-    "en": "The group `$` wasnt't deleted. Errorcode: $.",
     "bg": "Групата `$` не е изтрита. Грешка:$.",
     "pl": "Grupa `$` nie została usunięta. Błąd kodu:$.",
     "fr": "Le groupe `$` n'a pas pu être supprimé. Code d'erreur: $",
@@ -51,7 +49,6 @@
     "tr": "`$` isimli grup silinemedi. Hata Kodu: $."
   },
   "user_added_to_group": {
-    "en": "$ was added to $.",
     "bg": "$ беше добавено към $",
     "pl": "$ dodano do `$` ",
     "fr": "$ a été ajouté au groupe `$`.",
@@ -59,7 +56,6 @@
     "tr": "$ başarı ile $ grubuna eklendi."
   },
   "user_already_in_group": {
-    "en": "The user is already in the that group!",
     "bg": "Потребителя вече е в тази група!",
     "pl": "Użytkownik jest już w tej grupie!",
     "fr": "L'utilisateur n'a pas pu être ajouté au groupe car il est déjà dans le groupe!",
@@ -67,7 +63,6 @@
     "tr": "Kullanıcı zaten bu gruba dahil!"
   },
   "user_added_to_group_unknown_error": {
-    "en": "The user wasn't added to the group. Errorcode: $",
     "bg": "Потребителя не беше добавен към групата. Грешка: $",
     "pl": "Użytkownik nie został dodany do grupy. Błąd kodu: $",
     "fr": "L'utilisateur n'a pas pu être ajouté au groupe! Code d'erreur: $",
@@ -75,7 +70,6 @@
     "tr": "Kullanıcı gruba eklenemedi. Hata Kodu: $"
   },
   "user_needs_to_be_mentioned": {
-    "en": "You need to mention an user!",
     "bg": "Трябва да назовете потребител!",
     "pl": "Musisz wspomnieć o użytkowniku!",
     "fr": "Vous devez marquer un utilisateur!",
@@ -83,7 +77,6 @@
     "tr": "Bir kullanıcıyı etiketlemeniz gerekiyor!"
   },
   "group_name_needs_to_be_given": {
-    "en": "You have to give the name of the group!",
     "bg": "Трябва да дадете име на групата.",
     "pl": "Musisz nadać nazwę grupie.",
     "fr": "Vous devez entrer un nom de groupe!",
@@ -91,7 +84,6 @@
     "tr": "Gruba bir isim vermelisiniz!"
   },
   "nutzer_aus_gruppe_entfernt": {
-    "en": "$ was removed from $",
     "bg": "$ беше премахнат от $",
     "pl": "$ został usunięty z $",
     "fr": "$ a été supprimé du groupe `$`.",
@@ -99,7 +91,6 @@
     "tr": "$ artık $ grubunda değil"
   },
   "nutzer_ist_in_keiner_gruppe": {
-    "en": "That user `$` isn't in a group!",
     "bg": "Този потребител `$` не е в групата!",
     "pl": "Ten użytkownik `$` nie jest w grupie!",
     "fr": "L'utilisateur `$` n'est pas dans un groupe!",
@@ -107,7 +98,6 @@
     "tr": "Kullanıcı `$` bir grupta değil!"
   },
   "nutzer_aus_gruppe_entfernen_unbekannter_fehler": {
-    "en": "The user wasn't removed from the group! Errorcode: $",
     "bg": "Този потребител не беше премахнат от групата! Грешка: $",
     "pl": "Użytkownik nie został usunięty z grupy! Błąd kodu: $",
     "fr": "L'utilisateur n'a pas pu être supprimé du groupe! Code d'erreur: $",
@@ -115,7 +105,6 @@
     "tr": "Kullanıcı gruptan çıkarılamadı! Hata Kodu: $"
   },
   "keine_gruppen_auf_server": {
-    "en": "There are no groups!",
     "bg": "Няма групи !",
     "pl": "Tutaj nie ma grup!",
     "fr": "Il n'y a aucun groupe sur le serveur!",
@@ -123,7 +112,6 @@
     "tr": "Sunucuda hiç bir grup yok!"
   },
   "abfrage_unbekannter_fehler": {
-    "en": "There was an unexpected error! Errorcode: $",
     "bg": "Има непредвидена грешка ! Грешка: $",
     "pl": "Tutaj jest niespodziewany błąd! Błąd kodu: $",
     "fr": "Une erreur inattendue s'est produite lors de la requête! Code d'erreur: $",
@@ -131,7 +119,6 @@
     "tr": "Beklenmeyen bir hata meydana geldi! Hata Kodu: $"
   },
   "aufgabe_an_x_mitglieder_gesendet": {
-    "en": "The task was sent to $ group members.",
     "bg": "Задачата беше изпратена до членове на $ group.",
     "pl": "Zadanie zostało wysłane do członków grupy $.",
     "fr": "La tâche a été envoyée aux membres du groupe $.",
@@ -139,7 +126,6 @@
     "tr": "Görev gruptaki $ kişiye gönderildi."
   },
   "aufgabe_erstellt_unbekannter_fehler": {
-    "en": "During creation of the task an unexpected error happened. Errorcode: $",
     "bg": "По време на създаване на задачата се случи неочаквана грешка. Грешка:$",
     "pl": "Podczas tworzenia zadania wystąpił się niespodziewany błąd. Błąd kodu: $",
     "fr": "Une erreur inattendue s'est produite lors de la création de la tâche. Code d'erreur: $",
@@ -147,7 +133,6 @@
     "tr": "Görev oluşturulurken beklenmedik bir hata meydana geldi. Hata Kodu: $"
   },
   "aufgabe_gruppe_erstellt": {
-    "en": "The task was given to `$`",
     "bg": "Задачата е дадена на `$`",
     "pl": "Zadanie zostało oddano do `$`",
     "fr": "La tâche a été confiée au groupe `$`.",
@@ -155,7 +140,6 @@
     "tr": "Görev `$` grubuna devredildi."
   },
   "aufgabe_erstellen_fehlende_argumente": {
-    "en": "Please mention a user or give the name of a group to create a task.",
     "bg": "Моля, тагнете потребител или подайте име на група за да създадете задачата.",
     "pl": "Proszę wspomnieć o użytkowniku albo nadać nazwę grupie aby utworzyć zadanie.",
     "fr": "La tâche a été confiée au groupe `$`.",
@@ -163,7 +147,6 @@
     "tr": "Lütfen bir kullanıcıyı etiketleyerek veya bir grup adını kullanarak görev oluşturunuz."
   },
   "task_abfrage_unbekannter_fehler": {
-    "en": "There was an unexpected error! The task may already be done!",
     "bg": "Има непредвидена грешка ! Задачата може вече да е свършена!",
     "pl": "Tutaj jest niespodziewany błąd! Zadanie może być już wykonane!",
     "fr": "Une erreur inattendue s'est produite lors de la requête! La tâche est peut-être déjà terminée!",
@@ -171,7 +154,6 @@
     "tr": "Beklenmeyen bir hata meydana geldi! Görev çoktan bitirilmiş olabilir!"
   },
   "deadline_gesetzt": {
-    "en": "Deadline for $ is now $",
     "bg": "Краен срок за $ сега е $",
     "pl": "Ostatecznym terminem dla $ teraz jest $",
     "fr": "La date limite pour la tâche `$` a été fixée à $.",
@@ -179,7 +161,6 @@
     "tr": "$ görevinin bitiş tarihi $ olarak ayarlandı."
   },
   "keine_aufgabe_mit_id": {
-    "en": "No task with id  `$` found.",
     "bg": "Задача с ид`$` не беше намерена. ",
     "pl": "Nie odnaleziono żadnego zadania z id `$`.",
     "fr": "Aucune tâche avec l'ID `$` n'a été trouvée!",
@@ -187,7 +168,6 @@
     "tr": "`$` isimli bir görev bulunamadı."
   },
   "ungueltiges_datum_format": {
-    "en": "The dateformat is invalid.",
     "bg": "Невалиден времеви формат",
     "pl": "Format daty jest niepoprawny.",
     "fr": "La date spécifiée a un format non valide!",
@@ -195,7 +175,6 @@
     "tr": "Tarihin yazılma şekli geçersiz."
   },
   "nutzer_oder_gruppe_angeben": {
-    "en": "Please say if the task is for a user or a group (User = user, Group = group)",
     "bg": "Моля посочете задачата за потребител или група е. (User = user, Group = group)",
     "pl": "Proszę powiedzieć jeżeli zadanie jest dla użytkownika albo dla grupy. (User = user, Group = group)",
     "fr": "Veuillez indiquer si la tâche appartient à un utilisateur ou à un groupe! (Utilisateur = user, groupe = group)",
@@ -203,7 +182,6 @@
     "tr": "Lütfen görevin bir kullanıcıya mı yoksa bir gruba mı ait olduğunu belirtin (User = user, Group = group)"
   },
   "aufgabe_invalid_args_length": {
-    "en": "Please use `-task deadline <Task-ID> <Date> <Time>`.",
     "bg": "Моля използвайте `-task deadline <Task-ID> <Date> <Time>`.",
     "pl": "Proszę użyć `-task deadline <Task-ID> <Date> <Time>`.",
     "fr": "Veuillez utiliser `-task deadline <task ID> <date> <time>`.",
@@ -211,7 +189,6 @@
     "tr": "Lütfen `-task deadline <Task-ID> <Date> <Time>` olarak kullanınız."
   },
   "aufgabe_geloescht": {
-    "en": "Task `$` got deleted.",
     "bg": "Задача `$` беше изтрита.",
     "pl": "Zadanie `$` zostało usunięte.",
     "fr": "La tâche `$` a été supprimée.",
@@ -219,7 +196,6 @@
     "tr": "`$` isimli görev silindi."
   },
   "aufgabe_editiert": {
-    "en": "Task `$` was changed successfully.",
     "bg": "Задачата `$` беше променена успешно.",
     "pl": "Zadanie `$` zostało pomyślnie zmienione.",
     "fr": "La tâche `$` a été modifiée avec succès.",
@@ -227,7 +203,6 @@
     "tr": "Görev `$` başarıyla değiştirildi."
   },
   "aufgabe_wird_nun_bearbeitet": {
-    "en": "The task is now work in progress.",
     "bg": "Задачата е в процес на работа.",
     "pl": "Zadanie jest teraz w toku.",
     "fr": "La tâche est en cours de traitement.",
@@ -235,7 +210,6 @@
     "tr": "Görev durumu yapım aşamasında olarak değişti."
   },
   "aufgabe_wird_nicht_bearbeitet": {
-    "en": "The task is no longer in progress.",
     "bg": "Задачата не се обработва.",
     "pl": "Zadanie nie jest przetwarzane.",
     "fr": "La tâche n'est pas traitée.",
@@ -243,7 +217,6 @@
     "tr": "Görev artık yapım aşamasında değil."
   },
   "aufgabe_erledigt": {
-    "en": "The task is finished.",
     "bg": "Задачата е завършена.",
     "pl": "Zadanie zostało ukończone.",
     "fr": "La tâche est terminée.",
@@ -251,7 +224,6 @@
     "tr": "Görev tamamlandı."
   },
   "support_nachricht": {
-    "en": "Contact us at\nhttps://bnder.net/discord",
     "bg": "За контакти с подръжка\nhttps://bnder.net/discord",
     "pl": "Proszę się skontaktować z nami na\nhttps://bnder.net/discord",
     "fr": "En cas de problème:\nhttps://bnder.net/discord",
@@ -259,7 +231,6 @@
     "tr": "https://bnder.net/discord \nadresinden iletişime geçebilirsiniz."
   },
   "keine_aufgaben": {
-    "en": "There are no tasks.",
     "bg": "Няма задачи.",
     "pl": "Tutaj nie ma żadnego zadania.",
     "fr": "Aucune tâche n'est disponible pour l'utilisateur.",
@@ -267,7 +238,6 @@
     "tr": "Görev yok."
   },
   "keine_aufgaben_gruppen": {
-    "en": "There are no tasks.",
     "bg": "Няма задачи.",
     "pl": "Tu nie ma zadań.",
     "fr": "Aucune tâche n'est disponible pour ce groupe.",
@@ -275,7 +245,6 @@
     "tr": "Görev yok."
   },
   "sprache_geaendert": {
-    "en": "The language was set to english.",
     "bg": "Зададеният език е Български. Благодаря на `Виктор Узунов#3049` за превода",
     "pl": "Język został ustawiony jako Polski. Podziękowania dla `☆_☆Lenar☆_☆#9682` za tłumaczenie",
     "fr": "La langue est maintenant le français.",
@@ -283,7 +252,6 @@
     "tr": "Dil Türkçe olarak ayarlandı. Çeviri için `arsarys#7702` 'ye teşekkürler"
   },
   "token_erhalten": {
-    "en": "You get the token via direct message.",
     "bg": "Получихте токена чрез директно съобщение.",
     "pl": "Otrzymasz token poprzez wiadomości prywatne.",
     "fr": "Vous recevrez le jeton par message direct.",
@@ -291,7 +259,6 @@
     "tr": "Token direkt mesaj olarak gönderildi."
   },
   "token_konnte_nicht_gesendet_werden": {
-    "en": "The token wasn't send. Please check if your DMs are open.",
     "bg": "Токена не беше изпратен. Моля, проверете директните си съобщения",
     "pl": "Token nie został wysłany. Proszę sprawdź czy twoje wiadomości prywatne są otwarte.",
     "fr": "Le jeton n'a pas pu être envoyé. Veuillez vérifier si vos messages privés sont activés.",
@@ -299,7 +266,6 @@
     "tr": "Token gönderilemedi. Direkt mesaj ayarlarınızı kontrol ediniz."
   },
   "language_message_title": {
-    "en": "Language",
     "bg": "Език",
     "pl": "Język",
     "fr": "La langue",
@@ -307,7 +273,6 @@
     "tr": "Dil"
   },
   "help_message_title": {
-    "en": "Help",
     "bg": "Помощ",
     "pl": "Pomoc",
     "fr": "Aide",
@@ -315,7 +280,6 @@
     "tr": "Yardım"
   },
   "stats_message_title": {
-    "en": "Stats",
     "bg": "Статистика",
     "pl": "Statystyki",
     "fr": "Statistiques",
@@ -323,7 +287,6 @@
     "tr": "İstatistikler"
   },
   "task_message_title": {
-    "en": "Tasks",
     "bg": "Задачи",
     "pl": "Zadanie",
     "fr": "Tâches",
@@ -331,7 +294,6 @@
     "tr": "Görevler"
   },
   "token_message_title": {
-    "en": "Token",
     "bg": "Токен",
     "pl": "Token",
     "fr": "Jeton",
@@ -339,7 +301,6 @@
     "tr": "Token"
   },
   "app_message_title": {
-    "en": "App",
     "bg": "Приложение",
     "pl": "Aplikacji",
     "fr": "App",
@@ -347,7 +308,6 @@
     "tr": "Uygulama"
   },
   "app_befehl_nachricht": {
-    "en": "You can get our App on **Google Play**: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app or use our Web-App: https://bnder.net/discordbot/taskmanagerbot/app",
     "bg": "Можете да изтеглите нашето приложение от **Google Play** тук: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
     "pl": "Możesz uzyskać naszą aplikację na **Google Play**: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
     "fr": "Vous pouvez télécharger notre application depuis **Google Play** ici: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app",
@@ -355,7 +315,6 @@
     "tr": "Uygulamaya linkten erişebilirsiniz **Google Play**: https://play.google.com/store/apps/details?id=de.bnder.team_manager_bot_app"
   },
   "aufgaben_status_erledigt": {
-    "en": "Done",
     "bg": "Готов",
     "pl": "Ukończone",
     "fr": "Terminé",
@@ -363,7 +322,6 @@
     "tr": "Tamamlanmış"
   },
   "aufgaben_status_wird_bearbeitet": {
-    "en": "Work in progress",
     "bg": "В процес на работа",
     "pl": "Prace w toku",
     "fr": "Traitement",
@@ -371,7 +329,6 @@
     "tr": "Yapım Aşamasında"
   },
   "aufgaben_status_nicht_bearbeitet": {
-    "en": "Not edited",
     "bg": "Не редактирано",
     "pl": "Nie edytowane",
     "fr": "Non édité",
@@ -379,7 +336,6 @@
     "tr": "Düzenlenmemiş"
   },
   "aufgabe_erhalten": {
-    "en": "You received the following task from $ (ID: $):",
     "bg": "Получихте дадената задача от $ (ID: $):",
     "pl": "Otrzymałeś następujące zadanie od $ (ID: $):",
     "fr": "Vous avez obtenu la tâche suivante de $ (ID: $):",
@@ -387,7 +343,6 @@
     "tr": "Yeni bir görev aldın. Görev : $ Görevi veren : (ID: $):"
   },
   "token_info": {
-    "en": "\nThis token can be used for the App. \n**Don't share this token!**",
     "bg": "\nТози токен може да бъде използван за приложението. \n **Не споделяйте вашия токен!**",
     "pl": "\nTego tokena można użyć w aplikacji. \nNie udostępniaj tego tokena!",
     "fr": "\nCe jeton peut être utilisé pour l'application.\n**Ne partagez jamais votre jeton avec un autre utilisateur!**",
@@ -395,7 +350,6 @@
     "tr": "\nBu token uygulama için kullanılabilir. \n**Token kişiye özeldir paylaşmayınız!**"
   },
   "help_message_group_commands": {
-    "en": "`$group create <GROUPNAME>` - Create a group\n`$group add @USER <GROUPNAME>` - Add an user to a group\n`$group remove @USER <GROUPNAME>` - Remove an user from a group\n`$group delete <GROUPNAME>` - Delete a group\n`$group list` - List all groups\n`$group members <GROUPNAME>` - Lists all group members\n`$group notifications <GROUP NAME> #CHANNEL` - Log all tasks of a group in a channel",
     "bg": "`$group create <GROUPNAME>` - Създава група\n`$group add @USER <GROUPNAME>` - Добавете потребители в групата\n`$group remove @USER <GROUPNAME>` - Премахване на потребителите от групата\n`$group delete <GROUPNAME>` - Изтриване на групата\n`group list` - Списък с групи\n`$group members <GROUPNAME>` - Списък на всички членове на групата\n`$group notifications <GROUP NAME> #CHANNEL` - регистрирайте всички задачи на група в канал",
     "pl": "`$group create <NAZWA GRUPY>` - Utwórz grupę\n`$group add @UŻYTKOWNIK <NAZWA GRUPY>` - Dodaj użytkownika do grupy\n`$group remove @UŻYTKOWNIK <NAZWA GRUPY>` - Usuń użytkownika z grupy\n`$group delete <NAZWA GRUPY>` - Usuń grupę\n`$group list` - Wyświetl wszystkie grupy\n`$group members <NAZWA GRUPY>` - Lista wszystkich członków grupy\n`$powiadomienia grupy <NAZWA GRUPY> #KANAŁ` - Loguj wszystkie zadania grupy w kanale",
     "fr": "`$group create <NOM DU GROUPE>` - Créer un groupe\n `$group add @UTILISATEUR <NOM DU GROUPE>` - Ajouter des utilisateurs au groupe\n`$group remove @UTILISATEUR <NOM DU GROUPE>` - Supprimer des utilisateurs du groupe\n`$group delete <NOM DU GROUPE>` - Supprimer le groupe\n`$group list` - Lister tous les groupes\n`$group members <NOM DU GROUPE>` - Lister tous les membres du groupe\n`$group notifications <NOM DU GROUPE> #CHANNEL` - Enregistre toutes les tâches d'un groupe dans un canal",
@@ -1268,7 +1222,6 @@
     "tr": "Bu bot için davetiye bağlantısı sağlayan basit bir komut."
   },
   "advanced_help_command_language_usage": {
-    "de": "language <de/en/bg/pl/fr/ru/tr>",
     "en": "language <de/en/bg/pl/fr/ru/tr>",
     "bg": "language <de/en/bg/pl/fr/ru/tr>",
     "pl": "language <de/en/bg/pl/fr/ru/tr>",
@@ -1277,7 +1230,6 @@
     "tr": "language <de/en/bg/pl/fr/ru/tr>"
   },
   "advanced_help_command_language_example": {
-    "de": "language en",
     "en": "language bg",
     "bg": "language pl",
     "pl": "language fr",
@@ -1286,7 +1238,6 @@
     "tr": "language de"
   },
   "advanced_help_command_language_description": {
-    "de": "Damit kann die Sprache des Bots geändert werden. Der Bot ist in den Sprachen Deutsch (de), Englisch (en), Bulgarisch (bg), Polnisch (pl), Französisch (fr), Russisch (ru) und Türkisch (tr) verfügbar. Zum ändern der Sprache muss ein gültiger Ländercode hinter dem Befehl angegeben werden.",
     "en": "Това може да се използва за промяна на езика на бота. Ботът се предлага на немски (de), английски (en), български (bg), полски (pl), френски (fr), руски (ru) и турски (tr). За да промените езика, след командата трябва да се въведе валиден код на държавата.",
     "bg": "Това може да се използва за промяна на езика на бота. Ботът се предлага на немски (de), английски (en), български (bg), полски (pl), френски (fr), руски (ru) и турски (tr). За да промените езика, след командата трябва да се въведе валиден код на държавата.",
     "pl": "Można to wykorzystać do zmiany języka bota. Bot jest dostępny w języku niemieckim (de), angielskim (en), bułgarskim (bg), polskim (pl), francuskim (fr), rosyjskim (ru) i tureckim (tr). Aby zmienić język, po poleceniu należy wprowadzić prawidłowy kod kraju.",
@@ -1295,7 +1246,6 @@
     "tr": "Bu, botun dilini değiştirmek için kullanılabilir. Bot Almanca (de), İngilizce (en), Bulgarca (bg), Lehçe (pl), Fransızca (fr), Rusça (ru) ve Türkçe (tr) olarak mevcuttur. Dili değiştirmek için komuttan sonra geçerli bir ülke kodu girilmelidir."
   },
   "advanced_help_command_prefix_usage": {
-    "de": "prefix <Zeichen>",
     "en": "prefix <Character>",
     "bg": "prefix <символ>",
     "pl": "prefix <znak>",
@@ -1304,7 +1254,6 @@
     "tr": "prefix <karakter>"
   },
   "advanced_help_command_prefix_example": {
-    "de": "prefix ;",
     "en": "prefix ;",
     "bg": "prefix ;",
     "pl": "prefix ;",
@@ -1313,7 +1262,6 @@
     "tr": "prefix ;"
   },
   "advanced_help_command_prefix_description": {
-    "de": "Standardmäßig ist der Präfix des Bots `-` (Minus). Mit dem Befehl lässt sich dieser Präfix ändern. Der Präfix darf maximal ein Zeichen lang sein. Das gewünschte Zeichen muss in der Nachricht mit dem Befehl angegeben werden.",
     "en": "By default, the bot's prefix is `-` (minus). This prefix can be changed with the command. The prefix can be a maximum of one character long. The desired character must be specified in the message with the command.",
     "bg": "По подразбиране префиксът на бота е `-` (минус). Този префикс може да бъде променен с командата. Префиксът може да бъде с дължина максимум един символ. Желаният знак трябва да бъде посочен в съобщението с командата.",
     "pl": "Domyślnie prefiks bota to `-` (minus). Ten przedrostek można zmienić za pomocą polecenia. Prefiks może mieć maksymalnie jeden znak. Żądany znak należy określić w wiadomości zawierającej polecenie.",
@@ -1322,7 +1270,6 @@
     "tr": "Varsayılan olarak, botun öneki `-` (eksi) şeklindedir. Bu önek komut ile değiştirilebilir. Önek maksimum bir karakter uzunluğunda olabilir. Mesajda istenen karakter komut ile belirtilmelidir."
   },
   "advanced_help_command_search_usage": {
-    "de": "search <Suchbegriff/ID>",
     "en": "search <Search term/ID>",
     "bg": "search <Термин за търсене / ID>",
     "pl": "search <Wyszukiwane hasło / ID>",
@@ -1331,7 +1278,6 @@
     "tr": "search <Arama terimi / kimliği>"
   },
   "advanced_help_command_search_example": {
-    "de": "search 2205",
     "en": "search 2205",
     "bg": "search 2205",
     "pl": "search 2205",
@@ -1340,7 +1286,6 @@
     "tr": "search 2205"
   },
   "advanced_help_command_search_description": {
-    "de": "Der Search-Befehl vereinfacht die Suche nach bestimmten Aufgaben. Als Suchbegriff lassen sich ganze Sätze, einzelne Wörter oder Nummern (IDs) eingeben. Der Bot durchsucht anschließend alle Aufgaben, Gruppen, etc. nach dem eingegebene Suchbegriff oder der ID.",
     "en": "The Search command simplifies the search for specific tasks. Entire sentences, individual words or numbers (IDs) can be entered as search terms. The bot then searches all tasks, groups, etc. for the entered search term or ID.",
     "bg": "Командата за търсене опростява търсенето на конкретни задачи. Като думи за търсене могат да се въведат цели изречения, отделни думи или цифри (ID). След това ботът търси във всички задачи, групи и т.н. за въведената дума за търсене или ID.",
     "pl": "Polecenie Szukaj upraszcza wyszukiwanie określonych zadań. Jako wyszukiwane hasła można wprowadzać całe zdania, pojedyncze słowa lub liczby (identyfikatory). Następnie bot przeszukuje wszystkie zadania, grupy itp. Pod kątem wprowadzonego terminu wyszukiwania lub identyfikatora.",
@@ -1349,7 +1294,6 @@
     "tr": "Ara komutu, belirli görevlerin aranmasını basitleştirir. Tüm cümleler, tek tek kelimeler veya numaralar (ID'ler) arama terimleri olarak girilebilir. Bot daha sonra girilen arama terimi veya kimliği için tüm görevleri, grupları vb. Arar."
   },
   "advanced_help_command_stats_usage": {
-    "de": "stats",
     "en": "stats",
     "bg": "stats",
     "pl": "stats",
@@ -1358,7 +1302,6 @@
     "tr": "stats"
   },
   "advanced_help_command_stats_example": {
-    "de": "stats",
     "en": "stats",
     "bg": "stats",
     "pl": "stats",
@@ -1367,7 +1310,6 @@
     "tr": "stats"
   },
   "advanced_help_command_stats_description": {
-    "de": "Der Bot sammelt einige anonymisierte Daten, welche alle mit diesem Befehl angesehen werden können.",
     "en": "The bot collects some anonymized data, all of which can be viewed with this command.",
     "bg": "Ботът събира някои анонимизирани данни, като всички те могат да се видят с тази команда.",
     "pl": "Bot zbiera anonimowe dane, które można wyświetlić za pomocą tego polecenia.",
@@ -1376,7 +1318,6 @@
     "tr": "Bot, tümü bu komutla görüntülenebilen bazı anonim veriler toplar."
   },
   "advanced_help_command_support_usage": {
-    "de": "support",
     "en": "support",
     "bg": "support",
     "pl": "support",
@@ -1385,7 +1326,6 @@
     "tr": "support"
   },
   "advanced_help_command_support_example": {
-    "de": "support",
     "en": "support",
     "bg": "support",
     "pl": "support",
@@ -1394,7 +1334,6 @@
     "tr": "support"
   },
   "advanced_help_command_support_description": {
-    "de": "Wenn du Hilfe benötigst, Fragen hast, eine neue Funktion vorschlagen willst oder nur mit einigen Nutzern kommunizieren willst, ist der Befehl der richtige. Mit ihm kriegst du den Einladungslink zu unserem Discord-Server.",
     "en": "If you need help, have questions, want to suggest a new function or just want to communicate with a few users, this command is the right one. With it you will get the invitation link to our Discord server.",
     "bg": "Ако имате нужда от помощ, имате въпроси, искате да предложите нова функция или просто искате да комуникирате с няколко потребители, тази команда е правилната. С него ще получите връзката за покана към нашия сървър Discord.",
     "pl": "Jeśli potrzebujesz pomocy, masz pytania, chcesz zasugerować nową funkcję lub po prostu chcesz skomunikować się z kilkoma użytkownikami, to polecenie jest właściwe. Wraz z nim otrzymasz link z zaproszeniem do naszego serwera Discord.",
@@ -1403,7 +1342,6 @@
     "tr": "Yardıma ihtiyacınız varsa, sorularınız varsa, yeni bir işlev önermek istiyorsanız veya sadece birkaç kullanıcıyla iletişim kurmak istiyorsanız, bu komut doğru olanıdır. Onunla, Discord sunucumuza davet bağlantısını alacaksınız."
   },
   "advanced_help_command_token_usage": {
-    "de": "token",
     "en": "token",
     "bg": "token",
     "pl": "token",
@@ -1412,7 +1350,6 @@
     "tr": "token"
   },
   "advanced_help_command_token_example": {
-    "de": "token",
     "en": "token",
     "bg": "token",
     "pl": "token",
@@ -1421,7 +1358,6 @@
     "tr": "token"
   },
   "advanced_help_command_token_description": {
-    "de": "Durch den Befehl sendet der Bot dir einen Token (eine zufällig generierte Zeichenfolge) per Direktnachricht. Der Token wird benötigt um sich in der Android-App oder Web-App anzumelden.",
     "en": "With the command, the bot sends you a token (a randomly generated string) via direct message. The token is required to log in to the Android app or web app.",
     "bg": "С командата ботът ви изпраща токен (произволно генериран низ) чрез директно съобщение. Токенът е необходим за влизане в приложението за Android или уеб приложението.",
     "pl": "Za pomocą polecenia bot wysyła token (losowo wygenerowany ciąg) za pośrednictwem bezpośredniej wiadomości. Token jest wymagany do zalogowania się do aplikacji na Androida lub aplikacji internetowej.",
@@ -1430,7 +1366,6 @@
     "tr": "Komutla, bot size doğrudan mesaj yoluyla bir belirteç (rastgele oluşturulmuş bir dize) gönderir. Jeton, Android uygulamasında veya web uygulamasında oturum açmak için gereklidir."
   },
   "advanced_help_command_version_usage": {
-    "de": "version",
     "en": "version",
     "bg": "version",
     "pl": "version",
@@ -1439,7 +1374,6 @@
     "tr": "version"
   },
   "advanced_help_command_version_example": {
-    "de": "version",
     "en": "version",
     "bg": "version",
     "pl": "version",
@@ -1448,7 +1382,6 @@
     "tr": "version"
   },
   "advanced_help_command_version_description": {
-    "de": "Zeigt lediglich die aktuelle Version des Bots an. Der Versionscode setzt sich zusammen aus: Jahr.Quartal.Patch-Nummer",
     "en": "Only shows the current version of the bot. The version code consists of: year.quarter.patch number",
     "bg": "Показва само текущата версия на бота. Кодът на версията се състои от: year.quarter.patch номер",
     "pl": "Pokazuje tylko aktualną wersję bota. Kod wersji składa się z: roku, kwartału, numeru partii",
@@ -1457,7 +1390,6 @@
     "tr": "Yalnızca botun mevcut sürümünü gösterir. Sürüm kodu şunlardan oluşur: year.quarter.patch numarası"
   },
   "advanced_help_command_board_create_usage": {
-    "de": "board create <NAME>",
     "en": "board create <NAME>",
     "bg": "board create <Фамилия>",
     "pl": "board create <Przeznaczenie>",
@@ -1466,16 +1398,14 @@
     "tr": "board create <atama>"
   },
   "advanced_help_command_board_create_example": {
-    "de": "board create Game1",
-    "en": "board create Game1",
-    "bg": "board create Game1",
-    "pl": "board create Game1",
-    "fr": "board create Game1",
-    "ru": "board create Game1",
-    "tr": "board create Game1"
+    "en": "board create Project1",
+    "bg": "board create Project1",
+    "pl": "board create Project1",
+    "fr": "board create Project1",
+    "ru": "board create Project1",
+    "tr": "board create Project1"
   },
   "advanced_help_command_board_create_description": {
-    "de": "Mit dem Befehl lässt sich ein selbst-benanntes Board erstellen. Das Board ist wie ein seperates Projekt. Aufgaben werden immer automatisch dem Board zugeordnet, dass gerade aktiv ist. Das Standard-Board heißt \"default\".",
     "en": "With the command you can create a self-named board. The board is like a separate project. Tasks are always automatically assigned to the board that is currently active. The standard board is called \"default\".",
     "bg": "С командата можете да създадете самоназвана дъска. Дъската е като отделен проект. Задачите винаги се присвояват автоматично на активната в момента дъска. Стандартната платка се нарича \"по подразбиране\".",
     "pl": "Za pomocą polecenia można utworzyć tablicę o nazwie własnej. Tablica jest jak osobny projekt. Zadania są zawsze automatycznie przypisywane do aktualnie aktywnej tablicy. Karta standardowa nosi nazwę „domyślna”.",
@@ -1484,7 +1414,6 @@
     "tr": "Komutla kendi adını taşıyan bir pano oluşturabilirsiniz. Yönetim kurulu ayrı bir proje gibidir. Görevler her zaman otomatik olarak o anda aktif olan panele atanır. Standart kart \"varsayılan\" olarak adlandırılır."
   },
   "advanced_help_command_board_delete_usage": {
-    "de": "board delete <NAME>",
     "en": "board delete <NAME>",
     "bg": "board delete <Фамилия>",
     "pl": "board delete <Przeznaczenie>",
@@ -1493,16 +1422,14 @@
     "tr": "board delete <atama>"
   },
   "advanced_help_command_board_delete_example": {
-    "de": "board delete Game1",
-    "en": "board delete Game1",
-    "bg": "board delete Game1",
-    "pl": "board delete Game1",
-    "fr": "board delete Game1",
-    "ru": "board delete Game1",
-    "tr": "board delete Game1"
+    "en": "board delete Project1",
+    "bg": "board delete Project1",
+    "pl": "board delete Project1",
+    "fr": "board delete Project1",
+    "ru": "board delete Project1",
+    "tr": "board delete Project1"
   },
   "advanced_help_command_board_delete_description": {
-    "de": "Wird ein Board nicht mehr benötigt, lässt es sich mit dem Befehl löschen. Dabei werden zusätzlich alle Aufgaben gelöscht, die in dem Board erstellt wurden. Für den Befehl wird die Berechtigung \"DELETE_BOARD\" benötigt.",
     "en": "If a board is no longer required, it can be deleted with the command. All tasks that were created in the board are also deleted. The \"DELETE_BOARD\" authorization is required for the command.",
     "bg": "Ако дъска вече не е необходима, тя може да бъде изтрита с командата. Всички задачи, създадени в дъската, също се изтриват. За командата е необходимо упълномощаване „DELETE_BOARD“.",
     "pl": "Jeśli tablica nie jest już potrzebna, można ją usunąć za pomocą polecenia. Wszystkie zadania, które zostały utworzone na tablicy, również zostaną usunięte. Polecenie wymaga autoryzacji „DELETE_BOARD”.",
@@ -1511,7 +1438,6 @@
     "tr": "Bir pano artık gerekli değilse, komutla silinebilir. Panoda oluşturulan tüm görevler de silinir. Komut için \"DELETE_BOARD\" yetkisi gereklidir."
   },
   "advanced_help_command_board_switch_usage": {
-    "de": "board switch <NAME>",
     "en": "board switch <NAME>",
     "bg": "board switch <Фамилия>",
     "pl": "board switch <Przeznaczenie>",
@@ -1520,16 +1446,14 @@
     "tr": "board switch <atama>"
   },
   "advanced_help_command_board_switch_example": {
-    "de": "board switch Game1",
-    "en": "board switch Game1",
-    "bg": "board switch Game1",
-    "pl": "board switch Game1",
-    "fr": "board switch Game1",
-    "ru": "board switch Game1",
-    "tr": "board switch Game1"
+    "en": "board switch Project1",
+    "bg": "board switch Project1",
+    "pl": "board switch Project1",
+    "fr": "board switch Project1",
+    "ru": "board switch Project1",
+    "tr": "board switch Project1"
   },
   "advanced_help_command_board_switch_description": {
-    "de": "Damit lässt sich das aktive Board ändern. Aufgaben werden dann in dem aktiven Board erstellt und für das aktive Board aufgelistet.",
     "en": "This allows the active board to be changed. Tasks are then created in the active board and listed for the active board.",
     "bg": "Това позволява да се променя активната дъска. След това задачите се създават в активната дъска и се изброяват за активната дъска.",
     "pl": "Pozwala to na zmianę aktywnej tablicy. Zadania są następnie tworzone na aktywnej tablicy i wyświetlane na tej tablicy.",
@@ -1538,7 +1462,6 @@
     "tr": "Bu, aktif kartın değiştirilmesine izin verir. Görevler daha sonra aktif panoda oluşturulur ve aktif pano için listelenir."
   },
   "advanced_help_command_board_list_usage": {
-    "de": "board list",
     "en": "board list",
     "bg": "board list",
     "pl": "board list",
@@ -1547,7 +1470,6 @@
     "tr": "board list"
   },
   "advanced_help_command_board_list_example": {
-    "de": "board list",
     "en": "board list",
     "bg": "board list",
     "pl": "board list",
@@ -1556,7 +1478,6 @@
     "tr": "board list"
   },
   "advanced_help_command_board_list_description": {
-    "de": "Hier werden alle Boards gelistet, die auf dem Server erstellt existieren. Das aktive Board ist mit einem grünen Haken gekennzeichnet.",
     "en": "All boards that exist on the server are listed here. The active board is marked with a green tick.",
     "bg": "Всички дъски, които съществуват на сървъра, са изброени тук. Активната дъска е маркирана със зелена отметка.",
     "pl": "Wszystkie tablice istniejące na serwerze są wymienione tutaj. Aktywna tablica jest oznaczona zielonym haczykiem.",
@@ -1565,7 +1486,6 @@
     "tr": "Sunucuda bulunan tüm anakartlar burada listelenmiştir. Aktif tahta yeşil bir tik ile işaretlenmiştir."
   },
   "advanced_help_command_group_add_usage": {
-    "de": "group add @Mitglied <GRUPPE>",
     "en": "group add @Member <GROUP>",
     "bg": "group add @Member <група>",
     "pl": "group add @Member <Grupa>",
@@ -1574,7 +1494,6 @@
     "tr": "group add @Member <grup>"
   },
   "advanced_help_command_group_add_example": {
-    "de": "group add @User12#1234 develop",
     "en": "group add @User12#1234 develop",
     "bg": "group add @User12#1234 develop",
     "pl": "group add @User12#1234 develop",
@@ -1583,7 +1502,6 @@
     "tr": "group add @User12#1234 develop"
   },
   "advanced_help_command_group_add_description": {
-    "de": "Um Mitglieder einer Gruppe hinzuzufügen muss der Nutzer markiert werden, der der angegebenen Gruppe hinzugefügt werden soll. Nachdem ein Nutzer einer Gruppe hinzguefügt wurde, werden ihm die Aufgaben für die Gruppe ebenfalls angezeigt.",
     "en": "To add members to a group, the user who is to be added to the specified group must be marked. After a user has been added to a group, the tasks for the group are also displayed.",
     "bg": "За да добавите членове към група, потребителят, който трябва да бъде добавен към посочената група, трябва да бъде маркиран. След като потребител е добавен към група, задачите за групата също се показват.",
     "pl": "Aby dodać członków do grupy, należy zaznaczyć użytkownika, który ma zostać dodany do określonej grupy. Po dodaniu użytkownika do grupy wyświetlane są również zadania dla grupy.",
@@ -1592,7 +1510,6 @@
     "tr": "Bir gruba üye eklemek için, belirtilen gruba eklenecek kullanıcının işaretlenmesi gerekir. Bir gruba bir kullanıcı eklendikten sonra, grubun görevleri de görüntülenir."
   },
   "advanced_help_command_group_create_usage": {
-    "de": "group create <GRUPPE>",
     "en": "group create <GROUP>",
     "bg": "group create <група>",
     "pl": "group create <Grupa>",
@@ -1601,7 +1518,6 @@
     "tr": "group create <grup>"
   },
   "advanced_help_command_group_create_example": {
-    "de": "group create develop",
     "en": "group create develop",
     "bg": "group create develop",
     "pl": "group create develop",
@@ -1610,7 +1526,6 @@
     "tr": "group create develop"
   },
   "advanced_help_command_group_create_description": {
-    "de": "Damit eine Gruppe benutzt werden kann, muss sie erst erstellt werden. Das geschieht mit diesem Befehl. Nach der Erstellung kann die Gruppe in den weiteren Gruppen-Befehlen benutzt werden.",
     "en": "In order for a group to be used, it must first be created. This is done with this command. After creation, the group can be used in the other group commands.",
     "bg": "За да може да се използва група, първо трябва да се създаде. Това се прави с тази команда. След като е създадена, групата може да се използва в другите команди на групата.",
     "pl": "Aby można było użyć grupy, należy ją najpierw utworzyć. Odbywa się to za pomocą tego polecenia. Po utworzeniu grupy można jej używać w innych poleceniach dotyczących grupy.",
@@ -1619,7 +1534,6 @@
     "tr": "Bir grubun kullanılabilmesi için önce oluşturulması gerekir. Bu, bu komutla yapılır. Oluşturulduktan sonra, grup diğer grup komutlarında kullanılabilir."
   },
   "advanced_help_command_group_delete_usage": {
-    "de": "group delete <GRUPPE>",
     "en": "group delete <GROUP>",
     "bg": "group delete <група>",
     "pl": "group delete <Grupa>",
@@ -1628,7 +1542,6 @@
     "tr": "group delete <grup>"
   },
   "advanced_help_command_group_delete_example": {
-    "de": "group delete develop",
     "en": "group delete develop",
     "bg": "group delete develop",
     "pl": "group delete develop",
@@ -1637,7 +1550,6 @@
     "tr": "group delete develop"
   },
   "advanced_help_command_group_delete_description": {
-    "de": "Wird eine Gruppe nicht mehr benutzt, kann sie mit dem Befehl gelöscht werden. Anschließend werden alle Aufgaben, die der Gruppe zugeordnet waren, gelöscht.",
     "en": "If a group is no longer used, it can be deleted with the command. Then all tasks that were assigned to the group are deleted.",
     "bg": "Ако дадена група вече не се използва, тя може да бъде изтрита с командата. След това всички задачи, които са били възложени на групата, се изтриват.",
     "pl": "Jeśli grupa nie jest już używana, można ją usunąć za pomocą polecenia. Następnie wszystkie zadania przypisane do grupy są usuwane.",
@@ -1646,7 +1558,6 @@
     "tr": "Bir grup artık kullanılmıyorsa, komutla silinebilir. Ardından gruba atanan tüm görevler silinir."
   },
   "advanced_help_command_group_list_usage": {
-    "de": "group list",
     "en": "group list",
     "bg": "group list",
     "pl": "group list",
@@ -1655,7 +1566,6 @@
     "tr": "group list"
   },
   "advanced_help_command_group_list_example": {
-    "de": "group list",
     "en": "group list",
     "bg": "group list",
     "pl": "group list",
@@ -1664,7 +1574,6 @@
     "tr": "group list"
   },
   "advanced_help_command_group_list_description": {
-    "de": "Dieser Befehl zeigt alle Gruppen an, die auf dem Server existieren.",
     "en": "This command shows all groups that exist on the server.",
     "bg": "Тази команда показва всички групи, които съществуват на сървъра.",
     "pl": "To polecenie wyświetla wszystkie grupy istniejące na serwerze.",
@@ -1673,7 +1582,6 @@
     "tr": "Bu komut, sunucuda bulunan tüm grupları gösterir."
   },
   "advanced_help_command_group_members_usage": {
-    "de": "group members <GRUPPE>",
     "en": "group members <GROUP>",
     "bg": "group members <група>",
     "pl": "group members <Grupa>",
@@ -1682,7 +1590,6 @@
     "tr": "group members <grup>"
   },
   "advanced_help_command_group_members_example": {
-    "de": "group members develop",
     "en": "group members develop",
     "bg": "group members develop",
     "pl": "group members develop",
@@ -1691,7 +1598,6 @@
     "tr": "group members develop"
   },
   "advanced_help_command_group_members_description": {
-    "de": "Der Befehl zeigt alle Mitglieder der angegebenen Gruppe an, falls die Gruppe auf dem Server existiert und Gruppenmitglieder beinhaltet.",
     "en": "The command displays all members of the specified group if the group exists on the server and contains group members.",
     "bg": "Командата показва всички членове на посочената група, ако групата съществува на сървъра и съдържа членове на групата.",
     "pl": "Polecenie wyświetla wszystkich członków określonej grupy, jeśli grupa istnieje na serwerze i zawiera członków grupy.",
@@ -1700,7 +1606,6 @@
     "tr": "Komut, grup sunucuda varsa ve grup üyelerini içeriyorsa, belirtilen grubun tüm üyelerini görüntüler."
   },
   "advanced_help_command_group_notifications_usage": {
-    "de": "group notifications <GRUPPE> #Textkanal",
     "en": "group notifications <GROUP> #Channel",
     "bg": "group notifications <група> #канал",
     "pl": "group notifications <Grupa> #kanał",
@@ -1709,7 +1614,6 @@
     "tr": "group notifications <grup> #kanal"
   },
   "advanced_help_command_group_notifications_example": {
-    "de": "group notifications develop #devlog",
     "en": "group notifications develop #devlog",
     "bg": "group notifications develop #devlog",
     "pl": "group notifications develop #devlog",
@@ -1718,7 +1622,6 @@
     "tr": "group notifications develop #devlog"
   },
   "advanced_help_command_group_notifications_description": {
-    "de": "Der Befehl ermöglicht die Protokollierung aller Aufgaben die einer Gruppe zugeteilt werden. Die Aufgaben werden in den festgelegten Kanal gesendet und bei einer Änderung automatisch aktualisiert, ohne eine neue Nachricht zu senden.",
     "en": "The command enables all tasks assigned to a group to be logged. The tasks are sent to the specified channel and automatically updated if changed without sending a new message.",
     "bg": "Командата позволява да се регистрират всички задачи, възложени на група. Задачите се изпращат до посочения канал и се актуализират автоматично, ако се променят, без да се изпраща ново съобщение.",
     "pl": "Polecenie umożliwia rejestrowanie wszystkich zadań przypisanych do grupy. Zadania są wysyłane do określonego kanału i automatycznie aktualizowane w przypadku zmiany bez wysyłania nowej wiadomości.",
@@ -1727,7 +1630,6 @@
     "tr": "Komut, bir gruba atanan tüm görevlerin günlüğe kaydedilmesini sağlar. Görevler belirtilen kanala gönderilir ve yeni bir mesaj gönderilmeden değiştirilirse otomatik olarak güncellenir."
   },
   "advanced_help_command_group_remove_usage": {
-    "de": "group remove @Mitglied <GRUPPE>",
     "en": "group remove @Member <GROUP>",
     "bg": "group remove @Member <група>",
     "pl": "group remove @Member <Grupa>",
@@ -1736,7 +1638,6 @@
     "tr": "group remove @Member <grup>"
   },
   "advanced_help_command_group_remove_example": {
-    "de": "group remove @User12#1234 develop",
     "en": "group remove @User12#1234 develop",
     "bg": "group remove @User12#1234 develop",
     "pl": "group remove @User12#1234 develop",
@@ -1745,7 +1646,6 @@
     "tr": "group remove @User12#1234 develop"
   },
   "advanced_help_command_group_remove_description": {
-    "de": "Der Befehl entfernt einen Nutzer aus einer Gruppe, sofern er ein Mitglied dieser ist. Anschließend erhält er keine Aufgaben für die Gruppe und es werden auch keine Aufgaben aus der Gruppe in seiner Aufgabenliste angezeigt.",
     "en": "The command removes a user from a group if he is a member of it. He then does not receive any tasks for the group and no tasks from the group are displayed in his task list.",
     "bg": "Командата премахва потребител от група, ако той е член на нея. След това той не получава никакви задачи за групата и никакви задачи от групата не се показват в списъка му със задачи.",
     "pl": "Polecenie usuwa użytkownika z grupy, jeśli jest jej członkiem. Nie otrzymuje wtedy żadnych zadań dla grupy i żadne zadania z grupy nie są wyświetlane na jego liście zadań.",
@@ -1754,7 +1654,6 @@
     "tr": "Komut, grubun üyesi olan bir kullanıcıyı gruptan çıkarır. Daha sonra grup için herhangi bir görev almaz ve gruptan hiçbir görev kendi görev listesinde gösterilmez."
   },
   "advanced_help_command_permission_add_usage": {
-    "de": "permission add @Mitglied/@Rolle <Berechtigung>",
     "en": "permission add @Member/@Role <Permission>",
     "bg": "permission add @Member/@Role <упълномощаване>",
     "pl": "permission add @Member/@Role <upoważnienie>",
@@ -1763,7 +1662,6 @@
     "tr": "permission add @Member/@Role <yetki>"
   },
   "advanced_help_command_permission_add_example": {
-    "de": "permission add @User12#1234 CREATE_GROUP",
     "en": "permission add @User12#1234 CREATE_GROUP",
     "bg": "permission add @User12#1234 CREATE_GROUP",
     "pl": "permission add @User12#1234 CREATE_GROUP",
@@ -1772,7 +1670,6 @@
     "tr": "permission add @User12#1234 CREATE_GROUP"
   },
   "advanced_help_command_permission_add_description": {
-    "de": "Sie können Berechtigungen für bestimmte Aktionen erteilen, ohne dabei das Berechtigungssystem von Discord zu ändern. Je nachdem ob ein Nutzer oder eine Rolle markiert wird, erhält ein Nutzer oder eine ganze Gruppe die Berechtigung für die angegebene Aktion. Eine Liste mit allen Berechtigungen ist über den Befehl `permission list` einsehbar.",
     "en": "You can grant permissions for certain actions without changing the Discord permissions system. Depending on whether a user or a role is marked, a user or an entire group receives authorization for the specified action. A list with all permissions can be viewed with the command `permission list`.",
     "bg": "Можете да давате разрешения за определени действия, без да променяте системата за разрешения Discord. В зависимост от това дали даден потребител или роля е маркиран, потребител или цяла група получава разрешение за посоченото действие. Списък с всички разрешения може да се види с командата `permission list`.",
     "pl": "Możesz przyznać uprawnienia do niektórych działań bez zmiany systemu uprawnień Discord. W zależności od tego, czy oznaczony jest użytkownik, czy rola, autoryzację do określonej akcji otrzymuje użytkownik lub cała grupa. Listę wszystkich uprawnień można wyświetlić za pomocą polecenia `permission list`.",
@@ -1781,7 +1678,6 @@
     "tr": "Discord izin sistemini değiştirmeden belirli eylemler için izinler verebilirsiniz. Bir kullanıcının veya bir rolün işaretlenmesine bağlı olarak, bir kullanıcı veya tüm bir grup, belirtilen eylem için yetki alır. Tüm izinleri içeren bir liste, `permission list` komutuyla görüntülenebilir."
   },
   "advanced_help_command_permission_list_usage": {
-    "de": "permission list @Mitglied/@Rolle",
     "en": "permission list @Member/@Role",
     "bg": "permission list @Member/@Role",
     "pl": "permission list @Member/@Role",
@@ -1790,7 +1686,6 @@
     "tr": "permission list @Member/@Role"
   },
   "advanced_help_command_permission_list_example": {
-    "de": "permission list @User12#1234",
     "en": "permission list @User12#1234",
     "bg": "permission list @User12#1234",
     "pl": "permission list @User12#1234",
@@ -1799,7 +1694,6 @@
     "tr": "permission list @User12#1234"
   },
   "advanced_help_command_permission_list_description": {
-    "de": "So lassen sich alle Berechtigungen für einen markierten Nutzer oder eine markierte Rolle auflisten. Verfügt der Nutzer oder die Rolle über eine Berechtigung wird dies mit einem Haken hinter dem Namen der Berechtigung markiert.",
     "en": "In this way, all authorizations for a marked user or a marked role can be listed. If the user or role has an authorization, this is marked with a tick behind the name of the authorization.",
     "bg": "По този начин могат да бъдат изброени всички разрешения за маркиран потребител или маркирана роля. Ако потребителят или ролята имат разрешение, това се отбелязва с отметка зад името на разрешението.",
     "pl": "W ten sposób można wyświetlić wszystkie uprawnienia dla oznaczonego użytkownika lub zaznaczonej roli. Jeśli użytkownik lub rola ma uprawnienia, jest to zaznaczone haczykiem za nazwą uprawnienia.",
@@ -1808,7 +1702,6 @@
     "tr": "Bu şekilde, işaretli bir kullanıcı veya işaretli bir rol için tüm yetkiler listelenebilir. Kullanıcı veya rolün bir yetkisi varsa, bu, yetkilendirme adının arkasında bir onay işareti ile işaretlenir."
   },
   "advanced_help_command_permission_remove_usage": {
-    "de": "permission remove @Mitglied/@Rolle <Berechtigung>",
     "en": "permission remove @Member/@Role <Permission>",
     "bg": "permission remove @Member/@Role <упълномощаване>",
     "pl": "permission remove @Member/@Role <upoważnienie>",
@@ -1817,7 +1710,6 @@
     "tr": "permission remove @Member/@Role <yetki>"
   },
   "advanced_help_command_permission_remove_example": {
-    "de": "permission remove @User12#1234 CREATE_GROUP",
     "en": "permission remove @User12#1234 CREATE_GROUP",
     "bg": "permission remove @User12#1234 CREATE_GROUP",
     "pl": "permission remove @User12#1234 CREATE_GROUP",
@@ -1826,7 +1718,6 @@
     "tr": "permission remove @User12#1234 CREATE_GROUP"
   },
   "advanced_help_command_permission_remove_description": {
-    "de": "Dieser Befehl entzieht einem Nutzer oder einer Rolle die angegebene Berechtigung. Verfügt der Nutzer oder die Rolle allerdings über die Discord Administrator-Berechtigung, wird sich dies nicht auf den Nutzer oder die Rolle auswirken und die Aktion kann trotzdem durchgeführt werden.",
     "en": "This command revokes the specified authorization from a user or role. However, if the user or role has Discord administrator authorization, this will not affect the user or role and the action can still be carried out.",
     "bg": "Тази команда отменя посоченото упълномощаване от потребител или роля. Ако обаче потребителят или ролята имат права на администратор на Discord, това няма да засегне потребителя или ролята и действието все още може да бъде извършено.",
     "pl": "Ta komenda cofa określoną autoryzację użytkownikowi lub roli. Jeśli jednak użytkownik lub rola ma uprawnienia administratora Discord, nie wpłynie to na użytkownika ani rolę, a akcję można nadal wykonać.",
@@ -1835,7 +1726,6 @@
     "tr": "Bu komut, bir kullanıcı veya rolden belirtilen yetkiyi iptal eder. Ancak, kullanıcı veya rol Discord yönetici haklarına sahipse, bu durum kullanıcıyı veya rolü etkilemeyecek ve işlem yine de gerçekleştirilebilir."
   },
   "advanced_help_command_settings_directmessage_usage": {
-    "de": "settings direct-message",
     "en": "settings direct-message",
     "bg": "settings direct-message",
     "pl": "settings direct-message",
@@ -1844,7 +1734,6 @@
     "tr": "settings direct-message"
   },
   "advanced_help_command_settings_directmessage_example": {
-    "de": "settings direct-message",
     "en": "settings direct-message",
     "bg": "settings direct-message",
     "pl": "settings direct-message",
@@ -1853,7 +1742,6 @@
     "tr": "settings direct-message"
   },
   "advanced_help_command_settings_directmessage_description": {
-    "de": "Der Bot sendet beim Erhalt einer neuen Aufgabe (durch Gruppen oder einer direkten Zuweisung) standardmäßig eine Direktnachricht mit dem Inhalt der Aufgabe und der Aufgaben-ID. Dies lässt sich mit dem Befehl ändern. Die Direktnachricht kann deaktiviert oder aktiviert werden.",
     "en": "By default, when the bot receives a new task (through groups or direct assignment), it sends a direct message with the content of the task and the task ID. This can be changed with the command. The direct message can be deactivated or activated.",
     "bg": "По подразбиране, когато ботът получи нова задача (чрез групи или директно задание), той изпраща директно съобщение със съдържанието на задачата и идентификатора на задачата. Това може да бъде променено с командата. Директното съобщение може да бъде деактивирано или активирано.",
     "pl": "Domyślnie, gdy bot otrzyma nowe zadanie (poprzez grupy lub bezpośrednie przydział), wysyła bezpośrednią wiadomość z treścią zadania i identyfikatorem zadania. Można to zmienić za pomocą polecenia. Bezpośrednią wiadomość można wyłączyć lub włączyć.",
@@ -1862,7 +1750,6 @@
     "tr": "Varsayılan olarak, bot yeni bir görev aldığında (gruplar veya doğrudan atama yoluyla), görevin içeriği ve görev kimliği ile doğrudan bir mesaj gönderir. Bu komut ile değiştirilebilir. Doğrudan mesaj devre dışı bırakılabilir veya etkinleştirilebilir."
   },
   "advanced_help_command_settings_notifychannel_usage": {
-    "de": "settings notify-channel #Textkanal",
     "en": "settings notify-channel #Channel",
     "bg": "settings notify-channel #канал",
     "pl": "settings notify-channel #kanał",
@@ -1871,7 +1758,6 @@
     "tr": "settings notify-channel #kanal"
   },
   "advanced_help_command_settings_notifychannel_example": {
-    "de": "settings notify-channel #mylog",
     "en": "settings notify-channel #mylog",
     "bg": "settings notify-channel #mylog",
     "pl": "settings notify-channel #mylog",
@@ -1880,7 +1766,6 @@
     "tr": "settings notify-channel #mylog"
   },
   "advanced_help_command_settings_notifychannel_description": {
-    "de": "Bei erhalt einer neuen Aufgabe wird diese Aufgabe, ähnlich wie per Direktnachricht, in den angegebenen Kanal gesendet.",
     "en": "When a new task is received, this task is sent to the specified channel, similar to a direct message.",
     "bg": "Когато се получи нова задача, тази задача се изпраща до посочения канал, подобно на директно съобщение.",
     "pl": "Po otrzymaniu nowego zadania zadanie to jest wysyłane do określonego kanału, podobnie jak bezpośrednia wiadomość.",
@@ -1889,7 +1774,6 @@
     "tr": "Yeni bir görev alındığında, bu görev doğrudan mesaja benzer şekilde belirtilen kanala gönderilir."
   },
   "advanced_help_command_settings_notifications_usage": {
-    "de": "settings notifications @Nutzer #Textkanal",
     "en": "settings notifications @User #Channel",
     "bg": "settings notifications @User #канал",
     "pl": "settings notifications @User #kanał",
@@ -1898,7 +1782,6 @@
     "tr": "settings notifications @User #kanal"
   },
   "advanced_help_command_settings_notifications_example": {
-    "de": "settings notifications @User12#1234 #mylog",
     "en": "settings notifications @User12#1234 #mylog",
     "bg": "settings notifications @User12#1234 #mylog",
     "pl": "settings notifications @User12#1234 #mylog",
@@ -1907,7 +1790,6 @@
     "tr": "settings notifications @User12#1234 #mylog"
   },
   "advanced_help_command_settings_notifications_description": {
-    "de": "Sie können Ihre Aufgaben in einem Kanal protokollieren. Neue Aufgaben werden dann in den angegebenen Kanal gesendet und bei einer Aktualisierung automatisch aktualisiert, ohne neue Nachrichten vom Bot.",
     "en": "You can log your tasks in a channel. New tasks are then sent to the specified channel and automatically updated when updated, without any new messages from the bot.",
     "bg": "Можете да регистрирате задачите си в канал. След това новите задачи се изпращат до посочения канал и автоматично се актуализират, когато се актуализират, без нови съобщения от бота.",
     "pl": "Możesz rejestrować swoje zadania w kanale. Nowe zadania są następnie wysyłane do określonego kanału i automatycznie aktualizowane po aktualizacji, bez żadnych nowych wiadomości od bota.",
@@ -1916,7 +1798,6 @@
     "tr": "Görevlerinizi bir kanala kaydedebilirsiniz. Yeni görevler daha sonra belirtilen kanala gönderilir ve bottan yeni mesajlar olmadan güncellendiğinde otomatik olarak güncellenir."
   },
   "advanced_help_command_settings_showdonetasks_usage": {
-    "de": "settings show-done-tasks",
     "en": "settings show-done-tasks",
     "bg": "settings show-done-tasks",
     "pl": "settings show-done-tasks",
@@ -1925,7 +1806,6 @@
     "tr": "settings show-done-tasks"
   },
   "advanced_help_command_settings_showdonetasks_example": {
-    "de": "settings show-done-tasks",
     "en": "settings show-done-tasks",
     "bg": "settings show-done-tasks",
     "pl": "settings show-done-tasks",
@@ -1934,7 +1814,6 @@
     "tr": "settings show-done-tasks"
   },
   "advanced_help_command_settings_showdonetasks_description": {
-    "de": "Mit dieser Einstellung können erledigte Aufgaben von der Auflistung ausgeblendet oder wieder eingeblendet werden.",
     "en": "With this setting completed tasks can be hidden from the list or shown again.",
     "bg": "С тази настройка завършените задачи могат да бъдат скрити от списъка или показани отново.",
     "pl": "Dzięki temu ustawieniu ukończone zadania można ukryć na liście lub ponownie wyświetlić.",
@@ -1943,7 +1822,6 @@
     "tr": "Bu ayarla, tamamlanan görevler listeden gizlenebilir veya tekrar gösterilebilir."
   },
   "advanced_help_command_settings_usage": {
-    "de": "settings",
     "en": "settings",
     "bg": "settings",
     "pl": "settings",
@@ -1952,7 +1830,6 @@
     "tr": "settings"
   },
   "advanced_help_command_settings_example": {
-    "de": "settings",
     "en": "settings",
     "bg": "settings",
     "pl": "settings",
@@ -1961,7 +1838,6 @@
     "tr": "settings"
   },
   "advanced_help_command_settings_description": {
-    "de": "Dieser Befehl zeigt alle Einstellungsmöglichkeiten an und dazu die aktuellen Einstellungen auf dem Server.",
     "en": "This command shows all setting options and the current settings on the server.",
     "bg": "Тази команда показва всички опции за настройка и текущите настройки на сървъра.",
     "pl": "To polecenie pokazuje wszystkie opcje ustawień i bieżące ustawienia na serwerze.",
@@ -1970,7 +1846,6 @@
     "tr": "Bu komut, tüm ayar seçeneklerini ve sunucudaki geçerli ayarları gösterir."
   },
   "advanced_help_command_task_add_usage": {
-    "de": "task add @Nutzer <Aufgabe>",
     "en": "task add @User <Task>",
     "bg": "task add @USER <TASK>",
     "pl": "task add @UŻYTKOWNIK <TASK>",
@@ -1979,7 +1854,6 @@
     "tr": "task add @USER <TASK>"
   },
   "advanced_help_command_task_add_example": {
-    "de": "task add @User12#1234 fix the bugs",
     "en": "task add @User12#1234 fix the bugs",
     "bg": "task add @User12#1234 fix the bugs",
     "pl": "task add @User12#1234 fix the bugs",
@@ -1988,7 +1862,6 @@
     "tr": "task add @User12#1234 fix the bugs"
   },
   "advanced_help_command_task_add_description": {
-    "de": "Mit diesem Befehl wird eine Aufgabe an einen Nutzer vergeben. Der markierte Nutzer erhält die Aufgabe, welche nach der Markierung angegeben wird.",
     "en": "With this command a task is assigned to a user. The marked user receives the task which is indicated after the marking.",
     "bg": "С тази команда на потребител се възлага задача. Маркираният потребител получава задачата, която е посочена след маркирането.",
     "pl": "Za pomocą tej komendy zadanie jest przypisywane do użytkownika. Zaznaczony użytkownik otrzymuje zadanie, które jest wskazane po zaznaczeniu.",
@@ -1996,8 +1869,7 @@
     "ru": "С помощью этой команды пользователю ставится задача. Отмеченный пользователь получает задание, которое указано после отметки.",
     "tr": "Bu komutla bir kullanıcıya bir görev atanır. İşaretli kullanıcı, işaretlemeden sonra gösterilen görevi alır."
   },
-  "advanced_help_command__delete_usage": {
-    "de": "task delete <ID/done>",
+  "advanced_help_command_delete_usage": {
     "en": "task delete <ID/done>",
     "bg": "task delete <ID/done>",
     "pl": "task delete <ID/done>",
@@ -2006,7 +1878,6 @@
     "tr": "task delete <ID/done>"
   },
   "advanced_help_command_task_delete_example": {
-    "de": "task delete 51423",
     "en": "task delete 51423",
     "bg": "task delete 51423",
     "pl": "task delete 51423",
@@ -2015,7 +1886,6 @@
     "tr": "task delete 51423"
   },
   "advanced_help_command_task_delete_description": {
-    "de": "Der Befehl löscht eine Aufgabe endgültig. Die ID erhalten Sie von der Aufgaben-Auflistung oder beim Erstellen einer Aufgabe.",
     "en": "The command permanently deletes a task. You get the ID from the list of tasks or when you create a task.",
     "bg": "Командата изтрива за постоянно задача. Получавате идентификатора от списъка със задачи или когато създавате задача.",
     "pl": "Polecenie trwale usuwa zadanie. Identyfikator otrzymujesz z listy zadań lub podczas tworzenia zadania.",
@@ -2024,7 +1894,6 @@
     "tr": "Komut, bir görevi kalıcı olarak siler. Kimliği görev listesinden veya bir görev oluşturduğunuzda alırsınız."
   },
   "advanced_help_command_task_edit_usage": {
-    "de": "task edit <ID> <Text>",
     "en": "task edit <ID> <Text>",
     "bg": "task edit <ID> <Text>",
     "pl": "task edit <ID> <Text>",
@@ -2033,7 +1902,6 @@
     "tr": "task edit <ID> <Text>"
   },
   "advanced_help_command_task_edit_example": {
-    "de": "task edit 51423 fix the specific bug",
     "en": "task edit 51423 fix the specific bug",
     "bg": "task edit 51423 fix the specific bug",
     "pl": "task edit 51423 fix the specific bug",
@@ -2042,7 +1910,6 @@
     "tr": "task edit 51423 fix the specific bug"
   },
   "advanced_help_command_task_edit_description": {
-    "de": "Der Befehl bearbeitet den Text einer bestehenden Aufgabe. Es wird nur die ID der Aufgabe benötigt, welche in der Aufgaben-Auflistung oder bei Vergabe einer Aufgabe angezeigt wird.",
     "en": "The command edits the text of an existing task. Only the ID of the task is required, which is displayed in the task list or when a task is assigned.",
     "bg": "Командата редактира текста на съществуваща задача. Изисква се само идентификаторът на задачата, който се показва в списъка със задачи или когато е зададена задача.",
     "pl": "Polecenie edytuje tekst istniejącego zadania. Wymagany jest tylko identyfikator zadania, który jest wyświetlany na liście zadań lub po przypisaniu zadania.",
@@ -2051,7 +1918,6 @@
     "tr": "Komut, mevcut bir görevin metnini düzenler. Yalnızca görev listesinde veya bir görev atandığında görüntülenen görevin kimliği gereklidir."
   },
   "advanced_help_command_task_list_usage": {
-    "de": "task list @Nutzer/<Gruppe>",
     "en": "task list @User/<Group>",
     "bg": "task list @User/<Group>",
     "pl": "task list @User/<Group>",
@@ -2060,7 +1926,6 @@
     "tr": "task list @User/<Group>"
   },
   "advanced_help_command_task_list_example": {
-    "de": "task list develop",
     "en": "task list develop",
     "bg": "task list develop",
     "pl": "task list develop",
@@ -2069,7 +1934,6 @@
     "tr": "task list develop"
   },
   "advanced_help_command_task_list_description": {
-    "de": "So lassen sich alle Aufgaben eines markierten Nutzers oder einer angegebenen Gruppe ansehen. Wird kein Nutzer markiert und keine Gruppe angegeben, werden die Aufgaben für den Nutzer, der den Befehl ausführt, angezeigt.",
     "en": "All tasks of a selected user or a specified group can be viewed. If no user is selected and no group is specified, the tasks for the user executing the command are displayed.",
     "bg": "По този начин могат да се преглеждат всички задачи на избран потребител или определена група. Ако не е избран потребител и не е посочена група, се показват задачите за потребителя, изпълняващ командата.",
     "pl": "W ten sposób można przeglądać wszystkie zadania wybranego użytkownika lub określonej grupy. Jeśli nie wybrano żadnego użytkownika i nie określono żadnej grupy, zostaną wyświetlone zadania dla użytkownika wykonującego polecenie.",
@@ -2078,7 +1942,6 @@
     "tr": "Seçilen bir kullanıcının veya belirli bir grubun tüm görevleri görüntülenebilir. Hiçbir kullanıcı seçilmezse ve bir grup belirtilmezse, komutu yürüten kullanıcının görevleri görüntülenir."
   },
   "advanced_help_command_task_proceed_usage": {
-    "de": "task proceed <ID>",
     "en": "task proceed <ID>",
     "bg": "task proceed <ID>",
     "pl": "task proceed <ID>",
@@ -2087,7 +1950,6 @@
     "tr": "task proceed <ID>"
   },
   "advanced_help_command_task_proceed_example": {
-    "de": "task proceed 51423",
     "en": "task proceed 51423",
     "bg": "task proceed 51423",
     "pl": "task proceed 51423",
@@ -2096,7 +1958,6 @@
     "tr": "task proceed 51423"
   },
   "advanced_help_command_task_proceed_description": {
-    "de": "Der Befehl ändert den Status der Aufgabe von nicht bearbeitet zu wird bearbeitet zu erledigt. Die Aufgaben-ID wird bei der Aufgaben-Auflistung und beim vergeben der Aufgabe angezeigt.",
     "en": "The command changes the status of the task from not being processed to being processed to completed. The task ID is displayed in the task list and when the task is assigned.",
     "bg": "Командата променя състоянието на задачата от необработена към обработена до завършена. Идентификаторът на задачата се показва в списъка със задачи и когато задачата е назначена.",
     "pl": "Polecenie zmienia status zadania z nie przetwarzanego na przetwarzane na ukończone. Identyfikator zadania jest wyświetlany na liście zadań i kiedy zadanie jest przypisane.",
@@ -2105,7 +1966,6 @@
     "tr": "Komut, görevin işlenmedi durumundan işlenmeye durumunu değiştirir. Görev kimliği, görev listesinde ve görev atandığında görüntülenir."
   },
   "advanced_help_command_task_deadline_usage": {
-    "de": "task deadline <ID> <date (dd.MM.yyyy)> <time (HH:mm)>",
     "en": "task deadline <ID> <date (dd.MM.yyyy)> <time (HH:mm)>",
     "bg": "task deadline <ID> <date (dd.MM.yyyy)> <time (HH:mm)>",
     "pl": "task deadline <ID> <date (dd.MM.yyyy)> <time (HH:mm)>",
@@ -2114,7 +1974,6 @@
     "tr": "task deadline <ID> <date (dd.MM.yyyy)> <time (HH:mm)>"
   },
   "advanced_help_command_task_deadline_example": {
-    "de": "task deadline 51423 22.01.2021 13:41",
     "en": "task deadline 51423 22.01.2021 13:41",
     "bg": "task deadline 51423 22.01.2021 13:41",
     "pl": "task deadline 51423 22.01.2021 13:41",
@@ -2123,7 +1982,6 @@
     "tr": "task deadline 51423 22.01.2021 13:41"
   },
   "advanced_help_command_task_deadline_description": {
-    "de": "Die Aufgabe wird mit einer Deadline verknüpft. Der Bot benachrichtigt alle Nutzer, die für die Aufgabe zuständig sind, wenn die Deadline fast erreicht ist.",
     "en": "The task is linked to a deadline. The bot notifies all users who are responsible for the task when the deadline is almost reached.",
     "bg": "Задачата е свързана с краен срок. Ботът уведомява всички потребители, които отговарят за задачата, когато крайният срок е почти достигнат.",
     "pl": "Zadanie jest powiązane z terminem. Bot powiadamia wszystkich użytkowników odpowiedzialnych za zadanie, gdy termin zbliża się do końca.",
@@ -2132,7 +1990,6 @@
     "tr": "Görev bir son tarihe bağlıdır. Bot, görevden sorumlu olan tüm kullanıcıları son teslim tarihine neredeyse ulaşıldığında bilgilendirir."
   },
   "advanced_help_command_task_info_usage": {
-    "de": "task info <ID>",
     "en": "task info <ID>",
     "bg": "task info <ID>",
     "pl": "task info <ID>",
@@ -2141,7 +1998,6 @@
     "tr": "task info <ID>"
   },
   "advanced_help_command_task_info_example": {
-    "de": "task info 51423",
     "en": "task info 51423",
     "bg": "task info 51423",
     "pl": "task info 51423",
@@ -2150,7 +2006,6 @@
     "tr": "task info 51423"
   },
   "advanced_help_command_task_info_description": {
-    "de": "Der Befehl zeigt alle Informationen zu einer Aufgabe an. Die Aufgaben-ID erhalten Sie bei der Vergabe der Aufgabe oder bei der Aufgaben-Auflistung.",
     "en": "The command shows all information about a task. You will receive the task ID when assigning the task or when listing the tasks.",
     "bg": "Командата показва цялата информация за задача. Ще получите идентификатора на задачата, когато задавате задачата или когато изброявате задачите.",
     "pl": "Polecenie pokazuje wszystkie informacje o zadaniu. Identyfikator zadania otrzymasz podczas przydzielania zadania lub na liście zadań.",
@@ -2159,7 +2014,6 @@
     "tr": "Komut, bir görevle ilgili tüm bilgileri gösterir. Görevi atarken veya görevler listesinde görev kimliğini alacaksınız."
   },
   "advanced_help_command_task_done_usage": {
-    "de": "task done <ID>",
     "en": "task done <ID>",
     "bg": "task done <ID>",
     "pl": "task done <ID>",
@@ -2168,7 +2022,6 @@
     "tr": "task done <ID>"
   },
   "advanced_help_command_task_done_example": {
-    "de": "task done 51423",
     "en": "task done 51423",
     "bg": "task done 51423",
     "pl": "task done 51423",
@@ -2177,7 +2030,6 @@
     "tr": "task done 51423"
   },
   "advanced_help_command_task_done_description": {
-    "de": "Die Aufgabe mit der angegebenen ID wird direkt in den Erledigt-Status versetzt. Die Aufgaben-ID erhalten Sie bei der Vergabe der Aufgabe oder bei der Aufgaben-Auflistung.",
     "en": "The task with the specified ID is set directly to the completed status. You will receive the task ID when assigning the task or when listing the tasks.",
     "bg": "Задачата с посочения идентификатор се задава директно на завършен статус. Ще получите идентификатора на задачата, когато задавате задачата или когато изброявате задачите.",
     "pl": "Zadanie o określonym identyfikatorze jest ustawiane bezpośrednio na stan ukończony. Identyfikator zadania otrzymasz podczas przydzielania zadania lub podczas wyświetlania listy zadań.",
@@ -2186,7 +2038,6 @@
     "tr": "Belirtilen kimliğe sahip görev, doğrudan tamamlandı durumuna ayarlanır. Görevi atarken veya görevleri listelerken görev kimliğini alacaksınız."
   },
   "advanced_help_command_task_undo_usage": {
-    "de": "task undo <ID>",
     "en": "task undo <ID>",
     "bg": "task undo <ID>",
     "pl": "task undo <ID>",
@@ -2195,7 +2046,6 @@
     "tr": "task undo <ID>"
   },
   "advanced_help_command_task_undo_example": {
-    "de": "task undo 51423",
     "en": "task undo 51423",
     "bg": "task undo 51423",
     "pl": "task undo 51423",
@@ -2204,7 +2054,6 @@
     "tr": "task undo 51423"
   },
   "advanced_help_command_task_undo_description": {
-    "de": "Der Befehl macht den Status einer Aufgabe rückgängig. Von Erledigt zu wird bearbeitet zu nicht bearbeitet. Die Aufgaben-ID erhalten Sie bei der Vergabe der Aufgabe oder bei der Aufgaben-Auflistung.",
     "en": "The command reverses the status of a task. From done to processed to not processed. You will receive the task ID when assigning the task or when listing the tasks.",
     "bg": "Командата обръща състоянието на задачата. От готово към обработено към необработено. Ще получите идентификатора на задачата, когато задавате задачата или в списъка със задачи.",
     "pl": "Polecenie odwraca stan zadania. Od gotowego do przetworzonego do nieprzetworzonego. Identyfikator zadania otrzymasz podczas przydzielania zadania lub podczas wyświetlania listy zadań.",
@@ -2213,7 +2062,6 @@
     "tr": "Komut, bir görevin durumunu tersine çevirir. Tamamlanandan işlenene kadar işlenmedi. Görevi atarken veya görevleri listelerken görev kimliğini alacaksınız."
   },
   "advanced_help_command_not_supported": {
-    "de": "Für den Befehl gibt es keine detaillierte Beschreibung!",
     "en": "There is no detailed description of the command!",
     "bg": "Няма подробно описание на командата!",
     "pl": "Brak szczegółowego opisu polecenia!",
@@ -2222,7 +2070,6 @@
     "tr": "Komutun ayrıntılı bir açıklaması yok!"
   },
   "advanced_help_command_group_usage": {
-    "de": "group",
     "en": "group",
     "bg": "group",
     "pl": "group",
@@ -2231,7 +2078,6 @@
     "tr": "group"
   },
   "advanced_help_command_group_example": {
-    "de": "group",
     "en": "group",
     "bg": "group",
     "pl": "group",
@@ -2240,7 +2086,6 @@
     "tr": "group"
   },
   "advanced_help_command_group_description": {
-    "de": "Verwende den Befehl um zu sehen welche Argumente es für den Befehl gibt.",
     "en": "Use the command to see what arguments there are for the command.",
     "bg": "Използвайте командата, за да видите какви аргументи има за нея.",
     "pl": "Użyj polecenia, aby zobaczyć, jakie argumenty są dla polecenia.",
@@ -2249,7 +2094,6 @@
     "tr": "Komut için hangi bağımsız değişkenlerin olduğunu görmek için komutu kullanın."
   },
   "advanced_help_command_task_usage": {
-    "de": "task",
     "en": "task",
     "bg": "task",
     "pl": "task",
@@ -2258,7 +2102,6 @@
     "tr": "task"
   },
   "advanced_help_command_task_example": {
-    "de": "task",
     "en": "task",
     "bg": "task",
     "pl": "task",
@@ -2267,7 +2110,6 @@
     "tr": "task"
   },
   "advanced_help_command_task_description": {
-    "de": "Verwende den Befehl um zu sehen welche Argumente es für den Befehl gibt.",
     "en": "Use the command to see what arguments there are for the command.",
     "bg": "Използвайте командата, за да видите какви аргументи има за нея.",
     "pl": "Użyj polecenia, aby zobaczyć, jakie argumenty są dla polecenia.",
@@ -2276,7 +2118,6 @@
     "tr": "Komut için hangi bağımsız değişkenlerin olduğunu görmek için komutu kullanın."
   },
   "advanced_help_command_permission_usage": {
-    "de": "permission",
     "en": "permission",
     "bg": "permission",
     "pl": "permission",
@@ -2285,7 +2126,6 @@
     "tr": "permission"
   },
   "advanced_help_command_permission_example": {
-    "de": "permission",
     "en": "permission",
     "bg": "permission",
     "pl": "permission",
@@ -2294,7 +2134,6 @@
     "tr": "permission"
   },
   "advanced_help_command_permission_description": {
-    "de": "Verwende den Befehl um zu sehen welche Argumente es für den Befehl gibt.",
     "en": "Use the command to see what arguments there are for the command.",
     "bg": "Използвайте командата, за да видите какви аргументи има за нея.",
     "pl": "Użyj polecenia, aby zobaczyć, jakie argumenty są dla polecenia.",
@@ -2303,7 +2142,6 @@
     "tr": "Komut için hangi bağımsız değişkenlerin olduğunu görmek için komutu kullanın."
   },
   "advanced_help_command_board_usage": {
-    "de": "board",
     "en": "board",
     "bg": "board",
     "pl": "board",
@@ -2312,7 +2150,6 @@
     "tr": "board"
   },
   "advanced_help_command_board_example": {
-    "de": "board",
     "en": "board",
     "bg": "board",
     "pl": "board",
@@ -2321,7 +2158,6 @@
     "tr": "board"
   },
   "advanced_help_command_board_description": {
-    "de": "Verwende den Befehl um zu sehen welche Argumente es für den Befehl gibt.",
     "en": "Use the command to see what arguments there are for the command.",
     "bg": "Използвайте командата, за да видите какви аргументи има за нея.",
     "pl": "Użyj polecenia, aby zobaczyć, jakie argumenty są dla polecenia.",
@@ -2330,7 +2166,6 @@
     "tr": "Komut için hangi bağımsız değişkenlerin olduğunu görmek için komutu kullanın."
   },
   "deleted_done_tasks": {
-    "de": "Alle erledigten Aufgaben wurden gelöscht.",
     "en": "All completed tasks have been deleted.",
     "bg": "Всички изпълнени задачи са изтрити.",
     "pl": "Wszystkie ukończone zadania zostały usunięte.",
@@ -2339,7 +2174,6 @@
     "tr": "Tamamlanan tüm görevler silindi."
   },
   "board_was_deleted": {
-    "de": "Das Board `$` wurde gelöscht.",
     "en": "The board `$` has been deleted.",
     "bg": "Бордът '$' е изтрит.",
     "pl": "Tablica '$' została usunięta.",
@@ -2348,7 +2182,6 @@
     "tr": "`$` panosu silindi."
   },
   "board_with_name_doesnt_exist": {
-    "de": "Ein Board mit dem Namen `$` existiert nicht!",
     "en": "A board with the name `$` does not exist!",
     "bg": "Платформа с име `$` не съществува!",
     "pl": "Tablica o nazwie `$` nie istnieje!",
@@ -2357,7 +2190,6 @@
     "tr": "`$` adında bir pano mevcut değil!"
   },
   "slashcommands_description_group": {
-    "de": "Verwalte Gruppen auf dem Server",
     "en": "Manage groups on the server",
     "bg": "Управление на групите в сървъра",
     "pl": "Zarządzaj grupami na serwerze",
@@ -2366,7 +2198,6 @@
     "tr": "Sunucudaki grupları yönetin"
   },
   "slashcommands_description_group_create": {
-    "de": "Erstelle eine neue Gruppe",
     "en": "Create a new group",
     "bg": "Създаване на нова група",
     "pl": "Utwórz nową grupę",
@@ -2375,7 +2206,6 @@
     "tr": "Yeni bir grup oluştur"
   },
   "slashcommands_description_group_delete": {
-    "de": "Lösche eine Gruppe",
     "en": "Delete a group",
     "bg": "Изтриване на група",
     "pl": "Usuń grupę",
@@ -2384,7 +2214,6 @@
     "tr": "Bir grubu sil"
   },
   "slashcommands_description_group_add": {
-    "de": "Füge einen Nutzer zu einer Gruppe hinzu",
     "en": "Add a user to a group",
     "bg": "Добавяне на потребител в група",
     "pl": "Dodaj użytkownika do grupy",
@@ -2393,7 +2222,6 @@
     "tr": "Gruba kullanıcı ekleme"
   },
   "slashcommands_description_group_remove": {
-    "de": "Entferne einen Nutzer aus einer Gruppe",
     "en": "Remove a user from a group",
     "bg": "Премахване на потребител от група",
     "pl": "Usuń użytkownika z grupy",
@@ -2402,7 +2230,6 @@
     "tr": "Gruptan bir kullanıcıyı kaldırma"
   },
   "slashcommands_description_group_list": {
-    "de": "Listet alle Gruppen auf dem Server auf",
     "en": "Lists all groups on the server",
     "bg": "Изброява всички групи на сървъра",
     "pl": "Wyświetla listę wszystkich grup na serwerze",
@@ -2411,7 +2238,6 @@
     "tr": "Sunucudaki tüm grupları listeler"
   },
   "slashcommands_description_group_members": {
-    "de": "Listet alle Mitglieder einer Gruppe auf",
     "en": "Lists all members of a group",
     "bg": "Изброява всички членове на дадена група",
     "pl": "Wyświetla listę wszystkich członków grupy",
@@ -2420,7 +2246,6 @@
     "tr": "Bir grubun tüm üyelerini listeler"
   },
   "slashcommands_description_group_notifications": {
-    "de": "Protokolliere alle Aufgaben einer Gruppe in einem Kanal",
     "en": "Log all tasks of a group in one channel",
     "bg": "Регистриране на всички задачи на група в един канал",
     "pl": "Rejestrowanie wszystkich zadań grupy w jednym kanale",
@@ -2429,7 +2254,6 @@
     "tr": "Bir grubun tüm görevlerini tek bir kanalda günlüğe kaydedin"
   },
   "slashcommands_name_of_group_description": {
-    "de": "Name der Gruppe",
     "en": "Group name",
     "bg": "Име на групата",
     "pl": "Nazwa grupy",
@@ -2438,7 +2262,6 @@
     "tr": "Grubun adı"
   },
   "slashcommands_user_to_be_added_to_group_description": {
-    "de": "Nutzer der einer Gruppe hinzugefügt werden soll",
     "en": "User to be added to a group",
     "bg": "Потребител, който да бъде добавен в група",
     "pl": "Użytkownik, który ma zostać dodany do grupy",
@@ -2447,7 +2270,6 @@
     "tr": "Gruba eklenecek kullanıcı"
   },
   "slashcommands_user_to_be_removed_from_group_description": {
-    "de": "Nutzer der aus einer Gruppe entfernt werden soll",
     "en": "User to be removed from a group",
     "bg": "Потребител, който да бъде премахнат от група",
     "pl": "Użytkownik, który ma zostać usunięty z grupy",
@@ -2456,7 +2278,6 @@
     "tr": "Gruptan çıkarılacak kullanıcı"
   },
   "slashcommands_textchannel_messages_are_send_to_description": {
-    "de": "Textkanal in dem die Nachrichten gesendet werden",
     "en": "Text channel in which the messages are sent",
     "bg": "Текстов канал, по който се изпращат съобщенията",
     "pl": "Kanał tekstowy, w którym wysyłane są wiadomości",
@@ -2465,7 +2286,6 @@
     "tr": "Mesajların gönderildiği metin kanalı"
   },
   "slashcommands_description_task": {
-    "de": "Aufgaben erstellen, löschen, ändern, etc",
     "en": "Create delete modify tasks etc",
     "bg": "Създаване на задачи за изтриване, модифициране и т.н.",
     "pl": "Tworzenie usuwanie modyfikowanie zadań itp.",
@@ -2474,7 +2294,6 @@
     "tr": "Oluşturma, silme, görevleri değiştirme vb."
   },
   "slashcommands_description_task_add": {
-    "de": "Aufgaben einem Nutzer hinzufügen",
     "en": "Add tasks to a user",
     "bg": "Добавяне на задачи към потребител",
     "pl": "Dodaj zadania do użytkownika",
@@ -2483,7 +2302,6 @@
     "tr": "Bir kullanıcıya görev ekleme"
   },
   "slashcommands_description_task_proceed": {
-    "de": "Setzt den Status der Aufgabe fort",
     "en": "Continues the status of the task",
     "bg": "Продължава състоянието на задачата",
     "pl": "Kontynuuje status zlecenia",
@@ -2492,7 +2310,6 @@
     "tr": "Görevin durumunu devam ettirir"
   },
   "slashcommands_user_mention_description": {
-    "de": "Der betroffene Nutzer",
     "en": "The affected user",
     "bg": "Съответният потребител",
     "pl": "Użytkownik, którego to dotyczy",
@@ -2501,7 +2318,6 @@
     "tr": "Etkilenen kullanıcı"
   },
   "slashcommands_task_text_description": {
-    "de": "Der Text der Aufgabe",
     "en": "The text of the task",
     "bg": "Текстът на задачата",
     "pl": "Tekst zadania",
@@ -2510,7 +2326,6 @@
     "tr": "Görevin metni"
   },
   "slashcommands_task_id_description": {
-    "de": "ID der Aufgabe",
     "en": "Task ID",
     "bg": "Идентификатор на задачата",
     "pl": "Identyfikator zadania",
@@ -2519,7 +2334,6 @@
     "tr": "görevin kimliği"
   },
   "slashcommands_task_deadline_date_description": {
-    "de": "Datum",
     "en": "Date",
     "bg": "Дата",
     "pl": "Data",
@@ -2528,7 +2342,6 @@
     "tr": "tarih"
   },
   "slashcommands_task_deadline_time_description": {
-    "de": "Uhrzeit",
     "en": "Time",
     "bg": "Време",
     "pl": "Czas",
@@ -2537,7 +2350,6 @@
     "tr": "Zaman"
   },
   "slashcommands_description_task_deadline": {
-    "de": "Zeitpunkt bei dem die Aufgabe erledigt sein muss",
     "en": "Time at which the task must be completed",
     "bg": "Време, в което задачата трябва да бъде изпълнена",
     "pl": "Czas, w którym zadanie musi zostać wykonane",
@@ -2546,7 +2358,6 @@
     "tr": "Görevin tamamlanması gereken zaman"
   },
   "slashcommands_description_task_list": {
-    "de": "Alle Aufgaben des Nutzers auflisten",
     "en": "List all tasks of the user",
     "bg": "Списък на всички задачи на потребителя",
     "pl": "Lista wszystkich zadań użytkownika",
@@ -2555,7 +2366,6 @@
     "tr": "Kullanıcının tüm görevlerini listeleyin"
   },
   "slashcommands_description_task_delete": {
-    "de": "Eine Aufgabe unwiderruflich löschen",
     "en": "Delete a task irrevocably",
     "bg": "Изтриване на задача безвъзвратно",
     "pl": "Usuń nieodwracalnie zadanie",
@@ -2564,7 +2374,6 @@
     "tr": "Bir görevi kalıcı olarak silme"
   },
   "slashcommands_description_task_edit": {
-    "de": "Aufgabentext bearbeiten",
     "en": "Edit task text",
     "bg": "Редактиране на текста на задачата",
     "pl": "Edytuj tekst zadania",
@@ -2573,7 +2382,6 @@
     "tr": "Ödev metnini düzenleyin"
   },
   "slashcommands_description_task_info": {
-    "de": "Alle Informationen einer Aufgabe",
     "en": "All information of a task",
     "bg": "Цялата информация за дадена задача",
     "pl": "Wszystkie informacje o zadaniu",
@@ -2582,7 +2390,6 @@
     "tr": "Bir görevle ilgili tüm bilgiler"
   },
   "slashcommands_description_task_done": {
-    "de": "Aufgabe direkt als erledigt einordnen",
     "en": "File task directly as done",
     "bg": "Възлагане на задачата директно като завършена",
     "pl": "Przypisuj zadania bezpośrednio po ich wykonaniu",
@@ -2591,7 +2398,6 @@
     "tr": "Görevi hemen tamamlandı olarak sınıflandırın"
   },
   "slashcommands_description_board": {
-    "de": "Boards erstellen, löschen und wechseln",
     "en": "Create, delete and change boards",
     "bg": "Създаване, изтриване и промяна на табла",
     "pl": "Tworzenie, usuwanie i zmiana tablic",
@@ -2600,7 +2406,6 @@
     "tr": "Panolar oluşturun, silin ve değiştirin"
   },
   "slashcommands_description_board_switch": {
-    "de": "Board wechseln",
     "en": "Change board",
     "bg": "Промяна на борда",
     "pl": "Tablica zmian",
@@ -2609,7 +2414,6 @@
     "tr": "Panoyu değiştir"
   },
   "slashcommands_description_board_create": {
-    "de": "Neues Board erstellen",
     "en": "Create new board",
     "bg": "Създаване на нов борд",
     "pl": "Utwórz nową tablicę",
@@ -2618,7 +2422,6 @@
     "tr": "Yeni bir pano oluştur"
   },
   "slashcommands_description_board_name": {
-    "de": "Name des Boards",
     "en": "Board name",
     "bg": "Име на съвета",
     "pl": "Nazwa zarządu",
@@ -2627,7 +2430,6 @@
     "tr": "kurulun adı"
   },
   "slashcommands_description_board_delete": {
-    "de": "Board löschen",
     "en": "Delete board",
     "bg": "Изтриване на борда",
     "pl": "Usunąć tablicę",
@@ -2636,7 +2438,6 @@
     "tr": "Tahtayı sil"
   },
   "slashcommands_description_board_list": {
-    "de": "Alle Boards anzeigen",
     "en": "Show all boards",
     "bg": "Покажи всички дъски",
     "pl": "Pokaż wszystkie tablice",
@@ -2645,7 +2446,6 @@
     "tr": "Tüm panoları göster"
   },
   "slashcommands_description_permission": {
-    "de": "Vergib oder entferne Nutzern oder Rollen Berechtigungen",
     "en": "Grant or remove permissions to users or roles",
     "bg": "Предоставяне или премахване на разрешения на потребители или роли",
     "pl": "Nadawanie i odbieranie uprawnień użytkownikom lub rolom",
@@ -2654,7 +2454,6 @@
     "tr": "Kullanıcılar veya roller için izinler atayın veya kaldırın"
   },
   "slashcommands_description_permission_add": {
-    "de": "Gewähre einem Nutzer oder eine Rolle eine Berechtigung",
     "en": "Grant a user or a role a permission",
     "bg": "Предоставяне на разрешение на потребител или роля",
     "pl": "Nadawanie uprawnień dla użytkownika lub roli",
@@ -2663,7 +2462,6 @@
     "tr": "Bir kullanıcıya veya role izin verme"
   },
   "slashcommands_description_permission_remove": {
-    "de": "Entferne einem Nutzer oder eine Rolle eine Berechtigung",
     "en": "Remove a permission from a user or role",
     "bg": "Премахване на разрешение от потребител или роля",
     "pl": "Usuń uprawnienie z użytkownika lub roli",
@@ -2672,7 +2470,6 @@
     "tr": "Bir kullanıcıdan veya rolden yetkilendirmeyi kaldırma"
   },
   "slashcommands_description_permission_list": {
-    "de": "Zeigt alle Berechtigungen für einen Nutzer oder eine Rolle an",
     "en": "Displays all permissions for a user or role",
     "bg": "Показва всички разрешения за даден потребител или роля",
     "pl": "Wyświetla wszystkie uprawnienia dla użytkownika lub roli",
@@ -2681,7 +2478,6 @@
     "tr": "Bir kullanıcı veya rol için tüm izinleri gösterir"
   },
   "slashcommands_description_permission_mentionable_description": {
-    "de": "Betroffene Rolle oder betroffener Nutzer",
     "en": "Affected role or affected user",
     "bg": "Засегната роля или засегнат потребител",
     "pl": "Dotknięta rola lub dotknięty użytkownik",
@@ -2690,7 +2486,6 @@
     "tr": "Etkilenen rol veya etkilenen kullanıcı"
   },
   "slashcommands_description_permission_permission_description": {
-    "de": "Berechtigung",
     "en": "Permission",
     "bg": "Оторизация",
     "pl": "Autoryzacja",
@@ -2699,7 +2494,6 @@
     "tr": "yetki"
   },
   "slashcommands_description_settings": {
-    "de": "Einstellungen vornehmen",
     "en": "Make settings",
     "bg": "извършване на настройки",
     "pl": "dokonywać ustawień",
@@ -2708,7 +2502,6 @@
     "tr": "ayarları değiştir"
   },
   "slashcommands_description_settings_direct_message": {
-    "de": "De-/Aktiviert die Direktnachricht bei einer neuen Aufgabe",
     "en": "Disables/enables the direct message when a new task is created",
     "bg": "Активиране/деактивиране на директното изпращане на съобщения за нова задача",
     "pl": "Włącza/wyłącza bezpośrednie przesyłanie wiadomości dla nowego zadania",
@@ -2717,7 +2510,6 @@
     "tr": "Yeni bir görev için doğrudan mesajı etkinleştirir / devre dışı bırakır"
   },
   "slashcommands_description_settings_notify_channel": {
-    "de": "Ändert den Kanal für Benachrichtigungen bei neuen Aufgaben",
     "en": "Changes the channel for notifications for new tasks",
     "bg": "Промяна на канала за известия за нови задачи",
     "pl": "Zmienia kanał dla powiadomień o nowych zadaniach",
@@ -2726,7 +2518,6 @@
     "tr": "Yeni görevlerin bildirimleri için kanalı değiştirir"
   },
   "slashcommands_description_settings_channel": {
-    "de": "Kanal",
     "en": "Channel",
     "bg": "Канал",
     "pl": "Kanał",
@@ -2735,7 +2526,6 @@
     "tr": "kanal"
   },
   "slashcommands_description_settings_notifications": {
-    "de": "Ändert den Kanal für die Aufgabenprotokollierung",
     "en": "Changes the channel for task logging",
     "bg": "Промяна на канала за регистриране на задачи",
     "pl": "Zmienia kanał dla rejestrowania zadań",
@@ -2744,7 +2534,6 @@
     "tr": "Görev günlüğü kanalını değiştirir"
   },
   "slashcommands_description_settings_user": {
-    "de": "Nutzer",
     "en": "User",
     "bg": "Потребители",
     "pl": "Użytkownicy",
@@ -2753,7 +2542,6 @@
     "tr": "Kullanıcılar"
   },
   "slashcommands_description_help": {
-    "de": "Listet alle Befehle auf",
     "en": "Lists all commands",
     "bg": "Изброява всички команди",
     "pl": "Wyświetla listę wszystkich poleceń",
@@ -2762,7 +2550,6 @@
     "tr": "Tüm komutları listeler"
   },
   "slashcommands_description_help_command": {
-    "de": "Ein Befehl für weitere Hilfe",
     "en": "A command for further help",
     "bg": "Команда за допълнителна помощ",
     "pl": "Polecenie do uzyskania dalszej pomocy",
@@ -2771,7 +2558,6 @@
     "tr": "Daha fazla yardım için bir komut"
   },
   "slashcommands_description_app": {
-    "de": "Sendet einen Link zur Android- und Web-App",
     "en": "Sends a link to the Android and web app",
     "bg": "Изпращане на връзка към приложението за Android и уеб приложението",
     "pl": "Wysyła łącze do aplikacji Android i Web",
@@ -2780,7 +2566,6 @@
     "tr": "Android ve web uygulamasına bir bağlantı gönderir"
   },
   "slashcommands_description_data": {
-    "de": "Sendet dir alle Daten, die der Bot von dir auf einem Server hat",
     "en": "Sends you all the data that the bot has from you on a server",
     "bg": "Изпраща ви всички данни, които ботът има от вас на сървъра.",
     "pl": "Wysyła Ci wszystkie dane, które bot ma od Ciebie na serwerze",
@@ -2789,7 +2574,6 @@
     "tr": "Botun sizden aldığı tüm verileri bir sunucuda size gönderir"
   },
   "slashcommands_description_invite": {
-    "de": "Sendet den Einladungslink für den Bot",
     "en": "Sends the invitation link for the bot",
     "bg": "Изпращане на връзката за покана за бота",
     "pl": "Wysyła link do zaproszenia dla bota",
@@ -2798,7 +2582,6 @@
     "tr": "Bot için davet bağlantısını gönderir"
   },
   "slashcommands_description_language": {
-    "de": "Ändere die Sprache für den Bot",
     "en": "Change the language for the bot",
     "bg": "Промяна на езика за бота",
     "pl": "Zmiana języka dla bota",
@@ -2807,7 +2590,6 @@
     "tr": "Botun dilini değiştirin"
   },
   "slashcommands_description_prefix": {
-    "de": "Ändere den Präfix des Bots",
     "en": "Change the prefix of the bot",
     "bg": "Промяна на префикса на бота",
     "pl": "Zmiana prefiksu bota",
@@ -2816,7 +2598,6 @@
     "tr": "Botun önekini değiştir"
   },
   "slashcommands_description_search": {
-    "de": "Suche nach einer Aufgabe, Gruppe oder Ähnlichem",
     "en": "Search for a task, group or similar",
     "bg": "Търсене на задача, група или подобно нещо",
     "pl": "Wyszukiwanie zadania, grupy lub podobnego elementu",
@@ -2825,7 +2606,6 @@
     "tr": "Bir görev, grup veya benzerini arayın"
   },
   "slashcommands_description_stats": {
-    "de": "Sendet Statistiken des Bots",
     "en": "Sends statistics of the bot",
     "bg": "Изпраща статистически данни за бота",
     "pl": "Wysyła statystyki bota",
@@ -2834,7 +2614,6 @@
     "tr": "Botun istatistiklerini gönderir"
   },
   "slashcommands_description_support": {
-    "de": "Sendet den Link für den bnder Discord-Server",
     "en": "Sends the link for the bnder Discord server",
     "bg": "Изпраща линк за сървъра на bnder Discord",
     "pl": "Wysyła link do serwera Discord bnder",
@@ -2843,7 +2622,6 @@
     "tr": "Bnder Discord sunucusunun bağlantısını gönderir"
   },
   "slashcommands_description_token": {
-    "de": "Sendet den Token für die Web- oder Android-App",
     "en": "Sends the token for the web or Android app",
     "bg": "Изпращане на токена за уеб приложението или приложението за Android",
     "pl": "Wysyła token dla strony internetowej lub aplikacji na Androida",
@@ -2852,7 +2630,6 @@
     "tr": "Web veya Android uygulaması için belirteci gönderir"
   },
   "slashcommands_description_version": {
-    "de": "Zeigt die aktuelle Versionsnummer des Bots an",
     "en": "Displays the current version number of the bot",
     "bg": "Показва номера на текущата версия на бота",
     "pl": "Wyświetla aktualny numer wersji bota",
