@@ -25,6 +25,7 @@ import de.bnder.taskmanager.commands.task.TaskController;
 import de.bnder.taskmanager.listeners.*;
 import de.bnder.taskmanager.listeners.typoReactionListeners.*;
 import de.bnder.taskmanager.session.Session;
+import de.bnder.taskmanager.utils.Localizations;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
