@@ -35,7 +35,7 @@ public class GroupSlashCommands {
 
     public static CommandData commandData(Guild guild, Locale langCode) throws IOException {
         return new CommandData("group", Localizations.getString("slashcommands_description_group", langCode))
-                .addSubcommands(new SubcommandData("create", Localizations.getString("slashcommands_description_group_add", langCode))
+                .addSubcommands(new SubcommandData("create", Localizations.getString("slashcommands_description_group_create", langCode))
                         .addOptions(new OptionData(STRING, "name", Localizations.getString("slashcommands_name_of_group_description", langCode))
                                 .setRequired(true)))
                 .addSubcommands(new SubcommandData("delete", Localizations.getString("slashcommands_description_group_delete", langCode))
