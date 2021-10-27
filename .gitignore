@@ -4,3 +4,4 @@ target/
 teammanagerbotSqlPasswort.json
 *.iml
 .env
+.DS_Store
