@@ -1,4 +1,4 @@
-package de.bnder.taskmanager.lists;
+package de.bnder.taskmanager.botlists;
 /*
  * Copyright (C) 2021 Jan Brinkmann
  *
@@ -21,16 +21,16 @@ import org.jsoup.Jsoup;
 
 import java.io.IOException;
 
-public class VoidbotsNET{
+public class InfinitybotlistCOM {
 
-    private static final String baseURL = "https://voidbots.net/api/auth";
-    private static final String apiKey = Main.dotenv.get("VOIDBOTS.NET_API_KEY") != null ? Main.dotenv.get("VOIDBOTS.NET_API_KEY") : System.getenv("VOIDBOTS.NET_API_KEY");
+    private static final String baseURL = "https://infinitybotlist.com/api";
+    private static final String apiKey = Main.dotenv.get("INFINITYBOTLIST.COM_API_KEY") != null ? Main.dotenv.get("INFINITYBOTLIST.COM_API_KEY") : System.getenv("INFINITYBOTLIST.COM_API_KEY");
 
     public static void sendServerCount(int serverCount, String botID) throws IOException {
         System.out.println("Updating Servers on " + baseURL);
-        final Connection.Response response = Jsoup.connect(baseURL + "/stats/" + botID)
-                .header("Authentication", apiKey)
-                .data("server_count", String.valueOf(serverCount))
+        final Connection.Response response = Jsoup.connect(baseURL + "/bots/" + botID)
+                .header("authorization", apiKey)
+                .data("servers", String.valueOf(serverCount))
                 .method(Connection.Method.POST)
                 .ignoreContentType(true)
                 .ignoreHttpErrors(true)

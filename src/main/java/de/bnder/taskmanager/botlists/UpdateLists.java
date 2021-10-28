@@ -1,4 +1,4 @@
-package de.bnder.taskmanager.lists;
+package de.bnder.taskmanager.botlists;
 
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonObject;
