@@ -24,7 +24,7 @@ public class Language implements Command {
     public static ArrayList<Locale> validLangCodes = new ArrayList<Locale>() {{
         add(Locale.GERMAN);
         add(Locale.ENGLISH);
-        add(new Locale("bg", "bulgaria", ""));
+        add(new Locale("bg"));
         add(Locale.FRENCH);
         add(new Locale("ru"));
         add(new Locale("pl"));
