@@ -15,7 +15,7 @@ package de.bnder.taskmanager.listeners;
  * limitations under the License.
  */
 
-import de.bnder.taskmanager.lists.UpdateLists;
+import de.bnder.taskmanager.botlists.UpdateLists;
 import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;

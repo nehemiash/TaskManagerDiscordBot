@@ -1,6 +1,6 @@
 package de.bnder.taskmanager.listeners;
 
-import de.bnder.taskmanager.lists.UpdateLists;
+import de.bnder.taskmanager.botlists.UpdateLists;
 import de.bnder.taskmanager.utils.DeadlineReminders;
 import de.bnder.taskmanager.utils.UpdateServerName;
 import net.dv8tion.jda.api.OnlineStatus;
