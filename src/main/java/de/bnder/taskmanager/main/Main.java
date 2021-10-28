@@ -24,8 +24,6 @@ import de.bnder.taskmanager.commands.settings.SettingsController;
 import de.bnder.taskmanager.commands.task.TaskController;
 import de.bnder.taskmanager.listeners.*;
 import de.bnder.taskmanager.listeners.typoReactionListeners.*;
-import de.bnder.taskmanager.session.Session;
-import de.bnder.taskmanager.utils.Localizations;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -61,11 +59,8 @@ public class Main {
     }
 
     public static final String prefix = "-";
-    public static Session session;
 
     public static void main(String[] args) {
-        session = new Session(String.valueOf(shard)).create();
-
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createLight(dotenv.get("BOT_TOKEN"),
                 Arrays.asList(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS));
 
