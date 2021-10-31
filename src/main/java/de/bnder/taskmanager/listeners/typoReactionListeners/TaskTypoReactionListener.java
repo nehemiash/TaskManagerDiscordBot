@@ -117,23 +117,23 @@ public class TaskTypoReactionListener extends ListenerAdapter {
             if (args[0].equalsIgnoreCase("add")) {
                 AddTask.addTask(commandRaw, member, getMentionedMembers(commandRaw, member.getGuild()), channel, args, null);
             } else if (args[0].equalsIgnoreCase("edit")) {
-                EditTask.editTask(commandRaw, member, channel, args, null);
+                EditTask.editTask(commandRaw, member, channel, args[1], 3,null);
             } else if (args[0].equalsIgnoreCase("deadline")) {
-                SetDeadline.setDeadline(member, channel, args, null);
+                SetDeadline.setDeadline(member, channel, args, args[1], 3, null);
             }
         } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("list")) {
                 ListTasksFromOthers.listTasks(member, getMentionedMembers(commandRaw, member.getGuild()), channel, args, null);
             } else if (args[0].equalsIgnoreCase("delete")) {
-                DeleteTask.deleteTask(member, channel, args, null);
+                DeleteTask.deleteTask(member, channel, args[1], null);
             } else if (args[0].equalsIgnoreCase("done")) {
-                DeleteTask.deleteTask(member, channel, args, null);
+                DeleteTask.deleteTask(member, channel, args[1], null);
             } else if (args[0].equalsIgnoreCase("proceed")) {
-                ProceedTask.proceedTask(member, channel, args, null);
+                ProceedTask.proceedTask(member, channel, args[1], null);
             } else if (args[0].equalsIgnoreCase("undo")) {
-                UndoTask.undoTask(member, channel, args, null);
+                UndoTask.undoTask(member, channel, args[1], null);
             } else if (args[0].equalsIgnoreCase("info")) {
-                TaskInfo.taskInfo(member, channel, args, null);
+                TaskInfo.taskInfo(member, channel, args[1], null);
             }
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("list")) {
