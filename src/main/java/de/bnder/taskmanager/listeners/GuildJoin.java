@@ -15,7 +15,7 @@ package de.bnder.taskmanager.listeners;
  * limitations under the License.
  */
 
-import de.bnder.taskmanager.botlists.UpdateLists;
+import de.bnder.taskmanager.botlists.UpdateBotLists;
 import de.bnder.taskmanager.slashcommands.UpdateGuildSlashCommands;
 import de.bnder.taskmanager.utils.UpdateServerName;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -46,7 +46,7 @@ public class GuildJoin extends ListenerAdapter {
                 }
             }
         }
-        UpdateLists.updateBotLists(e.getJDA().getGuilds().size(), e.getJDA().getSelfUser().getId());
+        UpdateBotLists.updateBotLists(e.getJDA().getGuilds().size(), e.getJDA().getSelfUser().getId());
         UpdateGuildSlashCommands.update(e.getGuild());
     }
 

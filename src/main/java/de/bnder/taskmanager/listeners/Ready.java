@@ -1,6 +1,6 @@
 package de.bnder.taskmanager.listeners;
 
-import de.bnder.taskmanager.botlists.UpdateLists;
+import de.bnder.taskmanager.botlists.UpdateBotLists;
 import de.bnder.taskmanager.utils.DeadlineReminders;
 import de.bnder.taskmanager.utils.UpdateServerName;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -19,7 +19,7 @@ public class Ready extends ListenerAdapter {
             } catch (IOException ignored) {}
         }
         DeadlineReminders.start(e.getJDA().getShardManager());
-        UpdateLists.updateBotLists(e.getJDA().getGuilds().size(), e.getJDA().getSelfUser().getId());
+        UpdateBotLists.updateBotLists(e.getJDA().getGuilds().size(), e.getJDA().getSelfUser().getId());
         e.getJDA().getPresence().setStatus(OnlineStatus.ONLINE);
         System.out.println("\n \n##############################\n \nBot started!\n \n##############################");
     }
