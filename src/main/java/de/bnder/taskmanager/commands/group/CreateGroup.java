@@ -26,7 +26,7 @@ public class CreateGroup {
             final org.jsoup.Connection.Response res = Main.tmbAPI("group/create/" + member.getGuild().getId(), member.getId(), org.jsoup.Connection.Method.POST).data("group_name", groupName).execute();
             final int statusCode = res.statusCode();
             if (statusCode == 200) {
-                MessageSender.send(embedTitle, Localizations.getString("group_created_successfully", langCode, new ArrayList<String>() {
+                MessageSender.send(embedTitle + " - " + groupName, Localizations.getString("group_created_successfully", langCode, new ArrayList<String>() {
                     {
                         add(groupName);
                     }

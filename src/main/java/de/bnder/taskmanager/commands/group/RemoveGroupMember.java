@@ -1,7 +1,6 @@
 package de.bnder.taskmanager.commands.group;
 
 import de.bnder.taskmanager.main.Main;
-import de.bnder.taskmanager.utils.Connection;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.PermissionSystem;
@@ -18,13 +17,12 @@ import java.util.Locale;
 
 public class RemoveGroupMember {
 
-    public static void removeGroupMember(Member member, TextChannel textChannel, String[] args, List<Member> mentionedMembers, SlashCommandEvent slashCommandEvent) throws IOException {
+    public static void removeGroupMember(Member member, TextChannel textChannel, String groupName, List<Member> mentionedMembers, SlashCommandEvent slashCommandEvent) throws IOException {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("group_title", langCode);
         if (PermissionSystem.hasPermission(member, GroupPermission.REMOVE_MEMBERS)) {
-            if (args.length >= 3) {
+            if (groupName != null) {
                 if (mentionedMembers != null && mentionedMembers.size() > 0) {
-                    final String groupName = Connection.encodeString(args[1 + mentionedMembers.size()]);
                     for (Member mentionedMember : mentionedMembers) {
                         final org.jsoup.Connection.Response res = Main.tmbAPI("group/remove-member/" + member.getGuild().getId(), mentionedMember.getId(), org.jsoup.Connection.Method.PUT).data("group_name", groupName).execute();
                         final int statusCode = res.statusCode();
