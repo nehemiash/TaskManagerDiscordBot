@@ -45,7 +45,7 @@ public class DeleteGroup {
                     }), textChannel, Color.red, langCode, slashCommandEvent);
                 }
             } else {
-                //TODO:
+                MessageSender.send(embedTitle, Localizations.getString("context_awareness_no_group_name_found", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else {
             MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);

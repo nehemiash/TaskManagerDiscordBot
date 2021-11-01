@@ -7,7 +7,6 @@ import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import org.apache.commons.lang3.math.NumberUtils;
 
 import java.awt.*;
 import java.io.IOException;
@@ -36,7 +35,7 @@ public class GroupController implements Command {
             if (args.length >= 2) {
                 groupName = args[1];
             } else {
-                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw);
+                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
                 if (tempGroupName != null) {
                     groupName = tempGroupName;
                 }
@@ -47,7 +46,7 @@ public class GroupController implements Command {
             if (args.length >= 2) {
                 groupName = args[1];
             } else {
-                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw);
+                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
                 if (tempGroupName != null) {
                     groupName = tempGroupName;
                 }
@@ -58,18 +57,18 @@ public class GroupController implements Command {
             if (args.length >= 3) {
                 groupName = args[1 + mentionedMembers.size()];
             } else {
-                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw);
+                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
                 if (tempGroupName != null) {
                     groupName = tempGroupName;
                 }
             }
             AddGroupMember.addGroupMember(commandExecutor, textChannel, groupName, mentionedMembers, slashCommandEvent);
-        }  else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem")) {
+        } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem")) {
             String groupName = null;
             if (args.length >= 3) {
                 groupName = args[1 + mentionedMembers.size()];
             } else {
-                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw);
+                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
                 if (tempGroupName != null) {
                     groupName = tempGroupName;
                 }
@@ -92,7 +91,7 @@ public class GroupController implements Command {
         }
     }
 
-    String getGroupNameFromContext(TextChannel textChannel, Member commandExecutor, String sourceMessage) {
+    String getGroupNameFromContext(TextChannel textChannel, Member commandExecutor, String sourceMessage, List<Member> mentionedMembers) {
         ArrayList<Message> messageArrayList = new ArrayList<>(textChannel.getHistoryBefore(textChannel.getLatestMessageId(), 25).complete().getRetrievedHistory());
         final Locale langCode = Localizations.getGuildLanguage(textChannel.getGuild());
         for (Message message : messageArrayList) {
@@ -101,11 +100,13 @@ public class GroupController implements Command {
                 if (messageContentRaw.startsWith(String.valueOf(sourceMessage.split(" ")[0]))) {
                     final String commandArg = messageContentRaw.split(" ")[1];
 
-                    if (commandArg.equalsIgnoreCase("delete")) {
+                    if (commandArg.equalsIgnoreCase("delete") || commandArg.equalsIgnoreCase("members") || commandArg.equalsIgnoreCase("notifications")) {
                         if (messageContentRaw.split(" ").length >= 3) {
-                            if (NumberUtils.isCreatable(messageContentRaw.split(" ")[2])) {
-                                return messageContentRaw.split(" ")[2];
-                            }
+                            return messageContentRaw.split(" ")[2];
+                        }
+                    } else if (commandArg.equalsIgnoreCase("add") || commandArg.equalsIgnoreCase("remove") || commandArg.equalsIgnoreCase("rem")) {
+                        if (messageContentRaw.split(" ").length > 3) {
+                            return messageContentRaw.split(" ")[2 + mentionedMembers.size()];
                         }
                     }
                 }
