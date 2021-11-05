@@ -14,11 +14,12 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SettingsSetNotifications {
 
     public static void set(Member member, TextChannel textChannel, List<TextChannel> mentionedChannels, List<Member> mentionedMembers, SlashCommandEvent slashCommandEvent) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("settings_title", langCode);
         if (PermissionSystem.hasPermission(member, GroupPermission.DEFINE_NOTIFY_CHANNEL)) {
             if (mentionedMembers != null && mentionedMembers.size() > 0) {

@@ -23,12 +23,13 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 public class UpdateGuildSlashCommands {
 
     public static void update(Guild guild) {
         try {
-            final String langCode = Localizations.getGuildLanguage(guild);
+            final Locale langCode = Localizations.getGuildLanguage(guild);
 
             CommandListUpdateAction cmd = guild.updateCommands();
 

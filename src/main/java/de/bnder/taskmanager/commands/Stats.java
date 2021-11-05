@@ -12,13 +12,14 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
+import java.util.Locale;
 
 public class Stats implements Command {
 
     @Override
-    public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, java.util.List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
+    public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, java.util.List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) {
         guild.getJDA().getRestPing().queue(ping -> {
-            final String langCode = Localizations.getGuildLanguage(guild);
+            final Locale langCode = Localizations.getGuildLanguage(guild);
             final EmbedBuilder builder = new EmbedBuilder();
             try {
                 final Date apiRequestDateStart = new Date();

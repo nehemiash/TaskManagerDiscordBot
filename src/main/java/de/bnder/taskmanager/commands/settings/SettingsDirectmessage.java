@@ -8,12 +8,12 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
-import java.io.IOException;
+import java.util.Locale;
 
 public class SettingsDirectmessage {
 
-    public static void set(Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+    public static void set(Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) {
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("settings_title", langCode);
         final UserSettings userSettings = new UserSettings(member);
         userSettings.changeDirectMessage();

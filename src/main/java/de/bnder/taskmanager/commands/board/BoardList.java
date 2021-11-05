@@ -27,12 +27,13 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class BoardList {
 
     public static void getBoardList(Member member, TextChannel textChannel, String prefix, SlashCommandEvent slashCommandEvent) {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("board_title", langCode);
 
         try {

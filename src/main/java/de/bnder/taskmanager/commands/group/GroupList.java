@@ -13,11 +13,12 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+import java.util.Locale;
 
 public class GroupList {
 
-    public static void getGroupList(Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+    public static void getGroupList(Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) {
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("group_title", langCode);
 
         try {

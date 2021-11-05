@@ -14,13 +14,14 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Locale;
 
 import static de.bnder.taskmanager.commands.permission.AddPermission.*;
 
 public class RemovePermission {
 
     public static void removePermission(Member member, TextChannel textChannel, String[] args, List<Member> mentionedMembers, List<Role> mentionedRoles, SlashCommandEvent slashCommandEvent) {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("permissions_title", langCode);
         if (PermissionSystem.hasPermission(member, PermissionPermission.REMOVE_PERMISSION)) {
             int statusCode;

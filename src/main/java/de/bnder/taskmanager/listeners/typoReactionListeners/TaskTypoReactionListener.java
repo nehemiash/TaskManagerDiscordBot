@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class TaskTypoReactionListener extends ListenerAdapter {
 
@@ -36,7 +37,7 @@ public class TaskTypoReactionListener extends ListenerAdapter {
                                     message.delete().queue();
                                     processTaskCommand(args, member, command, event.getChannel());
                                 } catch (IOException e) {
-                                    final String langCode = Localizations.getGuildLanguage(event.getGuild());
+                                    final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
                                     MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode, null);
                                 }
                             } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
@@ -58,7 +59,7 @@ public class TaskTypoReactionListener extends ListenerAdapter {
             if (message.getAuthor().isBot() && message.getAuthor().getId().equals(message.getJDA().getSelfUser().getId())) {
                 if (message.getEmbeds().size() == 1) {
                     final MessageEmbed embed = message.getEmbeds().get(0);
-                    for (String langCode : Language.validLangCodes) {
+                    for (Locale langCode : Language.validLangCodes) {
                         if (embed.getTitle().equals(Localizations.getString("typo_title", langCode)) && embed.getDescription().equals(Localizations.getString("typo_description", langCode))) {
                             String command = null;
                             String author = null;
@@ -91,7 +92,7 @@ public class TaskTypoReactionListener extends ListenerAdapter {
             final MessageEmbed embed = message.getEmbeds().get(0);
             String command = null;
             String author = null;
-            for (String langCode : Language.validLangCodes) {
+            for (Locale langCode : Language.validLangCodes) {
                 for (MessageEmbed.Field field : embed.getFields()) {
                     if (field.getName().equals(Localizations.getString("typo_field_command_name", langCode))) {
                         command = field.getValue();

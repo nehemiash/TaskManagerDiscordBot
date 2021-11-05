@@ -33,6 +33,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class CommandListener extends ListenerAdapter {
@@ -53,7 +54,7 @@ public class CommandListener extends ListenerAdapter {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        final String langCode = Localizations.getGuildLanguage(event.getGuild());
+                        final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
                         MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getMessage(), Color.red, langCode, null);
                     }
                 }
@@ -112,7 +113,7 @@ public class CommandListener extends ListenerAdapter {
             CommandHandler.handleCommand(CommandHandler.parse.parseNormalCommand(msg, event.getMember(), event.getChannel(), event.getGuild(), event.getMessage().getMentionedMembers(), event.getMessage().getMentionedRoles(), event.getMessage().getMentionedChannels()));
         } catch (Exception e) {
             e.printStackTrace();
-            final String langCode = Localizations.getGuildLanguage(event.getGuild());
+            final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
             MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode), event.getMessage(), Color.red, langCode, null);
         }
     }

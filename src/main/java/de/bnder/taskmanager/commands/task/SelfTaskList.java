@@ -17,11 +17,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.Locale;
 
 public class SelfTaskList {
 
-    public static void selfTaskList(Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+    public static void selfTaskList(Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) {
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
 
         ArrayList<Map<String, Object>> todoTasks = new ArrayList<>();

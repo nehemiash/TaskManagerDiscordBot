@@ -12,11 +12,12 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class DeleteTask {
 
     public static void deleteTask(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         if (PermissionSystem.hasPermission(member, TaskPermission.DELETE_TASK)) {
             final String taskID = args[1];

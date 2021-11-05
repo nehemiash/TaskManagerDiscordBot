@@ -21,13 +21,14 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import static net.dv8tion.jda.api.interactions.commands.OptionType.STRING;
 import static net.dv8tion.jda.api.interactions.commands.OptionType.USER;
 
 public class TaskSlashCommands {
 
-    public static CommandData commandData(String langCode) throws IOException {
+    public static CommandData commandData(Locale langCode) throws IOException {
         return new CommandData("task", Localizations.getString("slashcommands_description_task", langCode))
                 .addSubcommands(new SubcommandData("add", Localizations.getString("slashcommands_description_task_add", langCode))
                         .addOptions(new OptionData(USER, "user", Localizations.getString("slashcommands_user_mention_description", langCode)).setRequired(true))

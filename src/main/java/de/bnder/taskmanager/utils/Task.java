@@ -11,6 +11,8 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import java.awt.*;
 import java.security.SecureRandom;
 import java.util.HashMap;
+import java.io.IOException;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -149,7 +151,7 @@ public class Task {
                 if (Objects.requireNonNull(getServermember.getData()).containsKey("notify_channel")) {
                     final String channelID = getServermember.getString("notify_channel");
                     if (guild.getTextChannelById(channelID) != null) {
-                        final String langCode = Localizations.getGuildLanguage(guild);
+                        final Locale langCode = Localizations.getGuildLanguage(guild);
                         EmbedBuilder builder = new EmbedBuilder().setColor(Color.cyan);
                         builder.addField(Localizations.getString("task_info_field_task", langCode), text, false);
                         builder.addField(Localizations.getString("task_info_field_type_user", langCode), member.getUser().getAsTag(), true);
@@ -263,7 +265,7 @@ public class Task {
                 if (groupDoc.getData().containsKey("notify_channel")) {
                     final String channelID = getGroup.getDocuments().get(0).getString("notify_channel");
                     if (guild.getTextChannelById(channelID) != null) {
-                        final String langCode = Localizations.getGuildLanguage(guild);
+                        final Locale langCode = Localizations.getGuildLanguage(guild);
                         EmbedBuilder builder = new EmbedBuilder().setColor(Color.cyan);
                         builder.addField(Localizations.getString("task_info_field_task", langCode), text, false);
                         builder.addField(Localizations.getString("task_info_field_type_group", langCode), groupName, true);
@@ -325,7 +327,7 @@ public class Task {
         this.text = text;
 
         //Update in notify channel
-        final String langCode = Localizations.getGuildLanguage(guild);
+        final Locale langCode = Localizations.getGuildLanguage(guild);
         updateNotifyChannelMessage(Localizations.getString("task_info_field_task", langCode), this.text);
     }
 
@@ -347,7 +349,7 @@ public class Task {
         this.deadline = deadline;
 
         //Update in notify channel
-        final String langCode = Localizations.getGuildLanguage(guild);
+        final Locale langCode = Localizations.getGuildLanguage(guild);
         updateNotifyChannelMessage(Localizations.getString("task_info_field_deadline", langCode), this.deadline);
     }
 
@@ -466,7 +468,7 @@ public class Task {
             }
 
             //Update in notify channel
-            final String langCode = Localizations.getGuildLanguage(guild);
+            final Locale langCode = Localizations.getGuildLanguage(guild);
             String newStatus = Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode);
             if (status == TaskStatus.IN_PROGRESS)
                 newStatus = Localizations.getString("aufgaben_status_wird_bearbeitet", langCode);
@@ -531,7 +533,7 @@ public class Task {
         setStatus(newStatus);
 
         //Update in notify channel
-        final String langCode = Localizations.getGuildLanguage(guild);
+        final Locale langCode = Localizations.getGuildLanguage(guild);
         String newStatusString = Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode);
         if (status == TaskStatus.IN_PROGRESS)
             newStatusString = Localizations.getString("aufgaben_status_wird_bearbeitet", langCode);

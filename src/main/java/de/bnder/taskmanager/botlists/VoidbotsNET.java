@@ -1,4 +1,4 @@
-package de.bnder.taskmanager.lists;
+package de.bnder.taskmanager.botlists;
 /*
  * Copyright (C) 2021 Jan Brinkmann
  *

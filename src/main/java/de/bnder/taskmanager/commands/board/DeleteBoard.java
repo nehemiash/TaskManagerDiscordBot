@@ -24,16 +24,16 @@ import de.bnder.taskmanager.utils.permissions.BoardPermission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class DeleteBoard {
 
-    public static void deleteBoard(@NotNull Member member, TextChannel textChannel, String boardName, SlashCommandEvent slashCommandEvent) {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+    public static void deleteBoard(Member member, TextChannel textChannel, String boardName, SlashCommandEvent slashCommandEvent) {
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("board_title", langCode);
 
         //User has permission DELETE_BOARD

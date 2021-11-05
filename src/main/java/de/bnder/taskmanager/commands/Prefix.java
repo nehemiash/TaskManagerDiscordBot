@@ -16,12 +16,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class Prefix implements Command {
 
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(guild);
+        final Locale langCode = Localizations.getGuildLanguage(guild);
         final String embedTitle = Localizations.getString("prefix_title", langCode);
         if (commandExecutor.isOwner() || commandExecutor.hasPermission(Permission.ADMINISTRATOR)) {
             if (args.length == 1) {

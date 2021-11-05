@@ -28,6 +28,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Version implements Command {
 
@@ -36,7 +37,7 @@ public class Version implements Command {
 
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(guild);
+        final Locale langCode = Localizations.getGuildLanguage(guild);
         MessageSender.send(Localizations.getString("version_title", langCode), Localizations.getString("version_text", langCode, new ArrayList<>() {{
             add(version);
         }}), textChannel, Color.cyan, langCode, slashCommandEvent);

@@ -10,11 +10,12 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class TaskInfo {
 
     public static void taskInfo(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         final String taskID = args[1];
         final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());

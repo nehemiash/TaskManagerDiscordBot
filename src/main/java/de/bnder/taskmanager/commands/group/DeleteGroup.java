@@ -15,11 +15,12 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+import java.util.Locale;
 
 public class DeleteGroup {
 
-    public static void deleteGroup(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) throws IOException {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+    public static void deleteGroup(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("group_title", langCode);
         if (!PermissionSystem.hasPermission(member, GroupPermission.DELETE_GROUP)) {
             MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);

@@ -10,11 +10,12 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class SettingsShowSettings {
 
     public static void set(Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) {
-        final String langCode = Localizations.getGuildLanguage(member.getGuild());
+        final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("settings_title", langCode);
         final UserSettings userSettings = new UserSettings(member);
         final EmbedBuilder embedBuilder = new EmbedBuilder().setColor(Color.cyan).setTimestamp(Calendar.getInstance().toInstant()).setTitle(embedTitle + " - " + member.getUser().getAsTag());

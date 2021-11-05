@@ -32,12 +32,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.Locale;
 
 public class CreateBoard {
 
     public static void createBoard(String boardName, TextChannel textChannel, Member member, SlashCommandEvent slashCommandEvent) {
         final Guild guild = textChannel.getGuild();
-        final String langCode = Localizations.getGuildLanguage(guild);
+        final Locale langCode = Localizations.getGuildLanguage(guild);
         final String embedTitle = Localizations.getString("board_title", langCode);
 
         //User doesn't have CREATE_BOARD permission

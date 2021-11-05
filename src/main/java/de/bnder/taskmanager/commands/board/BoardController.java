@@ -30,6 +30,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class BoardController implements Command {
 
@@ -64,7 +65,7 @@ public class BoardController implements Command {
     }
 
     void checkIfTypo(String[] args, String messageContentRaw, Guild guild, TextChannel textChannel, Member commandExecutor, SlashCommandEvent slashCommandEvent) {
-        final String langCode = Localizations.getGuildLanguage(guild);
+        final Locale langCode = Localizations.getGuildLanguage(guild);
         if (args.length > 0) {
             final String userArg1 = args[0];
             final StringBuilder possibleCommands = new StringBuilder();

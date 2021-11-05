@@ -31,12 +31,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
+import java.util.Locale;
 
 public class SwitchBoard {
 
-    public static void switchBoard(String boardName, Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) throws IOException {
+    public static void switchBoard(String boardName, Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) {
         final Guild guild = textChannel.getGuild();
-        final String langCode = Localizations.getGuildLanguage(guild);
+        final Locale langCode = Localizations.getGuildLanguage(guild);
         final String embedTitle = Localizations.getString("board_title", langCode);
 
         try {

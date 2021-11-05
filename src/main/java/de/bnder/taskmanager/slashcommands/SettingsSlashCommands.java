@@ -21,9 +21,11 @@ import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 
+import java.util.Locale;
+
 public class SettingsSlashCommands {
 
-    public static CommandData commandData(String langCode) {
+    public static CommandData commandData(Locale langCode) {
         return new CommandData("settings", Localizations.getString("slashcommands_description_settings", langCode))
                 .addSubcommands(new SubcommandData("direct-message", Localizations.getString("slashcommands_description_settings_direct_message", langCode)))
                 .addSubcommands(new SubcommandData("show-done-tasks", Localizations.getString("slashcommands_description_settings_direct_message", langCode)))
