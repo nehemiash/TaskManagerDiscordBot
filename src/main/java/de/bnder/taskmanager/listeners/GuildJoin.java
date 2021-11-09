@@ -23,7 +23,6 @@ import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public class GuildJoin extends ListenerAdapter {
@@ -31,7 +30,7 @@ public class GuildJoin extends ListenerAdapter {
     public void onGuildJoin(GuildJoinEvent e) {
         try {
             UpdateServerName.update(e.getGuild());
-        } catch (IOException | ExecutionException | InterruptedException ex) {
+        } catch (ExecutionException | InterruptedException ex) {
             ex.printStackTrace();
         }
         final String intro = "Thanks for using this bot. The default language is english but you can change the language with the command `-language`.";

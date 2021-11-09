@@ -14,14 +14,13 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 public class GroupMembers {
 
-    public static void getGroupMembers(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) throws IOException {
+    public static void getGroupMembers(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("group_title", langCode);
         if (!PermissionSystem.hasPermission(member, GroupPermission.SHOW_MEMBERS)) {

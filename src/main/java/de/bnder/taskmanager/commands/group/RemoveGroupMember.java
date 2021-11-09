@@ -12,11 +12,10 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 public class RemoveGroupMember {
 

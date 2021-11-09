@@ -10,7 +10,6 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,7 +31,7 @@ import java.util.Locale;
 public class App implements Command {
 
     @Override
-    public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
+    public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent){
         final Locale langCode = Localizations.getGuildLanguage(guild);
         MessageSender.send(Localizations.getString("app_message_title", langCode), Localizations.getString("app_befehl_nachricht", langCode), textChannel, Color.green, langCode, slashCommandEvent);
     }

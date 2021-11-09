@@ -15,9 +15,7 @@ package de.bnder.taskmanager.slashcommands;
  * limitations under the License.
  */
 
-import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Localizations;
 import net.dv8tion.jda.api.entities.Guild;
@@ -26,14 +24,14 @@ import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 
-import java.io.IOException;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import static net.dv8tion.jda.api.interactions.commands.OptionType.*;
 
 public class GroupSlashCommands {
 
-    public static CommandData commandData(Guild guild, Locale langCode) throws IOException {
+    public static CommandData commandData(Guild guild, Locale langCode) throws ExecutionException, InterruptedException {
         return new CommandData("group", Localizations.getString("slashcommands_description_group", langCode))
                 .addSubcommands(new SubcommandData("create", Localizations.getString("slashcommands_description_group_create", langCode))
                         .addOptions(new OptionData(STRING, "name", Localizations.getString("slashcommands_name_of_group_description", langCode))
@@ -55,20 +53,13 @@ public class GroupSlashCommands {
                 );
     }
 
-    public static OptionData boardNameOptions(Guild guild, Locale langCode) throws IOException {
+    public static OptionData boardNameOptions(Guild guild, Locale langCode) throws ExecutionException, InterruptedException {
         OptionData groupNameOptionData = new OptionData(STRING, "group", Localizations.getString("slashcommands_name_of_group_description", langCode)).setRequired(true);
 
-        final org.jsoup.Connection.Response res = Main.tmbAPI("group/list/" + guild.getId(), "---", org.jsoup.Connection.Method.GET).execute();
-        final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
-        final int statusCode = res.statusCode();
-        if (statusCode == 200) {
-            final JsonArray groups = jsonObject.get("groups").asArray();
-            if (groups.size() > 0) {
-                for (int i = 0; i < groups.size(); i++) {
-                    final String groupName = groups.get(i).asString();
-                    groupNameOptionData.addChoices(new Command.Choice(groupName, groupName));
-                }
-            }
+
+        for (QueryDocumentSnapshot groupDoc : Main.firestore.collection("server").document(guild.getId()).collection("groups").get().get()) {
+            final String groupName = groupDoc.getString("name");
+            groupNameOptionData.addChoices(new Command.Choice(groupName, groupName));
         }
         return groupNameOptionData;
     }

@@ -15,17 +15,16 @@ package de.bnder.taskmanager.utils;
  * limitations under the License.
  */
 
-import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonValue;
+import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
 import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 public class DeadlineReminders {
 
@@ -34,49 +33,55 @@ public class DeadlineReminders {
             @Override
             public void run() {
                 try {
-                    //TODO: CHANGE TO FIRESTORE
-                    final org.jsoup.Connection.Response res = Main.tmbAPI("global/deadline-reminders", null, org.jsoup.Connection.Method.GET).execute();
-                    if (res.statusCode() == 200) {
-                        final JsonObject jsonObject = Json.parse(res.parse().body().text()).asObject();
-                        for (final JsonValue value : jsonObject.get("list").asArray()) {
-                            final JsonObject taskObject = value.asObject();
-                            final String taskID = taskObject.getString("id", null);
-                            final String task = taskObject.getString("task", null);
-                            final String serverID = taskObject.getString("server_id", null);
-                            final String taskType = taskObject.getString("type", null);
-                            final String deadline = taskObject.getString("deadline", null);
-                            final Guild guild = shardManager.getGuildById(serverID);
-                            if (guild != null) {
-                                final Locale langCode = Localizations.getGuildLanguage(guild);
-                                if (taskType.equalsIgnoreCase("group")) {
-                                    final String groupName = taskObject.getString("group_name", null);
-                                    for (final JsonValue groupMemberValue : taskObject.get("group_members").asArray()) {
-                                        final String userID = groupMemberValue.asString();
-                                        guild.retrieveMemberById(userID).queue(member -> member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(Localizations.getString("deadline_remind_group", langCode, new ArrayList<>() {{
-                                            add(task);
-                                            add(taskID);
-                                            add(groupName);
-                                            add(deadline);
-                                        }})).queue(), (error) -> {}), (error) -> {
-                                        });
-                                    }
-                                } else if (taskType.equalsIgnoreCase("user")) {
-                                    final String userID = taskObject.getString("user_id", null);
+                    final LocalDateTime ldt = LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault()).plusMinutes(30);
+                    final Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+                    for (DocumentSnapshot serverDoc : Main.firestore.collection("server").get().get()) {
+                        final Guild guild = shardManager.getGuildById(serverDoc.getId());
+                        if (guild != null) {
+                            final Locale langCode = Localizations.getGuildLanguage(guild);
+                            for (DocumentSnapshot boardDoc : serverDoc.getReference().collection("boards").get().get()) {
+                                final QuerySnapshot taskDocs = boardDoc.getReference().collection("user-tasks").whereLessThanOrEqualTo("deadline", out).whereEqualTo("deadline_reminded", false).limit(1).get().get();
+                                for (DocumentSnapshot taskDoc : taskDocs) {
+                                    taskDoc.getReference().update("deadline_reminded", true);
+                                    final String taskID = taskDoc.getId();
+                                    final String task = taskDoc.getString("text");
+                                    final String deadline = taskDoc.getString("deadline");
+                                    final String userID = taskDoc.getString("user_id");
                                     guild.retrieveMemberById(userID).queue(member -> member.getUser().openPrivateChannel().queue(privateChannel ->
                                             privateChannel.sendMessage(Localizations.getString("deadline_remind_user", langCode, new ArrayList<>() {{
                                                 add(task);
                                                 add(taskID);
                                                 add(deadline);
-                                            }})).queue(), (error) -> {}), (error) -> {
+                                            }})).queue(), (error) -> {
+                                    }), (error) -> {
                                     });
+                                }
+                            }
+
+                            for (DocumentSnapshot group : serverDoc.getReference().collection("groups").get().get()) {
+                                final QuerySnapshot groupMembers = group.getReference().collection("group-member").get().get();
+                                for (DocumentSnapshot groupTask : group.getReference().collection("group-tasks").whereLessThanOrEqualTo("deadline", out).whereEqualTo("deadline_reminded", false).get().get()) {
+                                    groupTask.getReference().update("deadline_reminded", true);
+                                    final String groupName = group.getString("group");
+                                    for (final DocumentSnapshot groupMemberDoc : groupMembers) {
+                                        final String userID = groupMemberDoc.getString("user_id");
+                                        guild.retrieveMemberById(userID).queue(member -> member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(Localizations.getString("deadline_remind_group", langCode, new ArrayList<>() {{
+                                            add(groupTask.getString("text"));
+                                            add(groupTask.getId());
+                                            add(groupName);
+                                            add(groupTask.getString("deadline"));
+                                        }})).queue(), (error) -> {
+                                        }), (error) -> {
+                                        });
+                                    }
                                 }
                             }
                         }
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (ExecutionException | InterruptedException executionException) {
+                    executionException.printStackTrace();
                 }
             }
-        }, 15 * 1000, 20 * 60 * 1000);
+        }, 15 * 1000, 30 * 60 * 1000);
     }
 }

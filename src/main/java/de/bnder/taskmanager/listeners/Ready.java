@@ -9,7 +9,6 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public class Ready extends ListenerAdapter {
@@ -19,7 +18,7 @@ public class Ready extends ListenerAdapter {
             try {
                 UpdateServerName.update(g);
                 UpdateGuildSlashCommands.update(g);
-            } catch (IOException | ExecutionException | InterruptedException ignored) {}
+            } catch (ExecutionException | InterruptedException ignored) {}
         }
         DeadlineReminders.start(e.getJDA().getShardManager());
         UpdateBotLists.updateBotLists(e.getJDA().getGuilds().size(), e.getJDA().getSelfUser().getId());

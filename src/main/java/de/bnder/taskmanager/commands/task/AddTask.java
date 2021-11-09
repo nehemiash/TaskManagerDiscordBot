@@ -1,6 +1,5 @@
 package de.bnder.taskmanager.commands.task;
 
-import com.eclipsesource.json.JsonObject;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import de.bnder.taskmanager.commands.group.CreateGroup;
@@ -16,7 +15,6 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 
 import java.awt.*;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -27,7 +25,7 @@ import java.util.concurrent.ExecutionException;
 
 public class AddTask {
 
-    public static void addTask(String commandMessage, Member member, List<Member> mentionedMembers, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) throws IOException {
+    public static void addTask(String commandMessage, Member member, List<Member> mentionedMembers, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         if (!PermissionSystem.hasPermission(member, TaskPermission.CREATE_TASK)) {

@@ -9,7 +9,6 @@ import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.Locale;

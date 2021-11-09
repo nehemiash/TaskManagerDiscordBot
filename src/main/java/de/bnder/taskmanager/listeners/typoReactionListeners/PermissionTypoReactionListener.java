@@ -3,18 +3,13 @@ package de.bnder.taskmanager.listeners.typoReactionListeners;
 import de.bnder.taskmanager.commands.permission.AddPermission;
 import de.bnder.taskmanager.commands.permission.ListUsersOrRolesPermissions;
 import de.bnder.taskmanager.commands.permission.RemovePermission;
-import de.bnder.taskmanager.utils.Localizations;
-import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
 
 import static de.bnder.taskmanager.listeners.typoReactionListeners.TaskTypoReactionListener.*;
 
@@ -36,13 +31,9 @@ public class PermissionTypoReactionListener extends ListenerAdapter {
                                 String[] args = new String[split.size() - 1];
                                 split.subList(1, split.size()).toArray(args);
 
-                                try {
-                                    message.delete().queue();
-                                    processPermissionCommand(args, member, command, event.getChannel());
-                                } catch (IOException e) {
-                                    final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
-                                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode, null);
-                                }
+
+                                message.delete().queue();
+                                processPermissionCommand(args, member, command, event.getChannel());
                             } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
                                 try {
                                     message.delete().queue();
@@ -57,7 +48,7 @@ public class PermissionTypoReactionListener extends ListenerAdapter {
         });
     }
 
-    void processPermissionCommand(String[] args, Member member, String commandRaw, TextChannel channel) throws IOException {
+    void processPermissionCommand(String[] args, Member member, String commandRaw, TextChannel channel) {
         if (args.length == 3) {
             if (args[0].equalsIgnoreCase("add")) {
                 AddPermission.addPermission(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()), getMentionedRoles(commandRaw, member.getGuild()), null);

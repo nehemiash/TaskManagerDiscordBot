@@ -30,7 +30,6 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -96,11 +95,9 @@ public class CommandListener extends ListenerAdapter {
                 msg = new StringBuilder(msg.toString().replace("  ", " "));
             }
 
-            try {
-                CommandHandler.handleCommand(CommandHandler.parse.parseSlashCommand(msg.toString(), event.getMember(), event.getTextChannel(), event.getGuild(), mentionedMembers, mentionedRoles, mentionedChannels, event));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+            CommandHandler.handleCommand(CommandHandler.parse.parseSlashCommand(msg.toString(), event.getMember(), event.getTextChannel(), event.getGuild(), mentionedMembers, mentionedRoles, mentionedChannels, event));
+
         }
     }
 

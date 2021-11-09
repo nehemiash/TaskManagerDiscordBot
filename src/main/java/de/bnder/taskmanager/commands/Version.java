@@ -25,18 +25,16 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class Version implements Command {
 
-    //TODO: CHANGE
-    public static String version = "2021.2.3";
+    public static String version = "2022.1.0";
 
     @Override
-    public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
+    public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(guild);
         MessageSender.send(Localizations.getString("version_title", langCode), Localizations.getString("version_text", langCode, new ArrayList<>() {{
             add(version);

@@ -35,8 +35,6 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
 
 import javax.security.auth.login.LoginException;
 import java.io.FileInputStream;
@@ -47,25 +45,10 @@ public class Main {
 
     public static final Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
-    public static final String tmbApiUrl = dotenv.get("REQUEST_URL") != null ? dotenv.get("REQUEST_URL") : System.getenv("REQUEST_URL");
-    public static final String tmbApiAuthorizationToken = dotenv.get("AUTHORIZATION_TOKEN") != null ? dotenv.get("AUTHORIZATION_TOKEN") : System.getenv("AUTHORIZATION_TOKEN");
-    public static final String userAgent = "TaskmanagerBot/1.0 (Windows; U; WindowsNT 5.1; de-DE; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
     public static final int shard = Integer.parseInt(dotenv.get("SHARD") != null ? dotenv.get("SHARD") : System.getenv("SHARD"));
     public static final int totalShards = Integer.parseInt(dotenv.get("TOTAL_SHARDS") != null ? dotenv.get("TOTAL_SHARDS") : System.getenv(("TOTAL_SHARDS")));
 
     public static Firestore firestore;
-
-    public static Connection tmbAPI(String path, String userID, Connection.Method method) {
-        return Jsoup.connect(tmbApiUrl + "/" + path).method(method)
-                .header("authorization", "TMB " + Main.tmbApiAuthorizationToken)
-                .header("user_id", userID == null ? "---" : userID)
-                .timeout(5000)
-                .userAgent(Main.userAgent)
-                .ignoreContentType(true)
-                .ignoreHttpErrors(true)
-                .postDataCharset("UTF-8")
-                .followRedirects(true);
-    }
 
     public static final String prefix = "-";
 
@@ -81,7 +64,7 @@ public class Main {
             firestore = FirestoreClient.getFirestore();
         } catch (IOException e) {
             e.printStackTrace();
-            System.exit(0);
+            System.exit(1);
         }
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createLight(dotenv.get("BOT_TOKEN"),
                 Arrays.asList(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS));

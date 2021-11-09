@@ -6,7 +6,6 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,7 +14,7 @@ public class CommandHandler {
     public static final CommandParser parse = new CommandParser();
     public static final HashMap<String, Command> commands = new HashMap<>();
 
-    public static void handleCommand(CommandParser.commandContainer cmd) throws IOException {
+    public static void handleCommand(CommandParser.commandContainer cmd) {
         if (commands.containsKey(cmd.invoke.toLowerCase())) {
             final String[] args = cmd.args;
             final String msgContentRaw = cmd.raw;

@@ -11,14 +11,13 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class SettingsSetNotifications {
 
-    public static void set(Member member, TextChannel textChannel, List<TextChannel> mentionedChannels, List<Member> mentionedMembers, SlashCommandEvent slashCommandEvent) throws IOException {
+    public static void set(Member member, TextChannel textChannel, List<TextChannel> mentionedChannels, List<Member> mentionedMembers, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("settings_title", langCode);
         if (PermissionSystem.hasPermission(member, GroupPermission.DEFINE_NOTIFY_CHANNEL)) {

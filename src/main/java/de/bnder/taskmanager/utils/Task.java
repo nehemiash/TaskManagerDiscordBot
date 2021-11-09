@@ -11,7 +11,6 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import java.awt.*;
 import java.security.SecureRandom;
 import java.util.HashMap;
-import java.io.IOException;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;

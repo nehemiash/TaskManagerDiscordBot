@@ -13,13 +13,12 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
 public class AddPermission {
 
-    public static void addPermission(Member member, TextChannel textChannel, String[] args, List<Member> mentionedMembers, List<Role> mentionedRoles, SlashCommandEvent slashCommandEvent) throws IOException {
+    public static void addPermission(Member member, TextChannel textChannel, String[] args, List<Member> mentionedMembers, List<Role> mentionedRoles, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("permissions_title", langCode);
         if (PermissionSystem.hasPermission(member, PermissionPermission.ADD_PERMISSION)) {

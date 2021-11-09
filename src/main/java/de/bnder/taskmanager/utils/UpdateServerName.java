@@ -19,13 +19,12 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.entities.Guild;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class UpdateServerName {
 
-    public static void update(Guild guild) throws IOException, ExecutionException, InterruptedException {
+    public static void update(Guild guild) throws ExecutionException, InterruptedException {
         DocumentSnapshot a = Main.firestore.collection("server")
                 .document(guild.getId()).get().get();
         if (a.exists()) {

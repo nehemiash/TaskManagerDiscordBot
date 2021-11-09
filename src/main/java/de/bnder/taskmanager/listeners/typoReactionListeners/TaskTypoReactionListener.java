@@ -3,13 +3,10 @@ package de.bnder.taskmanager.listeners.typoReactionListeners;
 import de.bnder.taskmanager.commands.Language;
 import de.bnder.taskmanager.commands.task.*;
 import de.bnder.taskmanager.utils.Localizations;
-import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,13 +30,8 @@ public class TaskTypoReactionListener extends ListenerAdapter {
                                 String[] args = new String[split.size() - 1];
                                 split.subList(1, split.size()).toArray(args);
 
-                                try {
-                                    message.delete().queue();
-                                    processTaskCommand(args, member, command, event.getChannel());
-                                } catch (IOException e) {
-                                    final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
-                                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode, null);
-                                }
+                                message.delete().queue();
+                                processTaskCommand(args, member, command, event.getChannel());
                             } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
                                 try {
                                     message.delete().queue();
@@ -112,7 +104,7 @@ public class TaskTypoReactionListener extends ListenerAdapter {
         return null;
     }
 
-    void processTaskCommand(String[] args, Member member, String commandRaw, TextChannel channel) throws IOException {
+    void processTaskCommand(String[] args, Member member, String commandRaw, TextChannel channel) {
         if (args.length >= 3) {
             if (args[0].equalsIgnoreCase("add")) {
                 AddTask.addTask(commandRaw, member, getMentionedMembers(commandRaw, member.getGuild()), channel, args, null);

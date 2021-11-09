@@ -1,18 +1,13 @@
 package de.bnder.taskmanager.listeners.typoReactionListeners;
 
 import de.bnder.taskmanager.commands.settings.*;
-import de.bnder.taskmanager.utils.Localizations;
-import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
 
 import static de.bnder.taskmanager.listeners.typoReactionListeners.TaskTypoReactionListener.*;
 
@@ -34,13 +29,8 @@ public class SettingsTypoReactionListener extends ListenerAdapter {
                                 String[] args = new String[split.size() - 1];
                                 split.subList(1, split.size()).toArray(args);
 
-                                try {
-                                    message.delete().queue();
-                                    processSettingsCommand(args, member, command, event.getChannel());
-                                } catch (IOException e) {
-                                    final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
-                                    MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getChannel(), Color.red, langCode, null);
-                                }
+                                message.delete().queue();
+                                processSettingsCommand(args, member, command, event.getChannel());
                             } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
                                 try {
                                     message.delete().queue();
@@ -55,7 +45,7 @@ public class SettingsTypoReactionListener extends ListenerAdapter {
         });
     }
 
-    void processSettingsCommand(String[] args, Member member, String commandRaw, TextChannel channel) throws IOException {
+    void processSettingsCommand(String[] args, Member member, String commandRaw, TextChannel channel) {
         final String args0 = args.length > 0 ? args[0].replaceAll("-", "") : null;
         if (args.length == 1) {
             if (args0.equalsIgnoreCase("directmessage")) {
