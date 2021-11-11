@@ -130,6 +130,7 @@ public class Task {
                 put("status", 0);
                 put("text", text);
                 put("deadline", deadline);
+                put("server_id", guild.getId());
             }});
             Stats.updateTasksCreated();
 
@@ -239,7 +240,7 @@ public class Task {
                 }
                 final DocumentSnapshot groupDoc = getGroup.getDocuments().get(0);
                 final String taskID = generateTaskID(guild, boardID);
-                String finalBoardID = boardID;
+                final String finalBoardID = boardID;
                 groupDoc.getReference().collection("group-tasks").document(taskID).set(new HashMap<>() {{
                     put("board_id", finalBoardID);
                     put("deadline", deadline);
@@ -247,6 +248,7 @@ public class Task {
                     put("position", -1);
                     put("status", 0);
                     put("text", text);
+                    put("server_id", guild.getId());
                 }});
                 Stats.updateTasksCreated();
 

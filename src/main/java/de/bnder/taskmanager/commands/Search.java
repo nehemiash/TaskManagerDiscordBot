@@ -1,6 +1,7 @@
 package de.bnder.taskmanager.commands;
 
 import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.FieldPath;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import de.bnder.taskmanager.main.Command;
@@ -48,21 +49,14 @@ public class Search implements Command {
             if (searchTermRaw.length() >= 3) {
                 try {
                     final QuerySnapshot groups = Main.firestore.collection("server").document(guild.getId()).collection("groups").whereEqualTo("name", searchTerm).limit(groupResultLimit).get().get();
-                    final QuerySnapshot boards = Main.firestore.collection("server").document(guild.getId()).collection("boards").get().get();
+                    final QuerySnapshot userTasksQuery = Main.firestore.collectionGroup("user-tasks").whereEqualTo("server_id", guild.getId()).whereEqualTo("text", searchTerm).whereEqualTo(FieldPath.documentId(), searchTerm).limit(taskResultLimit).get().get();
                     final ArrayList<String> taskIDs = new ArrayList<>();
-                    for (QueryDocumentSnapshot board : boards) {
-                        final DocumentSnapshot userTask = board.getReference().collection("user-tasks").document(searchTermRaw).get().get();
-                        if (userTask.exists()) {
-                            taskIDs.add(userTask.getId());
-                        }
-                        for (DocumentSnapshot userTaskDoc : board.getReference().collection("user-tasks").whereEqualTo("user_id", searchTerm).limit(taskResultLimit).get().get()) {
-                            if (!taskIDs.contains(userTaskDoc.getId())) {
-                                taskIDs.add(userTaskDoc.getId());
-                            }
+                    for (final DocumentSnapshot userTaskDoc : userTasksQuery) {
+                        if (!taskIDs.contains(userTaskDoc.getId())) {
+                            taskIDs.add(userTaskDoc.getId());
                         }
                     }
-                    for (QueryDocumentSnapshot group : groups) {
-                        final DocumentSnapshot groupTaskDoc = group.getReference().collection("group-tasks").document(searchTerm).get().get();
+                    for (QueryDocumentSnapshot groupTaskDoc : Main.firestore.collectionGroup("group-tasks").whereEqualTo("server_id", guild.getId()).whereEqualTo("text", searchTerm).whereEqualTo(FieldPath.documentId(), searchTerm).limit(taskResultLimit).get().get()) {
                         if (groupTaskDoc.exists() && !taskIDs.contains(groupTaskDoc.getId())) {
                             taskIDs.add(groupTaskDoc.getId());
                         }
