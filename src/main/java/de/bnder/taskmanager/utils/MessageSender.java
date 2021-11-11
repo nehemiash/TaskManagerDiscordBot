@@ -99,7 +99,7 @@ public class MessageSender {
             if (msg.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
                 msg.getChannel().sendMessageEmbeds(builder.build()).queue();
             } else {
-                //TODO: SEND MESSAGE WITH MISSING PERMISSION
+                msg.getChannel().sendMessage("**" + title + "**\n" + textNow).queue();
             }
         } else {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
@@ -141,7 +141,7 @@ public class MessageSender {
             if (textChannel.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
                 textChannel.sendMessageEmbeds(builder.build()).queue();
             } else {
-                //TODO: SEND MESSAGE WITH MISSING PERMISSION
+                textChannel.sendMessage("**" + title + "**\n" + textNow).queue();
             }
         } else {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).queue();
@@ -163,7 +163,7 @@ public class MessageSender {
             if (textChannel.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
                 textChannel.sendMessageEmbeds(builder.build()).queue();
             } else {
-                //TODO: SEND MESSAGE WITH MISSING PERMISSION
+                textChannel.sendMessage("**" + title + "**\n" + textNow).queue();
             }
         } else {
             slashCommandEvent.reply("**" + title + "**\n" + textNow).addActionRow(actionRows).queue();
