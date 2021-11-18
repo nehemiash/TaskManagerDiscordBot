@@ -26,19 +26,19 @@ public class DeleteTask {
                 final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild()).delete();
                 final int statusCode = task.getStatusCode();
                 if (statusCode == 200) {
-                    MessageSender.send(embedTitle, Localizations.getString("aufgabe_geloescht", langCode, new ArrayList<>() {
+                    MessageSender.send(embedTitle, Localizations.getString("task_deleted", langCode, new ArrayList<>() {
                         {
                             add(taskID);
                         }
                     }), textChannel, Color.green, langCode, slashCommandEvent);
                 } else if (statusCode == 404) {
-                    MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<>() {
+                    MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<>() {
                         {
                             add(taskID);
                         }
                     }), textChannel, Color.red, langCode, slashCommandEvent);
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
+                    MessageSender.send(embedTitle, Localizations.getString("request_unknown_error", langCode, new ArrayList<String>() {
                         {
                             add(statusCode + " " + task.getResponseMessage());
                         }

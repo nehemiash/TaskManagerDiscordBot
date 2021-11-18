@@ -35,7 +35,7 @@ public class GroupNotifications {
                             add(mentionedChannels.get(0).getAsMention());
                         }}), textChannel, Color.green, langCode, slashCommandEvent);
                     } else {
-                        MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
+                        MessageSender.send(embedTitle, Localizations.getString("request_unknown_error", langCode, new ArrayList<String>() {
                             {
                                 add(String.valueOf(res.statusCode()));
                             }

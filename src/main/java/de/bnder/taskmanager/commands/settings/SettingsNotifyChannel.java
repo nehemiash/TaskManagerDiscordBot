@@ -34,7 +34,7 @@ public class SettingsNotifyChannel {
                         }}), textChannel, Color.green, langCode, slashCommandEvent);
                     }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {{
+                    MessageSender.send(embedTitle, Localizations.getString("request_unknown_error", langCode, new ArrayList<String>() {{
                         add("SETTINGS-3-" + res.statusCode());
                     }}), textChannel, Color.red, langCode, slashCommandEvent);
                 }

@@ -34,7 +34,7 @@ public class Prefix implements Command {
                             add(prefix);
                         }}), textChannel, Color.green, langCode, slashCommandEvent);
                     } else {
-                        MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>(){{
+                        MessageSender.send(embedTitle, Localizations.getString("request_unknown_error", langCode, new ArrayList<String>(){{
                             add("PREFIX-" + res.statusCode());
                         }}), textChannel, Color.red, langCode, slashCommandEvent);
                     }

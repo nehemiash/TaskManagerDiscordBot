@@ -39,14 +39,14 @@ public class AddTask {
                             add(taskObject.newLanguageSuggestion());
                         }}) : "";
                         sendTaskMessage(mentionedMember, member, taskObject.getId(), langCode, task);
-                        MessageSender.send(embedTitle + " - " + taskObject.getId(), Localizations.getString("aufgabe_erstellt", langCode, new ArrayList<>() {
+                        MessageSender.send(embedTitle + " - " + taskObject.getId(), Localizations.getString("task_created", langCode, new ArrayList<>() {
                             {
                                 add(mentionedMember.getUser().getName());
                                 add(taskObject.getActiveBoardName());
                             }
                         }) + newLanguageSuggestionAppend, textChannel, Color.green, langCode, slashCommandEvent);
                     } else {
-                        MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, new ArrayList<>() {
+                        MessageSender.send(embedTitle, Localizations.getString("task_created_unknown_error", langCode, new ArrayList<>() {
                             {
                                 add(taskObject.getStatusCode() + " " + taskObject.getResponseMessage());
                             }
@@ -78,33 +78,33 @@ public class AddTask {
                             }
                         }
                         int finalUsersWhoReceivedTheTaskAmount = usersWhoReceivedTheTaskAmount;
-                        MessageSender.send(embedTitle + " - " + taskObject.getId(), Localizations.getString("aufgabe_an_x_mitglieder_gesendet", langCode, new ArrayList<>() {
+                        MessageSender.send(embedTitle + " - " + taskObject.getId(), Localizations.getString("sent_task_to_x_members", langCode, new ArrayList<>() {
                             {
                                 add(String.valueOf(finalUsersWhoReceivedTheTaskAmount));
                             }
                         }), textChannel, Color.green, langCode, slashCommandEvent);
                     } else if (getGroupMembersStatusCode == 404) {
-                        MessageSender.send(embedTitle + " - " + taskObject.getId(), Localizations.getString("aufgabe_an_x_mitglieder_gesendet", langCode, new ArrayList<>() {
+                        MessageSender.send(embedTitle + " - " + taskObject.getId(), Localizations.getString("sent_task_to_x_members", langCode, new ArrayList<>() {
                             {
                                 add("0");
                             }
                         }), textChannel, Color.green, langCode, slashCommandEvent);
                     }
                 } else if (statusCode == 404) {
-                    MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode, new ArrayList<>() {
+                    MessageSender.send(embedTitle, Localizations.getString("no_group_on_server", langCode, new ArrayList<>() {
                         {
                             add(groupName);
                         }
                     }), textChannel, Color.red, langCode, slashCommandEvent);
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellt_unbekannter_fehler", langCode, new ArrayList<>() {
+                    MessageSender.send(embedTitle, Localizations.getString("task_created_unknown_error", langCode, new ArrayList<>() {
                         {
                             add(taskObject.getStatusCode() + " " + taskObject.getResponseMessage());
                         }
                     }), textChannel, Color.red, langCode, slashCommandEvent);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("aufgabe_erstellen_fehlende_argumente", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("task_create_missing_arguments", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else {
             MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
@@ -116,7 +116,7 @@ public class AddTask {
         if (settings.getString("direct_message", "1").equalsIgnoreCase("1")) {
             try {
                 member.getUser().openPrivateChannel().queue(channel -> {
-                    channel.sendMessage(Localizations.getString("aufgabe_erhalten", langCode, new ArrayList<>() {
+                    channel.sendMessage(Localizations.getString("task_received", langCode, new ArrayList<>() {
                         {
                             add(author.getUser().getAsTag());
                             add(task_id);
@@ -134,7 +134,7 @@ public class AddTask {
             final TextChannel channel = author.getGuild().getTextChannelById(settings.getString("notify_channel", ""));
             if (channel != null) {
                 try {
-                    channel.sendMessage(member.getAsMention() + Localizations.getString("aufgabe_erhalten", langCode, new ArrayList<>() {
+                    channel.sendMessage(member.getAsMention() + Localizations.getString("task_received", langCode, new ArrayList<>() {
                         {
                             add(author.getUser().getAsTag());
                             add(task_id);

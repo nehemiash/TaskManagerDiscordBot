@@ -53,7 +53,7 @@ public class GroupMembers {
             } else if (statusCode == 400) {
                 MessageSender.send(embedTitle, Localizations.getString("group_no_members", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
+                MessageSender.send(embedTitle, Localizations.getString("request_unknown_error", langCode, new ArrayList<String>() {
                     {
                         add(String.valueOf(statusCode));
                     }

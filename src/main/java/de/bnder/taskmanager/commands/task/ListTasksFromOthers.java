@@ -53,13 +53,13 @@ public class ListTasksFromOthers {
                 if (deadline.length() > 0) {
                     dLine = deadline + " |";
                 }
-                builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                builder.append("- ").append(task).append(" (" + Localizations.getString("task_status_to_do_keyword", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
             }
             //TASKS NOT STARTED
             if (builder.length() > 0) {
                 if (mentionedMembers.size() > 0) {
                     final Member mentionedMember = mentionedMembers.get(0);
-                    text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<>() {
+                    text = Localizations.getString("all_tasks_by_user", langCode, new ArrayList<>() {
                         {
                             add(mentionedMember.getAsMention());
                             add(boardName);
@@ -68,7 +68,7 @@ public class ListTasksFromOthers {
                     });
                 } else {
                     final String groupName = args[1];
-                    text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<>() {
+                    text = Localizations.getString("all_tasks_by_group", langCode, new ArrayList<>() {
                         {
                             add(groupName);
                             add(boardName);
@@ -91,13 +91,13 @@ public class ListTasksFromOthers {
                 if (deadline.length() > 0) {
                     dLine = deadline + " |";
                 }
-                builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_wird_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                builder.append("- ").append(task).append(" (" + Localizations.getString("task_status_in_progress_keyword", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
             }
             //TASKS IN PROGRESS
             if (builder.length() > 0) {
                 if (mentionedMembers.size() > 0) {
                     final Member mentionedMember = mentionedMembers.get(0);
-                    text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<>() {
+                    text = Localizations.getString("all_tasks_by_user", langCode, new ArrayList<>() {
                         {
                             add(mentionedMember.getAsMention());
                             add(boardName);
@@ -106,7 +106,7 @@ public class ListTasksFromOthers {
                     });
                 } else {
                     final String groupName = args[1];
-                    text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<>() {
+                    text = Localizations.getString("all_tasks_by_group", langCode, new ArrayList<>() {
                         {
                             add(groupName);
                             add(boardName);
@@ -132,13 +132,13 @@ public class ListTasksFromOthers {
                 }
 
                 if (showDoneTasks.equals("1")) {
-                    builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_erledigt", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                    builder.append("- ").append(task).append(" (" + Localizations.getString("task_status_done_keyword", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                 }
             }
             if (showDoneTasks.equals("1") && builder.length() > 0) {
                 if (mentionedMembers.size() > 0) {
                     final Member mentionedMember = mentionedMembers.get(0);
-                    text = Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
+                    text = Localizations.getString("all_tasks_by_user", langCode, new ArrayList<String>() {
                         {
                             add(mentionedMember.getAsMention());
                             add(boardName);
@@ -147,7 +147,7 @@ public class ListTasksFromOthers {
                     });
                 } else {
                     final String groupName = args[1];
-                    text = Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<String>() {
+                    text = Localizations.getString("all_tasks_by_group", langCode, new ArrayList<String>() {
                         {
                             add(groupName);
                             add(boardName);
@@ -158,7 +158,7 @@ public class ListTasksFromOthers {
                 MessageSender.send(embedTitle, text, textChannel, Color.green, langCode, slashCommandEvent);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle, Localizations.getString("no_tasks", langCode), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
 

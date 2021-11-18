@@ -50,7 +50,7 @@ public class SwitchBoard {
                 }
             }), textChannel, Color.red, langCode, slashCommandEvent);
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<>() {
+            MessageSender.send(embedTitle, Localizations.getString("request_unknown_error", langCode, new ArrayList<>() {
                 {
                     add(String.valueOf(statusCode));
                 }

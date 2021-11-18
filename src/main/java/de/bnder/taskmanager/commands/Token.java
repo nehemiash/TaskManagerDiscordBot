@@ -24,19 +24,19 @@ public class Token implements Command {
             try {
                 if (args.length == 1 && args[0].equalsIgnoreCase("new")) {
                     final String token = getNewToken(commandExecutor.getUser());
-                    MessageSender.send(embedTitle, Localizations.getString("token_erhalten", langCode), textChannel, Color.green, langCode, slashCommandEvent);
+                    MessageSender.send(embedTitle, Localizations.getString("token_received", langCode), textChannel, Color.green, langCode, slashCommandEvent);
                     channel.sendMessage(token).queue();
                     channel.sendMessageEmbeds(new EmbedBuilder().setImage("http://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data=" + Base64.getEncoder().encodeToString(("tmb_" + token).getBytes()) + "&qzone=1&margin=0&size=400x400&ecc=L").build()).queue();
                     channel.sendMessage(Localizations.getString("token_info", langCode)).queue();
                 } else {
                     final String token = getToken(commandExecutor.getUser());
-                    MessageSender.send(embedTitle, Localizations.getString("token_erhalten", langCode), textChannel, Color.green, langCode, slashCommandEvent);
+                    MessageSender.send(embedTitle, Localizations.getString("token_received", langCode), textChannel, Color.green, langCode, slashCommandEvent);
                     channel.sendMessage(token).queue();
                     channel.sendMessageEmbeds(new EmbedBuilder().setImage("http://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data=" + Base64.getEncoder().encodeToString(("tmb_" + token).getBytes()) + "&qzone=1&margin=0&size=400x400&ecc=L").build()).queue();
                     channel.sendMessage(Localizations.getString("token_info", langCode)).queue();
                 }
             } catch (Exception e) {
-                MessageSender.send(embedTitle, Localizations.getString("token_konnte_nicht_gesendet_werden", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("token_could_not_be_sent", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
         }, (error) -> {});
     }

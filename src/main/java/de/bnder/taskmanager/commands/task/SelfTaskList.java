@@ -42,12 +42,12 @@ public class SelfTaskList {
                 if (deadline.length() > 0) {
                     dLine = deadline + " |";
                 }
-                builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                builder.append("- ").append(task).append(" (" + Localizations.getString("task_status_to_do_keyword", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
             }
             //TASKS NOT STARTED
             if (builder.length() > 0) {
                 StringBuilder finalBuilder2 = builder;
-                MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
+                MessageSender.send(embedTitle, Localizations.getString("all_tasks_by_user", langCode, new ArrayList<String>() {
                     {
                         add(member.getAsMention());
                         add(boardName);
@@ -68,12 +68,12 @@ public class SelfTaskList {
                 if (deadline.length() > 0) {
                     dLine = deadline + " |";
                 }
-                builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_wird_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                builder.append("- ").append(task).append(" (" + Localizations.getString("task_status_in_progress_keyword", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
             }
             //TASKS IN PROGRESS
             if (builder.length() > 0) {
                 StringBuilder finalBuilder = builder;
-                MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
+                MessageSender.send(embedTitle, Localizations.getString("all_tasks_by_user", langCode, new ArrayList<String>() {
                     {
                         add(member.getAsMention());
                         add(boardName);
@@ -99,12 +99,12 @@ public class SelfTaskList {
                 }
 
                 if (showDoneTasks.equals("1")) {
-                    builder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_erledigt", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                    builder.append("- ").append(task).append(" (" + Localizations.getString("task_status_done_keyword", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                 }
             }
             if (showDoneTasks.equals("1") && builder.length() > 0) {
                 StringBuilder finalBuilder1 = builder;
-                MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_nutzer", langCode, new ArrayList<String>() {
+                MessageSender.send(embedTitle, Localizations.getString("all_tasks_by_user", langCode, new ArrayList<String>() {
                     {
                         add(member.getAsMention());
                         add(boardName);
@@ -113,7 +113,7 @@ public class SelfTaskList {
                 }), textChannel, Color.green, langCode, slashCommandEvent);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle, Localizations.getString("no_tasks", langCode), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
 

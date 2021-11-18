@@ -121,7 +121,7 @@ public class Task {
                         builder.addField(Localizations.getString("task_info_field_type_user", langCode), member.getUser().getAsTag(), true);
                         builder.addField(Localizations.getString("task_info_field_deadline", langCode), (deadline != null) ? deadline : "---", true);
                         builder.addField(Localizations.getString("task_info_field_id", langCode), id, true);
-                        builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
+                        builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("task_status_to_do_keyword", langCode), true);
                         guild.getTextChannelById(channel).sendMessageEmbeds(builder.build()).queue(message -> {
                             try {
                                 Main.tmbAPI("task/user/set-notify-channel-message-id/" + guild.getId() + "/" + this.id, holder, Method.POST).data("notify_channel_message_id", message.getId()).execute();
@@ -168,7 +168,7 @@ public class Task {
                         builder.addField(Localizations.getString("task_info_field_type_group", langCode), holder, true);
                         builder.addField(Localizations.getString("task_info_field_deadline", langCode), (deadline != null) ? deadline : "---", true);
                         builder.addField(Localizations.getString("task_info_field_id", langCode), id, true);
-                        builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
+                        builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("task_status_to_do_keyword", langCode), true);
                         guild.getTextChannelById(channel).sendMessageEmbeds(builder.build()).queue(message -> {
                             try {
                                 Main.tmbAPI("task/group/set-notify-channel-message-id/" + guild.getId() + "/" + this.id, null, Method.POST).data("notify_channel_message_id", message.getId()).execute();
@@ -332,11 +332,11 @@ public class Task {
 
                 //Update in notify channel
                 final Locale langCode = Localizations.getGuildLanguage(guild);
-                String newStatus = Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode);
+                String newStatus = Localizations.getString("task_status_to_do_keyword", langCode);
                 if (status == TaskStatus.IN_PROGRESS)
-                    newStatus = Localizations.getString("aufgaben_status_wird_bearbeitet", langCode);
+                    newStatus = Localizations.getString("task_status_in_progress_keyword", langCode);
                 else if (status == TaskStatus.DONE)
-                    newStatus = Localizations.getString("aufgaben_status_erledigt", langCode);
+                    newStatus = Localizations.getString("task_status_done_keyword", langCode);
                 updateNotifyChannel(this.guild, Localizations.getString("task_info_field_state", langCode), newStatus);
             }
         } catch (Exception exception) {
@@ -366,11 +366,11 @@ public class Task {
 
             //Update in notify channel
             final Locale langCode = Localizations.getGuildLanguage(guild);
-            String newStatus = Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode);
+            String newStatus = Localizations.getString("task_status_to_do_keyword", langCode);
             if (status == TaskStatus.IN_PROGRESS)
-                newStatus = Localizations.getString("aufgaben_status_wird_bearbeitet", langCode);
+                newStatus = Localizations.getString("task_status_in_progress_keyword", langCode);
             else if (status == TaskStatus.DONE)
-                newStatus = Localizations.getString("aufgaben_status_erledigt", langCode);
+                newStatus = Localizations.getString("task_status_done_keyword", langCode);
             updateNotifyChannel(this.guild, Localizations.getString("task_info_field_state", langCode), newStatus);
         }
     }

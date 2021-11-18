@@ -29,7 +29,7 @@ public class RemoveGroupMember {
                         final org.jsoup.Connection.Response res = Main.tmbAPI("group/remove-member/" + member.getGuild().getId(), mentionedMember.getId(), org.jsoup.Connection.Method.PUT).data("group_name", groupName).execute();
                         final int statusCode = res.statusCode();
                         if (statusCode == 200) {
-                            MessageSender.send(embedTitle, Localizations.getString("nutzer_aus_gruppe_entfernt", langCode, new ArrayList<String>() {
+                            MessageSender.send(embedTitle, Localizations.getString("user_removed_from_group", langCode, new ArrayList<String>() {
                                 {
                                     add(mentionedMember.getUser().getName());
                                     add(groupName);
@@ -43,13 +43,13 @@ public class RemoveGroupMember {
                             }), textChannel, Color.red, langCode, slashCommandEvent);
                             return;
                         } else if (statusCode == 400) {
-                            MessageSender.send(embedTitle, Localizations.getString("nutzer_ist_in_keiner_gruppe", langCode, new ArrayList<String>() {
+                            MessageSender.send(embedTitle, Localizations.getString("user_is_in_no_group", langCode, new ArrayList<String>() {
                                 {
                                     add(mentionedMember.getUser().getAsTag());
                                 }
                             }), textChannel, Color.red, langCode, slashCommandEvent);
                         } else {
-                            MessageSender.send(embedTitle, Localizations.getString("nutzer_aus_gruppe_entfernen_unbekannter_fehler", langCode, new ArrayList<String>() {
+                            MessageSender.send(embedTitle, Localizations.getString("user_remove_from_group_unknown_error", langCode, new ArrayList<String>() {
                                 {
                                     add(String.valueOf(statusCode));
                                 }

@@ -29,6 +29,7 @@ public class Language implements Command {
         add(new Locale("ru"));
         add(new Locale("pl"));
         add(new Locale("tr"));
+        add(new Locale("pt"));
     }};
 
     @Override
@@ -45,9 +46,9 @@ public class Language implements Command {
                     final String embedTitle = Localizations.getString("language_message_title", language);
                     if (res.statusCode() == 200) {
                         UpdateGuildSlashCommands.update(guild);
-                        MessageSender.send(embedTitle, Localizations.getString("sprache_geaendert", language), textChannel, Color.green, language, slashCommandEvent);
+                        MessageSender.send(embedTitle, Localizations.getString("language_changed", language), textChannel, Color.green, language, slashCommandEvent);
                     } else {
-                        MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", language), textChannel, Color.red, language, slashCommandEvent);
+                        MessageSender.send(embedTitle, Localizations.getString("request_unknown_error", language), textChannel, Color.red, language, slashCommandEvent);
                     }
                 } else {
                     final Locale langCode = Localizations.getGuildLanguage(guild);
