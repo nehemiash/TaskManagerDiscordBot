@@ -32,7 +32,7 @@ import java.util.Locale;
 
 public class Version implements Command {
 
-    public static String version = "2021.2.3";
+    public static String version = "2021.3.0";
 
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) throws IOException {
