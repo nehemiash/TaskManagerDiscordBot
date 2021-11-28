@@ -25,14 +25,29 @@ public class DateUtil {
 
     private static final List<SimpleDateFormat> dateFormats = new ArrayList<>() {{
         add(new SimpleDateFormat("dd.MM.yyyy HH:mm"));
+        add(new SimpleDateFormat("dd.MM.yy HH:mm"));
         add(new SimpleDateFormat("dd.MM.yyyy HH:mm:ss"));
+        add(new SimpleDateFormat("dd.MM.yy HH:mm:ss"));
         add(new SimpleDateFormat("dd.MM.yyyy"));
+        add(new SimpleDateFormat("dd.MM.yy"));
         add(new SimpleDateFormat("yyyy-MM-dd HH:mm"));
+        add(new SimpleDateFormat("yy-MM-dd HH:mm"));
         add(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+        add(new SimpleDateFormat("yy-MM-dd HH:mm:ss"));
         add(new SimpleDateFormat("yyyy-MM-dd"));
+        add(new SimpleDateFormat("yy-MM-dd"));
         add(new SimpleDateFormat("yyyy/MM/dd"));
+        add(new SimpleDateFormat("yy/MM/dd"));
         add(new SimpleDateFormat("yyyy/MM/dd HH:mm"));
+        add(new SimpleDateFormat("yy/MM/dd HH:mm"));
         add(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"));
+        add(new SimpleDateFormat("yy/MM/dd HH:mm:ss"));
+        add(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss"));
+        add(new SimpleDateFormat("MM/dd/yy HH:mm:ss"));
+        add(new SimpleDateFormat("MM/dd/yyyy HH:mm"));
+        add(new SimpleDateFormat("MM/dd/yy HH:mm"));
+        add(new SimpleDateFormat("MM/dd/yyyy"));
+        add(new SimpleDateFormat("MM/dd/yy"));
     }};
 
     public static Date convertToDate(String input) {
