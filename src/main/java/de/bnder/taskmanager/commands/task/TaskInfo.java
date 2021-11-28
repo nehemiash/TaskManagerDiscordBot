@@ -22,11 +22,11 @@ public class TaskInfo {
         if (task.exists()) {
             final EmbedBuilder builder = new EmbedBuilder().setColor(Color.cyan).setTimestamp(Calendar.getInstance().toInstant());
             if (task.getStatus() == TaskStatus.TODO) {
-                builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
+                builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("task_status_to_do_keyword", langCode), true);
             } else if (task.getStatus() == TaskStatus.IN_PROGRESS) {
-                builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_wird_bearbeitet", langCode), true);
+                builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("task_status_in_progress_keyword", langCode), true);
             } else if (task.getStatus() == TaskStatus.DONE) {
-                builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_erledigt", langCode), true);
+                builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("task_status_done_keyword", langCode), true);
             }
             if (task.getDeadline() != null) {
                 builder.addField(Localizations.getString("task_info_field_deadline", langCode), task.getDeadline(), true);
@@ -44,7 +44,7 @@ public class TaskInfo {
             builder.addField(Localizations.getString("task_info_field_task", langCode), task.getText(), false);
             Stats.handleEmbedsOnSlashCommand(textChannel, slashCommandEvent, builder);
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
+            MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<String>() {
                 {
                     add(taskID);
                 }

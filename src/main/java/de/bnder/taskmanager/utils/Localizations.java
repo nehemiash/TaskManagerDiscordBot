@@ -12,7 +12,14 @@ import java.util.ResourceBundle;
 
 public class Localizations {
 
-    public static String getString(String path, Locale locale) {
+    /**
+     * Get String from resource bundle in specified locale.
+     *
+     * @param path   Key of the text in resource bundle file.
+     * @param locale The locale of the text.
+     * @return The text in specified locale from resource bundle.
+     */
+    public static String getString(final String path, final Locale locale) {
         try {
             final ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
             return bundle.getString(path);
@@ -25,6 +32,14 @@ public class Localizations {
         return path;
     }
 
+    /**
+     * Get String from resource bundle in specified locale.
+     *
+     * @param path   Key of the text in resource bundle file.
+     * @param locale The locale of the text.
+     * @param args   ArrayList of Strings where each element will be placed in text.
+     * @return The text in specified locale from resource bundle.
+     */
     public static String getString(String path, Locale locale, ArrayList<String> args) {
         final ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
         try {
@@ -41,6 +56,12 @@ public class Localizations {
         return path;
     }
 
+    /**
+     * Returns the locale of a guild.
+     *
+     * @param guild The guild where the local is from.
+     * @return The Locale. Default English.
+     */
     public static Locale getGuildLanguage(Guild guild) {
         try {
             Object a = Main.firestore.collection("server").document(guild.getId()).get().get().get("language");

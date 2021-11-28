@@ -28,6 +28,7 @@ public class Language implements Command {
         add(new Locale("ru"));
         add(new Locale("pl"));
         add(new Locale("tr"));
+        add(new Locale("pt"));
     }};
 
     @Override
