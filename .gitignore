@@ -4,8 +4,9 @@ target/
 teammanagerbotSqlPasswort.json
 *.iml
 .env
-serviceAccountKey.json
 .DS_Store
+serviceAccountKey.json
 .gradle/
 gradle/
 settings.gradle
+build/
