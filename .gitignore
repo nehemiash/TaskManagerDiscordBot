@@ -6,3 +6,6 @@ teammanagerbotSqlPasswort.json
 .env
 serviceAccountKey.json
 .DS_Store
+.gradle/
+gradle/
+settings.gradle
