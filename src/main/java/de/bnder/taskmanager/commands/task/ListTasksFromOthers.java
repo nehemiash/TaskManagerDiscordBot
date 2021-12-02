@@ -85,12 +85,12 @@ public class ListTasksFromOthers {
                             if (deadline.length() > 0) {
                                 dLine = deadline + " |";
                             }
-                            todoStringBuilder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                            todoStringBuilder.append("- ").append(task).append(" (" + Localizations.getString("task_status_to_do", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                         }
                         //TASKS NOT STARTED
                         if (todoStringBuilder.length() > 0) {
                             StringBuilder finalBuilder2 = todoStringBuilder;
-                            MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<String>() {
+                            MessageSender.send(embedTitle, Localizations.getString("all_tasks_by_group", langCode, new ArrayList<String>() {
                                 {
                                     add(groupName);
                                     add(boardName);
@@ -110,12 +110,12 @@ public class ListTasksFromOthers {
                             if (deadline.length() > 0) {
                                 dLine = deadline + " |";
                             }
-                            inProgressStringBuilder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_wird_bearbeitet", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                            inProgressStringBuilder.append("- ").append(task).append(" (" + Localizations.getString("task_status_in_progress", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                         }
                         //TASKS IN PROGRESS
                         if (inProgressStringBuilder.length() > 0) {
                             StringBuilder finalBuilder = inProgressStringBuilder;
-                            MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<String>() {
+                            MessageSender.send(embedTitle, Localizations.getString("all_tasks_by_group", langCode, new ArrayList<String>() {
                                 {
                                     add(groupName);
                                     add(boardName);
@@ -139,11 +139,11 @@ public class ListTasksFromOthers {
                                     dLine = deadline + " |";
                                 }
 
-                                doneStringBuilder.append("- ").append(task).append(" (" + Localizations.getString("aufgaben_status_erledigt", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                                doneStringBuilder.append("- ").append(task).append(" (" + Localizations.getString("task_status_done", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                             }
                             if (doneStringBuilder.length() > 0) {
                                 StringBuilder finalBuilder1 = doneStringBuilder;
-                                MessageSender.send(embedTitle, Localizations.getString("alle_aufgaben_von_gruppe", langCode, new ArrayList<String>() {
+                                MessageSender.send(embedTitle, Localizations.getString("all_tasks_by_group", langCode, new ArrayList<String>() {
                                     {
                                         add(groupName);
                                         add(boardName);
@@ -153,7 +153,7 @@ public class ListTasksFromOthers {
                             }
                         }
                     } else {
-                        MessageSender.send(embedTitle, Localizations.getString("keine_aufgaben", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+                        MessageSender.send(embedTitle, Localizations.getString("no_tasks", langCode), textChannel, Color.red, langCode, slashCommandEvent);
                     }
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("group_with_name_doesnt_exist", langCode, new ArrayList<>() {{

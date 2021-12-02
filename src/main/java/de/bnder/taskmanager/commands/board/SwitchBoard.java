@@ -76,7 +76,7 @@ public class SwitchBoard {
             }), textChannel, Color.green, langCode, slashCommandEvent);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-            MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<>() {
+            MessageSender.send(embedTitle, Localizations.getString("request_unknown_error", langCode, new ArrayList<>() {
                 {
                     add("901");
                 }

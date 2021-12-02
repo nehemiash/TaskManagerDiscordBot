@@ -4,7 +4,11 @@
 
 plugins {
     id 'java'
-    id 'maven-publish'
+    id "com.github.johnrengelman.shadow" version "7.1.0"
+}
+
+shadowJar {
+    mergeServiceFiles()
 }
 
 repositories {
@@ -20,6 +24,15 @@ repositories {
     maven {
         url = uri('https://jitpack.io')
     }
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "src/main/resources"
+        }
+    }
 }
 
 dependencies {
@@ -29,17 +42,14 @@ dependencies {
     implementation 'net.dv8tion:JDA:4.4.0_350'
     implementation 'io.github.cdimascio:java-dotenv:5.2.2'
     implementation 'com.google.firebase:firebase-admin:6.13.0'
+    implementation 'io.helidon.grpc:io.grpc:2.4.0'
+    // https://mvnrepository.com/artifact/io.grpc/grpc-grpclb
+    //implementation group: 'io.grpc', name: 'grpc-grpclb', version: '1.42.1'
+    //implementation 'io.grpc:grpc-core:1.9.1'
+
 }
 
 group = 'TaskManagerDiscordBot'
 version = '1.0-SNAPSHOT'
 description = 'TeamManagerDiscordBot'
 java.sourceCompatibility = JavaVersion.VERSION_17
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
-        }
-    }
-}

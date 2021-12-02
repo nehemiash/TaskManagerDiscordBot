@@ -28,21 +28,21 @@ public class SetDeadline {
                 final String newDate = dateFormat.format(DateUtil.convertToDate(date));
                 if (task.exists()) {
                     task.setDeadline(newDate);
-                    MessageSender.send(embedTitle, Localizations.getString("deadline_gesetzt", langCode, new ArrayList<String>() {
+                    MessageSender.send(embedTitle, Localizations.getString("deadline_set", langCode, new ArrayList<String>() {
                         {
                             add(taskID);
                             add(newDate);
                         }
                     }), textChannel, Color.green, langCode, slashCommandEvent);
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
+                    MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<String>() {
                         {
                             add(taskID);
                         }
                     }), textChannel, Color.red, langCode, slashCommandEvent);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("ungueltiges_datum_format", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("invalid_date_format", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else {
             MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);

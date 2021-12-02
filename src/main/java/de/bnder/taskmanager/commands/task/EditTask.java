@@ -23,13 +23,13 @@ public class EditTask {
             final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
             if (task.exists()) {
             task.setText(newTask);
-                MessageSender.send(embedTitle, Localizations.getString("aufgabe_editiert", langCode, new ArrayList<String>() {
+                MessageSender.send(embedTitle, Localizations.getString("task_edited", langCode, new ArrayList<String>() {
                     {
                         add(taskID);
                     }
                 }), textChannel, Color.green, langCode, slashCommandEvent);
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
+                MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<String>() {
                     {
                         add(taskID);
                     }

@@ -157,7 +157,7 @@ public class Task {
                         builder.addField(Localizations.getString("task_info_field_type_user", langCode), member.getUser().getAsTag(), true);
                         builder.addField(Localizations.getString("task_info_field_deadline", langCode), (deadline != null) ? deadline : "---", true);
                         builder.addField(Localizations.getString("task_info_field_id", langCode), id, true);
-                        builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
+                        builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("task_status_to_do", langCode), true);
                         guild.getTextChannelById(channelID).sendMessageEmbeds(builder.build()).queue(message -> {
                             boardDoc.getReference().collection("user-tasks").document(taskID).update(new HashMap<>() {{
                                 put("notify_channel_message_id", message.getId());
@@ -272,7 +272,7 @@ public class Task {
                         builder.addField(Localizations.getString("task_info_field_type_group", langCode), groupName, true);
                         builder.addField(Localizations.getString("task_info_field_deadline", langCode), (deadline != null) ? deadline : "---", true);
                         builder.addField(Localizations.getString("task_info_field_id", langCode), id, true);
-                        builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode), true);
+                        builder.addField(Localizations.getString("task_info_field_state", langCode), Localizations.getString("task_status_to_do", langCode), true);
                         guild.getTextChannelById(channelID).sendMessageEmbeds(builder.build()).queue(message -> {
                             groupDoc.getReference().collection("group-tasks").document(taskID).update(new HashMap<>() {{
                                 put("notify_channel_message_id", message.getId());
@@ -470,11 +470,11 @@ public class Task {
 
             //Update in notify channel
             final Locale langCode = Localizations.getGuildLanguage(guild);
-            String newStatus = Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode);
+            String newStatus = Localizations.getString("task_status_to_do", langCode);
             if (status == TaskStatus.IN_PROGRESS)
-                newStatus = Localizations.getString("aufgaben_status_wird_bearbeitet", langCode);
+                newStatus = Localizations.getString("task_status_in_progress", langCode);
             else if (status == TaskStatus.DONE)
-                newStatus = Localizations.getString("aufgaben_status_erledigt", langCode);
+                newStatus = Localizations.getString("task_status_done", langCode);
             updateNotifyChannelMessage(Localizations.getString("task_info_field_state", langCode), newStatus);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -535,11 +535,11 @@ public class Task {
 
         //Update in notify channel
         final Locale langCode = Localizations.getGuildLanguage(guild);
-        String newStatusString = Localizations.getString("aufgaben_status_nicht_bearbeitet", langCode);
+        String newStatusString = Localizations.getString("task_status_to_do", langCode);
         if (status == TaskStatus.IN_PROGRESS)
-            newStatusString = Localizations.getString("aufgaben_status_wird_bearbeitet", langCode);
+            newStatusString = Localizations.getString("task_status_in_progress", langCode);
         else if (status == TaskStatus.DONE)
-            newStatusString = Localizations.getString("aufgaben_status_erledigt", langCode);
+            newStatusString = Localizations.getString("task_status_done", langCode);
         updateNotifyChannelMessage(Localizations.getString("task_info_field_state", langCode), newStatusString);
     }
 

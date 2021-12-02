@@ -61,7 +61,7 @@ public class RemoveGroupMember {
                     for (QueryDocumentSnapshot groupMemberDoc : groupMembers) {
                         groupMemberDoc.getReference().delete();
                     }
-                    MessageSender.send(embedTitle, Localizations.getString("nutzer_aus_gruppe_entfernt", langCode, new ArrayList<String>() {
+                    MessageSender.send(embedTitle, Localizations.getString("user_removed_from_group", langCode, new ArrayList<String>() {
                         {
                             add(mentionedMember.getUser().getName());
                             add(groupName);
@@ -70,7 +70,7 @@ public class RemoveGroupMember {
                 }
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
-                MessageSender.send(embedTitle, Localizations.getString("nutzer_aus_gruppe_entfernen_unbekannter_fehler", langCode, new ArrayList<String>() {
+                MessageSender.send(embedTitle, Localizations.getString("user_remove_from_group_unknown_error", langCode, new ArrayList<String>() {
                     {
                         add("901");
                     }

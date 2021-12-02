@@ -32,7 +32,7 @@ public class SettingsSetNotifications {
                             add(mentionedChannels.get(0).getAsMention());
                         }}), textChannel, Color.green, langCode, slashCommandEvent);
                     } else {
-                        MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+                        MessageSender.send(embedTitle, Localizations.getString("request_unknown_error", langCode), textChannel, Color.red, langCode, slashCommandEvent);
                     }
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("notify_mention_one_channel", langCode), textChannel, Color.red, langCode, slashCommandEvent);

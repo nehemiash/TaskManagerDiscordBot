@@ -56,7 +56,7 @@ public class GroupNotifications {
             }}), textChannel, Color.green, langCode, slashCommandEvent);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-            MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
+            MessageSender.send(embedTitle, Localizations.getString("request_unknown_error", langCode, new ArrayList<String>() {
                 {
                     add("901");
                 }

@@ -25,7 +25,7 @@ public class GroupList {
             final QuerySnapshot getGroupDocs = Main.firestore.collection("server").document(textChannel.getGuild().getId()).collection("groups").get().get();
 
             if (getGroupDocs.size() == 0) {
-                MessageSender.send(embedTitle, Localizations.getString("keine_gruppen_auf_server", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("no_group_on_server", langCode), textChannel, Color.red, langCode, slashCommandEvent);
                 return;
             }
 
@@ -36,7 +36,7 @@ public class GroupList {
             MessageSender.send(embedTitle, builder.toString(), textChannel, Color.green, langCode, slashCommandEvent);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-            MessageSender.send(embedTitle, Localizations.getString("abfrage_unbekannter_fehler", langCode, new ArrayList<String>() {
+            MessageSender.send(embedTitle, Localizations.getString("request_unknown_error", langCode, new ArrayList<String>() {
                 {
                     add("901");
                 }

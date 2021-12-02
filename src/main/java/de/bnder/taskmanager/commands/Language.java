@@ -46,7 +46,7 @@ public class Language implements Command {
                     }});
                     final String embedTitle = Localizations.getString("language_message_title", language);
                     UpdateGuildSlashCommands.update(guild);
-                    MessageSender.send(embedTitle, Localizations.getString("sprache_geaendert", language), textChannel, Color.green, language, slashCommandEvent);
+                    MessageSender.send(embedTitle, Localizations.getString("language_changed", language), textChannel, Color.green, language, slashCommandEvent);
                 } else {
                     final Locale langCode = Localizations.getGuildLanguage(guild);
                     final String embedTitle = Localizations.getString("language_message_title", langCode);

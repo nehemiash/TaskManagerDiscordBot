@@ -26,13 +26,13 @@ public class DeleteTask {
                 final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
                 if (task.exists()) {
                     task.delete();
-                    MessageSender.send(embedTitle, Localizations.getString("aufgabe_geloescht", langCode, new ArrayList<>() {
+                    MessageSender.send(embedTitle, Localizations.getString("task_deleted", langCode, new ArrayList<>() {
                         {
                             add(taskID);
                         }
                     }), textChannel, Color.green, langCode, slashCommandEvent);
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<>() {
+                    MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<>() {
                         {
                             add(taskID);
                         }

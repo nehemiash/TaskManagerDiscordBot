@@ -22,16 +22,16 @@ public class UndoTask {
         if (task.exists()) {
             final TaskStatus taskStatus = task.getStatus();
             if (taskStatus == TaskStatus.TODO) {
-                MessageSender.send(embedTitle, Localizations.getString("aufgabe_wird_nicht_bearbeitet", langCode), textChannel, Color.green, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("task_status_to_do", langCode), textChannel, Color.green, langCode, slashCommandEvent);
             } else if (taskStatus == TaskStatus.IN_PROGRESS) {
-                MessageSender.send(embedTitle, Localizations.getString("aufgabe_wird_nun_bearbeitet", langCode), textChannel, Color.green, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("task_status_in_progress", langCode), textChannel, Color.green, langCode, slashCommandEvent);
             } else if (taskStatus == TaskStatus.DONE) {
-                MessageSender.send(embedTitle, Localizations.getString("aufgabe_erledigt", langCode), textChannel, Color.green, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("task_status_done", langCode), textChannel, Color.green, langCode, slashCommandEvent);
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("task_abfrage_unbekannter_fehler", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("task_request_unknown_error", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
+            MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<String>() {
                 {
                     add(taskID);
                 }
