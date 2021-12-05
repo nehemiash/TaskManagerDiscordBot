@@ -1,5 +1,6 @@
 package de.bnder.taskmanager.main;
 
+import de.bnder.taskmanager.utils.RegisterUser;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
@@ -41,6 +42,7 @@ public class CommandParser {
                     }
                     if (member != null) {
                         mentionedMembers.add(member);
+                        RegisterUser.register(member.getUser());
                     }
                 } else if (b.startsWith("@&")) {
                     final String roleID = b.substring(2);

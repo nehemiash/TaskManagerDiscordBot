@@ -20,6 +20,7 @@ import de.bnder.taskmanager.main.CommandHandler;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
+import de.bnder.taskmanager.utils.RegisterUser;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
@@ -83,6 +84,7 @@ public class CommandListener extends ListenerAdapter {
                     case USER -> {
                         msg.append("<@!").append(option.getAsUser().getId()).append(">");
                         mentionedMembers.add(option.getAsMember());
+                        RegisterUser.register(option.getAsMember().getUser());
                     }
                     case ROLE -> {
                         msg.append("<@&").append(option.getAsRole().getId()).append(">");
@@ -113,5 +115,6 @@ public class CommandListener extends ListenerAdapter {
             final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
             MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode), event.getMessage(), Color.red, langCode, null);
         }
+        RegisterUser.register(event.getAuthor());
     }
 }

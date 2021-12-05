@@ -26,7 +26,9 @@ repositories {
     }
     mavenCentral()
 }
-
+task processPackageResources(type: Copy) {
+    duplicatesStrategy = 'include'
+}
 sourceSets {
     main {
         resources {
@@ -44,8 +46,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-admin:6.13.0'
     implementation 'io.helidon.grpc:io.grpc:2.4.0'
     // https://mvnrepository.com/artifact/io.grpc/grpc-grpclb
-    //implementation group: 'io.grpc', name: 'grpc-grpclb', version: '1.42.1'
-    //implementation 'io.grpc:grpc-core:1.9.1'
+    implementation group: 'io.grpc', name: 'grpc-grpclb', version: '1.42.1'
+    implementation 'io.grpc:grpc-core:1.9.1'
 
 }
 
