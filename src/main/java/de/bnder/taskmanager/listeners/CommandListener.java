@@ -84,7 +84,7 @@ public class CommandListener extends ListenerAdapter {
                     case USER -> {
                         msg.append("<@!").append(option.getAsUser().getId()).append(">");
                         mentionedMembers.add(option.getAsMember());
-                        RegisterUser.register(option.getAsMember().getUser());
+                        RegisterUser.register(option.getAsMember());
                     }
                     case ROLE -> {
                         msg.append("<@&").append(option.getAsRole().getId()).append(">");
@@ -115,6 +115,6 @@ public class CommandListener extends ListenerAdapter {
             final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
             MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode), event.getMessage(), Color.red, langCode, null);
         }
-        RegisterUser.register(event.getAuthor());
+        RegisterUser.register(event.getMember());
     }
 }

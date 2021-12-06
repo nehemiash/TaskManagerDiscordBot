@@ -42,7 +42,7 @@ public class CommandParser {
                     }
                     if (member != null) {
                         mentionedMembers.add(member);
-                        RegisterUser.register(member.getUser());
+                        RegisterUser.register(member);
                     }
                 } else if (b.startsWith("@&")) {
                     final String roleID = b.substring(2);
