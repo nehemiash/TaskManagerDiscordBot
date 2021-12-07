@@ -67,7 +67,12 @@ public class BoardList {
                 if (isActive) stringBuilder.append(" ✅");
                 stringBuilder.append("\n");
             }
-            MessageSender.send(embedTitle, "- `default` " + (stringBuilder.toString().contains("✅") ? "\n" : "✅\n") + stringBuilder, textChannel, Color.green, langCode, slashCommandEvent);
+
+            if (!stringBuilder.toString().contains("- `default`")) {
+                stringBuilder.append("- `default`\n");
+            }
+
+            MessageSender.send(embedTitle, stringBuilder.toString(), textChannel, Color.green, langCode, slashCommandEvent);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
             MessageSender.send(embedTitle, Localizations.getString("request_unknown_error", langCode, new ArrayList<>() {

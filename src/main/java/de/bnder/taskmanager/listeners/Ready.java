@@ -15,10 +15,10 @@ public class Ready extends ListenerAdapter {
 
     public void onReady(ReadyEvent e) {
         for (Guild g : e.getJDA().getGuilds()) {
-            /*try {
+            try {
                 UpdateServerName.update(g);
                 UpdateGuildSlashCommands.update(g);
-            } catch (ExecutionException | InterruptedException ignored) {}*/
+            } catch (ExecutionException | InterruptedException ignored) {}
         }
         DeadlineReminders.start(e.getJDA().getShardManager());
         UpdateBotLists.updateBotLists(e.getJDA().getGuilds().size(), e.getJDA().getSelfUser().getId());

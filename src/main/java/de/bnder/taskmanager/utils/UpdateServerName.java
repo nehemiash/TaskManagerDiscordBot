@@ -25,16 +25,17 @@ import java.util.concurrent.ExecutionException;
 public class UpdateServerName {
 
     public static void update(Guild guild) throws ExecutionException, InterruptedException {
-        DocumentSnapshot a = Main.firestore.collection("server")
+        final DocumentSnapshot serverDoc = Main.firestore.collection("server")
                 .document(guild.getId()).get().get();
-        if (a.exists()) {
-            a.getReference().update("name", guild.getName());
+        if (serverDoc.exists() && serverDoc.getString("name").equals(guild.getName())) {
+                serverDoc.getReference().update("name", guild.getName());
         } else {
             Map<String, Object> map = new java.util.HashMap<>();
             map.put("name", guild.getName());
             map.put("language", "en");
             map.put("owner", guild.retrieveOwner().complete().getId());
-            a.getReference().set(map);
+            map.put("guild_id", guild.getId());
+            serverDoc.getReference().set(map);
         }
 
     }

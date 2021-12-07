@@ -99,7 +99,7 @@ public class CommandListener extends ListenerAdapter {
 
 
             CommandHandler.handleCommand(CommandHandler.parse.parseSlashCommand(msg.toString(), event.getMember(), event.getTextChannel(), event.getGuild(), mentionedMembers, mentionedRoles, mentionedChannels, event));
-
+            RegisterUser.register(event.getMember());
         }
     }
 
