@@ -69,8 +69,6 @@ public class Main {
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createLight(dotenv.get("BOT_TOKEN"),
                 Arrays.asList(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS));
 
-        builder.setEnabledIntents(Arrays.asList(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS));
-
         // Disable Caches for better memory usage
         builder.disableCache(CacheFlag.VOICE_STATE, CacheFlag.EMOTE, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ROLE_TAGS, CacheFlag.MEMBER_OVERRIDES, CacheFlag.ONLINE_STATUS);
 
@@ -82,6 +80,7 @@ public class Main {
         builder.addEventListeners(new CommandListener());
         builder.addEventListeners(new Ready());
         builder.addEventListeners(new ServerNameUpdate());
+        builder.addEventListeners(new ServerIconUpdate());
         builder.addEventListeners(new GuildJoin());
         builder.addEventListeners(new GuildLeave());
         builder.addEventListeners(new TaskTypoReactionListener());

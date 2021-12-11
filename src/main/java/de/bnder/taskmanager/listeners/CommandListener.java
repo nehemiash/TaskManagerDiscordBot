@@ -26,7 +26,7 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 
@@ -38,8 +38,9 @@ import java.util.Objects;
 
 public class CommandListener extends ListenerAdapter {
 
-    public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-        if (!event.getAuthor().isBot()) {
+    @Override
+    public void onMessageReceived(MessageReceivedEvent event) {
+        if (!event.getAuthor().isBot() && event.isFromGuild()) {
             if (event.getMessage().getContentRaw().length() > 0) {
                 if (CommandHandler.commands.containsKey(event.getMessage().getContentRaw().split(" ")[0].substring(1).toLowerCase())) {
                     try {
@@ -103,13 +104,13 @@ public class CommandListener extends ListenerAdapter {
         }
     }
 
-    private void processNormalCommand(GuildMessageReceivedEvent event) {
+    private void processNormalCommand(MessageReceivedEvent event) {
         try {
             String msg = event.getMessage().getContentRaw();
             while (msg.contains("  ")) {
                 msg = msg.replace("  ", " ");
             }
-            CommandHandler.handleCommand(CommandHandler.parse.parseNormalCommand(msg, event.getMember(), event.getChannel(), event.getGuild(), event.getMessage().getMentionedMembers(), event.getMessage().getMentionedRoles(), event.getMessage().getMentionedChannels()));
+            CommandHandler.handleCommand(CommandHandler.parse.parseNormalCommand(msg, event.getMember(), event.getTextChannel(), event.getGuild(), event.getMessage().getMentionedMembers(), event.getMessage().getMentionedRoles(), event.getMessage().getMentionedChannels()));
         } catch (Exception e) {
             e.printStackTrace();
             final Locale langCode = Localizations.getGuildLanguage(event.getGuild());

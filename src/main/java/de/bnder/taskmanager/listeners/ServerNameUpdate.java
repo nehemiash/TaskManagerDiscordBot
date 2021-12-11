@@ -15,7 +15,7 @@ package de.bnder.taskmanager.listeners;
  * limitations under the License.
  */
 
-import de.bnder.taskmanager.utils.UpdateServerName;
+import de.bnder.taskmanager.utils.UpdateServer;
 import net.dv8tion.jda.api.events.guild.update.GuildUpdateNameEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -23,10 +23,12 @@ import java.util.concurrent.ExecutionException;
 
 public class ServerNameUpdate extends ListenerAdapter {
 
-    public void onGuildUpdateName(GuildUpdateNameEvent e) {
+    @Override
+    public void onGuildUpdateName(GuildUpdateNameEvent event) {
         try {
-            UpdateServerName.update(e.getGuild());
-        } catch (ExecutionException | InterruptedException ignored) {}
+            UpdateServer.update(event.getGuild());
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
-
 }

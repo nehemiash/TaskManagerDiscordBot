@@ -22,22 +22,26 @@ import net.dv8tion.jda.api.entities.Guild;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class UpdateServerName {
+public class UpdateServer {
 
     public static void update(Guild guild) throws ExecutionException, InterruptedException {
         final DocumentSnapshot serverDoc = Main.firestore.collection("server")
                 .document(guild.getId()).get().get();
-        if (serverDoc.exists() && serverDoc.getString("name").equals(guild.getName())) {
+        if (serverDoc.exists()) {
+            if (!serverDoc.contains("name") || serverDoc.get("name") == null || !serverDoc.getString("name").equals(guild.getName())) {
                 serverDoc.getReference().update("name", guild.getName());
+            }
+            if (!serverDoc.contains("icon_url") || (serverDoc.get("icon_url") == null && guild.getIconUrl() != null) || (serverDoc.get("icon_url") != null && !serverDoc.getString("icon_url").equals(guild.getIconUrl()))) {
+                serverDoc.getReference().update("icon_url", guild.getIconUrl());
+            }
         } else {
             Map<String, Object> map = new java.util.HashMap<>();
             map.put("name", guild.getName());
             map.put("language", "en");
             map.put("owner", guild.retrieveOwner().complete().getId());
             map.put("guild_id", guild.getId());
+            map.put("icon_url", guild.getIconUrl());
             serverDoc.getReference().set(map);
         }
-
     }
-
 }

@@ -17,30 +17,30 @@ package de.bnder.taskmanager.listeners;
 
 import de.bnder.taskmanager.botlists.UpdateBotLists;
 import de.bnder.taskmanager.slashcommands.UpdateGuildSlashCommands;
-import de.bnder.taskmanager.utils.UpdateServerName;
+import de.bnder.taskmanager.utils.UpdateServer;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
-import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.concurrent.ExecutionException;
 
 public class GuildJoin extends ListenerAdapter {
 
-    public void onGuildJoin(GuildJoinEvent e) {
+    @Override
+    public void onGuildJoin(@NotNull GuildJoinEvent event) {
         try {
-            UpdateServerName.update(e.getGuild());
+            UpdateServer.update(event.getGuild());
         } catch (ExecutionException | InterruptedException ex) {
             ex.printStackTrace();
         }
         final String intro = "Thanks for using this bot. The default language is english but you can change the language with the command `-language`.";
         final String msg = "Type `-help` for a complete list of all commands.";
         try {
-            e.getGuild().getDefaultChannel().sendMessage(intro + "\n" + msg).queue();
+            event.getGuild().getDefaultChannel().sendMessage(intro + "\n" + msg).queue();
         } catch (InsufficientPermissionException | NullPointerException ex) {
-            for (TextChannel tc : e.getGuild().getTextChannels()) {
+            for (TextChannel tc : event.getGuild().getTextChannels()) {
                 try {
                     tc.sendMessage(intro + "\n" + msg).queue();
                     break;
@@ -48,8 +48,8 @@ public class GuildJoin extends ListenerAdapter {
                 }
             }
         }
-        UpdateBotLists.updateBotLists(e.getJDA().getGuilds().size(), e.getJDA().getSelfUser().getId());
-        UpdateGuildSlashCommands.update(e.getGuild());
+        UpdateBotLists.updateBotLists(event.getJDA().getGuilds().size(), event.getJDA().getSelfUser().getId());
+        UpdateGuildSlashCommands.update(event.getGuild());
     }
 
 }

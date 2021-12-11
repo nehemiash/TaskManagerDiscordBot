@@ -4,7 +4,7 @@ import de.bnder.taskmanager.commands.Language;
 import de.bnder.taskmanager.commands.task.*;
 import de.bnder.taskmanager.utils.Localizations;
 import net.dv8tion.jda.api.entities.*;
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.ArrayList;
@@ -15,35 +15,36 @@ import java.util.Locale;
 public class TaskTypoReactionListener extends ListenerAdapter {
 
     @Override
-    public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
-        event.retrieveMember().queue(member -> {
-            if (!member.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
-                event.retrieveMessage().queue(message -> {
-                    if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                        if (isRightMessage(message, "task", member)) {
-                            if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
-                                final String command = getCommand(message, "task", member);
+    public void onMessageReactionAdd(MessageReactionAddEvent event) {
+        if (event.isFromGuild())
+            event.retrieveMember().queue(member -> {
+                if (!member.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
+                    event.retrieveMessage().queue(message -> {
+                        if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
+                            if (isRightMessage(message, "task", member)) {
+                                if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
+                                    final String command = getCommand(message, "task", member);
 
-                                String beheaded = command.substring(1);
-                                String[] splitBeheaded = beheaded.split(" ");
-                                ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
-                                String[] args = new String[split.size() - 1];
-                                split.subList(1, split.size()).toArray(args);
+                                    String beheaded = command.substring(1);
+                                    String[] splitBeheaded = beheaded.split(" ");
+                                    ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
+                                    String[] args = new String[split.size() - 1];
+                                    split.subList(1, split.size()).toArray(args);
 
-                                message.delete().queue();
-                                processTaskCommand(args, member, command, event.getChannel());
-                            } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                                try {
                                     message.delete().queue();
-                                } catch (Exception ignored) {
+                                    processTaskCommand(args, member, command, event.getTextChannel());
+                                } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
+                                    try {
+                                        message.delete().queue();
+                                    } catch (Exception ignored) {
+                                    }
                                 }
                             }
                         }
-                    }
-                }, (error) -> {
-                });
-            }
-        });
+                    }, (error) -> {
+                    });
+                }
+            });
     }
 
     public static boolean isRightMessage(Message message, String commandKeyword, Member member) {

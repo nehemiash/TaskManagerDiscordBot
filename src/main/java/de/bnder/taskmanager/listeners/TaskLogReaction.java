@@ -20,7 +20,7 @@ import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.Task;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.List;
@@ -29,47 +29,49 @@ import java.util.Locale;
 public class TaskLogReaction extends ListenerAdapter {
 
     @Override
-    public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
-        if (!event.getMember().getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
-            event.retrieveMessage().queue(message -> {
-                if (event.getReaction().getReactionEmote().getAsReactionCode().equals("⏭️") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                    if (isRightMessage(message)) {
-                        final String userName = message.getEmbeds().get(0).getFields().get(1).getValue();
-                        if (userName.equals(event.getMember().getUser().getAsTag())) {
-                            event.retrieveUser().queue(user -> {
-                                event.getReaction().removeReaction(user).queue();
-                                final String taskID = message.getEmbeds().get(0).getFields().get(3).getValue();
-                                final Task task = new Task(taskID, event.getGuild());
-                                if (event.getReaction().getReactionEmote().getAsReactionCode().equals("⏭️")) {
-                                    task.proceed();
-                                } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("↩️")) {
-                                    task.undo();
-                                }
-                            });
+    public void onMessageReactionAdd(MessageReactionAddEvent event) {
+        if (event.isFromGuild())
+            if (!event.getMember().getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
+                event.retrieveMessage().queue(message -> {
+                    if (event.getReaction().getReactionEmote().getAsReactionCode().equals("⏭️") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
+                        if (isRightMessage(message)) {
+                            final String userName = message.getEmbeds().get(0).getFields().get(1).getValue();
+                            if (userName.equals(event.getMember().getUser().getAsTag())) {
+                                event.retrieveUser().queue(user -> {
+                                    event.getReaction().removeReaction(user).queue();
+                                    final String taskID = message.getEmbeds().get(0).getFields().get(3).getValue();
+                                    final Task task = new Task(taskID, event.getGuild());
+                                    if (event.getReaction().getReactionEmote().getAsReactionCode().equals("⏭️")) {
+                                        task.proceed();
+                                    } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("↩️")) {
+                                        task.undo();
+                                    }
+                                });
+                            }
                         }
                     }
-                }
-            }, (error) -> {
-            });
-        }
+                }, (error) -> {
+                });
+            }
     }
 
     boolean isRightMessage(Message message) {
-        if (message.getAuthor().getId().equals(message.getJDA().getSelfUser().getId())) {
-            if (message.getEmbeds().size() == 1) {
-                final MessageEmbed embed = message.getEmbeds().get(0);
-                final List<MessageEmbed.Field> fields = embed.getFields();
-                for (final Locale langCode : Language.validLangCodes) {
-                    if (fields.get(0).getName().equals(Localizations.getString("task_info_field_task", langCode))) {
-                        if (fields.get(1).getName().equals(Localizations.getString("task_info_field_type_group", langCode))) {
-                            return true;
-                        } else if (fields.get(1).getName().equals(Localizations.getString("task_info_field_type_user", langCode))) {
-                            return true;
+        if (message.isFromGuild())
+            if (message.getAuthor().getId().equals(message.getJDA().getSelfUser().getId())) {
+                if (message.getEmbeds().size() == 1) {
+                    final MessageEmbed embed = message.getEmbeds().get(0);
+                    final List<MessageEmbed.Field> fields = embed.getFields();
+                    for (final Locale langCode : Language.validLangCodes) {
+                        if (fields.get(0).getName().equals(Localizations.getString("task_info_field_task", langCode))) {
+                            if (fields.get(1).getName().equals(Localizations.getString("task_info_field_type_group", langCode))) {
+                                return true;
+                            } else if (fields.get(1).getName().equals(Localizations.getString("task_info_field_type_user", langCode))) {
+                                return true;
+                            }
                         }
                     }
                 }
             }
-        }
         return false;
     }
 

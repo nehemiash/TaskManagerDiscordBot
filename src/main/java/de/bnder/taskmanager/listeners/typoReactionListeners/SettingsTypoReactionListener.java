@@ -3,7 +3,7 @@ package de.bnder.taskmanager.listeners.typoReactionListeners;
 import de.bnder.taskmanager.commands.settings.*;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.ArrayList;
@@ -14,7 +14,8 @@ import static de.bnder.taskmanager.listeners.typoReactionListeners.TaskTypoReact
 public class SettingsTypoReactionListener extends ListenerAdapter {
 
     @Override
-    public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
+    public void onMessageReactionAdd(MessageReactionAddEvent event) {
+        if (event.isFromGuild())
         event.retrieveMember().queue(member -> {
             if (!member.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
                 event.retrieveMessage().queue(message -> {
@@ -30,7 +31,7 @@ public class SettingsTypoReactionListener extends ListenerAdapter {
                                 split.subList(1, split.size()).toArray(args);
 
                                 message.delete().queue();
-                                processSettingsCommand(args, member, command, event.getChannel());
+                                processSettingsCommand(args, member, command, event.getTextChannel());
                             } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
                                 try {
                                     message.delete().queue();
