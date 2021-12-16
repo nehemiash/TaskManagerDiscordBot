@@ -1,8 +1,9 @@
 package de.bnder.taskmanager.utils;
 
-import com.eclipsesource.json.Json;
 import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.entities.Guild;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -11,6 +12,8 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class Localizations {
+
+    private static final Logger logger = LogManager.getLogger(Localizations.class);
 
     /**
      * Get String from resource bundle in specified locale.
@@ -69,7 +72,7 @@ public class Localizations {
                 return new Locale(a.toString());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return Locale.ENGLISH;
     }

@@ -24,6 +24,8 @@ import de.bnder.taskmanager.utils.permissions.BoardPermission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class DeleteBoard {
+
+    private static final Logger logger = LogManager.getLogger(DeleteBoard.class);
 
     public static void deleteBoard(Member member, TextChannel textChannel, String boardName, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
@@ -61,7 +65,7 @@ public class DeleteBoard {
             }), textChannel, Color.green, langCode, slashCommandEvent);
             UpdateGuildSlashCommands.update(member.getGuild());
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
             MessageSender.send(embedTitle, Localizations.getString("board_delete_unknown_error", langCode, new ArrayList<>() {
                 {
                     add(boardName);

@@ -13,6 +13,8 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.io.UnsupportedEncodingException;
@@ -24,6 +26,8 @@ import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class AddTask {
+
+    private static final Logger logger = LogManager.getLogger(AddTask.class);
 
     public static void addTask(String commandMessage, Member member, List<Member> mentionedMembers, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
@@ -80,7 +84,7 @@ public class AddTask {
                         }
                     }), textChannel, Color.green, langCode, slashCommandEvent);
                 } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
+                    logger.error(e);
                 }
             } else {
                 MessageSender.send(embedTitle, Localizations.getString("no_group_on_server", langCode, new ArrayList<>() {
@@ -108,7 +112,7 @@ public class AddTask {
                     try {
                         channel.sendMessage(URLDecoder.decode(task, StandardCharsets.UTF_8.toString())).queue();
                     } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                        logger.error(e);
                     }
                 });
             } catch (Exception ignored) {

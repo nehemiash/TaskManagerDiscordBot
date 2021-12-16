@@ -1,6 +1,8 @@
 package de.bnder.taskmanager.botlists;
 
 import de.bnder.taskmanager.main.Main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
@@ -8,11 +10,13 @@ import java.io.IOException;
 
 public class DiscordBotsGG {
 
+    private static final Logger logger = LogManager.getLogger(DiscordBotsGG.class);
+
     private static final String baseURL = "https://discord.bots.gg/api/v1";
     private static final String apiKey = Main.dotenv.get("DISCORD.BOTS.GG_API_KEY") != null ? Main.dotenv.get("DISCORD.BOTS.GG_API_KEY") : System.getenv("DISCORD.BOTS.GG_API_KEY");
 
     public static void sendServerCount(long serverCount, String botID) throws IOException {
-        System.out.println("Updating Servers on " + baseURL);
+        logger.info("Updating Servers on " + baseURL);
         final Connection.Response response = Jsoup.connect(baseURL + "/bots/" + botID + "/stats")
                 .header("Authorization", apiKey)
                 .data("guildCount", String.valueOf(serverCount))
@@ -21,9 +25,9 @@ public class DiscordBotsGG {
                 .ignoreHttpErrors(true)
                 .execute();
         if (response.statusCode() == 200){
-            System.out.println("Success!");
+            logger.info("Success!");
         } else {
-            System.out.println("Failed! (" + response.statusCode() + ")");
+            logger.warn("Failed! (" + response.statusCode() + ")");
         }
     }
 

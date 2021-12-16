@@ -77,7 +77,7 @@ public class BoardController implements Command {
                         correctedMessage.append(args[i]).append(" ");
                     }
 
-                    final String correctedMessageString = correctedMessage.substring(0, correctedMessage.length());
+                    final String correctedMessageString = correctedMessage.substring(0, correctedMessage.length() - 1);
                     possibleCommands.append(correctedMessageString);
                     break;
                 }

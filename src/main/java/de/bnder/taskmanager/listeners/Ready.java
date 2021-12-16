@@ -8,10 +8,14 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.concurrent.ExecutionException;
 
 public class Ready extends ListenerAdapter {
+
+    private static final Logger logger = LogManager.getLogger(Ready.class);
 
     @Override
     public void onReady(ReadyEvent event) {
@@ -24,6 +28,6 @@ public class Ready extends ListenerAdapter {
         DeadlineReminders.start(event.getJDA().getShardManager());
         UpdateBotLists.updateBotLists(event.getJDA().getGuilds().size(), event.getJDA().getSelfUser().getId());
         event.getJDA().getPresence().setStatus(OnlineStatus.ONLINE);
-        System.out.println("\n \n##############################\n \nBot started!\n \n##############################");
+        logger.info("Bot started!");
     }
 }

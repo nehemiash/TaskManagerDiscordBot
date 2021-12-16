@@ -9,6 +9,8 @@ import de.bnder.taskmanager.utils.permissions.GroupPermission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class CreateGroup {
+
+    private static final Logger logger = LogManager.getLogger(CreateGroup.class);
 
     public static void createGroup(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
@@ -53,7 +57,7 @@ public class CreateGroup {
                 return true;
             }
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
 
         return false;

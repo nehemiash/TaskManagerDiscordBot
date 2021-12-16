@@ -25,6 +25,8 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -33,6 +35,8 @@ import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class SwitchBoard {
+
+    private static final Logger logger = LogManager.getLogger(SwitchBoard.class);
 
     public static void switchBoard(String boardName, Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) {
         final Guild guild = textChannel.getGuild();
@@ -75,7 +79,7 @@ public class SwitchBoard {
                 }
             }), textChannel, Color.green, langCode, slashCommandEvent);
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
             MessageSender.send(embedTitle, Localizations.getString("request_unknown_error", langCode, new ArrayList<>() {
                 {
                     add("901");

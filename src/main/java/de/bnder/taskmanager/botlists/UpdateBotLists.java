@@ -2,11 +2,15 @@ package de.bnder.taskmanager.botlists;
 
 import com.google.cloud.firestore.DocumentSnapshot;
 import de.bnder.taskmanager.main.Main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 public class UpdateBotLists {
+
+    private static final Logger logger = LogManager.getLogger(UpdateBotLists.class);
 
     public static void updateBotLists(int servers, String botID) {
         // Start new thread, so the main JDA isn't interrupted
@@ -23,9 +27,9 @@ public class UpdateBotLists {
                 DiscordBOATS.sendServerCount(serverCount, botID);
                 VoidbotsNET.sendServerCount(serverCount, botID);
                 InfinitybotlistCOM.sendServerCount(serverCount, botID);
-                System.out.println("Updating lists finished");
+                logger.info("Updating lists finished");
             } catch (Exception ignored) {
-                System.out.println("Updating lists failed.");
+                logger.warn("Updating lists failed.");
             }
             //Stop Thread
             Thread.currentThread().interrupt();

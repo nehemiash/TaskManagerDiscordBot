@@ -9,12 +9,16 @@ import de.bnder.taskmanager.utils.permissions.TaskPermission;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class PermissionSystem {
+
+    private static final Logger logger = LogManager.getLogger(PermissionSystem.class);
 
     //Permission checking
     public static boolean hasPermission(Member member, TaskPermission taskPermission) {
@@ -141,7 +145,7 @@ public class PermissionSystem {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error(e);
             }
         }
         return false;
@@ -164,7 +168,7 @@ public class PermissionSystem {
                     }
                 }
             } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
         }
         return false;
@@ -196,7 +200,7 @@ public class PermissionSystem {
             }
             return 200;
         } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return 901;
     }
@@ -226,7 +230,7 @@ public class PermissionSystem {
             }
             return 200;
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return 901;
     }
@@ -249,7 +253,7 @@ public class PermissionSystem {
             }
             return 200;
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return 901;
     }
@@ -272,7 +276,7 @@ public class PermissionSystem {
             }
             return 200;
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return 901;
     }

@@ -10,6 +10,8 @@ import de.bnder.taskmanager.utils.permissions.GroupPermission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.Locale;
 
 public class GroupNotifications {
+
+    private static final Logger logger = LogManager.getLogger(GroupNotifications.class);
 
     public static void setGroupNotifications(Member member, TextChannel textChannel, String[] args, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
@@ -55,7 +59,7 @@ public class GroupNotifications {
                 add(mentionedChannels.get(0).getAsMention());
             }}), textChannel, Color.green, langCode, slashCommandEvent);
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
             MessageSender.send(embedTitle, Localizations.getString("request_unknown_error", langCode, new ArrayList<String>() {
                 {
                     add("901");

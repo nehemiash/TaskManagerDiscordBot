@@ -13,6 +13,8 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class Search implements Command {
+
+    private static final Logger logger = LogManager.getLogger(Search.class);
 
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) {
@@ -142,7 +146,7 @@ public class Search implements Command {
                         }}), textChannel, Color.red, langCode, slashCommandEvent);
                     }
                 } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
+                    logger.error(e);
                 }
             }
         }

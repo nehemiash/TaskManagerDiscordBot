@@ -18,17 +18,21 @@ package de.bnder.taskmanager.listeners;
 import de.bnder.taskmanager.utils.UpdateServer;
 import net.dv8tion.jda.api.events.guild.update.GuildUpdateNameEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.concurrent.ExecutionException;
 
 public class ServerNameUpdate extends ListenerAdapter {
+
+    private static final Logger logger = LogManager.getLogger(ServerNameUpdate.class);
 
     @Override
     public void onGuildUpdateName(GuildUpdateNameEvent event) {
         try {
             UpdateServer.update(event.getGuild());
         } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 }

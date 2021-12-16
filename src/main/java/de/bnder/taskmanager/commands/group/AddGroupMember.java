@@ -11,6 +11,8 @@ import de.bnder.taskmanager.utils.permissions.GroupPermission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,6 +22,8 @@ import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class AddGroupMember {
+
+    private static final Logger logger = LogManager.getLogger(AddGroupMember.class);
 
     public static void addGroupMember(Member member, TextChannel textChannel, String[] args, List<Member> mentionedMembers, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
@@ -74,7 +78,7 @@ public class AddGroupMember {
                     MessageSender.send(embedTitle, Localizations.getString("user_already_in_group", langCode), textChannel, Color.red, langCode, slashCommandEvent);
                 }
             } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
+                logger.error(e);
                 MessageSender.send(embedTitle, Localizations.getString("user_added_to_group_unknown_error", langCode, new ArrayList<String>() {
                     {
                         add("901");

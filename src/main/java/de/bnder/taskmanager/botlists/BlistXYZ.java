@@ -1,6 +1,8 @@
 package de.bnder.taskmanager.botlists;
 
 import de.bnder.taskmanager.main.Main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
@@ -11,8 +13,10 @@ public class BlistXYZ {
     private static final String baseURL = "https://blist.xyz/api/v2";
     private static final String apiKey = Main.dotenv.get("BLIST.XYZ_API_KEY") != null ? Main.dotenv.get("BLIST.XYZ_API_KEY") : System.getenv("BLIST.XYZ_API_KEY");
 
+    private static final Logger logger = LogManager.getLogger(BlistXYZ.class);
+
     public static void sendServerCount(long serverCount, String botID) throws IOException {
-        System.out.println("Updating Servers on " + baseURL);
+        logger.info("Updating Servers on " + baseURL);
         final Connection.Response response = Jsoup.connect(baseURL + "/bot/"+ botID + "/stats")
                 .header("Authorization", apiKey)
                 .data("server_count", String.valueOf(serverCount))
@@ -21,9 +25,9 @@ public class BlistXYZ {
                 .ignoreHttpErrors(true)
                 .execute();
         if (response.statusCode() == 200){
-            System.out.println("Success!");
+            logger.info("Success!");
         } else {
-            System.out.println("Failed! (" + response.statusCode() + ")");
+            logger.warn("Failed! (" + response.statusCode() + ")");
         }
     }
 

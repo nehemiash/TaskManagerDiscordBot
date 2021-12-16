@@ -7,6 +7,8 @@ import de.bnder.taskmanager.utils.Localizations;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.util.Date;
@@ -14,6 +16,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.Locale;
 
 public class Stats implements Command {
+
+    private static final Logger logger = LogManager.getLogger(Stats.class);
 
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, java.util.List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) {
@@ -57,7 +61,7 @@ public class Stats implements Command {
                 builder.addField(Localizations.getString("stats_field_ping_discord", langCode), ping + "ms", true);
                 builder.addField(Localizations.getString("stats_field_ping_bnder", langCode), (apiRequestDateEnd.getTime() - apiRequestDateStart.getTime()) + "ms", true);
             } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
             builder.setColor(Color.green);
             builder.setTitle(Localizations.getString("stats_message_title", langCode));

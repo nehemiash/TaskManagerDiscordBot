@@ -19,18 +19,21 @@ import de.bnder.taskmanager.botlists.UpdateBotLists;
 import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 public class GuildLeave extends ListenerAdapter {
+
+    private static final Logger logger = LogManager.getLogger(GuildLeave.class);
 
     @Override
     public void onGuildLeave(@NotNull GuildLeaveEvent event) {
         try {
             Main.firestore.collection("server").document(event.getGuild().getId()).delete();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         UpdateBotLists.updateBotLists(event.getJDA().getGuilds().size(), event.getJDA().getSelfUser().getId());
     }
-
 }

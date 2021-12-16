@@ -18,11 +18,15 @@ package de.bnder.taskmanager.utils;
 import com.google.cloud.firestore.DocumentSnapshot;
 import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.entities.Member;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 public class UserSettings {
+
+    private static final Logger logger = LogManager.getLogger(UserSettings.class);
 
     private String notifyChannelID = null;
     private boolean directMessage = true;
@@ -50,7 +54,7 @@ public class UserSettings {
                 }});
             }
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 

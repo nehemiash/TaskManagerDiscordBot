@@ -29,6 +29,8 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -37,6 +39,8 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class CommandListener extends ListenerAdapter {
+
+    private static final Logger logger = LogManager.getLogger(CommandListener.class);
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
@@ -54,7 +58,7 @@ public class CommandListener extends ListenerAdapter {
                             processNormalCommand(event);
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        logger.error(e);
                         final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
                         MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getMessage(), Color.red, langCode, null);
                     }
@@ -112,7 +116,7 @@ public class CommandListener extends ListenerAdapter {
             }
             CommandHandler.handleCommand(CommandHandler.parse.parseNormalCommand(msg, event.getMember(), event.getTextChannel(), event.getGuild(), event.getMessage().getMentionedMembers(), event.getMessage().getMentionedRoles(), event.getMessage().getMentionedChannels()));
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e);
             final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
             MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode), event.getMessage(), Color.red, langCode, null);
         }

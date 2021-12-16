@@ -21,11 +21,15 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.Locale;
 
 public class UpdateGuildSlashCommands {
+
+    private static final Logger logger = LogManager.getLogger(UpdateGuildSlashCommands.class);
 
     public static void update(Guild guild) {
         try {
@@ -53,12 +57,12 @@ public class UpdateGuildSlashCommands {
                     new CommandData("version", Localizations.getString("slashcommands_description_version", langCode))
             ));
             cmd.queue((cmds) -> {
-                System.out.println("Updated Slash Commands on Guild " + guild.getName());
+                logger.info("Updated Slash Commands on Guild " + guild.getName());
             }, (error) -> {
-                System.out.println("Updating Slash Commands on " + guild.getName() + " failed!");
+                logger.info("Updating Slash Commands on " + guild.getName() + " failed!");
             });
         } catch (Exception ignored) {
-            System.out.println("Updating Slash Commands on " + guild.getName() + " failed!");
+            logger.info("Updating Slash Commands on " + guild.getName() + " failed!");
         }
     }
 

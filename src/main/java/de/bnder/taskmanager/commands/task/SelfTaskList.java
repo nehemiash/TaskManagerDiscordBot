@@ -10,6 +10,8 @@ import de.bnder.taskmanager.utils.UserSettings;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class SelfTaskList {
+
+    private static final Logger logger = LogManager.getLogger(SelfTaskList.class);
 
     public static void selfTaskList(Member member, TextChannel textChannel, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
@@ -108,16 +112,15 @@ public class SelfTaskList {
                     if (deadline.length() > 0) {
                         dLine = deadline + " |";
                     }
-                    todoStringBuilder.append("- ").append(task).append(" (" + Localizations.getString("task_status_to_do", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                    todoStringBuilder.append("- ").append(task).append(" (").append(Localizations.getString("task_status_to_do", langCode)).append(" | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                 }
                 //TASKS NOT STARTED
                 if (todoStringBuilder.length() > 0) {
-                    StringBuilder finalBuilder2 = todoStringBuilder;
                     MessageSender.send(embedTitle, Localizations.getString("all_tasks_by_user", langCode, new ArrayList<String>() {
                         {
                             add(member.getAsMention());
                             add(boardName);
-                            add(finalBuilder2.toString());
+                            add(todoStringBuilder.toString());
                         }
                     }), textChannel, Color.orange, langCode, slashCommandEvent);
                 }
@@ -133,16 +136,15 @@ public class SelfTaskList {
                     if (deadline.length() > 0) {
                         dLine = deadline + " |";
                     }
-                    inProgressStringBuilder.append("- ").append(task).append(" (" + Localizations.getString("task_status_in_progress", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                    inProgressStringBuilder.append("- ").append(task).append(" (").append(Localizations.getString("task_status_in_progress", langCode)).append(" | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                 }
                 //TASKS IN PROGRESS
                 if (inProgressStringBuilder.length() > 0) {
-                    StringBuilder finalBuilder = inProgressStringBuilder;
                     MessageSender.send(embedTitle, Localizations.getString("all_tasks_by_user", langCode, new ArrayList<String>() {
                         {
                             add(member.getAsMention());
                             add(boardName);
-                            add(finalBuilder.toString());
+                            add(inProgressStringBuilder.toString());
                         }
                     }), textChannel, Color.yellow, langCode, slashCommandEvent);
                 }
@@ -162,15 +164,14 @@ public class SelfTaskList {
                             dLine = deadline + " |";
                         }
 
-                        doneStringBuilder.append("- ").append(task).append(" (" + Localizations.getString("task_status_done", langCode) + " | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                        doneStringBuilder.append("- ").append(task).append(" (").append(Localizations.getString("task_status_done", langCode)).append(" | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                     }
                     if (doneStringBuilder.length() > 0) {
-                        StringBuilder finalBuilder1 = doneStringBuilder;
                         MessageSender.send(embedTitle, Localizations.getString("all_tasks_by_user", langCode, new ArrayList<String>() {
                             {
                                 add(member.getAsMention());
                                 add(boardName);
-                                add(finalBuilder1.toString());
+                                add(doneStringBuilder.toString());
                             }
                         }), textChannel, Color.green, langCode, slashCommandEvent);
                     }
@@ -179,7 +180,7 @@ public class SelfTaskList {
                 MessageSender.send(embedTitle, Localizations.getString("no_tasks", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 

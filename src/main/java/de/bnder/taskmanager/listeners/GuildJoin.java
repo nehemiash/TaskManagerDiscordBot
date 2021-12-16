@@ -22,18 +22,22 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.ExecutionException;
 
 public class GuildJoin extends ListenerAdapter {
 
+    private static final Logger logger = LogManager.getLogger(GuildJoin.class);
+
     @Override
     public void onGuildJoin(@NotNull GuildJoinEvent event) {
         try {
             UpdateServer.update(event.getGuild());
-        } catch (ExecutionException | InterruptedException ex) {
-            ex.printStackTrace();
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error(e);
         }
         final String intro = "Thanks for using this bot. The default language is english but you can change the language with the command `-language`.";
         final String msg = "Type `-help` for a complete list of all commands.";
@@ -44,8 +48,7 @@ public class GuildJoin extends ListenerAdapter {
                 try {
                     tc.sendMessage(intro + "\n" + msg).queue();
                     break;
-                } catch (Exception ignored) {
-                }
+                } catch (Exception ignored) {}
             }
         }
         UpdateBotLists.updateBotLists(event.getJDA().getGuilds().size(), event.getJDA().getSelfUser().getId());

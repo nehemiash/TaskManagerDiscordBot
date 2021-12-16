@@ -16,6 +16,7 @@ package de.bnder.taskmanager.commands.board;
  */
 
 import com.google.cloud.firestore.QuerySnapshot;
+import de.bnder.taskmanager.commands.group.CreateGroup;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.slashcommands.UpdateGuildSlashCommands;
 import de.bnder.taskmanager.utils.Localizations;
@@ -26,6 +27,8 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -35,6 +38,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.Locale;
 
 public class CreateBoard {
+
+    private static final Logger logger = LogManager.getLogger(CreateGroup.class);
 
     public static void createBoard(String boardName, TextChannel textChannel, Member member, SlashCommandEvent slashCommandEvent) {
         final Guild guild = textChannel.getGuild();
@@ -93,7 +98,7 @@ public class CreateBoard {
                 return true;
             }
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
 
         return false;

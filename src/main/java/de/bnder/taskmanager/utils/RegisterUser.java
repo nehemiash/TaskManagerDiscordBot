@@ -5,11 +5,15 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 public class RegisterUser {
+
+    private static final Logger logger = LogManager.getLogger(RegisterUser.class);
 
     public static void register(Member member) {
         try {
@@ -50,7 +54,7 @@ public class RegisterUser {
                     put("last_interaction", System.currentTimeMillis());
                 }});
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 

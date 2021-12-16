@@ -7,6 +7,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.security.SecureRandom;
@@ -16,6 +18,8 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class Task {
+
+    private static final Logger logger = LogManager.getLogger(Task.class);
 
     private String id = null;
     private String text = null;
@@ -40,17 +44,17 @@ public class Task {
         this.id = taskID;
         this.guild = guild;
 
-        System.out.println("Searching for task id:" + taskID + ".");
+        logger.debug("Searching for task id:" + taskID + ".");
 
         try {
             //Try user task
             for (DocumentSnapshot boardDoc : Main.firestore.collection("server").document(guild.getId()).collection("boards").get().get().getDocuments()) {
-                System.out.println("Checking board " + boardDoc.getId());
+                logger.debug("Checking board " + boardDoc.getId());
                 final DocumentSnapshot taskDoc = boardDoc.getReference().collection("user-tasks").document(taskID).get().get();
-                System.out.println("Checking task id " + taskDoc.getId());
-                System.out.println(taskDoc.getId());
+                logger.debug("Checking task id " + taskDoc.getId());
+                logger.debug(taskDoc.getId());
                 if (taskDoc.exists()) {
-                    System.out.println("Exists!");
+                    logger.info("Exists!");
                     this.type = TaskType.USER;
                     this.exists = true;
                     this.text = taskDoc.getString("text");
@@ -66,7 +70,7 @@ public class Task {
             }
 
             if (!this.exists) {
-                System.out.println("Checking for group tasks");
+                logger.debug("Checking for group tasks");
                 //Try group task
                 for (DocumentSnapshot groupDoc : Main.firestore.collection("server").document(guild.getId()).collection("groups").get().get().getDocuments()) {
                     final DocumentSnapshot taskDoc = groupDoc.getReference().collection("group-tasks").document(taskID).get().get();
@@ -89,7 +93,7 @@ public class Task {
                 }
             }
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 
@@ -169,7 +173,7 @@ public class Task {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 
@@ -209,7 +213,7 @@ public class Task {
 
             return sb.toString();
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return null;
     }
@@ -284,7 +288,7 @@ public class Task {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 
@@ -304,7 +308,7 @@ public class Task {
                             .document(this.holder).collection("group-tasks").document(this.id).get().get().getString("notify_channel_message_id");
                 }
             } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
         }
         return this.notifyChannelMessageID;
@@ -377,7 +381,7 @@ public class Task {
                 }
             }
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return null;
     }
@@ -476,8 +480,8 @@ public class Task {
             else if (status == TaskStatus.DONE)
                 newStatus = Localizations.getString("task_status_done", langCode);
             updateNotifyChannelMessage(Localizations.getString("task_info_field_state", langCode), newStatus);
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        } catch (Exception e) {
+            logger.error(e);
         }
     }
 
@@ -522,7 +526,7 @@ public class Task {
                 }
             }
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 

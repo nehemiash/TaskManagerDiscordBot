@@ -17,11 +17,15 @@ package de.bnder.taskmanager.utils;
 
 import com.google.cloud.firestore.DocumentSnapshot;
 import de.bnder.taskmanager.main.Main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 public class Stats {
+
+    private static final Logger logger = LogManager.getLogger(Stats.class);
 
     public static void updateMessagesSent() {
         long messagesSent = 1;
@@ -42,24 +46,7 @@ public class Stats {
                 }});
             }
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void updateServers(int servers, int shard) {
-        try {
-            final DocumentSnapshot alltimeStats = Main.firestore.collection("stats").document("alltime").get().get();
-            if (alltimeStats.exists()) {
-                alltimeStats.getReference().update(new HashMap<>() {{
-                    put("servers_shard_" + shard, servers);
-                }});
-            } else {
-                alltimeStats.getReference().set(new HashMap<>() {{
-                    put("servers_shard_" + shard, servers);
-                }});
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 
@@ -82,7 +69,7 @@ public class Stats {
                 }});
             }
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 
@@ -105,7 +92,7 @@ public class Stats {
                 }});
             }
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 

@@ -35,10 +35,11 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.security.auth.login.LoginException;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Arrays;
 
 public class Main {
@@ -52,6 +53,8 @@ public class Main {
 
     public static final String prefix = "-";
 
+    public static final Logger logger = LogManager.getLogger(Main.class);
+
     public static void main(String[] args) {
         try {
             FileInputStream serviceAccount =
@@ -62,8 +65,8 @@ public class Main {
             FirebaseApp.initializeApp(options);
 
             firestore = FirestoreClient.getFirestore();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.fatal(e);
             System.exit(1);
         }
         final DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createLight(dotenv.get("BOT_TOKEN"),
@@ -119,7 +122,7 @@ public class Main {
         try {
             builder.build();
         } catch (LoginException e) {
-            e.printStackTrace();
+            logger.fatal(e);
         }
     }
 }
