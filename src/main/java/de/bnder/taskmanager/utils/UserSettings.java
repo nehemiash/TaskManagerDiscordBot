@@ -35,7 +35,7 @@ public class UserSettings {
 
     public UserSettings(final Member member) {
         try {
-            serverMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server_member").document(member.getId()).get().get();
+            serverMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server-member").document(member.getId()).get().get();
             if (serverMemberDoc.exists()) {
                 if (serverMemberDoc.getData().containsKey("show_done_tasks")) {
                     showDoneTasks = Boolean.TRUE.equals(serverMemberDoc.getBoolean("show_done_tasks"));

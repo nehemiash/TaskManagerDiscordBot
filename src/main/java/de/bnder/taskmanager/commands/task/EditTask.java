@@ -23,7 +23,7 @@ public class EditTask {
             final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
             if (task.exists()) {
             task.setText(newTask);
-                MessageSender.send(embedTitle, Localizations.getString("task_edited", langCode, new ArrayList<String>() {
+                MessageSender.send(embedTitle + " - " + taskID, Localizations.getString("task_edited", langCode, new ArrayList<String>() {
                     {
                         add(taskID);
                     }

@@ -54,7 +54,7 @@ public class BoardList {
             String activeBoardID = "default";
 
             //Get the active board id of the member
-            final DocumentSnapshot serverMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server_member").document(member.getId()).get().get();
+            final DocumentSnapshot serverMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server-member").document(member.getId()).get().get();
             if (serverMemberDoc.exists()) {
                 if (serverMemberDoc.getData().containsKey("active_board_id")) {
                     activeBoardID = serverMemberDoc.getString("active_board_id");

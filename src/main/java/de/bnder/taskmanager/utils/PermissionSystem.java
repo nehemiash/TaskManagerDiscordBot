@@ -127,7 +127,7 @@ public class PermissionSystem {
             return true;
         } else {
             try {
-                final DocumentSnapshot serverMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server_member").document(member.getId()).get().get();
+                final DocumentSnapshot serverMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server-member").document(member.getId()).get().get();
                 if (serverMemberDoc.exists()) {
                     if (serverMemberDoc.getData().containsKey("permissions")) {
                         Map<String, Boolean> map = (Map<String, Boolean>) serverMemberDoc.getData().get("permissions");
@@ -207,7 +207,7 @@ public class PermissionSystem {
 
     private static int addPermissionToUser(Member member, String name) {
         try {
-            final DocumentSnapshot serverMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server_member").document(member.getId()).get().get();
+            final DocumentSnapshot serverMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server-member").document(member.getId()).get().get();
             if (serverMemberDoc.exists()) {
                 Map<String, Boolean> map = new HashMap<>();
                 if (serverMemberDoc.getData().containsKey("permissions")) {
@@ -237,7 +237,7 @@ public class PermissionSystem {
 
     private static int removePermFromUser(Member member, String name) {
         try {
-            final DocumentSnapshot serverMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server_member").document(member.getId()).get().get();
+            final DocumentSnapshot serverMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server-member").document(member.getId()).get().get();
             if (serverMemberDoc.exists()) {
                 Map<String, Boolean> map = new HashMap<>();
                 if (serverMemberDoc.getData().containsKey("permissions")) {

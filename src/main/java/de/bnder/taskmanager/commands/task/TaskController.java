@@ -37,7 +37,7 @@ public class TaskController implements Command {
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent){
         if (args.length >= 3) {
-            if (args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("a")) {
+            if (args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("a") || args[0].equalsIgnoreCase("addgroup")) {
                 AddTask.addTask(messageContentRaw, commandExecutor, mentionedMembers, textChannel, args, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("edit") || args[0].equalsIgnoreCase("e")) {
                 EditTask.editTask(messageContentRaw, commandExecutor, textChannel, args, slashCommandEvent);
@@ -47,7 +47,7 @@ public class TaskController implements Command {
                 checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
             }
         } else if (args.length >= 2) {
-            if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("l")) {
+            if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("l") || args[0].equalsIgnoreCase("listgroup")) {
                 ListTasksFromOthers.listTasks(commandExecutor, mentionedMembers, textChannel, args, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("delete")) {
                 DeleteTask.deleteTask(commandExecutor, textChannel, args, slashCommandEvent);

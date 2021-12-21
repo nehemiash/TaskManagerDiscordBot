@@ -107,6 +107,7 @@ public class AddTask {
                         {
                             add(author.getUser().getAsTag());
                             add(task_id);
+                            add(member.getGuild().getName());
                         }
                     })).queue();
                     try {
@@ -125,6 +126,7 @@ public class AddTask {
                         {
                             add(author.getUser().getAsTag());
                             add(task_id);
+                            add(member.getGuild().getName());
                         }
                     })).queue();
                     channel.sendMessage(URLDecoder.decode(task, StandardCharsets.UTF_8.toString())).queue();

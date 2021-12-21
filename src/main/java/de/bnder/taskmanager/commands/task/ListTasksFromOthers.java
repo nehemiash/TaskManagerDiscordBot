@@ -35,7 +35,6 @@ public class ListTasksFromOthers {
         } else {
             final String groupName = args[1];
             try {
-
                 final QuerySnapshot getGroupDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("groups").whereEqualTo("name", groupName).get().get();
                 if (getGroupDoc.size() > 0) {
                     ArrayList<Map<String, Object>> todoTasks = new ArrayList<>();
@@ -49,13 +48,14 @@ public class ListTasksFromOthers {
                     if (getServerMemberDoc.exists()) {
                         if (getServerMemberDoc.getData().containsKey("active_board_id")) {
                             boardID = getServerMemberDoc.getString("active_board_id");
+                            boardName = Main.firestore.collection("server").document(member.getGuild().getId()).collection("boards").document(boardID).get().get().getString("name");
                         }
                     }
                     final DocumentSnapshot groupDoc = getGroupDoc.getDocuments().get(0);
                     for (DocumentSnapshot groupTaskDoc : groupDoc.getReference().collection("group-tasks").whereEqualTo("board_id", boardID).orderBy("position", Query.Direction.ASCENDING).get().get().getDocuments()) {
                         String text = groupTaskDoc.getString("text");
                         long status = (long) groupTaskDoc.get("status");
-                        String deadline = groupTaskDoc.getString("deadline");
+                        String deadline = groupTaskDoc.get("deadline") != null ?  groupTaskDoc.getDate("deadline").toString() : "";
                         String id = groupTaskDoc.getId();
                         HashMap<String, Object> data = new HashMap<>() {{
                             put("text", text);
@@ -89,16 +89,16 @@ public class ListTasksFromOthers {
                             if (deadline.length() > 0) {
                                 dLine = deadline + " |";
                             }
-                            todoStringBuilder.append("- ").append(task).append(" (").append(Localizations.getString("task_status_to_do", langCode)).append(" | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                            todoStringBuilder.append("- ").append(task).append(" (").append(Localizations.getString("task_status_to_do_keyword", langCode)).append(" | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                         }
                         //TASKS NOT STARTED
                         if (todoStringBuilder.length() > 0) {
-                            StringBuilder finalBuilder2 = todoStringBuilder;
+                            String finalBoardName = boardName;
                             MessageSender.send(embedTitle, Localizations.getString("all_tasks_by_group", langCode, new ArrayList<String>() {
                                 {
                                     add(groupName);
-                                    add(boardName);
-                                    add(finalBuilder2.toString());
+                                    add(finalBoardName);
+                                    add(todoStringBuilder.toString());
                                 }
                             }), textChannel, Color.orange, langCode, slashCommandEvent);
                         }
@@ -114,16 +114,16 @@ public class ListTasksFromOthers {
                             if (deadline.length() > 0) {
                                 dLine = deadline + " |";
                             }
-                            inProgressStringBuilder.append("- ").append(task).append(" (").append(Localizations.getString("task_status_in_progress", langCode)).append(" | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                            inProgressStringBuilder.append("- ").append(task).append(" (").append(Localizations.getString("task_status_in_progress_keyword", langCode)).append(" | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                         }
                         //TASKS IN PROGRESS
                         if (inProgressStringBuilder.length() > 0) {
-                            StringBuilder finalBuilder = inProgressStringBuilder;
+                            String finalBoardName1 = boardName;
                             MessageSender.send(embedTitle, Localizations.getString("all_tasks_by_group", langCode, new ArrayList<String>() {
                                 {
                                     add(groupName);
-                                    add(boardName);
-                                    add(finalBuilder.toString());
+                                    add(finalBoardName1);
+                                    add(inProgressStringBuilder.toString());
                                 }
                             }), textChannel, Color.yellow, langCode, slashCommandEvent);
                         }
@@ -143,15 +143,15 @@ public class ListTasksFromOthers {
                                     dLine = deadline + " |";
                                 }
 
-                                doneStringBuilder.append("- ").append(task).append(" (").append(Localizations.getString("task_status_done", langCode)).append(" | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
+                                doneStringBuilder.append("- ").append(task).append(" (").append(Localizations.getString("task_status_done_keyword", langCode)).append(" | ").append(dLine).append(" ").append(taskID).append(")").append("\n");
                             }
                             if (doneStringBuilder.length() > 0) {
-                                StringBuilder finalBuilder1 = doneStringBuilder;
+                                String finalBoardName2 = boardName;
                                 MessageSender.send(embedTitle, Localizations.getString("all_tasks_by_group", langCode, new ArrayList<String>() {
                                     {
                                         add(groupName);
-                                        add(boardName);
-                                        add(finalBuilder1.toString());
+                                        add(finalBoardName2);
+                                        add(doneStringBuilder.toString());
                                     }
                                 }), textChannel, Color.green, langCode, slashCommandEvent);
                             }

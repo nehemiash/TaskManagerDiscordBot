@@ -43,9 +43,9 @@ public class BoardController implements Command {
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) {
         if (args.length > 1) {
-            if (args[0].equalsIgnoreCase("create")) {
+            if (args[0].equalsIgnoreCase("create") || args[0].equalsIgnoreCase("c")) {
                 CreateBoard.createBoard(args[1], textChannel, commandExecutor, slashCommandEvent);
-            } else if (args[0].equalsIgnoreCase("switch")) {
+            } else if (args[0].equalsIgnoreCase("switch") || args[0].equalsIgnoreCase("s")) {
                 SwitchBoard.switchBoard(args[1], commandExecutor, textChannel, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("delete")) {
                 DeleteBoard.deleteBoard(commandExecutor, textChannel, args[1], slashCommandEvent);
@@ -53,7 +53,7 @@ public class BoardController implements Command {
                 checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
             }
         } else if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("list")) {
+            if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("l")) {
                 BoardList.getBoardList(commandExecutor, textChannel, String.valueOf(messageContentRaw.charAt(0)), slashCommandEvent);
             } else {
                 checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);

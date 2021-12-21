@@ -59,7 +59,7 @@ public class SwitchBoard {
                 boardID = boardDoc.getId();
             }
             final DocumentSnapshot getUserDoc = Main.firestore.collection("server").document(member.getGuild().getId())
-                    .collection("server_member")
+                    .collection("server-member")
                     .document(member.getId())
                     .get().get();
             if (getUserDoc.exists()) {

@@ -28,7 +28,7 @@ public class SetDeadline {
                 final String newDate = dateFormat.format(DateUtil.convertToDate(date));
                 if (task.exists()) {
                     task.setDeadline(newDate);
-                    MessageSender.send(embedTitle, Localizations.getString("deadline_set", langCode, new ArrayList<String>() {
+                    MessageSender.send(embedTitle + " - " + taskID, Localizations.getString("deadline_set", langCode, new ArrayList<String>() {
                         {
                             add(taskID);
                             add(newDate);

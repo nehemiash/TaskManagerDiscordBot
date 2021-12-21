@@ -12,6 +12,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.security.SecureRandom;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
@@ -58,7 +61,7 @@ public class Task {
                     this.type = TaskType.USER;
                     this.exists = true;
                     this.text = taskDoc.getString("text");
-                    this.deadline = taskDoc.getString("deadline");
+                    this.deadline = taskDoc.get("deadline") != null ? taskDoc.getDate("deadline").toString() : "";
                     this.status = TaskStatus.values()[Integer.parseInt(taskDoc.get("status").toString())];
                     this.holder = taskDoc.getString("user_id");
                     if (taskDoc.getData().containsKey("notify_channel_message_id"))
@@ -78,7 +81,7 @@ public class Task {
                         this.type = TaskType.GROUP;
                         this.exists = true;
                         this.text = taskDoc.getString("text");
-                        this.deadline = taskDoc.getString("deadline");
+                        this.deadline = taskDoc.get("deadline") != null ? taskDoc.getDate("deadline").toString() : "";
                         this.status = TaskStatus.values()[Integer.parseInt(taskDoc.get("status").toString())];
                         this.holder = groupDoc.getId();
                         if (taskDoc.getData().containsKey("notify_channel_message_id"))
@@ -112,7 +115,7 @@ public class Task {
             String boardName = "default";
 
             //Get the board of the command processor
-            final DocumentSnapshot getServerMemberDoc = Main.firestore.collection("server").document(guild.getId()).collection("server_member").document(commandProcessor.getId()).get().get();
+            final DocumentSnapshot getServerMemberDoc = Main.firestore.collection("server").document(guild.getId()).collection("server-member").document(commandProcessor.getId()).get().get();
             if (getServerMemberDoc.exists()) {
                 if (Objects.requireNonNull(getServerMemberDoc.getData()).containsKey("active_board_id")) {
                     boardID = getServerMemberDoc.getString("active_board_id");
@@ -124,16 +127,30 @@ public class Task {
                 throw new Exception("TaskID can't be null!");
             }
 
+            Date time = null;
+            try {
+                if (deadline != null && deadline.length() == 10) {
+                    time = new SimpleDateFormat("yyyy-MM-dd").parse(deadline);
+                } else if (deadline != null && deadline.length() == 16) {
+                    time = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(deadline);
+                } else if (deadline != null && deadline.length() == 19) {
+                    time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(deadline);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
             final DocumentSnapshot boardDoc = Main.firestore.collection("server").document(guild.getId()).collection("boards").document(boardID).get().get();
             //Get actice board name if it isn't default
             if (!boardID.equals("default")) boardName = boardDoc.getString("name");
+            Date finalTime = time;
             boardDoc.getReference().collection("user-tasks").document(taskID).set(new HashMap<>() {{
                 put("user_id", member.getId());
                 put("deadline_reminded", false);
                 put("position", -1);
                 put("status", 0);
                 put("text", text);
-                put("deadline", deadline);
+                put("deadline", finalTime);
                 put("server_id", guild.getId());
             }});
             Stats.updateTasksCreated();
@@ -150,7 +167,7 @@ public class Task {
             this.type = TaskType.USER;
             this.holder = member.getId();
 
-            final DocumentSnapshot getServermember = Main.firestore.collection("server").document(guild.getId()).collection("server_member").document(member.getId()).get().get();
+            final DocumentSnapshot getServermember = Main.firestore.collection("server").document(guild.getId()).collection("server-member").document(member.getId()).get().get();
             if (getServermember.exists()) {
                 if (Objects.requireNonNull(getServermember.getData()).containsKey("notify_channel")) {
                     final String channelID = getServermember.getString("notify_channel");
@@ -235,7 +252,7 @@ public class Task {
                 String boardID = "default";
                 String boardName = "default";
                 //Get the board of the command processor
-                final DocumentSnapshot getServerMemberDoc = Main.firestore.collection("server").document(guild.getId()).collection("server_member").document(commandProcessor.getId()).get().get();
+                final DocumentSnapshot getServerMemberDoc = Main.firestore.collection("server").document(guild.getId()).collection("server-member").document(commandProcessor.getId()).get().get();
                 if (getServerMemberDoc.exists()) {
                     if (Objects.requireNonNull(getServerMemberDoc.getData()).containsKey("active_board_id")) {
                         boardID = getServerMemberDoc.getString("active_board_id");
@@ -245,9 +262,24 @@ public class Task {
                 final DocumentSnapshot groupDoc = getGroup.getDocuments().get(0);
                 final String taskID = generateTaskID(guild, boardID);
                 final String finalBoardID = boardID;
+
+                Date time = null;
+                try {
+                    if (deadline != null && deadline.length() == 10) {
+                        time = new SimpleDateFormat("yyyy-MM-dd").parse(deadline);
+                    } else if (deadline != null && deadline.length() == 16) {
+                        time = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(deadline);
+                    } else if (deadline != null && deadline.length() == 19) {
+                        time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(deadline);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Date finalTime = time;
                 groupDoc.getReference().collection("group-tasks").document(taskID).set(new HashMap<>() {{
                     put("board_id", finalBoardID);
-                    put("deadline", deadline);
+                    put("deadline", finalTime);
                     put("deadline_reminded", false);
                     put("position", -1);
                     put("status", 0);
@@ -342,14 +374,27 @@ public class Task {
      * @param deadline The new formated deadline.
      */
     public void setDeadline(String deadline) {
-        if (this.type == TaskType.USER) {
-            Main.firestore.collection("server").document(this.guild.getId()).collection("boards").document(this.boardID).collection("user-tasks").document(this.id).update(new HashMap<>() {{
-                put("deadline", deadline);
-            }});
-        } else if (this.type == TaskType.GROUP) {
-            Main.firestore.collection("server").document(guild.getId()).collection("groups").document(this.holder).collection("group-tasks").document(this.id).update(new HashMap<>() {{
-                put("deadline", deadline);
-            }});
+        Date time = null;
+        try {
+            if (deadline != null && deadline.length() == 10) {
+                time = new SimpleDateFormat("yyyy-MM-dd").parse(deadline);
+            } else if (deadline != null && deadline.length() == 16) {
+                time = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(deadline);
+            } else if (deadline != null && deadline.length() == 19) {
+                time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(deadline);
+            }
+            final Date finalTime = time;
+            if (this.type == TaskType.USER) {
+                Main.firestore.collection("server").document(this.guild.getId()).collection("boards").document(this.boardID).collection("user-tasks").document(this.id).update(new HashMap<>() {{
+                    put("deadline", finalTime);
+                }});
+            } else if (this.type == TaskType.GROUP) {
+                Main.firestore.collection("server").document(guild.getId()).collection("groups").document(this.holder).collection("group-tasks").document(this.id).update(new HashMap<>() {{
+                    put("deadline", finalTime);
+                }});
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         this.deadline = deadline;
 
@@ -366,7 +411,7 @@ public class Task {
     public String getNotifyChannelID() {
         try {
             if (this.type == TaskType.USER) {
-                final DocumentSnapshot getMemberDoc = Main.firestore.collection("server").document(guild.getId()).collection("server_member").document(holder).get().get();
+                final DocumentSnapshot getMemberDoc = Main.firestore.collection("server").document(guild.getId()).collection("server-member").document(holder).get().get();
                 if (getMemberDoc.exists()) {
                     if (getMemberDoc.getData().containsKey("notify_channel")) {
                         return getMemberDoc.getString("notify_channel");

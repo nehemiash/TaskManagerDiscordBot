@@ -15,8 +15,8 @@ public class ProceedTask {
 
     public static void proceedTask(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
-        final String embedTitle = Localizations.getString("task_message_title", langCode);
         final String taskID = args[1];
+        final String embedTitle = Localizations.getString("task_message_title", langCode) + " - " + taskID;
         final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, member.getGuild());
         if (task.exists()) {
             task.proceed();
