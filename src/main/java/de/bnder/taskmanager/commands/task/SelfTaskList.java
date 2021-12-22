@@ -14,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -50,7 +51,7 @@ public class SelfTaskList {
             for (final DocumentSnapshot userTaskDoc : getUserTasks) {
                 String text = userTaskDoc.getString("text");
                 long status = (long) userTaskDoc.get("status");
-                String deadline = userTaskDoc.get("deadline") != null ?  userTaskDoc.getDate("deadline").toString() : "";
+                String deadline = userTaskDoc.get("deadline") != null ?  new SimpleDateFormat("dd.MM.yyyy HH:mm").format(userTaskDoc.getDate("deadline")) : "";
                 String id = userTaskDoc.getId();
                 HashMap<String, Object> data = new HashMap<>() {{
                     put("text", text);
@@ -77,7 +78,7 @@ public class SelfTaskList {
                     for (DocumentSnapshot groupTaskDoc : groupDoc.getReference().collection("group-tasks").whereEqualTo("board_id", boardID).orderBy("position", Query.Direction.ASCENDING).get().get()) {
                         String text = groupTaskDoc.getString("text");
                         long status = (long) groupTaskDoc.get("status");
-                        String deadline = groupTaskDoc.get("deadline") != null ?  groupTaskDoc.getDate("deadline").toString() : "";
+                        String deadline = groupTaskDoc.get("deadline") != null ?  new SimpleDateFormat("dd.MM.yyyy HH:mm").format(groupTaskDoc.getDate("deadline")) : "";
                         String id = groupTaskDoc.getId();
                         HashMap<String, Object> data = new HashMap<>() {{
                             put("text", text);

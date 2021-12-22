@@ -61,7 +61,7 @@ public class Task {
                     this.type = TaskType.USER;
                     this.exists = true;
                     this.text = taskDoc.getString("text");
-                    this.deadline = taskDoc.get("deadline") != null ? taskDoc.getDate("deadline").toString() : "";
+                    this.deadline = taskDoc.get("deadline") != null ?  new SimpleDateFormat("dd.MM.yyyy HH:mm").format(taskDoc.getDate("deadline")) : "";
                     this.status = TaskStatus.values()[Integer.parseInt(taskDoc.get("status").toString())];
                     this.holder = taskDoc.getString("user_id");
                     if (taskDoc.getData().containsKey("notify_channel_message_id"))
@@ -81,7 +81,7 @@ public class Task {
                         this.type = TaskType.GROUP;
                         this.exists = true;
                         this.text = taskDoc.getString("text");
-                        this.deadline = taskDoc.get("deadline") != null ? taskDoc.getDate("deadline").toString() : "";
+                        this.deadline = taskDoc.get("deadline") != null ?  new SimpleDateFormat("dd.MM.yyyy HH:mm").format(taskDoc.getDate("deadline")) : "";
                         this.status = TaskStatus.values()[Integer.parseInt(taskDoc.get("status").toString())];
                         this.holder = groupDoc.getId();
                         if (taskDoc.getData().containsKey("notify_channel_message_id"))
@@ -396,7 +396,7 @@ public class Task {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        this.deadline = deadline;
+        this.deadline = new SimpleDateFormat("dd.MM.yyyy HH:mm").format(time);
 
         //Update in notify channel
         final Locale langCode = Localizations.getGuildLanguage(guild);
