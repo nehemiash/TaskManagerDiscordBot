@@ -43,11 +43,8 @@ public class DateUtil {
         add(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"));
         add(new SimpleDateFormat("yy/MM/dd HH:mm:ss"));
         add(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss"));
-        add(new SimpleDateFormat("MM/dd/yy HH:mm:ss"));
         add(new SimpleDateFormat("MM/dd/yyyy HH:mm"));
-        add(new SimpleDateFormat("MM/dd/yy HH:mm"));
         add(new SimpleDateFormat("MM/dd/yyyy"));
-        add(new SimpleDateFormat("MM/dd/yy"));
     }};
 
     public static Date convertToDate(String input) {
