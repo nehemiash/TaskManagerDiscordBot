@@ -57,7 +57,6 @@ public class CommandParser {
     }
 
     public commandContainer parseNormalCommand(String raw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels) {
-
         String beheaded = raw.substring(1);
         String[] splitBeheaded = beheaded.split(" ");
         String invoke = splitBeheaded[0].toLowerCase();
@@ -68,8 +67,21 @@ public class CommandParser {
         return new commandContainer(raw, beheaded, splitBeheaded, invoke, args, commandExecutor, textChannel, guild, mentionedMembers, mentionedRoles, mentionedChannels, null);
     }
 
-    public commandContainer parseSlashCommand(String raw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) {
+    public commandContainer parseNormalCommandWithMentionPrefix(String raw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels) {
+        String beheaded = raw.substring(raw.indexOf(">") + 1);
+        while (beheaded.startsWith(" ")) {
+            beheaded = beheaded.substring(1);
+        }
+        String[] splitBeheaded = beheaded.split(" ");
+        String invoke = splitBeheaded[0].toLowerCase();
+        ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
+        String[] args = new String[split.size() - 1];
+        split.subList(1, split.size()).toArray(args);
 
+        return new commandContainer(raw, beheaded, splitBeheaded, invoke, args, commandExecutor, textChannel, guild, mentionedMembers, mentionedRoles, mentionedChannels, null);
+    }
+
+    public commandContainer parseSlashCommand(String raw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) {
         String beheaded = raw.substring(1);
         String[] splitBeheaded = beheaded.split(" ");
         String invoke = splitBeheaded[0].toLowerCase();

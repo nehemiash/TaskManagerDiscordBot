@@ -44,7 +44,12 @@ public class BoardController implements Command {
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) {
         if (args.length > 1) {
             if (args[0].equalsIgnoreCase("create") || args[0].equalsIgnoreCase("c")) {
-                CreateBoard.createBoard(args[1], textChannel, commandExecutor, slashCommandEvent);
+                if (args.length > 2) {
+                    final Locale langCode = Localizations.getGuildLanguage(guild);
+                    final String embedTitle = Localizations.getString("board_title", langCode);
+                    MessageSender.send(embedTitle, Localizations.getString("board_name_only_one_arg", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+                } else
+                    CreateBoard.createBoard(args[1], textChannel, commandExecutor, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("switch") || args[0].equalsIgnoreCase("s")) {
                 SwitchBoard.switchBoard(args[1], commandExecutor, textChannel, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("delete")) {

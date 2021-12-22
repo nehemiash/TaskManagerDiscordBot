@@ -62,6 +62,9 @@ public class CommandListener extends ListenerAdapter {
                         final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
                         MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getMessage(), Color.red, langCode, null);
                     }
+                } else if (event.getMessage().getContentRaw().startsWith("<@!" + event.getJDA().getSelfUser().getId() + ">")) {
+                    System.out.println("aaaaaa");
+                    processNormalCommandWithMentionPrefix(event);
                 }
             }
         }
@@ -95,7 +98,18 @@ public class CommandListener extends ListenerAdapter {
                         msg.append("<@&").append(option.getAsRole().getId()).append(">");
                         mentionedRoles.add(option.getAsRole());
                     }
-                    case MENTIONABLE -> msg.append(option.getAsMentionable().getAsMention());
+                    case MENTIONABLE -> {
+                        String id = option.getAsString();
+                        if (event.getGuild().getRoleById(id) != null) {
+                            msg.append("<@&").append(id).append(">");
+                            mentionedRoles.add(event.getGuild().getRoleById(id));
+                        } else if (event.getGuild().retrieveMemberById(id).complete() != null) {
+                            final Member member = event.getGuild().retrieveMemberById(id).complete();
+                            msg.append("<@!").append(member.getId()).append(">");
+                            mentionedMembers.add(member);
+                            RegisterUser.register(member);
+                        }
+                    }
                 }
             }
             while (msg.toString().contains("  ")) {
@@ -115,6 +129,21 @@ public class CommandListener extends ListenerAdapter {
                 msg = msg.replace("  ", " ");
             }
             CommandHandler.handleCommand(CommandHandler.parse.parseNormalCommand(msg, event.getMember(), event.getTextChannel(), event.getGuild(), event.getMessage().getMentionedMembers(), event.getMessage().getMentionedRoles(), event.getMessage().getMentionedChannels()));
+        } catch (Exception e) {
+            logger.error(e);
+            final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
+            MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode), event.getMessage(), Color.red, langCode, null);
+        }
+        RegisterUser.register(event.getMember());
+    }
+
+    private void processNormalCommandWithMentionPrefix(MessageReceivedEvent event) {
+        try {
+            String msg = event.getMessage().getContentRaw();
+            while (msg.contains("  ")) {
+                msg = msg.replace("  ", " ");
+            }
+            CommandHandler.handleCommand(CommandHandler.parse.parseNormalCommandWithMentionPrefix(msg, event.getMember(), event.getTextChannel(), event.getGuild(), event.getMessage().getMentionedMembers(), event.getMessage().getMentionedRoles(), event.getMessage().getMentionedChannels()));
         } catch (Exception e) {
             logger.error(e);
             final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
