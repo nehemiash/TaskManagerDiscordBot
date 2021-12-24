@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -30,7 +31,7 @@ public class AddPermission {
                     statusCode = PermissionSystem.addPermissionStatusCode(mentionedMembers.get(0), GroupPermission.valueOf(args[2].toUpperCase()));
                 } else if (permissionPermissionContains(args[2].toUpperCase())) {
                     statusCode = PermissionSystem.addPermissionStatusCode(mentionedMembers.get(0), PermissionPermission.valueOf(args[2].toUpperCase()));
-                }  else if (boardPermissionContains(args[2].toUpperCase())) {
+                } else if (boardPermissionContains(args[2].toUpperCase())) {
                     statusCode = PermissionSystem.addPermissionStatusCode(mentionedMembers.get(0), BoardPermission.valueOf(args[2].toUpperCase()));
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), textChannel, Color.red, langCode, slashCommandEvent);
@@ -43,7 +44,7 @@ public class AddPermission {
                     statusCode = PermissionSystem.addPermissionStatusCode(mentionedRoles.get(0), GroupPermission.valueOf(args[2].toUpperCase()));
                 } else if (permissionPermissionContains(args[2].toUpperCase())) {
                     statusCode = PermissionSystem.addPermissionStatusCode(mentionedRoles.get(0), PermissionPermission.valueOf(args[2].toUpperCase()));
-                }  else if (boardPermissionContains(args[2].toUpperCase())) {
+                } else if (boardPermissionContains(args[2].toUpperCase())) {
                     statusCode = PermissionSystem.addPermissionStatusCode(mentionedRoles.get(0), BoardPermission.valueOf(args[2].toUpperCase()));
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), textChannel, Color.red, langCode, slashCommandEvent);
@@ -54,7 +55,10 @@ public class AddPermission {
                 return;
             }
             if (statusCode == 200) {
-                MessageSender.send(embedTitle, Localizations.getString("permission_added", langCode), textChannel, Color.green, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("permission_added", langCode, new ArrayList<>() {{
+                    add(args[2].toUpperCase());
+                    add((mentionedMembers != null && mentionedMembers.size() > 0) ? mentionedMembers.get(0).getAsMention() : mentionedRoles.get(0).getAsMention());
+                }}), textChannel, Color.green, langCode, slashCommandEvent);
             } else if (statusCode == 903) {
                 MessageSender.send(embedTitle, Localizations.getString("already_has_permission", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             } else {

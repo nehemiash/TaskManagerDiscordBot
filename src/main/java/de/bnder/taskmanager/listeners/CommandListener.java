@@ -42,6 +42,11 @@ public class CommandListener extends ListenerAdapter {
 
     private static final Logger logger = LogManager.getLogger(CommandListener.class);
 
+    /**
+     * The listener which waits for a message received event
+     *
+     * @param event MessageReceivedEvent
+     */
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (!event.getAuthor().isBot() && event.isFromGuild()) {
@@ -63,13 +68,18 @@ public class CommandListener extends ListenerAdapter {
                         MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getMessage(), Color.red, langCode, null);
                     }
                 } else if (event.getMessage().getContentRaw().startsWith("<@!" + event.getJDA().getSelfUser().getId() + ">")) {
-                    System.out.println("aaaaaa");
-                    processNormalCommandWithMentionPrefix(event);
+                    processNormalCommandWithMentionAsPrefix(event);
                 }
             }
         }
     }
 
+    /**
+     * Waits for the SlashCommandEvent
+     *
+     * @param event SlashCommandEvent
+     */
+    @Override
     public void onSlashCommand(SlashCommandEvent event) {
         final String commandName = event.getName();
         final String arg0 = " " + (event.getSubcommandName() != null ? event.getSubcommandName() : "");
@@ -122,6 +132,11 @@ public class CommandListener extends ListenerAdapter {
         }
     }
 
+    /**
+     * Process the normal command by replacing all double spaces and registering the user.
+     *
+     * @param event MessageReceivedEvent given by the listener
+     */
     private void processNormalCommand(MessageReceivedEvent event) {
         try {
             String msg = event.getMessage().getContentRaw();
@@ -137,7 +152,12 @@ public class CommandListener extends ListenerAdapter {
         RegisterUser.register(event.getMember());
     }
 
-    private void processNormalCommandWithMentionPrefix(MessageReceivedEvent event) {
+    /**
+     * Processes the normal command by replacing all double spaces and registering the user. Removes the mention from start of message.
+     *
+     * @param event MessageReceivedEvent given by the listener.
+     */
+    private void processNormalCommandWithMentionAsPrefix(MessageReceivedEvent event) {
         try {
             String msg = event.getMessage().getContentRaw();
             while (msg.contains("  ")) {

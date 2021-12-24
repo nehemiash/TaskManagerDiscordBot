@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -56,7 +57,10 @@ public class RemovePermission {
                 return;
             }
             if (statusCode == 200) {
-                MessageSender.send(embedTitle, Localizations.getString("permission_removed", langCode), textChannel, Color.green, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("permission_removed", langCode, new ArrayList<>() {{
+                    add(args[2].toUpperCase());
+                    add((mentionedMembers != null && mentionedMembers.size() > 0) ? mentionedMembers.get(0).getAsMention() : mentionedRoles.get(0).getAsMention());
+                }}), textChannel, Color.green, langCode, slashCommandEvent);
             } else if (statusCode == 903) {
                 MessageSender.send(embedTitle, Localizations.getString("dont_has_permission", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
