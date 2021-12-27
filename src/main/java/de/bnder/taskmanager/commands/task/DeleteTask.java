@@ -21,11 +21,10 @@ public class DeleteTask {
 
     private static final Logger logger = LogManager.getLogger(DeleteTask.class);
 
-    public static void deleteTask(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
+    public static void deleteTask(Member member, TextChannel textChannel, String taskID, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         if (PermissionSystem.hasPermission(member, TaskPermission.DELETE_TASK)) {
-            final String taskID = args[1];
             if (!taskID.equalsIgnoreCase("done")) {
                 final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
                 if (task.exists()) {

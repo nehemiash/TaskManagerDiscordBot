@@ -25,7 +25,7 @@ public class AddGroupMember {
 
     private static final Logger logger = LogManager.getLogger(AddGroupMember.class);
 
-    public static void addGroupMember(Member member, TextChannel textChannel, String[] args, List<Member> mentionedMembers, SlashCommandEvent slashCommandEvent) {
+    public static void addGroupMember(Member member, TextChannel textChannel, String groupName, List<Member> mentionedMembers, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("group_title", langCode);
 
@@ -36,7 +36,7 @@ public class AddGroupMember {
         }
 
         //args are not complete
-        if (args.length < 3) {
+        if (groupName == null) {
             MessageSender.send(embedTitle, Localizations.getString("group_name_needs_to_be_given", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             return;
         }
@@ -47,7 +47,6 @@ public class AddGroupMember {
             return;
         }
 
-        final String groupName = args[1 + mentionedMembers.size()];
         for (Member mentionedMember : mentionedMembers) {
 
             try {

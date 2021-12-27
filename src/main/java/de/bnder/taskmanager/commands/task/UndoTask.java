@@ -13,9 +13,8 @@ import java.util.Locale;
 
 public class UndoTask {
 
-    public static void undoTask(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
+    public static void undoTask(Member member, TextChannel textChannel, String taskID, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
-        final String taskID = args[1];
         final String embedTitle = Localizations.getString("task_message_title", langCode) + " - " + taskID;
         final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, member.getGuild());
         task.undo();

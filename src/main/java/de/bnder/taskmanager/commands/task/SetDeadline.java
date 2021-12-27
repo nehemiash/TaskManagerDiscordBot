@@ -13,11 +13,10 @@ import java.util.Locale;
 
 public class SetDeadline {
 
-    public static void setDeadline(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
+    public static void setDeadline(Member member, TextChannel textChannel, String[] args, String taskID, int argsStart, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         if (PermissionSystem.hasPermission(member, TaskPermission.EDIT_TASK)) {
-            final String taskID = args[1];
             final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
             String date = args[2];
             if (args.length == 4) {

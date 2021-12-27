@@ -24,15 +24,13 @@ public class GroupMembers {
 
     private static final Logger logger = LogManager.getLogger(GroupMembers.class);
 
-    public static void getGroupMembers(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
+    public static void getGroupMembers(Member member, TextChannel textChannel, String groupName, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("group_title", langCode);
         if (!PermissionSystem.hasPermission(member, GroupPermission.SHOW_MEMBERS)) {
             MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             return;
         }
-
-        final String groupName = args[1];
 
         try {
             final QuerySnapshot getGroup = Main.firestore.collection("server").document(member.getGuild().getId()).collection("groups").whereEqualTo("name", groupName).get().get();

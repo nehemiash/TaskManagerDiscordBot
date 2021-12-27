@@ -5,10 +5,7 @@ import de.bnder.taskmanager.utils.LevenshteinDistance;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 
 import java.awt.*;
@@ -24,38 +21,105 @@ public class GroupController implements Command {
         add("members");
         add("add");
         add("remove");
-        add("rem");
+        add("rem"); //remove
         add("notifications");
         add("list");
+        add("l"); //list
     }};
 
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) {
-        if (args.length > 1) {
+        if (args[0].equalsIgnoreCase("delete")) {
+            String groupName = null;
+            if (args.length >= 2) {
+                groupName = args[1];
+            } else {
+                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
+                if (tempGroupName != null) {
+                    groupName = tempGroupName;
+                }
+            }
+            DeleteGroup.deleteGroup(commandExecutor, textChannel, groupName, slashCommandEvent);
+        } else if (args[0].equalsIgnoreCase("members")) {
+            String groupName = null;
+            if (args.length >= 2) {
+                groupName = args[1];
+            } else {
+                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
+                if (tempGroupName != null) {
+                    groupName = tempGroupName;
+                }
+            }
+            GroupMembers.getGroupMembers(commandExecutor, textChannel, groupName, slashCommandEvent);
+        } else if (args[0].equalsIgnoreCase("add")) {
+            String groupName = null;
+            if (args.length >= 3) {
+                groupName = args[1 + mentionedMembers.size()];
+            } else {
+                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
+                if (tempGroupName != null) {
+                    groupName = tempGroupName;
+                }
+            }
+            AddGroupMember.addGroupMember(commandExecutor, textChannel, groupName, mentionedMembers, slashCommandEvent);
+        } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem")) {
+            String groupName = null;
+            if (args.length >= 3) {
+                groupName = args[1 + mentionedMembers.size()];
+            } else {
+                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
+                if (tempGroupName != null) {
+                    groupName = tempGroupName;
+                }
+            }
+            RemoveGroupMember.removeGroupMember(commandExecutor, textChannel, groupName, mentionedMembers, slashCommandEvent);
+        } else if (args.length > 1) {
             if (args[0].equalsIgnoreCase("create")) {
                 CreateGroup.createGroup(commandExecutor, textChannel, args, slashCommandEvent);
-            } else if (args[0].equalsIgnoreCase("delete")) {
-                DeleteGroup.deleteGroup(commandExecutor, textChannel, args, slashCommandEvent);
-            } else if (args[0].equalsIgnoreCase("members")) {
-                GroupMembers.getGroupMembers(commandExecutor, textChannel, args, slashCommandEvent);
-            } else if (args[0].equalsIgnoreCase("add")) {
-                AddGroupMember.addGroupMember(commandExecutor, textChannel, args, mentionedMembers, slashCommandEvent);
-            } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem")) {
-                RemoveGroupMember.removeGroupMember(commandExecutor, textChannel, args, mentionedMembers, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("notifications")) {
                 GroupNotifications.setGroupNotifications(commandExecutor, textChannel, args, mentionedChannels, slashCommandEvent);
             } else {
                 checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
             }
-        } else if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("list")) {
+        } else {
+            if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("l")) {
                 GroupList.getGroupList(commandExecutor, textChannel, slashCommandEvent);
             } else {
                 checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
             }
-        } else {
-            checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
         }
+    }
+
+    String getGroupNameFromContext(TextChannel textChannel, Member commandExecutor, String sourceMessage, List<Member> mentionedMembers) {
+        ArrayList<Message> messageArrayList = new ArrayList<>(textChannel.getHistoryBefore(textChannel.getLatestMessageId(), 25).complete().getRetrievedHistory());
+        final Locale langCode = Localizations.getGuildLanguage(textChannel.getGuild());
+        for (Message message : messageArrayList) {
+            if (message.getAuthor().getId().equals(commandExecutor.getUser().getId())) {
+                final String messageContentRaw = message.getContentRaw();
+                if (messageContentRaw.startsWith(String.valueOf(sourceMessage.split(" ")[0]))) {
+                    final String commandArg = messageContentRaw.split(" ")[1];
+
+                    if (commandArg.equalsIgnoreCase("delete") || commandArg.equalsIgnoreCase("members") || commandArg.equalsIgnoreCase("notifications")) {
+                        if (messageContentRaw.split(" ").length >= 3) {
+                            return messageContentRaw.split(" ")[2];
+                        }
+                    } else if (commandArg.equalsIgnoreCase("add") || commandArg.equalsIgnoreCase("remove") || commandArg.equalsIgnoreCase("rem")) {
+                        if (messageContentRaw.split(" ").length > 3) {
+                            return messageContentRaw.split(" ")[2 + mentionedMembers.size()];
+                        }
+                    }
+                }
+            } else if (message.getAuthor().getId().equals(message.getJDA().getSelfUser().getId())) {
+                if (message.getEmbeds().size() > 0) {
+                    final MessageEmbed embed = message.getEmbeds().get(0);
+                    // Group create message
+                    if (embed.getColor() != null && embed.getColor().getGreen() == 255 && embed.getColor().getRed() == 0 && embed.getColor().getBlue() == 0 && (embed.getTitle() != null && embed.getTitle().startsWith(Localizations.getString("group_title", langCode) + " - "))) {
+                        return embed.getTitle().split(Localizations.getString("group_title", langCode) + " - ")[1];
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     void checkIfTypo(String[] args, String messageContentRaw, Guild guild, TextChannel textChannel, Member commandExecutor, SlashCommandEvent slashCommandEvent) {

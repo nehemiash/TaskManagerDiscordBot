@@ -23,14 +23,14 @@ public class RemoveGroupMember {
 
     private static final Logger logger = LogManager.getLogger(RemoveGroupMember.class);
 
-    public static void removeGroupMember(Member member, TextChannel textChannel, String[] args, List<Member> mentionedMembers, SlashCommandEvent slashCommandEvent) {
+    public static void removeGroupMember(Member member, TextChannel textChannel, String groupName, List<Member> mentionedMembers, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("group_title", langCode);
         if (!PermissionSystem.hasPermission(member, GroupPermission.REMOVE_MEMBERS)) {
             MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             return;
         }
-        if (args.length < 3) {
+        if (groupName == null) {
             MessageSender.send(embedTitle, Localizations.getString("group_name_needs_to_be_given", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             return;
         }
@@ -39,7 +39,6 @@ public class RemoveGroupMember {
             MessageSender.send(embedTitle, Localizations.getString("user_needs_to_be_mentioned", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             return;
         }
-        final String groupName = args[1 + mentionedMembers.size()];
         for (Member mentionedMember : mentionedMembers) {
             try {
                 final QuerySnapshot getGroups = Main.firestore.collection("server").document(member.getGuild().getId()).collection("groups").whereEqualTo("name", groupName).get().get();

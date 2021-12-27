@@ -13,10 +13,9 @@ import java.util.Locale;
 
 public class TasksDone {
 
-    public static void tasksDone(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
+    public static void tasksDone(Member member, TextChannel textChannel, String taskID, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
-        final String taskID = args[1];
         final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, member.getGuild());
         if (task.exists()) {
             task.setStatus(TaskStatus.DONE);

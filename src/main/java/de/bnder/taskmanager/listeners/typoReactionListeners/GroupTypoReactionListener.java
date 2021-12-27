@@ -49,13 +49,13 @@ public class GroupTypoReactionListener extends ListenerAdapter {
             if (args[0].equalsIgnoreCase("create")) {
                 CreateGroup.createGroup(member, channel, args, null);
             } else if (args[0].equalsIgnoreCase("delete")) {
-                DeleteGroup.deleteGroup(member, channel, args, null);
+                DeleteGroup.deleteGroup(member, channel, args[1], null);
             } else if (args[0].equalsIgnoreCase("members")) {
-                GroupMembers.getGroupMembers(member, channel, args, null);
+                GroupMembers.getGroupMembers(member, channel, args[1], null);
             } else if (args[0].equalsIgnoreCase("add")) {
-                AddGroupMember.addGroupMember(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()), null);
+                AddGroupMember.addGroupMember(member, channel, args[1 + getMentionedMembers(commandRaw, member.getGuild()).size()], getMentionedMembers(commandRaw, member.getGuild()), null);
             } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem")) {
-                RemoveGroupMember.removeGroupMember(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()), null);
+                RemoveGroupMember.removeGroupMember(member, channel, args[1 + getMentionedMembers(commandRaw, member.getGuild()).size()], getMentionedMembers(commandRaw, member.getGuild()), null);
             } else if (args[0].equalsIgnoreCase("notifications") || args[0].equalsIgnoreCase("notification")) {
                 GroupNotifications.setGroupNotifications(member, channel, args, getMentionedChannels(commandRaw, member.getGuild()), null);
             }

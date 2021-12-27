@@ -14,11 +14,10 @@ import java.util.Locale;
 
 public class EditTask {
 
-    public static void editTask(String commandMessage, Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
+    public static void editTask(String commandMessage, Member member, TextChannel textChannel, String taskID, int newTextStartIndex, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
         if (PermissionSystem.hasPermission(member, TaskPermission.EDIT_TASK)) {
-            final String taskID = args[1];
             final String newTask = AddTask.getTaskFromArgs(3, commandMessage, false);
             final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
             if (task.exists()) {

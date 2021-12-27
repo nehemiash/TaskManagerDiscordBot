@@ -22,14 +22,13 @@ public class DeleteGroup {
 
     private static final Logger logger = LogManager.getLogger(DeleteGroup.class);
 
-    public static void deleteGroup(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
+    public static void deleteGroup(Member member, TextChannel textChannel, String groupName, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("group_title", langCode);
         if (!PermissionSystem.hasPermission(member, GroupPermission.DELETE_GROUP)) {
             MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             return;
         }
-        final String groupName = args[1];
 
         try {
             final QuerySnapshot getGroupsWithName = Main.firestore.collection("server").document(textChannel.getGuild().getId()).collection("groups").whereEqualTo("name", groupName).get().get();
