@@ -32,6 +32,12 @@ public class GroupMembers {
             return;
         }
 
+        //args are not complete
+        if (groupName == null) {
+            MessageSender.send(embedTitle, Localizations.getString("context_awareness_no_group_name_found", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            return;
+        }
+
         try {
             final QuerySnapshot getGroup = Main.firestore.collection("server").document(member.getGuild().getId()).collection("groups").whereEqualTo("name", groupName).get().get();
             if (getGroup.size() == 0) {

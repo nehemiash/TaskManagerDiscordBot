@@ -37,7 +37,7 @@ public class AddGroupMember {
 
         //args are not complete
         if (groupName == null) {
-            MessageSender.send(embedTitle, Localizations.getString("group_name_needs_to_be_given", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle, Localizations.getString("context_awareness_no_group_name_found", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             return;
         }
 

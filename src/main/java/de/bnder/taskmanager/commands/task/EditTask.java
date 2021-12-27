@@ -17,25 +17,29 @@ public class EditTask {
     public static void editTask(String commandMessage, Member member, TextChannel textChannel, String taskID, int newTextStartIndex, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
-        if (PermissionSystem.hasPermission(member, TaskPermission.EDIT_TASK)) {
-            final String newTask = AddTask.getTaskFromArgs(3, commandMessage, false);
-            final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
-            if (task.exists()) {
-            task.setText(newTask);
-                MessageSender.send(embedTitle + " - " + taskID, Localizations.getString("task_edited", langCode, new ArrayList<String>() {
-                    {
-                        add(taskID);
-                    }
-                }), textChannel, Color.green, langCode, slashCommandEvent);
+        if (taskID != null) {
+            if (PermissionSystem.hasPermission(member, TaskPermission.EDIT_TASK)) {
+                final String newTask = AddTask.getTaskFromArgs(3, commandMessage, false);
+                final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
+                if (task.exists()) {
+                    task.setText(newTask);
+                    MessageSender.send(embedTitle + " - " + taskID, Localizations.getString("task_edited", langCode, new ArrayList<String>() {
+                        {
+                            add(taskID);
+                        }
+                    }), textChannel, Color.green, langCode, slashCommandEvent);
+                } else {
+                    MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<String>() {
+                        {
+                            add(taskID);
+                        }
+                    }), textChannel, Color.red, langCode, slashCommandEvent);
+                }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<String>() {
-                    {
-                        add(taskID);
-                    }
-                }), textChannel, Color.red, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle, Localizations.getString("context_awareness_no_task_id_found", langCode), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
 }

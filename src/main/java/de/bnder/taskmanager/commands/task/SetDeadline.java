@@ -16,35 +16,39 @@ public class SetDeadline {
     public static void setDeadline(Member member, TextChannel textChannel, String[] args, String taskID, int argsStart, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
-        if (PermissionSystem.hasPermission(member, TaskPermission.EDIT_TASK)) {
-            final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
-            String date = args[2];
-            if (args.length == 4) {
-                date += " " + args[3];
-            }
-            if (DateUtil.convertToDate(date) != null) {
-                final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                final String newDate = dateFormat.format(DateUtil.convertToDate(date));
-                if (task.exists()) {
-                    task.setDeadline(newDate);
-                    MessageSender.send(embedTitle + " - " + taskID, Localizations.getString("deadline_set", langCode, new ArrayList<String>() {
-                        {
-                            add(taskID);
-                            add(newDate);
-                        }
-                    }), textChannel, Color.green, langCode, slashCommandEvent);
+        if (taskID != null) {
+            if (PermissionSystem.hasPermission(member, TaskPermission.EDIT_TASK)) {
+                final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
+                String date = args[2];
+                if (args.length == 4) {
+                    date += " " + args[3];
+                }
+                if (DateUtil.convertToDate(date) != null) {
+                    final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    final String newDate = dateFormat.format(DateUtil.convertToDate(date));
+                    if (task.exists()) {
+                        task.setDeadline(newDate);
+                        MessageSender.send(embedTitle + " - " + taskID, Localizations.getString("deadline_set", langCode, new ArrayList<String>() {
+                            {
+                                add(taskID);
+                                add(newDate);
+                            }
+                        }), textChannel, Color.green, langCode, slashCommandEvent);
+                    } else {
+                        MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<String>() {
+                            {
+                                add(taskID);
+                            }
+                        }), textChannel, Color.red, langCode, slashCommandEvent);
+                    }
                 } else {
-                    MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<String>() {
-                        {
-                            add(taskID);
-                        }
-                    }), textChannel, Color.red, langCode, slashCommandEvent);
+                    MessageSender.send(embedTitle, Localizations.getString("invalid_date_format", langCode), textChannel, Color.red, langCode, slashCommandEvent);
                 }
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("invalid_date_format", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle, Localizations.getString("context_awareness_no_task_id_found", langCode), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
 

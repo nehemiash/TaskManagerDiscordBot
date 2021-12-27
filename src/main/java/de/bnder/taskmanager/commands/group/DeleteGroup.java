@@ -30,6 +30,12 @@ public class DeleteGroup {
             return;
         }
 
+        //args are not complete
+        if (groupName == null) {
+            MessageSender.send(embedTitle, Localizations.getString("context_awareness_no_group_name_found", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            return;
+        }
+
         try {
             final QuerySnapshot getGroupsWithName = Main.firestore.collection("server").document(textChannel.getGuild().getId()).collection("groups").whereEqualTo("name", groupName).get().get();
             if (getGroupsWithName.getDocuments().size() == 0) {

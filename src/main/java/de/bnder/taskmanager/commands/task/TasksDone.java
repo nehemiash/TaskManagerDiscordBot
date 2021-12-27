@@ -16,16 +16,20 @@ public class TasksDone {
     public static void tasksDone(Member member, TextChannel textChannel, String taskID, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
-        final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, member.getGuild());
-        if (task.exists()) {
-            task.setStatus(TaskStatus.DONE);
-            MessageSender.send(embedTitle + " - " + taskID, Localizations.getString("task_status_done", langCode), textChannel, Color.green, langCode, slashCommandEvent);
+        if (taskID != null) {
+            final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, member.getGuild());
+            if (task.exists()) {
+                task.setStatus(TaskStatus.DONE);
+                MessageSender.send(embedTitle + " - " + taskID, Localizations.getString("task_status_done", langCode), textChannel, Color.green, langCode, slashCommandEvent);
+            } else {
+                MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<String>() {
+                    {
+                        add(taskID);
+                    }
+                }), textChannel, Color.red, langCode, slashCommandEvent);
+            }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<String>() {
-                {
-                    add(taskID);
-                }
-            }), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle, Localizations.getString("context_awareness_no_task_id_found", langCode), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
 

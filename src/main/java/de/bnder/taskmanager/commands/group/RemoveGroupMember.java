@@ -31,7 +31,7 @@ public class RemoveGroupMember {
             return;
         }
         if (groupName == null) {
-            MessageSender.send(embedTitle, Localizations.getString("group_name_needs_to_be_given", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle, Localizations.getString("context_awareness_no_group_name_found", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             return;
         }
 
@@ -55,7 +55,7 @@ public class RemoveGroupMember {
                 final QueryDocumentSnapshot groupDoc = getGroups.getDocuments().get(0);
                 QuerySnapshot groupMembers = groupDoc.getReference().collection("group-member").whereEqualTo("user_id", mentionedMember.getId()).get().get();
                 if (groupMembers.size() == 0) {
-                    MessageSender.send(embedTitle, Localizations.getString("nutzer_ist_in_keiner_gruppe", langCode, new ArrayList<String>() {
+                    MessageSender.send(embedTitle, Localizations.getString("user_is_in_no_group", langCode, new ArrayList<String>() {
                         {
                             add(mentionedMember.getUser().getAsTag());
                         }

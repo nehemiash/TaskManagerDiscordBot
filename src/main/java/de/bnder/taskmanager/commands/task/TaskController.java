@@ -44,7 +44,7 @@ public class TaskController implements Command {
             if (args.length >= 2) {
                 taskID = args[1];
             }
-            if (taskID != null || NumberUtils.isCreatable(formatPossibleTaskID(taskID)) && new Task(taskID, guild).exists()) {
+            if (taskID != null || NumberUtils.isCreatable(formatPossibleTaskID(taskID))) {
                 newTextStartIndex = 3;
             } else {
                 String tempTaskID = getTaskIDFromContext(textChannel, commandExecutor, messageContentRaw);
@@ -61,7 +61,7 @@ public class TaskController implements Command {
             if (args.length >= 2) {
                 taskID = args[1];
             }
-            if (taskID != null || NumberUtils.isCreatable(formatPossibleTaskID(taskID)) && new Task(taskID, guild).exists()) {
+            if (taskID != null || NumberUtils.isCreatable(formatPossibleTaskID(taskID))) {
                 dateStartIndex = 2;
             } else {
                 String tempTaskID = getTaskIDFromContext(textChannel, commandExecutor, messageContentRaw);
@@ -77,13 +77,9 @@ public class TaskController implements Command {
             if (args.length >= 2) {
                 taskID = args[1];
             }
-            System.out.println(taskID);
-            System.out.println("11111");
-            if (taskID == null || !(NumberUtils.isCreatable(formatPossibleTaskID(taskID)) || new Task(taskID, guild).exists())) {
-                System.out.println("222222");
+            if (taskID == null || !(NumberUtils.isCreatable(formatPossibleTaskID(taskID)))) {
                 String tempTaskID = getTaskIDFromContext(textChannel, commandExecutor, messageContentRaw);
                 if (NumberUtils.isCreatable(tempTaskID) && new Task(tempTaskID, guild).exists()) {
-                    System.out.println("33333");
                     taskID = tempTaskID;
                 }
             }
@@ -94,7 +90,7 @@ public class TaskController implements Command {
             if (args.length >= 2) {
                 taskID = args[1];
             }
-            if (taskID == null || !(taskID.equalsIgnoreCase("done") || (NumberUtils.isCreatable(formatPossibleTaskID(taskID)) && new Task(taskID, guild).exists()))) {
+            if (taskID == null || !(taskID.equalsIgnoreCase("done") || (NumberUtils.isCreatable(formatPossibleTaskID(taskID))))) {
                 String tempTaskID = getTaskIDFromContext(textChannel, commandExecutor, messageContentRaw);
                 if (NumberUtils.isCreatable(tempTaskID) && new Task(tempTaskID, guild).exists()) {
                     taskID = tempTaskID;
@@ -107,7 +103,7 @@ public class TaskController implements Command {
             if (args.length >= 2) {
                 taskID = args[1];
             }
-            if (taskID == null || !(NumberUtils.isCreatable(formatPossibleTaskID(taskID)) && new Task(taskID, guild).exists())) {
+            if (taskID == null || !(NumberUtils.isCreatable(formatPossibleTaskID(taskID)))) {
                 String tempTaskID = getTaskIDFromContext(textChannel, commandExecutor, messageContentRaw);
                 if (NumberUtils.isCreatable(tempTaskID) && new Task(tempTaskID, guild).exists()) {
                     taskID = tempTaskID;
@@ -120,7 +116,7 @@ public class TaskController implements Command {
             if (args.length >= 2) {
                 taskID = args[1];
             }
-            if (taskID == null || !(NumberUtils.isCreatable(formatPossibleTaskID(taskID)) && new Task(taskID, guild).exists())) {
+            if (taskID == null || !(NumberUtils.isCreatable(formatPossibleTaskID(taskID)))) {
                 String tempTaskID = getTaskIDFromContext(textChannel, commandExecutor, messageContentRaw);
                 if (NumberUtils.isCreatable(tempTaskID) && new Task(tempTaskID, guild).exists()) {
                     taskID = tempTaskID;

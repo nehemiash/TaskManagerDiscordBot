@@ -95,7 +95,7 @@ public class Task {
                     }
                 }
             }
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (Exception e) {
             logger.error(e);
         }
     }

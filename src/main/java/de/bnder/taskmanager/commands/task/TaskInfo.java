@@ -44,7 +44,7 @@ public class TaskInfo {
                 builder.addField(Localizations.getString("task_info_field_task", langCode), task.getText(), false);
                 Stats.handleEmbedsOnSlashCommand(textChannel, slashCommandEvent, builder);
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("keine_aufgabe_mit_id", langCode, new ArrayList<String>() {
+                MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<String>() {
                     {
                         add(taskID);
                     }
