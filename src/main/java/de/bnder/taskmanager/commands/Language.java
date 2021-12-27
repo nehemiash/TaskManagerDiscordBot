@@ -42,7 +42,7 @@ public class Language implements Command {
             if (validLangCodes.contains(language)) {
                 if (commandExecutor.hasPermission(Permission.ADMINISTRATOR)) {
                     Main.firestore.collection("server").document(guild.getId()).update(new HashMap<>() {{
-                        put("language", language);
+                        put("language", language.getLanguage());
                     }});
                     final String embedTitle = Localizations.getString("language_message_title", language);
                     UpdateGuildSlashCommands.update(guild);

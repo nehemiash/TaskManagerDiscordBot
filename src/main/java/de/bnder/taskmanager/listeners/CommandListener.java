@@ -63,6 +63,7 @@ public class CommandListener extends ListenerAdapter {
                             processNormalCommand(event);
                         }
                     } catch (Exception e) {
+                        e.printStackTrace();
                         logger.error(e);
                         final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
                         MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode) + e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber(), event.getMessage(), Color.red, langCode, null);
@@ -145,6 +146,7 @@ public class CommandListener extends ListenerAdapter {
             }
             CommandHandler.handleCommand(CommandHandler.parse.parseNormalCommand(msg, event.getMember(), event.getTextChannel(), event.getGuild(), event.getMessage().getMentionedMembers(), event.getMessage().getMentionedRoles(), event.getMessage().getMentionedChannels()));
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error(e);
             final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
             MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode), event.getMessage(), Color.red, langCode, null);
@@ -165,6 +167,7 @@ public class CommandListener extends ListenerAdapter {
             }
             CommandHandler.handleCommand(CommandHandler.parse.parseNormalCommandWithMentionPrefix(msg, event.getMember(), event.getTextChannel(), event.getGuild(), event.getMessage().getMentionedMembers(), event.getMessage().getMentionedRoles(), event.getMessage().getMentionedChannels()));
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error(e);
             final Locale langCode = Localizations.getGuildLanguage(event.getGuild());
             MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode), event.getMessage(), Color.red, langCode, null);

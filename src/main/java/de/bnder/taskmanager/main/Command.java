@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface Command {
 
-    void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent);
+    void action(final String[] args, final String messageContentRaw, final Member commandExecutor, final TextChannel textChannel, final Guild guild, final List<Member> mentionedMembers, final List<Role> mentionedRoles, final List<TextChannel> mentionedChannels, final SlashCommandEvent slashCommandEvent);
 
 }

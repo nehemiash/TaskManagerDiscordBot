@@ -56,7 +56,7 @@ public class ListTasksFromOthers {
                     for (DocumentSnapshot groupTaskDoc : groupDoc.getReference().collection("group-tasks").whereEqualTo("board_id", boardID).orderBy("position", Query.Direction.ASCENDING).get().get().getDocuments()) {
                         String text = groupTaskDoc.getString("text");
                         long status = (long) groupTaskDoc.get("status");
-                        String deadline = groupTaskDoc.get("deadline") != null ?  new SimpleDateFormat("dd.MM.yyyy HH:mm").format(groupTaskDoc.getDate("deadline")) : "";
+                        String deadline = groupTaskDoc.get("deadline") != null ?  new SimpleDateFormat(Localizations.getString("datetime_format", langCode)).format(groupTaskDoc.getDate("deadline")) : "";
                         String id = groupTaskDoc.getId();
                         HashMap<String, Object> data = new HashMap<>() {{
                             put("text", text);
