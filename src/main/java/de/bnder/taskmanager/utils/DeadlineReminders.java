@@ -58,7 +58,7 @@ public class DeadlineReminders {
                                                     add(taskID);
                                                     add(deadline);
                                                 }})).queue(), (error) -> {
-                                        }), (error) -> {
+                                        }), throwable -> {
                                         });
                                     }
                                 }

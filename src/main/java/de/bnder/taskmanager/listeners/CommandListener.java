@@ -114,11 +114,13 @@ public class CommandListener extends ListenerAdapter {
                         if (event.getGuild().getRoleById(id) != null) {
                             msg.append("<@&").append(id).append(">");
                             mentionedRoles.add(event.getGuild().getRoleById(id));
-                        } else if (event.getGuild().retrieveMemberById(id).complete() != null) {
+                        } else {
                             final Member member = event.getGuild().retrieveMemberById(id).complete();
-                            msg.append("<@!").append(member.getId()).append(">");
-                            mentionedMembers.add(member);
-                            RegisterUser.register(member);
+                            if (member != null) {
+                                msg.append("<@!").append(member.getId()).append(">");
+                                mentionedMembers.add(member);
+                                RegisterUser.register(member);
+                            }
                         }
                     }
                 }

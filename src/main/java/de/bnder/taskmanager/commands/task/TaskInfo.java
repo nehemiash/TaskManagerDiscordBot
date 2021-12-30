@@ -34,8 +34,10 @@ public class TaskInfo {
                 if (task.getType() == TaskType.USER) {
                     builder.addField(Localizations.getString("task_info_field_type", langCode), Localizations.getString("task_info_field_type_user", langCode), true);
                     final String userID = task.getHolder();
-                    if (userID != null && textChannel.getGuild().retrieveMemberById(userID).complete() != null) {
-                        builder.addField(Localizations.getString("task_info_field_assigned", langCode), textChannel.getGuild().retrieveMemberById(userID).complete().getUser().getAsTag(), true);
+                    if (userID != null) {
+                        final Member tempMember = textChannel.getGuild().retrieveMemberById(userID).complete();
+                        if (tempMember != null)
+                            builder.addField(Localizations.getString("task_info_field_assigned", langCode), tempMember.getUser().getAsTag(), true);
                     }
                 } else if (task.getType() == TaskType.GROUP) {
                     builder.addField(Localizations.getString("task_info_field_type", langCode), Localizations.getString("task_info_field_type_group", langCode), true);

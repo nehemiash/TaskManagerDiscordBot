@@ -35,13 +35,15 @@ public class UpdateServer {
                 serverDoc.getReference().update("icon_url", guild.getIconUrl());
             }
         } else {
-            Map<String, Object> map = new java.util.HashMap<>();
-            map.put("name", guild.getName());
-            map.put("language", "en");
-            map.put("owner", guild.retrieveOwner().complete().getId());
-            map.put("guild_id", guild.getId());
-            map.put("icon_url", guild.getIconUrl());
-            serverDoc.getReference().set(map);
+            guild.retrieveOwner().queue(owner -> {
+                Map<String, Object> map = new java.util.HashMap<>();
+                map.put("name", guild.getName());
+                map.put("language", "en");
+                map.put("owner", owner.getId());
+                map.put("guild_id", guild.getId());
+                map.put("icon_url", guild.getIconUrl());
+                serverDoc.getReference().set(map);
+            });
         }
     }
 }

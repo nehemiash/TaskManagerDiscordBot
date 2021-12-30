@@ -37,8 +37,10 @@ public class CommandParser {
                     Member member = null;
                     if (guild.getMemberById(userID) != null) {
                         member = guild.getMemberById(userID);
-                    } else if (guild.retrieveMemberById(userID).complete() != null) {
-                        member = guild.retrieveMemberById(userID).complete();
+                    } else {
+                        final Member tempMember = guild.retrieveMemberById(userID).complete();
+                        if (tempMember != null)
+                            member = tempMember;
                     }
                     if (member != null) {
                         mentionedMembers.add(member);

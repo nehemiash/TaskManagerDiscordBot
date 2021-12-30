@@ -205,31 +205,31 @@ public class Task {
         final int len = 5;
         final String AB = "0123456789";
         final SecureRandom rnd = new SecureRandom();
-        final StringBuilder sb = new StringBuilder(len);
+        final StringBuilder generatedIDBuilder = new StringBuilder(len);
         for (int i = 0; i < len; i++)
-            sb.append(AB.charAt(rnd.nextInt(AB.length())));
+            generatedIDBuilder.append(AB.charAt(rnd.nextInt(AB.length())));
 
         try {
-            DocumentSnapshot a = Main.firestore.collection("server").document(guild.getId()).collection("boards").document(activeBoardID).get().get();
-            if (!a.exists()) {
+            DocumentSnapshot activeBoardDocumentSnapshot = Main.firestore.collection("server").document(guild.getId()).collection("boards").document(activeBoardID).get().get();
+            if (!activeBoardDocumentSnapshot.exists()) {
                 final String boardName = this.boardName;
-                a.getReference().set(new HashMap<>() {{
+                activeBoardDocumentSnapshot.getReference().set(new HashMap<>() {{
                     put("name", boardName);
                 }});
             }
 
-            if (a.getReference().collection("user-tasks").document(sb.toString()).get().get().exists()) {
+            if (activeBoardDocumentSnapshot.getReference().collection("user-tasks").document(generatedIDBuilder.toString()).get().get().exists()) {
                 return generateTaskID(guild, activeBoardID);
             }
 
             for (DocumentSnapshot groupDoc : Main.firestore.collection("server").document(guild.getId()).collection("groups").get().get().getDocuments()) {
-                if (groupDoc.getReference().collection("group-tasks").document(sb.toString()).get().get().exists()) {
+                if (groupDoc.getReference().collection("group-tasks").document(generatedIDBuilder.toString()).get().get().exists()) {
                     return generateTaskID(guild, activeBoardID);
                 }
             }
 
-            return sb.toString();
-        } catch (InterruptedException | ExecutionException e) {
+            return generatedIDBuilder.toString();
+        } catch (Exception e) {
             logger.error(e);
         }
         return null;

@@ -60,7 +60,10 @@ public class GroupMembers {
                 final String id = doc.getString("user_id");
                 try {
                     final Member groupMember = member.getGuild().retrieveMemberById(id).complete();
+                    if (groupMember != null)
                         builder.append("- ").append(groupMember.getUser().getAsTag()).append("\n");
+                    else
+                        doc.getReference().delete();
                 } catch (ErrorResponseException e) {
                     doc.getReference().delete();
                 }

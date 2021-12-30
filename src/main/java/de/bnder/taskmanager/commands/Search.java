@@ -88,8 +88,10 @@ public class Search implements Command {
                                 if (task.getType() == TaskType.USER) {
                                     builder.addField(Localizations.getString("task_info_field_type", langCode), Localizations.getString("task_info_field_type_user", langCode), true);
                                     final String userID = task.getHolder();
-                                    if (userID != null && guild.retrieveMemberById(userID).complete() != null) {
-                                        builder.addField(Localizations.getString("task_info_field_assigned", langCode), guild.retrieveMemberById(userID).complete().getUser().getAsTag(), true);
+                                    if (userID != null) {
+                                        final Member member = guild.retrieveMemberById(userID).complete();
+                                        if (member != null)
+                                            builder.addField(Localizations.getString("task_info_field_assigned", langCode), member.getUser().getAsTag(), true);
                                     }
                                 } else if (task.getType() == TaskType.GROUP) {
                                     builder.addField(Localizations.getString("task_info_field_type", langCode), Localizations.getString("task_info_field_type_group", langCode), true);
@@ -123,7 +125,7 @@ public class Search implements Command {
                                     final StringBuilder membersStringBuilder = new StringBuilder();
                                     for (QueryDocumentSnapshot membersValue : membersList) {
                                         final String userID = membersValue.getString("user_id");
-                                        guild.retrieveMemberById(userID).queue(user -> membersStringBuilder.append(user.getUser().getAsTag()).append(", "), (error) -> {
+                                        guild.retrieveMemberById(userID).queue(user -> membersStringBuilder.append(user.getUser().getAsTag()).append(", "), error -> {
                                         });
                                     }
                                     builder.addField(Localizations.getString("search_members_field", langCode), membersStringBuilder.substring(0, membersStringBuilder.length() - 2), false);

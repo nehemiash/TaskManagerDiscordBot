@@ -68,11 +68,12 @@ public class AddTask {
                     for (final QueryDocumentSnapshot groupMemberDoc : getGroupMembers) {
                         final String id = groupMemberDoc.getString("user_id");
                         try {
-                            if (member.getGuild().retrieveMemberById(id).complete() != null) {
-                                final Member groupMember = member.getGuild().retrieveMemberById(id).complete();
-                                usersWhoReceivedTheTaskAmount++;
-                                sendTaskMessage(groupMember, member, taskObject.getId(), langCode, task);
-                            }
+                            usersWhoReceivedTheTaskAmount++;
+                            member.getGuild().retrieveMemberById(id).queue(groupMember -> {
+                                if (groupMember != null) {
+                                    sendTaskMessage(groupMember, member, taskObject.getId(), langCode, task);
+                                }
+                            }, throwable -> {});
                         } catch (ErrorResponseException e) {
                             groupMemberDoc.getReference().delete();
                         }
@@ -98,7 +99,7 @@ public class AddTask {
         }
     }
 
-    private static void sendTaskMessage(Member member, Member author, String task_id, Locale langCode, String task) {
+    private static void sendTaskMessage(Member member, Member author, String taskID, Locale langCode, String task) {
         final UserSettings userSettings = new UserSettings(member);
         if (userSettings.getDirectMessage()) {
             try {
@@ -106,7 +107,7 @@ public class AddTask {
                     channel.sendMessage(Localizations.getString("task_received", langCode, new ArrayList<>() {
                         {
                             add(author.getUser().getAsTag());
-                            add(task_id);
+                            add(taskID);
                             add(member.getGuild().getName());
                         }
                     })).queue();
@@ -125,7 +126,7 @@ public class AddTask {
                     channel.sendMessage(member.getAsMention() + Localizations.getString("task_received", langCode, new ArrayList<>() {
                         {
                             add(author.getUser().getAsTag());
-                            add(task_id);
+                            add(taskID);
                             add(member.getGuild().getName());
                         }
                     })).queue();
