@@ -1,6 +1,6 @@
 package de.bnder.taskmanager.utils;
 /*
- * Copyright (C) 2020 Jan Brinkmann
+ * Copyright (C) 2021 Jan Brinkmann
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,12 +32,12 @@ public class DeadlineReminders {
 
     private static final Logger logger = LogManager.getLogger(DeadlineReminders.class);
 
-    public static void start(ShardManager shardManager) {
+    public static void start(final ShardManager shardManager) {
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 try {
-                    final LocalDateTime ldt = LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault()).plusMinutes(30);
+                    final LocalDateTime ldt = LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault()).plusHours(1);
                     final Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
                     for (DocumentSnapshot serverDoc : Main.firestore.collection("server").get().get()) {
                         try {
@@ -90,6 +90,6 @@ public class DeadlineReminders {
                     logger.error(executionException);
                 }
             }
-        }, 15 * 1000, 30 * 60 * 1000);
+        }, 30 * 1000, 60 * 60 * 1000);
     }
 }
