@@ -136,9 +136,9 @@ public class TaskController implements Command {
                 }
             }
             UndoTask.undoTask(commandExecutor, textChannel, taskID, slashCommandEvent);
-        } else if (args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("a")) {
+        } else if (args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("a") || args[0].equalsIgnoreCase("addgroup")) {
             AddTask.addTask(messageContentRaw, commandExecutor, mentionedMembers, textChannel, args, slashCommandEvent);
-        } else if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("l")) {
+        } else if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("l") || args[0].equalsIgnoreCase("listgroup")) {
             if (args.length >= 2) {
                 ListTasksFromOthers.listTasks(commandExecutor, mentionedMembers, textChannel, args, slashCommandEvent);
             } else {

@@ -540,7 +540,7 @@ public class Task {
                 if (getTaskDoc.exists()) {
                     long status = 0;
                     if (getTaskDoc.getData().containsKey("status")) {
-                        status = (long) getTaskDoc.get("status");
+                        status = getTaskDoc.getLong("status");
                     }
                     final long finalStatus = status;
                     getTaskDoc.getReference().update(new HashMap<>() {{
@@ -555,15 +555,15 @@ public class Task {
             } else if (this.type == TaskType.GROUP) {
                 final DocumentSnapshot getTaskDoc = Main.firestore.collection("server").document(guild.getId()).collection("groups").document(this.holder).collection("group-tasks").document(this.id).get().get();
                 if (getTaskDoc.exists()) {
-                    int status = 0;
+                    long status = 0;
                     if (getTaskDoc.getData().containsKey("status")) {
-                        status = (int) getTaskDoc.get("status");
+                        status = getTaskDoc.getLong("status");
                     }
-                    final int finalStatus = status;
+                    final long finalStatus = status;
                     getTaskDoc.getReference().update(new HashMap<>() {{
                         put("status", finalStatus + 1);
                     }});
-                    this.status = TaskStatus.values()[status + 1];
+                    this.status = TaskStatus.values()[Math.toIntExact(status + 1)];
 
                     if (this.status == TaskStatus.DONE) {
                         Stats.updateTasksDone();

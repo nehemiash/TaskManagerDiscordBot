@@ -48,7 +48,6 @@ public class AddGroupMember {
         }
 
         for (Member mentionedMember : mentionedMembers) {
-
             try {
                 final QuerySnapshot getGroups = Main.firestore.collection("server").document(member.getGuild().getId()).collection("groups").whereEqualTo("name", groupName).get().get();
                 if (getGroups.size() == 0) {
