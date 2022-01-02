@@ -50,7 +50,7 @@ public class CommandListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (!event.getAuthor().isBot() && event.isFromGuild()) {
-            if (event.getMessage().getContentRaw().length() > 0) {
+            if (event.getMessage().getContentRaw().length() > 1) {
                 if (CommandHandler.commands.containsKey(event.getMessage().getContentRaw().split(" ")[0].substring(1).toLowerCase())) {
                     try {
                         final DocumentSnapshot serverReference = Main.firestore.collection("server").document(event.getGuild().getId()).get().get();

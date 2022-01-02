@@ -29,65 +29,69 @@ public class GroupController implements Command {
 
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) {
-        if (args[0].equalsIgnoreCase("delete")) {
-            String groupName = null;
-            if (args.length >= 2) {
-                groupName = args[1];
-            } else {
-                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
-                if (tempGroupName != null) {
-                    groupName = tempGroupName;
+        if (args.length > 0) {
+            if (args[0].equalsIgnoreCase("delete")) {
+                String groupName = null;
+                if (args.length >= 2) {
+                    groupName = args[1];
+                } else {
+                    String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
+                    if (tempGroupName != null) {
+                        groupName = tempGroupName;
+                    }
                 }
-            }
-            DeleteGroup.deleteGroup(commandExecutor, textChannel, groupName, slashCommandEvent);
-        } else if (args[0].equalsIgnoreCase("members")) {
-            String groupName = null;
-            if (args.length >= 2) {
-                groupName = args[1];
-            } else {
-                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
-                if (tempGroupName != null) {
-                    groupName = tempGroupName;
+                DeleteGroup.deleteGroup(commandExecutor, textChannel, groupName, slashCommandEvent);
+            } else if (args[0].equalsIgnoreCase("members")) {
+                String groupName = null;
+                if (args.length >= 2) {
+                    groupName = args[1];
+                } else {
+                    String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
+                    if (tempGroupName != null) {
+                        groupName = tempGroupName;
+                    }
                 }
-            }
-            GroupMembers.getGroupMembers(commandExecutor, textChannel, groupName, slashCommandEvent);
-        } else if (args[0].equalsIgnoreCase("add")) {
-            String groupName = null;
-            if (args.length >= 3) {
-                groupName = args[1 + mentionedMembers.size()];
-            } else {
-                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
-                if (tempGroupName != null) {
-                    groupName = tempGroupName;
+                GroupMembers.getGroupMembers(commandExecutor, textChannel, groupName, slashCommandEvent);
+            } else if (args[0].equalsIgnoreCase("add")) {
+                String groupName = null;
+                if (args.length >= 3) {
+                    groupName = args[1 + mentionedMembers.size()];
+                } else {
+                    String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
+                    if (tempGroupName != null) {
+                        groupName = tempGroupName;
+                    }
                 }
-            }
-            AddGroupMember.addGroupMember(commandExecutor, textChannel, groupName, mentionedMembers, slashCommandEvent);
-        } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem")) {
-            System.out.println("MentionedSize: " + mentionedMembers.size());
-            String groupName = null;
-            if (args.length >= 3) {
-                groupName = args[1 + mentionedMembers.size()];
-            } else {
-                String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
-                if (tempGroupName != null) {
-                    groupName = tempGroupName;
+                AddGroupMember.addGroupMember(commandExecutor, textChannel, groupName, mentionedMembers, slashCommandEvent);
+            } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem")) {
+                System.out.println("MentionedSize: " + mentionedMembers.size());
+                String groupName = null;
+                if (args.length >= 3) {
+                    groupName = args[1 + mentionedMembers.size()];
+                } else {
+                    String tempGroupName = getGroupNameFromContext(textChannel, commandExecutor, messageContentRaw, mentionedMembers);
+                    if (tempGroupName != null) {
+                        groupName = tempGroupName;
+                    }
                 }
-            }
-            RemoveGroupMember.removeGroupMember(commandExecutor, textChannel, groupName, mentionedMembers, slashCommandEvent);
-        } else if (args.length > 1) {
-            if (args[0].equalsIgnoreCase("create")) {
-                CreateGroup.createGroup(commandExecutor, textChannel, args, slashCommandEvent);
-            } else if (args[0].equalsIgnoreCase("notifications")) {
-                GroupNotifications.setGroupNotifications(commandExecutor, textChannel, args, mentionedChannels, slashCommandEvent);
+                RemoveGroupMember.removeGroupMember(commandExecutor, textChannel, groupName, mentionedMembers, slashCommandEvent);
+            } else if (args.length > 1) {
+                if (args[0].equalsIgnoreCase("create")) {
+                    CreateGroup.createGroup(commandExecutor, textChannel, args, slashCommandEvent);
+                } else if (args[0].equalsIgnoreCase("notifications")) {
+                    GroupNotifications.setGroupNotifications(commandExecutor, textChannel, args, mentionedChannels, slashCommandEvent);
+                } else {
+                    checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
+                }
             } else {
-                checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
+                if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("l")) {
+                    GroupList.getGroupList(commandExecutor, textChannel, slashCommandEvent);
+                } else {
+                    checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
+                }
             }
         } else {
-            if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("l")) {
-                GroupList.getGroupList(commandExecutor, textChannel, slashCommandEvent);
-            } else {
-                checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
-            }
+            checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
         }
     }
 
