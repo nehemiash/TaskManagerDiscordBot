@@ -68,7 +68,7 @@ public class SettingsController implements Command {
                         correctedMessage.append(args[i]).append(" ");
                     }
 
-                    final String correctedMessageString = correctedMessage.substring(0, correctedMessage.length() - 1);
+                    final String correctedMessageString = correctedMessage.substring(0, correctedMessage.length());
                     possibleCommands.append(correctedMessageString);
                     break;
                 }

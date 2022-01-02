@@ -65,6 +65,8 @@ public class AddGroupMember {
                 if (getGroupMembers.size() == 0) {
                     groupRef.collection("group-member").add(new HashMap<>() {{
                         put("user_id", mentionedMember.getId());
+                        put("guild_id", mentionedMember.getGuild().getId());
+                        put("group_id", groupDoc.getId());
                     }});
                     MessageSender.send(embedTitle, Localizations.getString("user_added_to_group", langCode, new ArrayList<String>() {
                         {

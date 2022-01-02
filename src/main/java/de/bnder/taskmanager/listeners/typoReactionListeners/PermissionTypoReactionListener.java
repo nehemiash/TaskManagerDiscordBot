@@ -1,10 +1,6 @@
 package de.bnder.taskmanager.listeners.typoReactionListeners;
 
-import de.bnder.taskmanager.commands.permission.AddPermission;
-import de.bnder.taskmanager.commands.permission.ListUsersOrRolesPermissions;
-import de.bnder.taskmanager.commands.permission.RemovePermission;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.TextChannel;
+import de.bnder.taskmanager.main.CommandHandler;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -22,9 +18,11 @@ public class PermissionTypoReactionListener extends ListenerAdapter {
             if (!member.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
                 event.retrieveMessage().queue(message -> {
                     if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                        if (isRightMessage(message, "permission", member)) {
+                        if (isRightMessage(message, "permission", member) || isRightMessage(message, "p", member)) {
                             if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
-                                final String command = getCommand(message, "permission", member);
+                                String command = getCommand(message, "permission", member);
+                                if (command == null)
+                                    command = getCommand(message, "p", member);
 
                                 String beheaded = command.substring(1);
                                 String[] splitBeheaded = beheaded.split(" ");
@@ -34,7 +32,7 @@ public class PermissionTypoReactionListener extends ListenerAdapter {
 
 
                                 message.delete().queue();
-                                processPermissionCommand(args, member, command, event.getTextChannel());
+                                CommandHandler.handleCommand(CommandHandler.parse.parseSlashCommand(command, event.getMember(), event.getTextChannel(), event.getGuild(), getMentionedMembers(command, member.getGuild()), getMentionedRoles(command, member.getGuild()), getMentionedChannels(command, member.getGuild()), null));
                             } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
                                 try {
                                     message.delete().queue();
@@ -48,19 +46,4 @@ public class PermissionTypoReactionListener extends ListenerAdapter {
             }
         });
     }
-
-    void processPermissionCommand(String[] args, Member member, String commandRaw, TextChannel channel) {
-        if (args.length == 3) {
-            if (args[0].equalsIgnoreCase("add")) {
-                AddPermission.addPermission(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()), getMentionedRoles(commandRaw, member.getGuild()), null);
-            } else if (args[0].equalsIgnoreCase("remove")) {
-                RemovePermission.removePermission(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()), getMentionedRoles(commandRaw, member.getGuild()), null);
-            }
-        } else if (args.length == 2) {
-            if (args[0].equalsIgnoreCase("list")) {
-                ListUsersOrRolesPermissions.listUsersOrRolesPermissions(member, channel, args, getMentionedMembers(commandRaw, member.getGuild()), getMentionedRoles(commandRaw, member.getGuild()), null);
-            }
-        }
-    }
-
 }

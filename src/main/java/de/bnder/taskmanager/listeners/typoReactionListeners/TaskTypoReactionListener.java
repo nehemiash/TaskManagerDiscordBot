@@ -1,7 +1,7 @@
 package de.bnder.taskmanager.listeners.typoReactionListeners;
 
 import de.bnder.taskmanager.commands.Language;
-import de.bnder.taskmanager.commands.task.*;
+import de.bnder.taskmanager.main.CommandHandler;
 import de.bnder.taskmanager.utils.Localizations;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 public class TaskTypoReactionListener extends ListenerAdapter {
 
@@ -21,9 +22,11 @@ public class TaskTypoReactionListener extends ListenerAdapter {
                 if (!member.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
                     event.retrieveMessage().queue(message -> {
                         if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                            if (isRightMessage(message, "task", member)) {
+                            if (isRightMessage(message, "task", member) || isRightMessage(message, "t", member)) {
                                 if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
-                                    final String command = getCommand(message, "task", member);
+                                    String command = getCommand(message, "task", member);
+                                    if (command == null)
+                                        command = getCommand(message, "t", member);
 
                                     String beheaded = command.substring(1);
                                     String[] splitBeheaded = beheaded.split(" ");
@@ -32,7 +35,7 @@ public class TaskTypoReactionListener extends ListenerAdapter {
                                     split.subList(1, split.size()).toArray(args);
 
                                     message.delete().queue();
-                                    processTaskCommand(args, member, command, event.getTextChannel());
+                                    CommandHandler.handleCommand(CommandHandler.parse.parseSlashCommand(command, event.getMember(), event.getTextChannel(), event.getGuild(), getMentionedMembers(command, member.getGuild()), getMentionedRoles(command, member.getGuild()), getMentionedChannels(command, member.getGuild()), null));
                                 } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
                                     try {
                                         message.delete().queue();
@@ -105,36 +108,6 @@ public class TaskTypoReactionListener extends ListenerAdapter {
         return null;
     }
 
-    void processTaskCommand(String[] args, Member member, String commandRaw, TextChannel channel) {
-        if (args.length >= 3) {
-            if (args[0].equalsIgnoreCase("add")) {
-                AddTask.addTask(commandRaw, member, getMentionedMembers(commandRaw, member.getGuild()), channel, args, null);
-            } else if (args[0].equalsIgnoreCase("edit")) {
-                EditTask.editTask(commandRaw, member, channel, args[1], 3,null);
-            } else if (args[0].equalsIgnoreCase("deadline")) {
-                SetDeadline.setDeadline(member, channel, args, args[1], 3, null);
-            }
-        } else if (args.length == 2) {
-            if (args[0].equalsIgnoreCase("list")) {
-                ListTasksFromOthers.listTasks(member, getMentionedMembers(commandRaw, member.getGuild()), channel, args, null);
-            } else if (args[0].equalsIgnoreCase("delete")) {
-                DeleteTask.deleteTask(member, channel, args[1], null);
-            } else if (args[0].equalsIgnoreCase("done")) {
-                DeleteTask.deleteTask(member, channel, args[1], null);
-            } else if (args[0].equalsIgnoreCase("proceed")) {
-                ProceedTask.proceedTask(member, channel, args[1], null);
-            } else if (args[0].equalsIgnoreCase("undo")) {
-                UndoTask.undoTask(member, channel, args[1], null);
-            } else if (args[0].equalsIgnoreCase("info")) {
-                TaskInfo.taskInfo(member, channel, args[1], null);
-            }
-        } else if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("list")) {
-                SelfTaskList.selfTaskList(member, channel, null);
-            }
-        }
-    }
-
     public static List<Member> getMentionedMembers(String messageRaw, Guild guild) {
         List<Member> mentionedMembers = new ArrayList<>();
         if (messageRaw.contains("<@") && messageRaw.contains(">")) {
@@ -143,8 +116,13 @@ public class TaskTypoReactionListener extends ListenerAdapter {
                     if (userID != null) {
                         userID = userID.replace("!", "");
                         if (userID.length() == 18) {
-                            guild.retrieveMemberById(userID).queue(member -> mentionedMembers.add(member), (error) -> {
-                            });
+                            try {
+                                final Member member = guild.retrieveMemberById(userID).submit().get();
+                                if (member != null)
+                                    mentionedMembers.add(member);
+                            } catch (InterruptedException | ExecutionException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }

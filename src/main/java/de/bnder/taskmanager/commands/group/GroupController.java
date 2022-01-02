@@ -63,6 +63,7 @@ public class GroupController implements Command {
             }
             AddGroupMember.addGroupMember(commandExecutor, textChannel, groupName, mentionedMembers, slashCommandEvent);
         } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rem")) {
+            System.out.println("MentionedSize: " + mentionedMembers.size());
             String groupName = null;
             if (args.length >= 3) {
                 groupName = args[1 + mentionedMembers.size()];
@@ -136,7 +137,7 @@ public class GroupController implements Command {
                         correctedMessage.append(args[i]).append(" ");
                     }
 
-                    final String correctedMessageString = correctedMessage.substring(0, correctedMessage.length() - 1);
+                    final String correctedMessageString = correctedMessage.substring(0, correctedMessage.length());
                     possibleCommands.append(correctedMessageString);
                     break;
                 }
