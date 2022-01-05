@@ -54,7 +54,7 @@ public class ListUsersOrRolesPermissions {
             for (BoardPermission permission : BoardPermission.values()) {
                 stringBuilder.append(permission.name()).append(": ").append(hasPermString(PermissionSystem.hasPermission(role, permission))).append("\n");
             }
-            MessageSender.send(embedTitle + " - " + role.getName(), stringBuilder.toString(), textChannel, Color.green, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle + " - @" + role.getName(), stringBuilder.toString(), textChannel, Color.green, langCode, slashCommandEvent);
         } else {
             MessageSender.send(embedTitle, Localizations.getString("need_to_mention_user_or_role", langCode), textChannel, Color.red, langCode, slashCommandEvent);
         }

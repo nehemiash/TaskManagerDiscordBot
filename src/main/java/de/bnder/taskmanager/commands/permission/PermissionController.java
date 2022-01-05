@@ -27,16 +27,24 @@ public class PermissionController implements Command {
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, List<Member> mentionedMembers, List<Role> mentionedRoles, List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) {
         if (args.length == 3) {
-            if (args[0].equalsIgnoreCase("add")) {
+            if (args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("a")) {
                 AddPermission.addPermission(commandExecutor, textChannel, args, mentionedMembers, mentionedRoles, slashCommandEvent);
-            } else if (args[0].equalsIgnoreCase("remove")) {
+            } else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("r")) {
                 RemovePermission.removePermission(commandExecutor, textChannel, args, mentionedMembers, mentionedRoles, slashCommandEvent);
             } else {
                 checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
             }
         } else if (args.length == 2) {
-            if (args[0].equalsIgnoreCase("list")) {
+            if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("l")) {
                 ListUsersOrRolesPermissions.listUsersOrRolesPermissions(commandExecutor, textChannel, args, mentionedMembers, mentionedRoles, slashCommandEvent);
+            } else {
+                checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
+            }
+        } else if (args.length == 1) {
+            if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("l")) {
+                ListUsersOrRolesPermissions.listUsersOrRolesPermissions(commandExecutor, textChannel, args, new ArrayList<>(){{
+                    add(commandExecutor);
+                }}, null, slashCommandEvent);
             } else {
                 checkIfTypo(args, messageContentRaw, guild, textChannel, commandExecutor, slashCommandEvent);
             }
