@@ -3,6 +3,7 @@ package de.bnder.taskmanager.commands.permission;
 import de.bnder.taskmanager.utils.Localizations;
 import de.bnder.taskmanager.utils.MessageSender;
 import de.bnder.taskmanager.utils.PermissionSystem;
+import de.bnder.taskmanager.utils.RegisterUser;
 import de.bnder.taskmanager.utils.permissions.BoardPermission;
 import de.bnder.taskmanager.utils.permissions.GroupPermission;
 import de.bnder.taskmanager.utils.permissions.PermissionPermission;
@@ -16,6 +17,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 public class AddPermission {
 
@@ -36,6 +38,11 @@ public class AddPermission {
                 } else {
                     MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), textChannel, Color.red, langCode, slashCommandEvent);
                     return;
+                }
+                try {
+                    RegisterUser.updateRoles(mentionedMembers.get(0));
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
                 }
             } else if (mentionedRoles != null && mentionedRoles.size() > 0) {
                 if (taskPermissionContains(args[2].toUpperCase())) {

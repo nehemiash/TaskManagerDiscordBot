@@ -15,6 +15,7 @@ package de.bnder.taskmanager.commands.board;
  * limitations under the License.
  */
 
+import com.google.cloud.firestore.QueryDocumentSnapshot;
 import de.bnder.taskmanager.main.Main;
 import de.bnder.taskmanager.slashcommands.UpdateGuildSlashCommands;
 import de.bnder.taskmanager.utils.Localizations;
@@ -29,6 +30,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
@@ -74,15 +76,27 @@ public class DeleteBoard {
         }
     }
 
-    /** Deletes board with specific name from guild with ID.
+    /**
+     * Deletes board with specific name from guild with ID.
      *
      * @param boardName The Name of the Board that should be deleted.
-     * @param guildID The ID of the Guild where the Board is.
-     * @throws ExecutionException If Firestore throws an error.
+     * @param guildID   The ID of the Guild where the Board is.
+     * @throws ExecutionException   If Firestore throws an error.
      * @throws InterruptedException If Firestore throws an error.
      */
     static void deleteBoardFromFirestore(String boardName, String guildID) throws ExecutionException, InterruptedException {
-        Main.firestore.collection("server").document(guildID).collection("boards").whereEqualTo("name", boardName).get().get().getDocuments().get(0).getReference().delete();
-    }
+        QueryDocumentSnapshot boardDoc = Main.firestore.collection("server").document(guildID).collection("boards").whereEqualTo("name", boardName).get().get().getDocuments().get(0);
+        final String boardID = boardDoc.getId();
+        boardDoc.getReference().delete();
 
+        for (QueryDocumentSnapshot groupDoc : Main.firestore.collectionGroup("group-tasks").whereEqualTo("server_id", guildID).whereEqualTo("board_id", boardID).get().get()) {
+            groupDoc.getReference().delete();
+        }
+
+        for (QueryDocumentSnapshot serverMemberDoc : Main.firestore.collection("server").document(guildID).collection("server-member").whereEqualTo("active_board_id", boardID).get().get()) {
+            serverMemberDoc.getReference().update(new HashMap<>() {{
+                put("active_board_id", null);
+            }});
+        }
+    }
 }

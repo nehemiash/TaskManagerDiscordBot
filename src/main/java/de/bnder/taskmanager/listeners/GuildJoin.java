@@ -54,5 +54,4 @@ public class GuildJoin extends ListenerAdapter {
         UpdateBotLists.updateBotLists(event.getJDA().getGuilds().size(), event.getJDA().getSelfUser().getId());
         UpdateGuildSlashCommands.update(event.getGuild());
     }
-
 }

@@ -1,13 +1,16 @@
 package de.bnder.taskmanager.utils;
 
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.*;
 import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
@@ -42,19 +45,73 @@ public class RegisterUser {
                     userDoc.getReference().update(updatedValues);
                 }
             }
+
+            //Add current server to joined_server
             final CollectionReference collectionReference = userDoc.getReference().collection("joined-server");
-            if (!collectionReference.document(g.getId()).get().get().exists()) {
-                collectionReference.document(g.getId()).set(new HashMap<>() {{
+            final DocumentSnapshot joinedServerDoc = collectionReference.document(g.getId()).get().get();
+            if (!joinedServerDoc.exists()) {
+                joinedServerDoc.getReference().set(new HashMap<>() {{
                     put("nav_position", collectionReference.get().get().size());
                     put("guild_id", g.getId());
-                    put("last_interaction", System.currentTimeMillis());
+                    //TODO: ATTENTION TO DIFFERENT TIMEZONE IN DEV & PROD
+                    put("last_interaction", new Date());
                 }});
-            } else
-                collectionReference.document(g.getId()).update(new HashMap<>() {{
-                    put("last_interaction", System.currentTimeMillis());
+            } else {
+                joinedServerDoc.getReference().update(new HashMap<>() {{
+                    //TODO: ATTENTION TO DIFFERENT TIMEZONE IN DEV & PROD
+                    put("last_interaction", new Date());
                 }});
+            }
+
+            final GregorianCalendar cal = new GregorianCalendar();
+            cal.setTime(new Date());
+            cal.add(Calendar.MINUTE, -30);
+            //TODO: REMOVE TRUE IN PROD
+            if (true || joinedServerDoc.exists() && joinedServerDoc.get("last_interaction") != null && joinedServerDoc.getDate("last_interaction").before(cal.getTime())) {
+                updateRoles(member);
+            }
         } catch (InterruptedException | ExecutionException e) {
             logger.error(e);
+        }
+    }
+
+    public static void updateRoles(Member member) throws ExecutionException, InterruptedException {
+        final QuerySnapshot roles = Main.firestore.collection("server").document(member.getGuild().getId()).collection("role-member").whereEqualTo("user_id", member.getId()).get().get();
+
+        //Check for roles where member is no longer part of
+        for (QueryDocumentSnapshot roleDoc : roles) {
+            final String roleID = roleDoc.getString("role_id");
+            boolean hasRole = false;
+            for (Role role : member.getRoles()) {
+                if (role.getId().equals(roleID)) {
+                    hasRole = true;
+                    break;
+                }
+            }
+
+            if (member.getRoles().size() == 0 || !hasRole) {
+                roleDoc.getReference().delete();
+            }
+        }
+
+        //Add new roles
+        for (final Role role : member.getRoles()) {
+            final String roleID = role.getId();
+            boolean isInFirestore = false;
+            for (QueryDocumentSnapshot roleDoc : roles) {
+                if (roleDoc.get("role_id") != null) {
+                    if (roleDoc.getString("role_id").equals(roleID)) {
+                        isInFirestore = true;
+                        break;
+                    }
+                }
+            }
+            //Add role to Firestore
+            if (!isInFirestore)
+                Main.firestore.collection("server").document(member.getGuild().getId()).collection("role-member").add(new HashMap<>() {{
+                    put("user_id", member.getId());
+                    put("role_id", role.getId());
+                }});
         }
     }
 

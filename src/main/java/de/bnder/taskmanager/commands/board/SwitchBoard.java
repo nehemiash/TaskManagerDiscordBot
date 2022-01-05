@@ -71,6 +71,7 @@ public class SwitchBoard {
                 String finalBoardID = boardID;
                 getUserDoc.getReference().set(new HashMap<>() {{
                     put("active_board_id", finalBoardID);
+                    put("server_id", member.getGuild().getId());
                 }});
             }
             MessageSender.send(embedTitle, Localizations.getString("board_activated_successfully", langCode, new ArrayList<>() {

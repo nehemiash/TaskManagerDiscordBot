@@ -56,7 +56,7 @@ public class BoardList {
             //Get the active board id of the member
             final DocumentSnapshot serverMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server-member").document(member.getId()).get().get();
             if (serverMemberDoc.exists()) {
-                if (serverMemberDoc.getData().containsKey("active_board_id")) {
+                if (serverMemberDoc.getData().containsKey("active_board_id") && serverMemberDoc.getString("active_board_id") != null) {
                     activeBoardID = serverMemberDoc.getString("active_board_id");
                 }
             }
@@ -71,7 +71,6 @@ public class BoardList {
                 if (isActive) stringBuilder.append(" ✅");
                 stringBuilder.append("\n");
             }
-
             if (!stringBuilder.toString().contains("- `default`")) {
                 stringBuilder.append("- `default`\n");
             }

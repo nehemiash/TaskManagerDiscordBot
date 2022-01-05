@@ -152,6 +152,9 @@ public class CommandListener extends ListenerAdapter {
             MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode), event.getMessage(), Color.red, langCode, null);
         }
         RegisterUser.register(event.getMember());
+        for (Member mentionedMember : event.getMessage().getMentionedMembers()) {
+            RegisterUser.register(mentionedMember);
+        }
     }
 
     /**
@@ -173,5 +176,10 @@ public class CommandListener extends ListenerAdapter {
             MessageSender.send(Localizations.getString("error_title", langCode), Localizations.getString("error_text", langCode), event.getMessage(), Color.red, langCode, null);
         }
         RegisterUser.register(event.getMember());
+        for (Member mentionedMember : event.getMessage().getMentionedMembers()) {
+            if (!mentionedMember.getId().equals(event.getJDA().getSelfUser().getId())) {
+                RegisterUser.register(mentionedMember);
+            }
+        }
     }
 }
