@@ -15,41 +15,6 @@ import java.util.concurrent.ExecutionException;
 
 public class TaskTypoReactionListener extends ListenerAdapter {
 
-    @Override
-    public void onMessageReactionAdd(MessageReactionAddEvent event) {
-        if (event.isFromGuild())
-            event.retrieveMember().queue(member -> {
-                if (!member.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
-                    event.retrieveMessage().queue(message -> {
-                        if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                            if (isRightMessage(message, "task", member) || isRightMessage(message, "t", member)) {
-                                if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
-                                    String command = getCommand(message, "task", member);
-                                    if (command == null)
-                                        command = getCommand(message, "t", member);
-
-                                    String beheaded = command.substring(1);
-                                    String[] splitBeheaded = beheaded.split(" ");
-                                    ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
-                                    String[] args = new String[split.size() - 1];
-                                    split.subList(1, split.size()).toArray(args);
-
-                                    message.delete().queue();
-                                    CommandHandler.handleCommand(CommandHandler.parse.parseSlashCommand(command, event.getMember(), event.getTextChannel(), event.getGuild(), getMentionedMembers(command, member.getGuild()), getMentionedRoles(command, member.getGuild()), getMentionedChannels(command, member.getGuild()), null));
-                                } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
-                                    try {
-                                        message.delete().queue();
-                                    } catch (Exception ignored) {
-                                    }
-                                }
-                            }
-                        }
-                    }, (error) -> {
-                    });
-                }
-            });
-    }
-
     public static boolean isRightMessage(Message message, String commandKeyword, Member member) {
         try {
             if (message.getAuthor().isBot() && message.getAuthor().getId().equals(message.getJDA().getSelfUser().getId())) {
@@ -170,6 +135,41 @@ public class TaskTypoReactionListener extends ListenerAdapter {
             return mentionedChannels;
         }
         return null;
+    }
+
+    @Override
+    public void onMessageReactionAdd(MessageReactionAddEvent event) {
+        if (event.isFromGuild())
+            event.retrieveMember().queue(member -> {
+                if (!member.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
+                    event.retrieveMessage().queue(message -> {
+                        if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅") || event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
+                            if (isRightMessage(message, "task", member) || isRightMessage(message, "t", member)) {
+                                if (event.getReaction().getReactionEmote().getAsReactionCode().equals("✅")) {
+                                    String command = getCommand(message, "task", member);
+                                    if (command == null)
+                                        command = getCommand(message, "t", member);
+
+                                    String beheaded = command.substring(1);
+                                    String[] splitBeheaded = beheaded.split(" ");
+                                    ArrayList<String> split = new ArrayList<>(Arrays.asList(splitBeheaded));
+                                    String[] args = new String[split.size() - 1];
+                                    split.subList(1, split.size()).toArray(args);
+
+                                    message.delete().queue();
+                                    CommandHandler.handleCommand(CommandHandler.parse.parseSlashCommand(command, event.getMember(), event.getTextChannel(), event.getGuild(), getMentionedMembers(command, member.getGuild()), getMentionedRoles(command, member.getGuild()), getMentionedChannels(command, member.getGuild()), null));
+                                } else if (event.getReaction().getReactionEmote().getAsReactionCode().equals("❌")) {
+                                    try {
+                                        message.delete().queue();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                            }
+                        }
+                    }, (error) -> {
+                    });
+                }
+            });
     }
 
 }

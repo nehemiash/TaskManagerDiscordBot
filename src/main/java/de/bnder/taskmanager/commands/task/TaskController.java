@@ -138,7 +138,7 @@ public class TaskController implements Command {
                 }
                 UndoTask.undoTask(commandExecutor, textChannel, taskID, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("a") || args[0].equalsIgnoreCase("addgroup")) {
-                AddTask.addTask(messageContentRaw, commandExecutor, mentionedMembers, textChannel, args, slashCommandEvent);
+                CreateTask.addTask(messageContentRaw, commandExecutor, mentionedMembers, textChannel, args, slashCommandEvent);
             } else if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("l") || args[0].equalsIgnoreCase("listgroup")) {
                 if (args.length >= 2) {
                     ListTasksFromOthers.listTasks(commandExecutor, mentionedMembers, textChannel, args, slashCommandEvent);
@@ -162,7 +162,7 @@ public class TaskController implements Command {
      * @return ID if task id is found. Null if no id was found.
      */
     String getTaskIDFromContext(TextChannel textChannel, Member commandExecutor, String sourceMessage) {
-        ArrayList<Message> messageArrayList = new ArrayList<>(textChannel.getHistoryBefore(textChannel.getLatestMessageId(), 25).complete().getRetrievedHistory());
+        final ArrayList<Message> messageArrayList = new ArrayList<>(textChannel.getHistoryBefore(textChannel.getLatestMessageId(), 25).complete().getRetrievedHistory());
         final Locale langCode = Localizations.getGuildLanguage(textChannel.getGuild());
         for (Message message : messageArrayList) {
             if (message.getAuthor().getId().equals(commandExecutor.getUser().getId())) {
@@ -178,9 +178,7 @@ public class TaskController implements Command {
                             || commandArg.equalsIgnoreCase("done")
                             || commandArg.equalsIgnoreCase("undo") || commandArg.equalsIgnoreCase("u")) {
                         if (messageContentRaw.split(" ").length >= 3) {
-                            System.out.println("aaaa");
                             if (NumberUtils.isCreatable(messageContentRaw.split(" ")[2])) {
-                                System.out.println("bbbb");
                                 return messageContentRaw.split(" ")[2];
                             }
                         }

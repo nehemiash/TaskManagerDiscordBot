@@ -33,9 +33,9 @@ import org.apache.logging.log4j.Logger;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import java.util.Locale;
 
 public class CreateBoard {
 
@@ -48,7 +48,10 @@ public class CreateBoard {
 
         //User doesn't have CREATE_BOARD permission
         if (!PermissionSystem.hasPermission(member, BoardPermission.CREATE_BOARD)) {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_server_owner_have_admin_or_custom_permission", langCode, new ArrayList<>() {{
+                add(BoardPermission.CREATE_BOARD.name());
+                add(member.getAsMention());
+            }}), textChannel, Color.red, langCode, slashCommandEvent);
             return;
         }
 

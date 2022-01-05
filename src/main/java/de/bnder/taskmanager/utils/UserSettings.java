@@ -27,11 +27,10 @@ import java.util.concurrent.ExecutionException;
 public class UserSettings {
 
     private static final Logger logger = LogManager.getLogger(UserSettings.class);
-
+    DocumentSnapshot serverMemberDoc;
     private String notifyChannelID = null;
     private boolean directMessage = true;
     private boolean showDoneTasks = true;
-    DocumentSnapshot serverMemberDoc;
 
     public UserSettings(final Member member) {
         try {
@@ -70,13 +69,6 @@ public class UserSettings {
         }});
     }
 
-    public void setNotifyChannelID(String channelID) {
-        this.notifyChannelID = channelID;
-        serverMemberDoc.getReference().update(new HashMap<>() {{
-            put("notify_channel", channelID);
-        }});
-    }
-
     public boolean getShowDoneTasks() {
         return showDoneTasks;
     }
@@ -87,5 +79,12 @@ public class UserSettings {
 
     public String getNotifyChannelID() {
         return notifyChannelID;
+    }
+
+    public void setNotifyChannelID(String channelID) {
+        this.notifyChannelID = channelID;
+        serverMemberDoc.getReference().update(new HashMap<>() {{
+            put("notify_channel", channelID);
+        }});
     }
 }

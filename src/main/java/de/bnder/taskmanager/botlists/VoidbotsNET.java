@@ -23,7 +23,7 @@ import org.jsoup.Jsoup;
 
 import java.io.IOException;
 
-public class VoidbotsNET{
+public class VoidbotsNET {
 
     private static final String baseURL = "https://voidbots.net/api/auth";
     private static final String apiKey = Main.dotenv.get("VOIDBOTS.NET_API_KEY") != null ? Main.dotenv.get("VOIDBOTS.NET_API_KEY") : System.getenv("VOIDBOTS.NET_API_KEY");
@@ -39,7 +39,7 @@ public class VoidbotsNET{
                 .ignoreContentType(true)
                 .ignoreHttpErrors(true)
                 .execute();
-        if (response.statusCode() == 200){
+        if (response.statusCode() == 200) {
             logger.info("Success!");
         } else {
             logger.warn("Failed! (" + response.statusCode() + ")");

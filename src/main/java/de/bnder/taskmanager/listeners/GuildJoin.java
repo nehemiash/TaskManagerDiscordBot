@@ -48,7 +48,8 @@ public class GuildJoin extends ListenerAdapter {
                 try {
                     tc.sendMessage(intro + "\n" + msg).queue();
                     break;
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
             }
         }
         UpdateBotLists.updateBotLists(event.getJDA().getGuilds().size(), event.getJDA().getSelfUser().getId());

@@ -25,15 +25,19 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-public class AddTask {
+public class CreateTask {
 
-    private static final Logger logger = LogManager.getLogger(AddTask.class);
+    private static final Logger logger = LogManager.getLogger(CreateTask.class);
 
     public static void addTask(String commandMessage, Member member, List<Member> mentionedMembers, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
+
         if (!PermissionSystem.hasPermission(member, TaskPermission.CREATE_TASK)) {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_server_owner_have_admin_or_custom_permission", langCode, new ArrayList<>() {{
+                add(TaskPermission.CREATE_TASK.name());
+                add(member.getAsMention());
+            }}), textChannel, Color.red, langCode, slashCommandEvent);
             return;
         }
 
@@ -73,7 +77,8 @@ public class AddTask {
                                 if (groupMember != null) {
                                     sendTaskMessage(groupMember, member, taskObject.getId(), langCode, task);
                                 }
-                            }, throwable -> {});
+                            }, throwable -> {
+                            });
                         } catch (ErrorResponseException e) {
                             groupMemberDoc.getReference().delete();
                         }

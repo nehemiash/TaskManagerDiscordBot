@@ -50,7 +50,7 @@ public class Language implements Command {
                 } else {
                     final Locale langCode = Localizations.getGuildLanguage(guild);
                     final String embedTitle = Localizations.getString("language_message_title", langCode);
-                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+                    MessageSender.send(embedTitle, Localizations.getString("need_to_be_server_owner_or_admin", langCode), textChannel, Color.red, langCode, slashCommandEvent);
                 }
             } else {
                 final Locale langCode = Localizations.getGuildLanguage(guild);

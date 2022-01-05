@@ -31,7 +31,10 @@ public class AddGroupMember {
 
         //User doesn't have permission ADD_MEMBERS
         if (!PermissionSystem.hasPermission(member, GroupPermission.ADD_MEMBERS)) {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_server_owner_have_admin_or_custom_permission", langCode, new ArrayList<>() {{
+                add(GroupPermission.ADD_MEMBERS.name());
+                add(member.getAsMention());
+            }}), textChannel, Color.red, langCode, slashCommandEvent);
             return;
         }
 

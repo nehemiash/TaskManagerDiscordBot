@@ -182,13 +182,12 @@ public class PermissionSystem {
                 if (roleDoc.getData().containsKey("permissions")) {
                     map = (Map<String, Boolean>) roleDoc.getData().get("permissions");
                 }
-                if (map.containsKey(name)) {
-                    map.remove(name);
-                }
+                map.remove(name);
                 map.put(name, true);
                 Map<String, Boolean> finalMap = map;
                 roleDoc.getReference().update(new HashMap<>() {{
                     put("permissions", finalMap);
+                    if (!roleDoc.getString("name").equals(role.getName())) put("name", role.getName());
                 }});
             } else {
                 roleDoc.getReference().set(new HashMap<>() {{
@@ -213,9 +212,7 @@ public class PermissionSystem {
                 if (serverMemberDoc.getData().containsKey("permissions")) {
                     map = (Map<String, Boolean>) serverMemberDoc.getData().get("permissions");
                 }
-                if (map.containsKey(name)) {
-                    map.remove(name);
-                }
+                map.remove(name);
                 map.put(name, true);
                 Map<String, Boolean> finalMap = map;
                 serverMemberDoc.getReference().update(new HashMap<>() {{
@@ -243,9 +240,7 @@ public class PermissionSystem {
                 if (serverMemberDoc.getData().containsKey("permissions")) {
                     map = (Map<String, Boolean>) serverMemberDoc.getData().get("permissions");
                 }
-                if (map.containsKey(name)) {
-                    map.remove(name);
-                }
+                map.remove(name);
                 Map<String, Boolean> finalMap = map;
                 serverMemberDoc.getReference().update(new HashMap<>() {{
                     put("permissions", finalMap);
@@ -266,12 +261,11 @@ public class PermissionSystem {
                 if (roleDoc.getData().containsKey("permissions")) {
                     map = (Map<String, Boolean>) roleDoc.getData().get("permissions");
                 }
-                if (map.containsKey(name)) {
-                    map.remove(name);
-                }
+                map.remove(name);
                 Map<String, Boolean> finalMap = map;
                 roleDoc.getReference().update(new HashMap<>() {{
                     put("permissions", finalMap);
+                    if (!roleDoc.getString("name").equals(role.getName())) put("name", role.getName());
                 }});
             }
             return 200;

@@ -24,48 +24,53 @@ public class RemovePermission {
     public static void removePermission(Member member, TextChannel textChannel, String[] args, List<Member> mentionedMembers, List<Role> mentionedRoles, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("permissions_title", langCode);
-        if (PermissionSystem.hasPermission(member, PermissionPermission.REMOVE_PERMISSION)) {
-            int statusCode;
-            if (mentionedMembers != null && mentionedMembers.size() > 0) {
-                if (taskPermissionContains(args[2].toUpperCase())) {
-                    statusCode = PermissionSystem.removePermissionStatusCode(mentionedMembers.get(0), TaskPermission.valueOf(args[2].toUpperCase()));
-                } else if (groupPermissionContains(args[2].toUpperCase())) {
-                    statusCode = PermissionSystem.removePermissionStatusCode(mentionedMembers.get(0), GroupPermission.valueOf(args[2].toUpperCase()));
-                } else if (permissionPermissionContains(args[2].toUpperCase())) {
-                    statusCode = PermissionSystem.removePermissionStatusCode(mentionedMembers.get(0), PermissionPermission.valueOf(args[2].toUpperCase()));
-                }  else if (boardPermissionContains(args[2].toUpperCase())) {
-                    statusCode = PermissionSystem.removePermissionStatusCode(mentionedMembers.get(0), BoardPermission.valueOf(args[2].toUpperCase()));
-                } else {
-                    MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), textChannel, Color.red, langCode, slashCommandEvent);
-                    return;
-                }
-            } else if (mentionedRoles != null && mentionedRoles.size() > 0) {
-                if (taskPermissionContains(args[2].toUpperCase())) {
-                    statusCode = PermissionSystem.removePermissionStatusCode(mentionedRoles.get(0), TaskPermission.valueOf(args[2].toUpperCase()));
-                } else if (groupPermissionContains(args[2].toUpperCase())) {
-                    statusCode = PermissionSystem.removePermissionStatusCode(mentionedRoles.get(0), GroupPermission.valueOf(args[2].toUpperCase()));
-                } else if (permissionPermissionContains(args[2].toUpperCase())) {
-                    statusCode = PermissionSystem.removePermissionStatusCode(mentionedRoles.get(0), PermissionPermission.valueOf(args[2].toUpperCase()));
-                }  else if (boardPermissionContains(args[2].toUpperCase())) {
-                    statusCode = PermissionSystem.removePermissionStatusCode(mentionedRoles.get(0), BoardPermission.valueOf(args[2].toUpperCase()));
-                } else {
-                    MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), textChannel, Color.red, langCode, slashCommandEvent);
-                    return;
-                }
+
+        if (!PermissionSystem.hasPermission(member, PermissionPermission.REMOVE_PERMISSION)) {
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_server_owner_have_admin_or_custom_permission", langCode, new ArrayList<>() {{
+                add(PermissionPermission.REMOVE_PERMISSION.name());
+                add(member.getAsMention());
+            }}), textChannel, Color.red, langCode, slashCommandEvent);
+            return;
+        }
+
+        int statusCode;
+        if (mentionedMembers != null && mentionedMembers.size() > 0) {
+            if (taskPermissionContains(args[2].toUpperCase())) {
+                statusCode = PermissionSystem.removePermissionStatusCode(mentionedMembers.get(0), TaskPermission.valueOf(args[2].toUpperCase()));
+            } else if (groupPermissionContains(args[2].toUpperCase())) {
+                statusCode = PermissionSystem.removePermissionStatusCode(mentionedMembers.get(0), GroupPermission.valueOf(args[2].toUpperCase()));
+            } else if (permissionPermissionContains(args[2].toUpperCase())) {
+                statusCode = PermissionSystem.removePermissionStatusCode(mentionedMembers.get(0), PermissionPermission.valueOf(args[2].toUpperCase()));
+            } else if (boardPermissionContains(args[2].toUpperCase())) {
+                statusCode = PermissionSystem.removePermissionStatusCode(mentionedMembers.get(0), BoardPermission.valueOf(args[2].toUpperCase()));
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("need_to_mention_user_or_role", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), textChannel, Color.red, langCode, slashCommandEvent);
                 return;
             }
-            if (statusCode == 200) {
-                MessageSender.send(embedTitle, Localizations.getString("permission_removed", langCode, new ArrayList<>() {{
-                    add(args[2].toUpperCase());
-                    add((mentionedMembers != null && mentionedMembers.size() > 0) ? mentionedMembers.get(0).getAsMention() : mentionedRoles.get(0).getAsMention());
-                }}), textChannel, Color.green, langCode, slashCommandEvent);
-            } else if (statusCode == 903) {
-                MessageSender.send(embedTitle, Localizations.getString("dont_has_permission", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+        } else if (mentionedRoles != null && mentionedRoles.size() > 0) {
+            if (taskPermissionContains(args[2].toUpperCase())) {
+                statusCode = PermissionSystem.removePermissionStatusCode(mentionedRoles.get(0), TaskPermission.valueOf(args[2].toUpperCase()));
+            } else if (groupPermissionContains(args[2].toUpperCase())) {
+                statusCode = PermissionSystem.removePermissionStatusCode(mentionedRoles.get(0), GroupPermission.valueOf(args[2].toUpperCase()));
+            } else if (permissionPermissionContains(args[2].toUpperCase())) {
+                statusCode = PermissionSystem.removePermissionStatusCode(mentionedRoles.get(0), PermissionPermission.valueOf(args[2].toUpperCase()));
+            } else if (boardPermissionContains(args[2].toUpperCase())) {
+                statusCode = PermissionSystem.removePermissionStatusCode(mentionedRoles.get(0), BoardPermission.valueOf(args[2].toUpperCase()));
+            } else {
+                MessageSender.send(embedTitle, Localizations.getString("unknown_permission_name", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+                return;
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_mention_user_or_role", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            return;
+        }
+        if (statusCode == 200) {
+            MessageSender.send(embedTitle, Localizations.getString("permission_removed", langCode, new ArrayList<>() {{
+                add(args[2].toUpperCase());
+                add((mentionedMembers != null && mentionedMembers.size() > 0) ? mentionedMembers.get(0).getAsMention() : mentionedRoles.get(0).getAsMention());
+            }}), textChannel, Color.green, langCode, slashCommandEvent);
+        } else if (statusCode == 903) {
+            MessageSender.send(embedTitle, Localizations.getString("dont_has_permission", langCode), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
 

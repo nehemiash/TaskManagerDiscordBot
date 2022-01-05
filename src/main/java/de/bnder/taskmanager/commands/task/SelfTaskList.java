@@ -38,7 +38,7 @@ public class SelfTaskList {
             //Get active board id
             final DocumentSnapshot getServerMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server-member").document(member.getId()).get().get();
             if (getServerMemberDoc.exists()) {
-                if (getServerMemberDoc.getData().containsKey("active_board_id")) {
+                if (getServerMemberDoc.getData().containsKey("active_board_id") && getServerMemberDoc.get("active_board_id") != null) {
                     boardID = getServerMemberDoc.getString("active_board_id");
                     boardName = Main.firestore.collection("server").document(member.getGuild().getId()).collection("boards").document(boardID).get().get().getString("name");
                 }
@@ -51,7 +51,7 @@ public class SelfTaskList {
             for (final DocumentSnapshot userTaskDoc : getUserTasks) {
                 String text = userTaskDoc.getString("text");
                 long status = (long) userTaskDoc.get("status");
-                String deadline = userTaskDoc.get("deadline") != null ?  new SimpleDateFormat(Localizations.getString("datetime_format", langCode)).format(userTaskDoc.getDate("deadline")) : "";
+                String deadline = userTaskDoc.get("deadline") != null ? new SimpleDateFormat(Localizations.getString("datetime_format", langCode)).format(userTaskDoc.getDate("deadline")) : "";
                 String id = userTaskDoc.getId();
                 HashMap<String, Object> data = new HashMap<>() {{
                     put("text", text);
@@ -78,7 +78,7 @@ public class SelfTaskList {
                     for (DocumentSnapshot groupTaskDoc : groupDoc.getReference().collection("group-tasks").whereEqualTo("board_id", boardID).orderBy("position", Query.Direction.ASCENDING).get().get()) {
                         String text = groupTaskDoc.getString("text");
                         long status = (long) groupTaskDoc.get("status");
-                        String deadline = groupTaskDoc.get("deadline") != null ?  new SimpleDateFormat(Localizations.getString("datetime_format", langCode)).format(groupTaskDoc.getDate("deadline")) : "";
+                        String deadline = groupTaskDoc.get("deadline") != null ? new SimpleDateFormat(Localizations.getString("datetime_format", langCode)).format(groupTaskDoc.getDate("deadline")) : "";
                         String id = groupTaskDoc.getId();
                         HashMap<String, Object> data = new HashMap<>() {{
                             put("text", text);

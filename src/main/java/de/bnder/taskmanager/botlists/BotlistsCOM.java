@@ -39,7 +39,7 @@ public class BotlistsCOM {
                 .ignoreContentType(true)
                 .ignoreHttpErrors(true)
                 .execute();
-        if (response.statusCode() == 200){
+        if (response.statusCode() == 200) {
             logger.info("Success!");
         } else {
             logger.warn("Failed! (" + response.statusCode() + ")");

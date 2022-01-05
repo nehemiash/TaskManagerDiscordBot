@@ -16,28 +16,29 @@ public class ProceedTask {
     public static void proceedTask(Member member, TextChannel textChannel, String taskID, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode) + " - " + taskID;
-        if (taskID != null) {
-            final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, member.getGuild());
-            if (task.exists()) {
-                task.proceed();
-                final TaskStatus taskStatus = task.getStatus();
-                if (taskStatus == TaskStatus.IN_PROGRESS) {
-                    MessageSender.send(embedTitle, Localizations.getString("task_status_in_progress", langCode), textChannel, Color.green, langCode, slashCommandEvent);
-                } else if (taskStatus == TaskStatus.DONE) {
-                    MessageSender.send(embedTitle, Localizations.getString("task_status_done", langCode), textChannel, Color.green, langCode, slashCommandEvent);
-                } else {
-                    MessageSender.send(embedTitle, Localizations.getString("task_request_unknown_error", langCode), textChannel, Color.red, langCode, slashCommandEvent);
-                }
+
+        if (taskID == null) {
+            MessageSender.send(embedTitle, Localizations.getString("context_awareness_no_task_id_found", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            return;
+        }
+
+        final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, member.getGuild());
+        if (task.exists()) {
+            task.proceed();
+            final TaskStatus taskStatus = task.getStatus();
+            if (taskStatus == TaskStatus.IN_PROGRESS) {
+                MessageSender.send(embedTitle, Localizations.getString("task_status_in_progress", langCode), textChannel, Color.green, langCode, slashCommandEvent);
+            } else if (taskStatus == TaskStatus.DONE) {
+                MessageSender.send(embedTitle, Localizations.getString("task_status_done", langCode), textChannel, Color.green, langCode, slashCommandEvent);
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<String>() {
-                    {
-                        add(taskID);
-                    }
-                }), textChannel, Color.red, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("task_request_unknown_error", langCode), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("context_awareness_no_task_id_found", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<String>() {
+                {
+                    add(taskID);
+                }
+            }), textChannel, Color.red, langCode, slashCommandEvent);
         }
     }
-
 }

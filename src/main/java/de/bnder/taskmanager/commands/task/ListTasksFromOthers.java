@@ -15,12 +15,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
-import java.util.Locale;
 
 public class ListTasksFromOthers {
 
@@ -47,7 +44,7 @@ public class ListTasksFromOthers {
                     //Get active board id
                     final DocumentSnapshot getServerMemberDoc = Main.firestore.collection("server").document(member.getGuild().getId()).collection("server-member").document(member.getId()).get().get();
                     if (getServerMemberDoc.exists()) {
-                        if (getServerMemberDoc.getData().containsKey("active_board_id")) {
+                        if (getServerMemberDoc.getData().containsKey("active_board_id") && getServerMemberDoc.get("active_board_id") != null) {
                             boardID = getServerMemberDoc.getString("active_board_id");
                             boardName = Main.firestore.collection("server").document(member.getGuild().getId()).collection("boards").document(boardID).get().get().getString("name");
                         }
@@ -56,7 +53,7 @@ public class ListTasksFromOthers {
                     for (DocumentSnapshot groupTaskDoc : groupDoc.getReference().collection("group-tasks").whereEqualTo("board_id", boardID).orderBy("position", Query.Direction.ASCENDING).get().get().getDocuments()) {
                         String text = groupTaskDoc.getString("text");
                         long status = (long) groupTaskDoc.get("status");
-                        String deadline = groupTaskDoc.get("deadline") != null ?  new SimpleDateFormat(Localizations.getString("datetime_format", langCode)).format(groupTaskDoc.getDate("deadline")) : "";
+                        String deadline = groupTaskDoc.get("deadline") != null ? new SimpleDateFormat(Localizations.getString("datetime_format", langCode)).format(groupTaskDoc.getDate("deadline")) : "";
                         String id = groupTaskDoc.getId();
                         HashMap<String, Object> data = new HashMap<>() {{
                             put("text", text);

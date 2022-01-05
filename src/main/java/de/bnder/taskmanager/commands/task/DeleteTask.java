@@ -24,47 +24,52 @@ public class DeleteTask {
     public static void deleteTask(Member member, TextChannel textChannel, String taskID, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("task_message_title", langCode);
-        if (taskID != null) {
-            if (PermissionSystem.hasPermission(member, TaskPermission.DELETE_TASK)) {
-                if (!taskID.equalsIgnoreCase("done")) {
-                    final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
-                    if (task.exists()) {
-                        task.delete();
-                        MessageSender.send(embedTitle, Localizations.getString("task_deleted", langCode, new ArrayList<>() {
-                            {
-                                add(taskID);
-                            }
-                        }), textChannel, Color.green, langCode, slashCommandEvent);
-                    } else {
-                        MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<>() {
-                            {
-                                add(taskID);
-                            }
-                        }), textChannel, Color.red, langCode, slashCommandEvent);
+
+        if (taskID == null) {
+            MessageSender.send(embedTitle, Localizations.getString("context_awareness_no_task_id_found", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            return;
+        }
+
+        if (!PermissionSystem.hasPermission(member, TaskPermission.DELETE_TASK)) {
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_server_owner_have_admin_or_custom_permission", langCode, new ArrayList<>() {{
+                add(TaskPermission.DELETE_TASK.name());
+                add(member.getAsMention());
+            }}), textChannel, Color.red, langCode, slashCommandEvent);
+            return;
+        }
+
+        if (!taskID.equalsIgnoreCase("done")) {
+            final de.bnder.taskmanager.utils.Task task = new de.bnder.taskmanager.utils.Task(taskID, textChannel.getGuild());
+            if (task.exists()) {
+                task.delete();
+                MessageSender.send(embedTitle, Localizations.getString("task_deleted", langCode, new ArrayList<>() {
+                    {
+                        add(taskID);
                     }
-                } else {
-                    try {
-                        for (QueryDocumentSnapshot boardDoc : Main.firestore.collection("server").document(member.getGuild().getId()).collection("boards").get().get()) {
-                            for (QueryDocumentSnapshot taskDoc : boardDoc.getReference().collection("user-tasks").whereEqualTo("status", 2).get().get()) {
-                                taskDoc.getReference().delete();
-                            }
-                        }
-                        for (QueryDocumentSnapshot groupDoc : Main.firestore.collection("server").document(member.getGuild().getId()).collection("groups").get().get()) {
-                            for (QueryDocumentSnapshot taskDoc : groupDoc.getReference().collection("group-tasks").whereEqualTo("status", 2).get().get()) {
-                                taskDoc.getReference().delete();
-                            }
-                        }
-                    } catch (InterruptedException | ExecutionException e) {
-                        logger.error(e);
-                    }
-                    MessageSender.send(embedTitle, Localizations.getString("deleted_done_tasks", langCode), textChannel, Color.green, langCode, slashCommandEvent);
-                }
+                }), textChannel, Color.green, langCode, slashCommandEvent);
             } else {
-                MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+                MessageSender.send(embedTitle, Localizations.getString("no_task_by_id", langCode, new ArrayList<>() {
+                    {
+                        add(taskID);
+                    }
+                }), textChannel, Color.red, langCode, slashCommandEvent);
             }
         } else {
-            MessageSender.send(embedTitle, Localizations.getString("context_awareness_no_task_id_found", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            try {
+                for (QueryDocumentSnapshot boardDoc : Main.firestore.collection("server").document(member.getGuild().getId()).collection("boards").get().get()) {
+                    for (QueryDocumentSnapshot taskDoc : boardDoc.getReference().collection("user-tasks").whereEqualTo("status", 2).get().get()) {
+                        taskDoc.getReference().delete();
+                    }
+                }
+                for (QueryDocumentSnapshot groupDoc : Main.firestore.collection("server").document(member.getGuild().getId()).collection("groups").get().get()) {
+                    for (QueryDocumentSnapshot taskDoc : groupDoc.getReference().collection("group-tasks").whereEqualTo("status", 2).get().get()) {
+                        taskDoc.getReference().delete();
+                    }
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                logger.error(e);
+            }
+            MessageSender.send(embedTitle, Localizations.getString("deleted_done_tasks", langCode), textChannel, Color.green, langCode, slashCommandEvent);
         }
     }
-
 }

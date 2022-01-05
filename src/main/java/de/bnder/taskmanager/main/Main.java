@@ -48,12 +48,9 @@ public class Main {
 
     public static final int shard = Integer.parseInt(dotenv.get("SHARD") != null ? dotenv.get("SHARD") : System.getenv("SHARD"));
     public static final int totalShards = Integer.parseInt(dotenv.get("TOTAL_SHARDS") != null ? dotenv.get("TOTAL_SHARDS") : System.getenv(("TOTAL_SHARDS")));
-
-    public static Firestore firestore;
-
     public static final String prefix = "-";
-
     public static final Logger logger = LogManager.getLogger(Main.class);
+    public static Firestore firestore;
 
     public static void main(String[] args) {
         try {

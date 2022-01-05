@@ -17,14 +17,14 @@ public class DiscordbotlistCOM {
 
     public static void sendServerCount(long serverCount, String botID) throws IOException {
         logger.info("Updating Servers on " + baseURL);
-        final Connection.Response response = Jsoup.connect(baseURL + "/bots/"+ botID + "/stats")
+        final Connection.Response response = Jsoup.connect(baseURL + "/bots/" + botID + "/stats")
                 .header("Authorization", apiKey)
                 .data("guilds", String.valueOf(serverCount))
                 .method(Connection.Method.POST)
                 .ignoreContentType(true)
                 .ignoreHttpErrors(true)
                 .execute();
-        if (response.statusCode() == 200){
+        if (response.statusCode() == 200) {
             logger.info("Success!");
         } else {
             logger.warn("Failed! (" + response.statusCode() + ")");

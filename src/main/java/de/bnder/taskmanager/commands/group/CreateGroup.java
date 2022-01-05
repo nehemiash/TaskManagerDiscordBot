@@ -25,10 +25,15 @@ public class CreateGroup {
     public static void createGroup(Member member, TextChannel textChannel, String[] args, SlashCommandEvent slashCommandEvent) {
         final Locale langCode = Localizations.getGuildLanguage(member.getGuild());
         final String embedTitle = Localizations.getString("group_title", langCode);
+
         if (!PermissionSystem.hasPermission(member, GroupPermission.CREATE_GROUP)) {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_server_owner_have_admin_or_custom_permission", langCode, new ArrayList<>() {{
+                add(GroupPermission.CREATE_GROUP.name());
+                add(member.getAsMention());
+            }}), textChannel, Color.red, langCode, slashCommandEvent);
             return;
         }
+
         final String groupName = args[1];
 
         if (groupExists(groupName, textChannel.getGuild().getId())) {
@@ -40,10 +45,10 @@ public class CreateGroup {
             return;
         }
 
-        Main.firestore.collection("server").document(textChannel.getGuild().getId()).collection("groups").add(new HashMap<>(){{
+        Main.firestore.collection("server").document(textChannel.getGuild().getId()).collection("groups").add(new HashMap<>() {{
             put("name", groupName);
         }});
-        MessageSender.send(embedTitle, Localizations.getString("group_created_successfully", langCode, new ArrayList<String>() {
+        MessageSender.send(embedTitle + " - " + groupName, Localizations.getString("group_created_successfully", langCode, new ArrayList<String>() {
             {
                 add(groupName);
             }

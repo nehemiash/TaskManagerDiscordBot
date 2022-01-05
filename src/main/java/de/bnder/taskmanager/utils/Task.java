@@ -61,7 +61,7 @@ public class Task {
                     this.type = TaskType.USER;
                     this.exists = true;
                     this.text = taskDoc.getString("text");
-                    this.deadline = taskDoc.get("deadline") != null ?  new SimpleDateFormat("dd.MM.yyyy HH:mm").format(taskDoc.getDate("deadline")) : "";
+                    this.deadline = taskDoc.get("deadline") != null ? new SimpleDateFormat("dd.MM.yyyy HH:mm").format(taskDoc.getDate("deadline")) : "";
                     this.status = TaskStatus.values()[Integer.parseInt(taskDoc.get("status").toString())];
                     this.holder = taskDoc.getString("user_id");
                     if (taskDoc.getData().containsKey("notify_channel_message_id"))
@@ -81,7 +81,7 @@ public class Task {
                         this.type = TaskType.GROUP;
                         this.exists = true;
                         this.text = taskDoc.getString("text");
-                        this.deadline = taskDoc.get("deadline") != null ?  new SimpleDateFormat("dd.MM.yyyy HH:mm").format(taskDoc.getDate("deadline")) : "";
+                        this.deadline = taskDoc.get("deadline") != null ? new SimpleDateFormat("dd.MM.yyyy HH:mm").format(taskDoc.getDate("deadline")) : "";
                         this.status = TaskStatus.values()[Integer.parseInt(taskDoc.get("status").toString())];
                         this.holder = groupDoc.getId();
                         if (taskDoc.getData().containsKey("notify_channel_message_id"))
@@ -115,9 +115,10 @@ public class Task {
             String boardName = "default";
 
             //Get the board of the command processor
+            System.out.println("a");
             final DocumentSnapshot getServerMemberDoc = Main.firestore.collection("server").document(guild.getId()).collection("server-member").document(commandProcessor.getId()).get().get();
             if (getServerMemberDoc.exists()) {
-                if (Objects.requireNonNull(getServerMemberDoc.getData()).containsKey("active_board_id")) {
+                if (Objects.requireNonNull(getServerMemberDoc.getData()).containsKey("active_board_id") && getServerMemberDoc.get("active_board_id") != null) {
                     boardID = getServerMemberDoc.getString("active_board_id");
                 }
             }
@@ -126,6 +127,8 @@ public class Task {
             if (taskID == null) {
                 throw new Exception("TaskID can't be null!");
             }
+
+            System.out.println("b");
 
             Date time = null;
             try {
@@ -155,6 +158,7 @@ public class Task {
             }});
             Stats.updateTasksCreated();
 
+            System.out.println("c");
 
             this.exists = true;
             this.id = taskID;
@@ -166,6 +170,8 @@ public class Task {
             this.deadline = deadline;
             this.type = TaskType.USER;
             this.holder = member.getId();
+
+            System.out.println("d");
 
             final DocumentSnapshot getServermember = Main.firestore.collection("server").document(guild.getId()).collection("server-member").document(member.getId()).get().get();
             if (getServermember.exists()) {
@@ -189,50 +195,11 @@ public class Task {
                     }
                 }
             }
+            System.out.println("e");
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error(e);
         }
-    }
-
-    /**
-     * Generate a new unique task id.
-     *
-     * @param guild         The guild which will receive the task.
-     * @param activeBoardID The board in which the task will be created.
-     * @return The 5 numbers long id.
-     */
-    String generateTaskID(Guild guild, String activeBoardID) {
-        final int len = 5;
-        final String AB = "0123456789";
-        final SecureRandom rnd = new SecureRandom();
-        final StringBuilder generatedIDBuilder = new StringBuilder(len);
-        for (int i = 0; i < len; i++)
-            generatedIDBuilder.append(AB.charAt(rnd.nextInt(AB.length())));
-
-        try {
-            DocumentSnapshot activeBoardDocumentSnapshot = Main.firestore.collection("server").document(guild.getId()).collection("boards").document(activeBoardID).get().get();
-            if (!activeBoardDocumentSnapshot.exists()) {
-                final String boardName = this.boardName;
-                activeBoardDocumentSnapshot.getReference().set(new HashMap<>() {{
-                    put("name", boardName);
-                }});
-            }
-
-            if (activeBoardDocumentSnapshot.getReference().collection("user-tasks").document(generatedIDBuilder.toString()).get().get().exists()) {
-                return generateTaskID(guild, activeBoardID);
-            }
-
-            for (DocumentSnapshot groupDoc : Main.firestore.collection("server").document(guild.getId()).collection("groups").get().get().getDocuments()) {
-                if (groupDoc.getReference().collection("group-tasks").document(generatedIDBuilder.toString()).get().get().exists()) {
-                    return generateTaskID(guild, activeBoardID);
-                }
-            }
-
-            return generatedIDBuilder.toString();
-        } catch (Exception e) {
-            logger.error(e);
-        }
-        return null;
     }
 
     /**
@@ -254,7 +221,7 @@ public class Task {
                 //Get the board of the command processor
                 final DocumentSnapshot getServerMemberDoc = Main.firestore.collection("server").document(guild.getId()).collection("server-member").document(commandProcessor.getId()).get().get();
                 if (getServerMemberDoc.exists()) {
-                    if (Objects.requireNonNull(getServerMemberDoc.getData()).containsKey("active_board_id")) {
+                    if (Objects.requireNonNull(getServerMemberDoc.getData()).containsKey("active_board_id") && getServerMemberDoc.get("active_board_id") != null) {
                         boardID = getServerMemberDoc.getString("active_board_id");
                         boardName = Main.firestore.collection("server").document(guild.getId()).collection("boards").document(boardID).get().get().getString("name");
                     }
@@ -321,11 +288,58 @@ public class Task {
             }
         } catch (Exception e) {
             logger.error(e);
+            e.printStackTrace();
         }
     }
 
     /**
-     * Gets the ID of the message sent in the notify channel. If the task is a group task the channel is set for the group. If it's a user task the channel is the one set for the owner of the task.
+     * Generate a new unique task id.
+     *
+     * @param guild         The guild which will receive the task.
+     * @param activeBoardID The board in which the task will be created.
+     * @return The 5 numbers long id.
+     */
+    String generateTaskID(Guild guild, String activeBoardID) {
+        final int len = 5;
+        final String AB = "0123456789";
+        final SecureRandom rnd = new SecureRandom();
+        final StringBuilder generatedIDBuilder = new StringBuilder(len);
+        for (int i = 0; i < len; i++)
+            generatedIDBuilder.append(AB.charAt(rnd.nextInt(AB.length())));
+
+        try {
+            if (activeBoardID == null) {
+                activeBoardID = "default";
+            }
+
+            final DocumentSnapshot activeBoardDocumentSnapshot = Main.firestore.collection("server").document(guild.getId()).collection("boards").document(activeBoardID).get().get();
+            if (!activeBoardDocumentSnapshot.exists()) {
+                final String boardName = this.boardName;
+                activeBoardDocumentSnapshot.getReference().set(new HashMap<>() {{
+                    put("name", boardName);
+                }});
+            }
+
+            if (activeBoardDocumentSnapshot.getReference().collection("user-tasks").document(generatedIDBuilder.toString()).get().get().exists()) {
+                return generateTaskID(guild, activeBoardID);
+            }
+
+            for (DocumentSnapshot groupDoc : Main.firestore.collection("server").document(guild.getId()).collection("groups").get().get().getDocuments()) {
+                if (groupDoc.getReference().collection("group-tasks").document(generatedIDBuilder.toString()).get().get().exists()) {
+                    return generateTaskID(guild, activeBoardID);
+                }
+            }
+
+            return generatedIDBuilder.toString();
+        } catch (Exception e) {
+            logger.error(e);
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Gets the ID of the message sent in the notification channel. If the task is a group task the channel is set for the group. If it's a user task the channel is the one set for the owner of the task.
      *
      * @return The ID of the message.
      */
@@ -344,63 +358,6 @@ public class Task {
             }
         }
         return this.notifyChannelMessageID;
-    }
-
-    /**
-     * Changes the text of a task.
-     *
-     * @param text The new text of the task.
-     */
-    public void setText(String text) {
-        if (this.type == TaskType.USER) {
-            Main.firestore.collection("server").document(guild.getId()).collection("boards").document(boardID).collection("user-tasks").document(this.id).update(new HashMap<>() {{
-                put("text", text);
-            }});
-        } else if (this.type == TaskType.GROUP) {
-            Main.firestore.collection("server").document(guild.getId()).collection("groups").document(this.holder).collection("group-tasks").document(this.id).update(new HashMap<>() {{
-                put("text", text);
-            }});
-        }
-        this.text = text;
-
-        //Update in notify channel
-        final Locale langCode = Localizations.getGuildLanguage(guild);
-        updateNotifyChannelMessage(Localizations.getString("task_info_field_task", langCode), this.text);
-    }
-
-    /**
-     * Change the deadline for a task.
-     *
-     * @param deadline The new formated deadline.
-     */
-    public void setDeadline(String deadline) {
-        Date time = null;
-        try {
-            if (deadline != null && deadline.length() == 10) {
-                time = new SimpleDateFormat("yyyy-MM-dd").parse(deadline);
-            } else if (deadline != null && deadline.length() == 16) {
-                time = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(deadline);
-            } else if (deadline != null && deadline.length() == 19) {
-                time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(deadline);
-            }
-            final Date finalTime = time;
-            if (this.type == TaskType.USER) {
-                Main.firestore.collection("server").document(this.guild.getId()).collection("boards").document(this.boardID).collection("user-tasks").document(this.id).update(new HashMap<>() {{
-                    put("deadline", finalTime);
-                }});
-            } else if (this.type == TaskType.GROUP) {
-                Main.firestore.collection("server").document(guild.getId()).collection("groups").document(this.holder).collection("group-tasks").document(this.id).update(new HashMap<>() {{
-                    put("deadline", finalTime);
-                }});
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        this.deadline = new SimpleDateFormat("dd.MM.yyyy HH:mm").format(time);
-
-        //Update in notify channel
-        final Locale langCode = Localizations.getGuildLanguage(guild);
-        updateNotifyChannelMessage(Localizations.getString("task_info_field_deadline", langCode), this.deadline);
     }
 
     /**
@@ -488,49 +445,6 @@ public class Task {
     }
 
     /**
-     * Sets the status of the task to the defined one.
-     *
-     * @param status The new status which will be set.
-     */
-    public void setStatus(TaskStatus status) {
-        try {
-            int number = switch (status) {
-                case DONE -> 2;
-                case IN_PROGRESS -> 1;
-                default -> 0;
-            };
-            if (this.type == TaskType.USER) {
-                int finalNumber = number;
-                Main.firestore.collection("server").document(guild.getId()).collection("boards").document(this.boardID).collection("user-tasks").document(this.id).update(new HashMap<>() {{
-                    put("status", finalNumber);
-                }});
-            } else if (this.type == TaskType.GROUP) {
-                int finalNumber = number;
-                Main.firestore.collection("server").document(guild.getId()).collection("groups").document(this.holder).collection("group-tasks").document(this.id).update(new HashMap<>() {{
-                    put("status", finalNumber);
-                }});
-            }
-
-            this.status = status;
-
-            if (this.status == TaskStatus.DONE) {
-                Stats.updateTasksDone();
-            }
-
-            //Update in notify channel
-            final Locale langCode = Localizations.getGuildLanguage(guild);
-            String newStatus = Localizations.getString("task_status_to_do", langCode);
-            if (status == TaskStatus.IN_PROGRESS)
-                newStatus = Localizations.getString("task_status_in_progress", langCode);
-            else if (status == TaskStatus.DONE)
-                newStatus = Localizations.getString("task_status_done", langCode);
-            updateNotifyChannelMessage(Localizations.getString("task_info_field_state", langCode), newStatus);
-        } catch (Exception e) {
-            logger.error(e);
-        }
-    }
-
-    /**
      * Changes the task status from "to-do" to "in progress" to "done".
      */
     public void proceed() {
@@ -608,6 +522,28 @@ public class Task {
         return text;
     }
 
+    /**
+     * Changes the text of a task.
+     *
+     * @param text The new text of the task.
+     */
+    public void setText(String text) {
+        if (this.type == TaskType.USER) {
+            Main.firestore.collection("server").document(guild.getId()).collection("boards").document(boardID).collection("user-tasks").document(this.id).update(new HashMap<>() {{
+                put("text", text);
+            }});
+        } else if (this.type == TaskType.GROUP) {
+            Main.firestore.collection("server").document(guild.getId()).collection("groups").document(this.holder).collection("group-tasks").document(this.id).update(new HashMap<>() {{
+                put("text", text);
+            }});
+        }
+        this.text = text;
+
+        //Update in notify channel
+        final Locale langCode = Localizations.getGuildLanguage(guild);
+        updateNotifyChannelMessage(Localizations.getString("task_info_field_task", langCode), this.text);
+    }
+
     public TaskType getType() {
         return type;
     }
@@ -616,8 +552,86 @@ public class Task {
         return deadline;
     }
 
+    /**
+     * Change the deadline for a task.
+     *
+     * @param deadline The new formated deadline.
+     */
+    public void setDeadline(String deadline) {
+        Date time = null;
+        try {
+            if (deadline != null && deadline.length() == 10) {
+                time = new SimpleDateFormat("yyyy-MM-dd").parse(deadline);
+            } else if (deadline != null && deadline.length() == 16) {
+                time = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(deadline);
+            } else if (deadline != null && deadline.length() == 19) {
+                time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(deadline);
+            }
+            final Date finalTime = time;
+            if (this.type == TaskType.USER) {
+                Main.firestore.collection("server").document(this.guild.getId()).collection("boards").document(this.boardID).collection("user-tasks").document(this.id).update(new HashMap<>() {{
+                    put("deadline", finalTime);
+                }});
+            } else if (this.type == TaskType.GROUP) {
+                Main.firestore.collection("server").document(guild.getId()).collection("groups").document(this.holder).collection("group-tasks").document(this.id).update(new HashMap<>() {{
+                    put("deadline", finalTime);
+                }});
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.deadline = new SimpleDateFormat("dd.MM.yyyy HH:mm").format(time);
+
+        //Update in notify channel
+        final Locale langCode = Localizations.getGuildLanguage(guild);
+        updateNotifyChannelMessage(Localizations.getString("task_info_field_deadline", langCode), this.deadline);
+    }
+
     public TaskStatus getStatus() {
         return status;
+    }
+
+    /**
+     * Sets the status of the task to the defined one.
+     *
+     * @param status The new status which will be set.
+     */
+    public void setStatus(TaskStatus status) {
+        try {
+            int number = switch (status) {
+                case DONE -> 2;
+                case IN_PROGRESS -> 1;
+                default -> 0;
+            };
+            if (this.type == TaskType.USER) {
+                int finalNumber = number;
+                Main.firestore.collection("server").document(guild.getId()).collection("boards").document(this.boardID).collection("user-tasks").document(this.id).update(new HashMap<>() {{
+                    put("status", finalNumber);
+                }});
+            } else if (this.type == TaskType.GROUP) {
+                int finalNumber = number;
+                Main.firestore.collection("server").document(guild.getId()).collection("groups").document(this.holder).collection("group-tasks").document(this.id).update(new HashMap<>() {{
+                    put("status", finalNumber);
+                }});
+            }
+
+            this.status = status;
+
+            if (this.status == TaskStatus.DONE) {
+                Stats.updateTasksDone();
+            }
+
+            //Update in notify channel
+            final Locale langCode = Localizations.getGuildLanguage(guild);
+            String newStatus = Localizations.getString("task_status_to_do", langCode);
+            if (status == TaskStatus.IN_PROGRESS)
+                newStatus = Localizations.getString("task_status_in_progress", langCode);
+            else if (status == TaskStatus.DONE)
+                newStatus = Localizations.getString("task_status_done", langCode);
+            updateNotifyChannelMessage(Localizations.getString("task_info_field_state", langCode), newStatus);
+        } catch (Exception e) {
+            logger.error(e);
+        }
     }
 
     public String getId() {

@@ -44,7 +44,10 @@ public class DeleteBoard {
 
         //User has permission DELETE_BOARD
         if (!PermissionSystem.hasPermission(member, BoardPermission.DELETE_BOARD)) {
-            MessageSender.send(embedTitle, Localizations.getString("need_to_be_serveradmin_or_have_admin_permissions", langCode), textChannel, Color.red, langCode, slashCommandEvent);
+            MessageSender.send(embedTitle, Localizations.getString("need_to_be_server_owner_have_admin_or_custom_permission", langCode, new ArrayList<>() {{
+                add(BoardPermission.DELETE_BOARD.name());
+                add(member.getAsMention());
+            }}), textChannel, Color.red, langCode, slashCommandEvent);
             return;
         }
 

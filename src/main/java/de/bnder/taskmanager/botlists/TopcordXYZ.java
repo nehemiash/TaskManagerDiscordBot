@@ -17,7 +17,7 @@ public class TopcordXYZ {
 
     public static void sendServerCount(long serverCount, String botID) throws IOException {
         logger.info("Updating Servers on " + baseURL);
-        final Connection.Response response = Jsoup.connect(baseURL + "/bot/stats/"+ botID)
+        final Connection.Response response = Jsoup.connect(baseURL + "/bot/stats/" + botID)
                 .header("authorization", apiKey)
                 .data("guilds", String.valueOf(serverCount))
                 .data("shards", "0")
@@ -25,7 +25,7 @@ public class TopcordXYZ {
                 .ignoreContentType(true)
                 .ignoreHttpErrors(true)
                 .execute();
-        if (response.statusCode() == 200){
+        if (response.statusCode() == 200) {
             logger.info("Success!");
         } else {
             logger.warn("Failed! (" + response.statusCode() + ")");

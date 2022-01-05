@@ -23,7 +23,8 @@ public class Ready extends ListenerAdapter {
             try {
                 UpdateServer.update(g);
                 UpdateGuildSlashCommands.update(g);
-            } catch (ExecutionException | InterruptedException ignored) {}
+            } catch (ExecutionException | InterruptedException ignored) {
+            }
         }
         DeadlineReminders.start(event.getJDA().getShardManager());
         UpdateBotLists.updateBotLists(event.getJDA().getGuilds().size(), event.getJDA().getSelfUser().getId());

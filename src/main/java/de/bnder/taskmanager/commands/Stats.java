@@ -12,12 +12,24 @@ import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 public class Stats implements Command {
 
     private static final Logger logger = LogManager.getLogger(Stats.class);
+
+    public static void handleEmbedsOnSlashCommand(TextChannel textChannel, SlashCommandEvent slashCommandEvent, EmbedBuilder builder) {
+        if (slashCommandEvent == null) {
+            textChannel.sendMessageEmbeds(builder.build()).queue();
+        } else {
+            StringBuilder reply = new StringBuilder();
+            for (MessageEmbed.Field field : builder.getFields()) {
+                reply.append(field.getName()).append(": ").append(field.getValue()).append("\n");
+            }
+            slashCommandEvent.reply(reply.toString()).queue();
+        }
+    }
 
     @Override
     public void action(String[] args, String messageContentRaw, Member commandExecutor, TextChannel textChannel, Guild guild, java.util.List<Member> mentionedMembers, java.util.List<Role> mentionedRoles, java.util.List<TextChannel> mentionedChannels, SlashCommandEvent slashCommandEvent) {
@@ -67,17 +79,5 @@ public class Stats implements Command {
             builder.setTitle(Localizations.getString("stats_message_title", langCode));
             handleEmbedsOnSlashCommand(textChannel, slashCommandEvent, builder);
         });
-    }
-
-    public static void handleEmbedsOnSlashCommand(TextChannel textChannel, SlashCommandEvent slashCommandEvent, EmbedBuilder builder) {
-        if (slashCommandEvent == null) {
-            textChannel.sendMessageEmbeds(builder.build()).queue();
-        } else {
-            StringBuilder reply = new StringBuilder();
-            for (MessageEmbed.Field field : builder.getFields()) {
-                reply.append(field.getName()).append(": ").append(field.getValue()).append("\n");
-            }
-            slashCommandEvent.reply(reply.toString()).queue();
-        }
     }
 }

@@ -42,7 +42,7 @@ public class PermissionController implements Command {
             }
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("l")) {
-                ListUsersOrRolesPermissions.listUsersOrRolesPermissions(commandExecutor, textChannel, args, new ArrayList<>(){{
+                ListUsersOrRolesPermissions.listUsersOrRolesPermissions(commandExecutor, textChannel, args, new ArrayList<>() {{
                     add(commandExecutor);
                 }}, null, slashCommandEvent);
             } else {
