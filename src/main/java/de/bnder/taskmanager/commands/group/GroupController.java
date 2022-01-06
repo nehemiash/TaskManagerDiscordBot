@@ -41,7 +41,7 @@ public class GroupController implements Command {
                     }
                 }
                 DeleteGroup.deleteGroup(commandExecutor, textChannel, groupName, slashCommandEvent);
-            } else if (args[0].equalsIgnoreCase("members")) {
+            } else if (args[0].equalsIgnoreCase("members") || args[0].equalsIgnoreCase("m")) {
                 String groupName = null;
                 if (args.length >= 2) {
                     groupName = args[1];
@@ -52,7 +52,7 @@ public class GroupController implements Command {
                     }
                 }
                 GroupMembers.getGroupMembers(commandExecutor, textChannel, groupName, slashCommandEvent);
-            } else if (args[0].equalsIgnoreCase("add")) {
+            } else if (args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("a")) {
                 String groupName = null;
                 if (args.length >= 3) {
                     groupName = args[1 + mentionedMembers.size()];
@@ -76,7 +76,7 @@ public class GroupController implements Command {
                 }
                 RemoveGroupMember.removeGroupMember(commandExecutor, textChannel, groupName, mentionedMembers, slashCommandEvent);
             } else if (args.length > 1) {
-                if (args[0].equalsIgnoreCase("create")) {
+                if (args[0].equalsIgnoreCase("create") || args[0].equalsIgnoreCase("c")) {
                     CreateGroup.createGroup(commandExecutor, textChannel, args, slashCommandEvent);
                 } else if (args[0].equalsIgnoreCase("notifications")) {
                     GroupNotifications.setGroupNotifications(commandExecutor, textChannel, args, mentionedChannels, slashCommandEvent);
