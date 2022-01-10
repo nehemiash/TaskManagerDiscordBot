@@ -20,7 +20,6 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,9 +34,7 @@ public class UpdateGuildSlashCommands {
         try {
             final Locale langCode = Localizations.getGuildLanguage(guild);
 
-            CommandListUpdateAction cmd = guild.updateCommands();
-
-            cmd.addCommands(Arrays.asList(
+            guild.updateCommands().addCommands(Arrays.asList(
                     GroupSlashCommands.commandData(guild, langCode),
                     TaskSlashCommands.commandData(langCode),
                     BoardSlashCommands.commandData(guild, langCode),
@@ -49,14 +46,13 @@ public class UpdateGuildSlashCommands {
                     new CommandData("language", Localizations.getString("slashcommands_description_language", langCode))
                             .addOptions(new OptionData(OptionType.STRING, "language", "language").setRequired(true)
                                     .addChoice("de", "de").addChoice("en", "en").addChoice("bg", "bg").addChoice("tr", "tr")
-                                    .addChoice("fr", "fr").addChoice("ru", "ru").addChoice("pl", "pl")),
+                                    .addChoice("fr", "fr").addChoice("ru", "ru").addChoice("pl", "pl").addChoice("pt", "pt")),
                     new CommandData("prefix", Localizations.getString("slashcommands_description_prefix", langCode)).addOptions(new OptionData(OptionType.STRING, "prefix", "prefix").setRequired(true)),
                     new CommandData("search", Localizations.getString("slashcommands_description_search", langCode)).addOptions(new OptionData(OptionType.STRING, "term", "search term")),
                     new CommandData("stats", Localizations.getString("slashcommands_description_stats", langCode)),
                     new CommandData("support", Localizations.getString("slashcommands_description_support", langCode)),
                     new CommandData("version", Localizations.getString("slashcommands_description_version", langCode))
-            ));
-            cmd.queue((cmds) -> {
+            )).queue((cmds) -> {
                 logger.info("Updated Slash Commands on Guild " + guild.getName());
             }, (error) -> {
                 logger.info("Updating Slash Commands on " + guild.getName() + " failed!");

@@ -47,15 +47,11 @@ public class Task {
         this.id = taskID;
         this.guild = guild;
 
-        logger.debug("Searching for task id:" + taskID + ".");
+        logger.info("Searching for task id:" + taskID + ".");
 
         try {
-            //Try user task
-            for (DocumentSnapshot boardDoc : Main.firestore.collection("server").document(guild.getId()).collection("boards").get().get().getDocuments()) {
-                logger.debug("Checking board " + boardDoc.getId());
-                final DocumentSnapshot taskDoc = boardDoc.getReference().collection("user-tasks").document(taskID).get().get();
-                logger.debug("Checking task id " + taskDoc.getId());
-                logger.debug(taskDoc.getId());
+            //Search in user-tasks
+            for (DocumentSnapshot taskDoc : Main.firestore.collectionGroup("user-tasks").whereEqualTo("task_id", taskID).whereEqualTo("server_id", guild.getId()).get().get()) {
                 if (taskDoc.exists()) {
                     logger.info("Exists!");
                     this.type = TaskType.USER;
@@ -66,37 +62,34 @@ public class Task {
                     this.holder = taskDoc.getString("user_id");
                     if (taskDoc.getData().containsKey("notify_channel_message_id"))
                         this.notifyChannelMessageID = taskDoc.getString("notify_channel_message_id");
+                    final DocumentSnapshot boardDoc = taskDoc.getReference().getParent().getParent().get().get();
                     this.boardName = boardDoc.getString("name");
                     this.boardID = boardDoc.getId();
                     return;
                 }
             }
 
-            if (!this.exists) {
-                logger.debug("Checking for group tasks");
-                //Try group task
-                for (DocumentSnapshot groupDoc : Main.firestore.collection("server").document(guild.getId()).collection("groups").get().get().getDocuments()) {
-                    final DocumentSnapshot taskDoc = groupDoc.getReference().collection("group-tasks").document(taskID).get().get();
-                    if (taskDoc.exists()) {
-                        this.type = TaskType.GROUP;
-                        this.exists = true;
-                        this.text = taskDoc.getString("text");
-                        this.deadline = taskDoc.get("deadline") != null ? new SimpleDateFormat("dd.MM.yyyy HH:mm").format(taskDoc.getDate("deadline")) : "";
-                        this.status = TaskStatus.values()[Integer.parseInt(taskDoc.get("status").toString())];
-                        this.holder = groupDoc.getId();
-                        if (taskDoc.getData().containsKey("notify_channel_message_id"))
-                            this.notifyChannelMessageID = taskDoc.getString("notify_channel_message_id");
+            //Search in group-tasks
+            for (DocumentSnapshot taskDoc : Main.firestore.collectionGroup("group-tasks").whereEqualTo("task_id", taskID).whereEqualTo("server_id", guild.getId()).get().get()) {
+                if (taskDoc.exists()) {
+                    this.type = TaskType.GROUP;
+                    this.exists = true;
+                    this.text = taskDoc.getString("text");
+                    this.deadline = taskDoc.get("deadline") != null ? new SimpleDateFormat("dd.MM.yyyy HH:mm").format(taskDoc.getDate("deadline")) : "";
+                    this.status = TaskStatus.values()[Integer.parseInt(taskDoc.get("status").toString())];
+                    this.holder = taskDoc.getReference().getParent().getParent().getId();
+                    if (taskDoc.getData().containsKey("notify_channel_message_id"))
+                        this.notifyChannelMessageID = taskDoc.getString("notify_channel_message_id");
 
-                        //Get board name
-                        final String boardID = taskDoc.getString("board_id");
-                        this.boardName = Main.firestore.collection("server").document(guild.getId()).collection("boards").document(boardID).get().get().getString("name");
-                        this.boardID = boardID;
-                        break;
-                    }
+                    //Get board name
+                    final String boardID = taskDoc.getString("board_id");
+                    this.boardName = Main.firestore.collection("server").document(guild.getId()).collection("boards").document(boardID).get().get().getString("name");
+                    this.boardID = boardID;
+                    break;
                 }
             }
-        } catch (Exception e) {
-            logger.error(e);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -115,20 +108,17 @@ public class Task {
             String boardName = "default";
 
             //Get the board of the command processor
-            System.out.println("a");
             final DocumentSnapshot getServerMemberDoc = Main.firestore.collection("server").document(guild.getId()).collection("server-member").document(commandProcessor.getId()).get().get();
             if (getServerMemberDoc.exists()) {
                 if (Objects.requireNonNull(getServerMemberDoc.getData()).containsKey("active_board_id") && getServerMemberDoc.get("active_board_id") != null) {
                     boardID = getServerMemberDoc.getString("active_board_id");
                 }
             }
-            final String taskID = generateTaskID(guild, boardID);
+            final String taskID = generateTaskID(guild);
 
             if (taskID == null) {
                 throw new Exception("TaskID can't be null!");
             }
-
-            System.out.println("b");
 
             Date time = null;
             try {
@@ -154,11 +144,10 @@ public class Task {
                 put("status", 0);
                 put("text", text);
                 put("deadline", finalTime);
+                put("task_id", taskID);
                 put("server_id", guild.getId());
             }});
             Stats.updateTasksCreated();
-
-            System.out.println("c");
 
             this.exists = true;
             this.id = taskID;
@@ -170,8 +159,6 @@ public class Task {
             this.deadline = deadline;
             this.type = TaskType.USER;
             this.holder = member.getId();
-
-            System.out.println("d");
 
             final DocumentSnapshot getServermember = Main.firestore.collection("server").document(guild.getId()).collection("server-member").document(member.getId()).get().get();
             if (getServermember.exists()) {
@@ -227,7 +214,7 @@ public class Task {
                     }
                 }
                 final DocumentSnapshot groupDoc = getGroup.getDocuments().get(0);
-                final String taskID = generateTaskID(guild, boardID);
+                final String taskID = generateTaskID(guild);
                 final String finalBoardID = boardID;
 
                 Date time = null;
@@ -251,7 +238,9 @@ public class Task {
                     put("position", -1);
                     put("status", 0);
                     put("text", text);
+                    put("task_id", taskID);
                     put("server_id", guild.getId());
+                    put("group_id", groupDoc.getId());
                 }});
                 Stats.updateTasksCreated();
 
@@ -295,11 +284,10 @@ public class Task {
     /**
      * Generate a new unique task id.
      *
-     * @param guild         The guild which will receive the task.
-     * @param activeBoardID The board in which the task will be created.
+     * @param guild The guild which will receive the task.
      * @return The 5 numbers long id.
      */
-    String generateTaskID(Guild guild, String activeBoardID) {
+    String generateTaskID(Guild guild) {
         final int len = 5;
         final String AB = "0123456789";
         final SecureRandom rnd = new SecureRandom();
@@ -308,28 +296,19 @@ public class Task {
             generatedIDBuilder.append(AB.charAt(rnd.nextInt(AB.length())));
 
         try {
-            if (activeBoardID == null) {
-                activeBoardID = "default";
-            }
-
-            final DocumentSnapshot activeBoardDocumentSnapshot = Main.firestore.collection("server").document(guild.getId()).collection("boards").document(activeBoardID).get().get();
-            if (!activeBoardDocumentSnapshot.exists()) {
-                final String boardName = this.boardName;
-                activeBoardDocumentSnapshot.getReference().set(new HashMap<>() {{
-                    put("name", boardName);
-                }});
-            }
-
-            if (activeBoardDocumentSnapshot.getReference().collection("user-tasks").document(generatedIDBuilder.toString()).get().get().exists()) {
-                return generateTaskID(guild, activeBoardID);
-            }
-
-            for (DocumentSnapshot groupDoc : Main.firestore.collection("server").document(guild.getId()).collection("groups").get().get().getDocuments()) {
-                if (groupDoc.getReference().collection("group-tasks").document(generatedIDBuilder.toString()).get().get().exists()) {
-                    return generateTaskID(guild, activeBoardID);
+            //Search in user-tasks
+            for (DocumentSnapshot taskDoc : Main.firestore.collectionGroup("user-tasks").whereEqualTo("task_id", generatedIDBuilder).whereEqualTo("server_id", guild.getId()).get().get()) {
+                if (taskDoc.exists()) {
+                    return generateTaskID(guild);
                 }
             }
 
+            //Search in group-tasks
+            for (DocumentSnapshot taskDoc : Main.firestore.collectionGroup("group-tasks").whereEqualTo("task_id", generatedIDBuilder).whereEqualTo("server_id", guild.getId()).get().get()) {
+                if (taskDoc.exists()) {
+                    return generateTaskID(guild);
+                }
+            }
             return generatedIDBuilder.toString();
         } catch (Exception e) {
             logger.error(e);

@@ -16,6 +16,7 @@ package de.bnder.taskmanager.utils;
  */
 
 import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import de.bnder.taskmanager.main.Main;
 import net.dv8tion.jda.api.entities.Guild;
@@ -23,10 +24,10 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 
 public class DeadlineReminders {
 
@@ -36,58 +37,69 @@ public class DeadlineReminders {
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                final LocalDateTime ldt = LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault()).plusHours(24);
+                final Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
                 try {
-                    final LocalDateTime ldt = LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault()).plusHours(1);
-                    final Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
-                    for (DocumentSnapshot serverDoc : Main.firestore.collection("server").get().get()) {
-                        try {
-                            final Guild guild = shardManager.getGuildById(serverDoc.getId());
-                            if (guild != null) {
-                                final Locale langCode = Localizations.getGuildLanguage(guild);
-                                for (DocumentSnapshot boardDoc : serverDoc.getReference().collection("boards").get().get()) {
-                                    final QuerySnapshot taskDocs = boardDoc.getReference().collection("user-tasks").whereLessThanOrEqualTo("deadline", out).whereEqualTo("deadline_reminded", false).limit(1).get().get();
-                                    for (DocumentSnapshot taskDoc : taskDocs) {
-                                        taskDoc.getReference().update("deadline_reminded", true);
-                                        final String taskID = taskDoc.getId();
-                                        final String task = taskDoc.getString("text");
-                                        final String deadline = taskDoc.getString("deadline");
-                                        final String userID = taskDoc.getString("user_id");
-                                        guild.retrieveMemberById(userID).queue(member -> member.getUser().openPrivateChannel().queue(privateChannel ->
-                                                privateChannel.sendMessage(Localizations.getString("deadline_remind_user", langCode, new ArrayList<>() {{
-                                                    add(task);
-                                                    add(taskID);
-                                                    add(deadline);
-                                                }})).queue(), (error) -> {
-                                        }), throwable -> {
-                                        });
-                                    }
-                                }
+                    logger.info("Querying user-tasks for deadlines...");
+                    for (QueryDocumentSnapshot taskDoc : Main.firestore.collectionGroup("user-tasks").whereLessThanOrEqualTo("deadline", out).whereEqualTo("deadline_reminded", false).get().get()) {
+                        final String guildID = taskDoc.getString("server_id");
+                        if (guildID == null || guildID.equals("dc_server_id"))
+                            continue;
+                        logger.info("Found a task!");
+                        final String taskID = taskDoc.getId();
+                        final String task = taskDoc.getString("text");
+                        final String userID = taskDoc.getString("user_id");
+                        if (shardManager.getGuildById(guildID) != null) {
+                            taskDoc.getReference().update("deadline_reminded", true);
 
-                                for (DocumentSnapshot group : serverDoc.getReference().collection("groups").get().get()) {
-                                    final QuerySnapshot groupMembers = group.getReference().collection("group-member").get().get();
-                                    for (DocumentSnapshot groupTask : group.getReference().collection("group-tasks").whereLessThanOrEqualTo("deadline", out).whereEqualTo("deadline_reminded", false).get().get()) {
-                                        groupTask.getReference().update("deadline_reminded", true);
-                                        final String groupName = group.getString("group");
-                                        for (final DocumentSnapshot groupMemberDoc : groupMembers) {
-                                            final String userID = groupMemberDoc.getString("user_id");
-                                            guild.retrieveMemberById(userID).queue(member -> member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(Localizations.getString("deadline_remind_group", langCode, new ArrayList<>() {{
-                                                add(groupTask.getString("text"));
-                                                add(groupTask.getId());
-                                                add(groupName);
-                                                add(groupTask.getString("deadline"));
-                                            }})).queue(), (error) -> {
-                                            }), (error) -> {
-                                            });
-                                        }
-                                    }
-                                }
-                            }
-                        } catch (Exception e) {
-                            logger.error(e);
+                            final Guild guild = shardManager.getGuildById(guildID);
+                            final Locale langCode = Localizations.getGuildLanguage(guild);
+                            final String deadline = taskDoc.get("deadline") != null ? new SimpleDateFormat(Localizations.getString("datetime_format", langCode)).format(taskDoc.getDate("deadline")) : "";
+                            guild.retrieveMemberById(userID).queue(member -> member.getUser().openPrivateChannel().queue(privateChannel ->
+                                    privateChannel.sendMessage(Localizations.getString("deadline_remind_user", langCode, new ArrayList<>() {{
+                                        add(task);
+                                        add(taskID);
+                                        add(deadline);
+                                    }})).queue(), (error) -> {
+                            }), throwable -> {
+                            });
                         }
                     }
-                } catch (ExecutionException | InterruptedException executionException) {
-                    logger.error(executionException);
+
+                    logger.info("Querying group-tasks for deadlines...");
+                    for (QueryDocumentSnapshot taskDoc : Main.firestore.collectionGroup("group-tasks").whereLessThanOrEqualTo("deadline", out).whereEqualTo("deadline_reminded", false).get().get()) {
+                        final String guildID = taskDoc.getString("server_id");
+                        if (guildID == null || guildID.equals("dc_server_id"))
+                            continue;
+                        final String taskID = taskDoc.getId();
+                        final String task = taskDoc.getString("text");
+                        final String groupID = taskDoc.getString("group_id");
+                        if (shardManager.getGuildById(guildID) != null) {
+                            logger.info("Found a task!");
+                            taskDoc.getReference().update("deadline_reminded", true);
+                            final Guild guild = shardManager.getGuildById(guildID);
+                            final Locale langCode = Localizations.getGuildLanguage(guild);
+                            final String deadline = taskDoc.get("deadline") != null ? new SimpleDateFormat(Localizations.getString("datetime_format", langCode)).format(taskDoc.getDate("deadline")) : "";
+                            final DocumentSnapshot group = Main.firestore.collection("server").document(guildID).collection("groups").document(groupID).get().get();
+                            final String groupName = group.getString("name");
+                            final QuerySnapshot groupMembers = group.getReference().collection("group-member").get().get();
+                            for (final DocumentSnapshot groupMemberDoc : groupMembers) {
+                                final String userID = groupMemberDoc.getString("user_id");
+                                guild.retrieveMemberById(userID).queue(member -> member.getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage(Localizations.getString("deadline_remind_group", langCode, new ArrayList<>() {{
+                                    add(task);
+                                    add(taskID);
+                                    add(groupName);
+                                    add(deadline);
+                                }})).queue(), (error) -> {
+                                }), (error) -> {
+                                });
+                            }
+                        }
+
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    logger.error(exception);
                 }
             }
         }, 30 * 1000, 60 * 60 * 1000);

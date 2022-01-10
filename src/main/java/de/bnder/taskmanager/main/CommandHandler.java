@@ -22,6 +22,9 @@ public class CommandHandler {
         if (commands.containsKey(cmd.invoke.toLowerCase())) {
             final String[] args = cmd.args;
             final String msgContentRaw = cmd.raw;
+
+            logger.info("Received command \"" + msgContentRaw + "\"");
+
             final Member commandExecutor = cmd.commandExecutor;
             final TextChannel textChannel = cmd.textChannel;
             final Guild guild = cmd.guild;
@@ -30,7 +33,6 @@ public class CommandHandler {
             final List<TextChannel> mentionedChannels = cmd.mentionedChannels;
             final SlashCommandEvent slashCommandEvent = cmd.slashCommandEvent;
             commands.get(cmd.invoke.toLowerCase()).action(args, msgContentRaw, commandExecutor, textChannel, guild, mentionedMembers, mentionedRoles, mentionedChannels, slashCommandEvent);
-            logger.info("Received command \"" + msgContentRaw + "\"");
         }
     }
 }

@@ -150,10 +150,7 @@ public class CreateTask {
         for (int i = beginIndex; i < args.length; i++) {
             taskBuilder.append(args[i]).append(" ");
         }
-        if (taskBuilder.length() > 0) {
-            taskBuilder.subSequence(0, taskBuilder.length() - 2);
-        }
-        return taskBuilder.toString();
+        return taskBuilder.substring(0, taskBuilder.length() - 1);
     }
 
 }
